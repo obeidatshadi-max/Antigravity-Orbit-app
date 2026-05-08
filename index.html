@@ -693,6 +693,134 @@ input[type=range]::-webkit-slider-thumb{
   .scroll-body{max-width:780px;}
   .card{padding:30px;}
 }
+
+/* ═══════════════════════════════════════
+   FIELD INTELLIGENCE REPORT — FIR STYLES
+   Enlarged, readable, dual-viewport
+═══════════════════════════════════════ */
+
+/* Loading state */
+.fir-loading{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--card-radius);padding:32px;
+  text-align:center;
+}
+
+/* Report header */
+.fir-header{
+  text-align:center;
+  padding:32px 24px 24px;
+  border-bottom:1px solid var(--border);
+  margin-bottom:24px;
+}
+.fir-eyebrow{
+  font-family:'Space Mono',monospace;
+  font-size:var(--mono-sm);letter-spacing:3px;
+  color:var(--muted);text-transform:uppercase;
+  margin-bottom:16px;
+}
+.fir-name{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(28px, 5vw, 48px);
+  font-weight:300;line-height:1.1;
+  color:var(--star);margin-bottom:6px;
+}
+.fir-role{
+  font-size:clamp(14px, 2vw, 17px);
+  color:var(--muted2);margin-bottom:10px;
+  line-height:1.4;
+}
+.fir-date{
+  font-family:'Space Mono',monospace;
+  font-size:var(--mono-xs);color:var(--muted);
+  letter-spacing:1.5px;
+}
+
+/* Desired orbit strip */
+.fir-orbit-strip{
+  background:linear-gradient(135deg,rgba(201,168,76,.08),rgba(74,155,155,.05));
+  border:1px solid rgba(201,168,76,.28);
+  border-radius:16px;padding:22px 26px;
+  margin-bottom:20px;
+}
+.fir-orbit-label{
+  font-family:'Space Mono',monospace;
+  font-size:var(--mono-sm);letter-spacing:2.5px;
+  color:var(--gold);text-transform:uppercase;
+  margin-bottom:10px;
+}
+.fir-orbit-text{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(18px, 3vw, 26px);
+  font-weight:300;font-style:italic;
+  line-height:1.5;color:var(--star);
+}
+
+/* Summary grid — domain bars + voice scores */
+.fir-summary-grid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:16px;margin-bottom:20px;
+}
+.fir-summary-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--card-radius);padding:24px;
+}
+.fir-summary-label{
+  font-family:'Space Mono',monospace;
+  font-size:var(--mono-sm);letter-spacing:2px;
+  color:var(--muted);text-transform:uppercase;
+  margin-bottom:18px;
+}
+
+/* Report sections */
+.fir-section{
+  border:1px solid;border-radius:var(--card-radius);
+  padding:26px;margin-bottom:14px;
+  transition:border-color .2s;
+}
+.fir-section-header{
+  display:flex;align-items:center;gap:10px;
+  margin-bottom:14px;
+}
+.fir-section-icon{
+  font-size:18px;line-height:1;flex-shrink:0;
+}
+.fir-section-label{
+  font-family:'Space Mono',monospace;
+  font-size:var(--mono-base);letter-spacing:2px;
+  text-transform:uppercase;
+}
+.fir-section-body{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(18px, 2.5vw, 24px);
+  font-weight:300;line-height:1.75;
+  color:var(--star);
+}
+/* Orbit statement — largest, most weight */
+.fir-orbit-body{
+  font-size:clamp(20px, 3vw, 28px);
+  font-style:italic;
+  color:var(--star);
+  padding-top:4px;
+}
+
+/* Desktop — summary side by side */
+@media(min-width:768px){
+  .fir-summary-grid{
+    grid-template-columns:1fr 1fr;
+  }
+  .fir-section{padding:32px;}
+  .fir-orbit-strip{padding:26px 32px;}
+  .fir-header{padding:40px 32px 28px;}
+}
+
+@media(min-width:1100px){
+  .fir-section-body{
+    font-size:clamp(20px, 1.6vw, 26px);
+  }
+}
+
 </style>
 </head>
 <body>
@@ -718,84 +846,63 @@ input[type=range]::-webkit-slider-thumb{
       <div class="brand-title">Anti<em>Gravity</em></div>
       <div class="brand-sub">Field Intelligence System</div>
 
-      <!-- DEMO BANNER -->
-      <div style="background:rgba(232,199,106,.06);border:1px solid rgba(232,199,106,.25);border-radius:12px;padding:14px 18px;margin-bottom:20px;text-align:left;">
-        <div style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2.5px;color:var(--stop);text-transform:uppercase;margin-bottom:6px;">✦ ANTIGRAVITY · DEMO MODE</div>
-        <div style="font-size:13px;color:var(--muted2);line-height:1.5;">Explore freely — no account, no API key needed. All features active. Your data stays in this browser session.</div>
+      <!-- THREE TABS — always visible, nothing hidden -->
+      <div class="auth-tabs" style="margin-bottom:24px;">
+        <div class="auth-tab active" id="tab-demo"    onclick="switchLandingTab('demo')">⚡ Demo</div>
+        <div class="auth-tab"        id="tab-signin"  onclick="switchLandingTab('signin')">Sign In</div>
+        <div class="auth-tab"        id="tab-signup"  onclick="switchLandingTab('signup')">Register</div>
       </div>
 
-      <!-- HERO: DEMO BUTTON -->
-      <button class="btn btn-gold btn-full" style="padding:16px;font-size:11px;letter-spacing:3px;margin-bottom:12px;box-shadow:0 0 24px rgba(201,168,76,.15);" onclick="enterDemo()">
-        ⚡ Try Demo — Explore Freely →
-      </button>
-
-      <!-- API KEY for demo AI features -->
-      <div id="demo-api-row" style="margin-bottom:20px;">
-        <div style="font-size:11px;color:var(--muted);margin-bottom:8px;line-height:1.5;">Optional: add your Anthropic key to unlock AI insights in demo mode</div>
-        <div style="display:flex;gap:8px;">
-          <input class="field-input" id="demo-api-key" type="password" placeholder="sk-ant-api03-... (optional)" style="flex:1;font-size:12px;padding:9px 12px;">
-          <button class="btn btn-ghost btn-sm" onclick="setDemoApiKey()" style="white-space:nowrap;">Add Key</button>
+      <!-- ── TAB: DEMO ── -->
+      <div id="panel-demo">
+        <div style="font-size:var(--ts-sm);color:var(--muted2);line-height:1.65;margin-bottom:22px;text-align:left;background:var(--surface2);border:1px solid var(--border2);border-radius:12px;padding:16px 18px;">
+          <div style="font-family:'Space Mono',monospace;font-size:var(--mono-xs);letter-spacing:2px;color:var(--stop);text-transform:uppercase;margin-bottom:8px;">✦ No account needed</div>
+          Explore every feature freely. Your field data saves automatically to this session. Create an account anytime to keep it permanently.
         </div>
-      </div>
-
-      <!-- DIVIDER -->
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:18px;">
-        <div style="flex:1;height:1px;background:var(--border);"></div>
-        <span style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:var(--muted);">OR SIGN IN</span>
-        <div style="flex:1;height:1px;background:var(--border);"></div>
-      </div>
-
-      <!-- COLLAPSED AUTH — secondary -->
-      <div id="auth-collapsed" style="display:block;">
-        <button class="btn btn-ghost btn-full btn-sm" onclick="toggleAuthExpand()" style="margin-bottom:10px;">
-          ◎ Sign In / Create Account
+        <div class="field-group" style="text-align:left;">
+          <label class="field-label">Anthropic API Key <span style="color:var(--muted);font-size:var(--mono-xs);font-family:'Space Mono',monospace;letter-spacing:1px;text-transform:none;"> — optional, unlocks AI insights</span></label>
+          <input class="field-input" id="demo-api-key" type="password" placeholder="sk-ant-api03-... (optional)">
+        </div>
+        <button class="btn btn-gold btn-full" style="padding:15px;font-size:var(--mono-base);letter-spacing:2.5px;" onclick="enterDemo()">
+          Enter Demo →
         </button>
       </div>
 
-      <div id="auth-expanded" style="display:none;">
-        <div class="auth-tabs" style="margin-bottom:16px;">
-          <div class="auth-tab active" id="auth-tab-login" onclick="switchAuthTab('login')">Sign In</div>
-          <div class="auth-tab" id="auth-tab-signup" onclick="switchAuthTab('signup')">Sign Up</div>
+      <!-- ── TAB: SIGN IN ── -->
+      <div id="panel-signin" style="display:none;text-align:left;">
+        <div class="field-group">
+          <label class="field-label">Email</label>
+          <input class="field-input" id="auth-email" type="email" placeholder="you@email.com">
         </div>
+        <div class="field-group">
+          <label class="field-label">Password</label>
+          <input class="field-input" id="auth-pass" type="password" placeholder="••••••••">
+        </div>
+        <div class="field-group">
+          <label class="field-label">Anthropic API Key</label>
+          <input class="field-input" id="api-key-input" type="password" placeholder="sk-ant-api03-...">
+        </div>
+        <button class="btn btn-gold btn-full" style="padding:15px;" onclick="signIn()">Sign In →</button>
+        <div style="margin-top:12px;">
+          <button class="btn btn-ghost btn-full btn-sm" onclick="sendMagicLink()">✉ Send Magic Link instead</button>
+        </div>
+      </div>
 
-        <div id="auth-login">
-          <div class="field-group">
-            <label class="field-label">Email</label>
-            <input class="field-input" id="auth-email" type="email" placeholder="you@email.com">
-          </div>
-          <div class="field-group">
-            <label class="field-label">Password</label>
-            <input class="field-input" id="auth-pass" type="password" placeholder="••••••••">
-          </div>
-          <div class="field-group">
-            <label class="field-label">Anthropic API Key</label>
-            <input class="field-input" id="api-key-input" type="password" placeholder="sk-ant-api03-...">
-          </div>
-          <button class="btn btn-gold btn-full" onclick="signIn()">Enter the Field →</button>
-          <div style="margin-top:10px;">
-            <button class="btn btn-ghost btn-full btn-sm" onclick="sendMagicLink()">✉ Magic Link</button>
-          </div>
+      <!-- ── TAB: REGISTER ── -->
+      <div id="panel-signup" style="display:none;text-align:left;">
+        <div class="field-group">
+          <label class="field-label">Email</label>
+          <input class="field-input" id="signup-email" type="email" placeholder="you@email.com">
         </div>
-
-        <div id="auth-signup" style="display:none;">
-          <div class="field-group">
-            <label class="field-label">Email</label>
-            <input class="field-input" id="signup-email" type="email" placeholder="you@email.com">
-          </div>
-          <div class="field-group">
-            <label class="field-label">Password (min 6 chars)</label>
-            <input class="field-input" id="signup-pass" type="password" placeholder="••••••••">
-          </div>
-          <div class="field-group">
-            <label class="field-label">Anthropic API Key</label>
-            <input class="field-input" id="api-key-input-signup" type="password" placeholder="sk-ant-api03-...">
-          </div>
-          <button class="btn btn-gold btn-full" onclick="signUp()">Create Account →</button>
+        <div class="field-group">
+          <label class="field-label">Password <span style="color:var(--muted);font-family:'Space Mono',monospace;font-size:var(--mono-xs);letter-spacing:1px;text-transform:none;">min 6 characters</span></label>
+          <input class="field-input" id="signup-pass" type="password" placeholder="••••••••">
         </div>
-
-        <div style="margin-top:10px;">
-          <button class="btn btn-ghost btn-full btn-sm" onclick="toggleAuthExpand()">← Back to Demo</button>
+        <div class="field-group">
+          <label class="field-label">Anthropic API Key</label>
+          <input class="field-input" id="api-key-input-signup" type="password" placeholder="sk-ant-api03-...">
         </div>
+        <button class="btn btn-gold btn-full" style="padding:15px;" onclick="signUp()">Create Account →</button>
       </div>
 
     </div>
@@ -1274,11 +1381,17 @@ async function loadUserData(){
 /* ═══════════════════════════════
    AUTH
 ═══════════════════════════════ */
+function switchLandingTab(tab){
+  // Tabs
+  ['demo','signin','signup'].forEach(t=>{
+    document.getElementById('tab-'+t).classList.toggle('active', t===tab);
+    document.getElementById('panel-'+t).style.display = t===tab ? 'block' : 'none';
+  });
+}
+
+// Legacy — keep for any remaining references
 function switchAuthTab(tab){
-  document.getElementById('auth-tab-login').classList.toggle('active', tab==='login');
-  document.getElementById('auth-tab-signup').classList.toggle('active', tab==='signup');
-  document.getElementById('auth-login').style.display = tab==='login' ? 'block' : 'none';
-  document.getElementById('auth-signup').style.display = tab==='signup' ? 'block' : 'none';
+  switchLandingTab(tab==='login'?'signin':tab==='signup'?'signup':'demo');
 }
 
 async function signIn(){
@@ -1295,11 +1408,10 @@ async function signIn(){
 async function signUp(){
   const email = document.getElementById('signup-email').value.trim();
   const pass  = document.getElementById('signup-pass').value;
-  const key   = document.getElementById('api-key-input').value.trim();
+  const key = (document.getElementById('api-key-input-signup')?.value||document.getElementById('api-key-input')?.value||'').trim();
   if(!email||!pass){showToast('Enter email and password');return;}
   if(pass.length < 6){showToast('Password must be at least 6 characters');return;}
-  if(!key||!key.startsWith('sk-')){showToast('Enter your Anthropic API key');return;}
-  S.apiKey = key;
+  if(key&&key.startsWith('sk-')) S.apiKey=key;
   const { error } = await sb.auth.signUp({email, password:pass});
   if(error) showToast(error.message);
   else showToast('Account created! Check your email to confirm.');
@@ -1769,16 +1881,145 @@ function refreshVoiceDash(){
 async function generateFullReport(){
   if(!S.moments.length&&!S.voiceSessions.length){showToast('Capture moments and run a voice session first');return;}
   const c=document.getElementById('full-report-container');
-  c.innerHTML='<div class="ai-block" style="padding:24px;"><div class="ai-label">◈ Generating Field Intelligence Report</div><div class="ai-text"><span class="loading-dots"><span></span><span></span><span></span></span> Synthesizing '+S.moments.length+' moments · '+S.voiceSessions.length+' voice sessions...</div></div>';
-  const mS=S.moments.slice(0,10).map(m=>`[${m.time}] ${m.persona}(${m.domain}): Trigger="${m.trigger}",Emotion=${m.emotion},Thought="${(m.thought||'').substring(0,50)}"`).join('\n');
+
+  // ── LOADING STATE ──
+  c.innerHTML=`
+    <div class="fir-loading">
+      <div class="ai-label" style="margin-bottom:14px;">◈ Generating Field Intelligence Report</div>
+      <div class="ai-text">
+        <span class="loading-dots"><span></span><span></span><span></span></span>
+        &nbsp; Synthesizing ${S.moments.length} field moments · ${S.voiceSessions.length} voice session${S.voiceSessions.length===1?'':'s'}
+      </div>
+    </div>`;
+
+  // ── DATA PREP ──
+  const mS=S.moments.slice(0,10).map(m=>`[${m.time}] ${m.persona}(${m.domain}): Trigger="${m.trigger}",Emotion=${m.emotion},Thought="${(m.thought||'').substring(0,60)}"`).join('\n');
   const vS=S.voiceSessions.slice(0,5).map(v=>`Session ${v.time}: Gravity=${v.gravity_score}/10,Mask=${v.mask_score}/100,Patterns=${(v.patterns||[]).map(p=>p.type).join('/')},Domain=${v.dominant_domain}`).join('\n');
-  const sys=`You are AntiGravity Field Intelligence System writing a unified report. Style: precise, psychologically grounded, Newton's gravitational metaphor (mass, distance, field, orbit). User: ${S.profile.name}, ${S.profile.role}, Sector:${S.profile.sector}, Orbit:"${S.profile.orbit}". Write exactly 5 sections separated by blank lines — no headers, no markdown, no labels: 1)FIELD VERDICT: primary gravity profile 2-3 sentences. 2)PRIMARY DOMAIN: heaviest mass domain and why 2 sentences. 3)MASS LAYER: dominant persona and what it costs relative to orbit 2 sentences. 4)ESCAPE SIGNAL: single most important antigravity practice right now 2-3 sentences. 5)ORBIT STATEMENT: one sentence connecting all findings to desired orbit.`;
+
+  // Calculate live domain scores for display
+  const domCounts={Thinking:0,Emotional:0,Behavioral:0,Physical:0};
+  S.moments.forEach(m=>{if(domCounts[m.domain]!==undefined)domCounts[m.domain]++;});
+  const total=S.moments.length||1;
+  const d=S.profile.domains;
+  const domScores={
+    Thinking: Math.min(10,(d.think+(domCounts.Thinking/total)*3)).toFixed(1),
+    Emotional: Math.min(10,(d.emot+(domCounts.Emotional/total)*3)).toFixed(1),
+    Behavioral: Math.min(10,(d.behav+(domCounts.Behavioral/total)*3)).toFixed(1),
+    Physical: Math.min(10,(d.body+(domCounts.Physical/total)*3)).toFixed(1)
+  };
+  const heaviest=Object.entries(domScores).sort((a,b)=>b[1]-a[1])[0];
+  const personaCounts={};
+  S.moments.forEach(m=>{personaCounts[m.persona]=(personaCounts[m.persona]||0)+1;});
+  const dominantPersona=Object.entries(personaCounts).sort((a,b)=>b[1]-a[1])[0]?.[0]||'—';
+  const latestVoice=S.voiceSessions[0];
+
+  // ── AI SYSTEM PROMPT ──
+  const sys=`You are the AntiGravity Field Intelligence System. Write a unified field report for ${S.profile.name}, ${S.profile.role}, sector: ${S.profile.sector}. Desired Orbit: "${S.profile.orbit}". Style: precise, psychologically grounded, Newton's gravitational metaphor — mass, distance, field, orbit, escape velocity. Write EXACTLY 5 sections. Separate each with a blank line. No headers, no labels, no markdown, no numbering. Just the prose.
+
+Section 1 — FIELD VERDICT: 2-3 sentences naming the primary gravity profile. What the two instruments (moments + voice) agree on. Name the dominant force specifically.
+Section 2 — PRIMARY DOMAIN: 2 sentences on the heaviest mass domain and what it costs this person relative to their orbit.
+Section 3 — MASS LAYER: 2 sentences on the dominant operating mode (persona) — what it looks like in practice and what it prevents.
+Section 4 — ESCAPE SIGNAL: 2-3 sentences. The single most important antigravity practice for this person right now. Specific, actionable, tied to their actual data.
+Section 5 — ORBIT STATEMENT: Exactly one sentence. Connect all findings directly to the desired orbit. End the report.`;
+
+  const user=`Field Moments:\n${mS||'None yet'}\n\nVoice Sessions:\n${vS||'None yet'}\n\nDomain scores: Thinking ${domScores.Thinking}, Emotional ${domScores.Emotional}, Behavioral ${domScores.Behavioral}, Physical ${domScores.Physical}\nDominant persona: ${dominantPersona}\n${latestVoice?`Latest Gravity Score: ${latestVoice.gravity_score}/10, Mask Score: ${latestVoice.mask_score}/100`:''}`;
+
   try{
-    const report=await callClaude(sys,`Moments:\n${mS||'None'}\nVoice:\n${vS||'None'}`,650);
-    const secs=report.split(/\n\n+/).filter(s=>s.trim());
-    const titles=['Field Verdict','Primary Domain','Mass Layer','Escape Signal','Orbit Statement'];
-    c.innerHTML=`<div class="desire-strip"><div class="dl">↑ Your Desired Orbit</div><div class="dt">${S.profile.orbit}</div></div>${secs.map((s,i)=>`<div class="card" style="margin-bottom:11px;"><div class="card-label">◈ ${titles[i]||'Reading '+(i+1)}</div><div style="font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:300;line-height:1.75;color:var(--star);">${s.trim()}</div></div>`).join('')}<button class="btn btn-ghost btn-full" onclick="generateFullReport()" style="margin-top:6px;">↺ Regenerate</button>`;
-  }catch(e){c.innerHTML=`<div style="color:var(--emot);padding:16px;">${e.message}</div>`;}
+    const report=await callClaude(sys,user,700);
+    const secs=report.split(/\n\n+/).filter(s=>s.trim()).slice(0,5);
+
+    // ── SECTION CONFIG ──
+    const sections=[
+      {key:'verdict',  label:'Field Verdict',   icon:'◎', color:'var(--gold)',    border:'rgba(201,168,76,.25)',  bg:'rgba(201,168,76,.04)'},
+      {key:'domain',   label:'Primary Domain',  icon:'◉', color:'var(--think)',   border:'rgba(139,158,245,.22)', bg:'rgba(139,158,245,.04)'},
+      {key:'mass',     label:'Mass Layer',       icon:'◈', color:'var(--emot)',    border:'rgba(224,123,123,.22)', bg:'rgba(224,123,123,.04)'},
+      {key:'escape',   label:'Escape Signal',    icon:'⚡', color:'var(--stop)',    border:'rgba(232,199,106,.22)', bg:'rgba(232,199,106,.04)'},
+      {key:'orbit',    label:'Orbit Statement',  icon:'↑', color:'var(--teal)',    border:'rgba(74,155,155,.25)',  bg:'rgba(74,155,155,.04)'}
+    ];
+
+    // ── DOMAIN BAR HTML ──
+    const domColors={Thinking:'var(--think)',Emotional:'var(--emot)',Behavioral:'var(--behav)',Physical:'var(--body-c)'};
+    const domBarsHtml=Object.entries(domScores).map(([k,v])=>`
+      <div style="margin-bottom:14px;">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px;">
+          <span style="font-family:'Space Mono',monospace;font-size:var(--mono-sm);letter-spacing:1.5px;text-transform:uppercase;color:${domColors[k]};">${k} Mass</span>
+          <span style="font-family:'Cormorant Garamond',serif;font-size:var(--ts-xl);font-weight:300;line-height:1;color:${domColors[k]};">${v}</span>
+        </div>
+        <div style="height:4px;background:var(--border2);border-radius:2px;overflow:hidden;">
+          <div style="height:100%;width:${v*10}%;background:${domColors[k]};border-radius:2px;"></div>
+        </div>
+      </div>`).join('');
+
+    // ── VOICE SCORES HTML ──
+    const voiceHtml=latestVoice?`
+      <div style="display:flex;gap:16px;flex-wrap:wrap;margin-top:6px;">
+        <div style="text-align:center;flex:1;min-width:80px;">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:var(--ts-display);font-weight:300;color:var(--teal);line-height:1;">${latestVoice.gravity_score}</div>
+          <div style="font-family:'Space Mono',monospace;font-size:var(--mono-xs);color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;margin-top:4px;">Gravity Score</div>
+        </div>
+        <div style="text-align:center;flex:1;min-width:80px;">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:var(--ts-display);font-weight:300;color:var(--emot);line-height:1;">${latestVoice.mask_score}</div>
+          <div style="font-family:'Space Mono',monospace;font-size:var(--mono-xs);color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;margin-top:4px;">Mask Score</div>
+        </div>
+        <div style="text-align:center;flex:1;min-width:80px;">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:var(--ts-display);font-weight:300;color:var(--gold);line-height:1;">${S.moments.length}</div>
+          <div style="font-family:'Space Mono',monospace;font-size:var(--mono-xs);color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;margin-top:4px;">Moments</div>
+        </div>
+      </div>`:'';
+
+    // ── RENDER ──
+    c.innerHTML=`
+      <!-- REPORT HEADER -->
+      <div class="fir-header">
+        <div class="fir-eyebrow">AntiGravity · Field Intelligence Report</div>
+        <div class="fir-name">${S.profile.name}</div>
+        <div class="fir-role">${S.profile.role}${S.profile.sector?' · '+S.profile.sector:''}</div>
+        <div class="fir-date">${new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'})} · ${S.moments.length} moments · ${S.voiceSessions.length} voice session${S.voiceSessions.length===1?'':'s'}</div>
+      </div>
+
+      <!-- DESIRED ORBIT -->
+      <div class="fir-orbit-strip">
+        <div class="fir-orbit-label">↑ Your Desired Orbit</div>
+        <div class="fir-orbit-text">"${S.profile.orbit}"</div>
+      </div>
+
+      <!-- GRAVITY FIELD SUMMARY -->
+      <div class="fir-summary-grid">
+        <div class="fir-summary-card">
+          <div class="fir-summary-label">◈ Gravitational Field</div>
+          ${domBarsHtml}
+        </div>
+        ${latestVoice?`<div class="fir-summary-card">
+          <div class="fir-summary-label">◈ Voice Intelligence</div>
+          ${voiceHtml}
+          <div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--border);">
+            <div style="font-family:'Space Mono',monospace;font-size:var(--mono-xs);color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px;">Primary Pattern</div>
+            <div style="font-size:var(--ts-sm);color:var(--muted2);">${(latestVoice.patterns||[]).slice(0,2).map(p=>`<span style="background:var(--emot-d);border:1px solid rgba(224,123,123,.2);border-radius:5px;padding:3px 8px;margin:2px;display:inline-block;font-size:var(--ts-xs);">${p.type}</span>`).join('')}</div>
+          </div>
+        </div>`:''}
+      </div>
+
+      <!-- REPORT SECTIONS -->
+      ${secs.map((s,i)=>{
+        const sec=sections[i]||{label:'Reading '+(i+1),icon:'◈',color:'var(--gold)',border:'rgba(201,168,76,.2)',bg:'rgba(201,168,76,.04)'};
+        const isOrbit=i===4;
+        return `<div class="fir-section" style="border-color:${sec.border};background:${sec.bg};">
+          <div class="fir-section-header">
+            <span class="fir-section-icon" style="color:${sec.color};">${sec.icon}</span>
+            <span class="fir-section-label" style="color:${sec.color};">${sec.label}</span>
+          </div>
+          <div class="fir-section-body${isOrbit?' fir-orbit-body':''}">${s.trim()}</div>
+        </div>`;
+      }).join('')}
+
+      <!-- ACTIONS -->
+      <div style="display:flex;gap:10px;margin-top:8px;flex-wrap:wrap;">
+        <button class="btn btn-ghost btn-full" onclick="generateFullReport()">↺ Regenerate Report</button>
+      </div>`;
+
+  }catch(e){
+    c.innerHTML=`<div style="color:var(--emot);padding:20px;font-size:var(--ts-sm);line-height:1.6;">${e.message}</div>`;
+  }
 }
 
 /* ═══════════════════════════════
@@ -1851,11 +2092,8 @@ function setDemoApiKey(){
 }
 
 function toggleAuthExpand(){
-  const exp=document.getElementById('auth-expanded');
-  const col=document.getElementById('auth-collapsed');
-  const showing=exp.style.display==='block';
-  exp.style.display=showing?'none':'block';
-  col.style.display=showing?'block':'none';
+  // Replaced by 3-tab system — kept for safety
+  switchLandingTab('signin');
 }
 
 /* ═══════════════════════════════
