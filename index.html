@@ -894,6 +894,8 @@ input[type=range]::-webkit-slider-thumb{
 <div id="user-menu">
   <div class="menu-user" id="menu-email-display"></div>
   <div class="menu-divider"></div>
+  <div class="menu-item" id="menu-upgrade-item" style="display:none;color:var(--gold);border:1px solid rgba(201,168,76,.2);border-radius:8px;background:var(--gold-d);margin:2px;" onclick="showUpgradeFromMenu()">✦ Save Data — Create Account</div>
+  <div class="menu-item" id="menu-tester-item" onclick="openTester()">◎ Personal Tester Mode</div>
   <div class="menu-item" onclick="openSettings()">⚙ Settings & API Key</div>
   <div class="menu-item" onclick="showStopSignal()">⚡ Trigger Stop Signal</div>
   <div class="menu-divider"></div>
@@ -1145,12 +1147,65 @@ input[type=range]::-webkit-slider-thumb{
   </div><!-- /screens-wrapper -->
 </div>
 
+<!-- UPGRADE OVERLAY — anon → real account -->
+<div id="upgrade-overlay" style="position:fixed;inset:0;z-index:1100;display:none;align-items:flex-end;justify-content:center;padding:20px;background:rgba(8,11,20,.85);backdrop-filter:blur(12px);">
+  <div style="background:var(--surface);border:1px solid rgba(201,168,76,.35);border-radius:22px;padding:30px;max-width:460px;width:100%;animation:slideUp .3s ease;">
+    <div style="font-family:'Space Mono',monospace;font-size:var(--mono-sm);letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-bottom:8px;">✦ Your Field Is Building</div>
+    <div style="font-family:'Cormorant Garamond',serif;font-size:var(--ts-xl);font-weight:300;margin-bottom:8px;">Save your data permanently</div>
+    <div style="font-size:var(--ts-sm);color:var(--muted2);line-height:1.7;margin-bottom:20px;">You have <strong id="upgrade-moment-count" style="color:var(--star);"></strong> captured moments saved to this session. Create an account to keep them — and everything you add from now on — across all your devices.</div>
+    <div class="field-group">
+      <label class="field-label">Email</label>
+      <input class="field-input" id="upgrade-email" type="email" placeholder="you@email.com">
+    </div>
+    <div class="field-group">
+      <label class="field-label">Password</label>
+      <input class="field-input" id="upgrade-pass" type="password" placeholder="min 6 characters">
+    </div>
+    <div class="field-group">
+      <label class="field-label">Anthropic API Key (optional)</label>
+      <input class="field-input" id="upgrade-api-key" type="password" placeholder="sk-ant-api03-...">
+    </div>
+    <div style="display:flex;gap:10px;">
+      <button class="btn btn-gold btn-full" id="upgrade-btn" onclick="upgradeAnonymous()">Create Account & Save Data →</button>
+      <button class="btn btn-ghost btn-sm" onclick="closeUpgrade()" style="white-space:nowrap;">Later</button>
+    </div>
+  </div>
+</div>
+
+<!-- TESTER PANEL — personal validation mode -->
+<div id="tester-overlay" style="position:fixed;inset:0;z-index:1100;display:none;align-items:flex-end;justify-content:center;padding:20px;background:rgba(8,11,20,.85);backdrop-filter:blur(12px);">
+  <div style="background:var(--surface);border:1px solid rgba(74,155,155,.35);border-radius:22px;padding:30px;max-width:460px;width:100%;animation:slideUp .3s ease;">
+    <div style="font-family:'Space Mono',monospace;font-size:var(--mono-sm);letter-spacing:2px;color:var(--teal);text-transform:uppercase;margin-bottom:8px;">◎ Personal Tester Account</div>
+    <div style="font-family:'Cormorant Garamond',serif;font-size:var(--ts-xl);font-weight:300;margin-bottom:8px;">Validate the system</div>
+    <div style="font-size:var(--ts-sm);color:var(--muted2);line-height:1.7;margin-bottom:20px;">Sign in with your personal account to accumulate real field data across days. Every moment, every voice session, every gravity score builds your longitudinal map. This is how you validate the system before it goes live.</div>
+    <div class="field-group">
+      <label class="field-label">Your Email</label>
+      <input class="field-input" id="tester-email" type="email" placeholder="your personal email">
+    </div>
+    <div class="field-group">
+      <label class="field-label">Password</label>
+      <input class="field-input" id="tester-pass" type="password" placeholder="••••••••">
+    </div>
+    <div class="field-group">
+      <label class="field-label">Anthropic API Key</label>
+      <input class="field-input" id="tester-api-key" type="password" placeholder="sk-ant-api03-...">
+    </div>
+    <div style="display:flex;gap:10px;">
+      <button class="btn btn-teal btn-full" onclick="testerSignIn()">Sign In as Tester →</button>
+      <button class="btn btn-ghost btn-sm" onclick="closeTester()" style="white-space:nowrap;">Cancel</button>
+    </div>
+    <div style="margin-top:10px;">
+      <button class="btn btn-ghost btn-full btn-sm" onclick="testerSignUp()">First time? Create tester account</button>
+    </div>
+  </div>
+</div>
+
 <script>
 'use strict';
 
 /* ═══ CONFIG — PASTE YOUR SUPABASE CREDENTIALS HERE ═══ */
-const SUPABASE_URL  = 'sb_publishable_hU8EaxfsnJAMnYDyJnA6ug_K953O_8s';
-const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVqd2d3aXFrbXdwbGViZ3BiZnNyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgyMTc0NTYsImV4cCI6MjA5Mzc5MzQ1Nn0.85a0IG5K5rDdMDt7MRl8rhr5eQGlWTE7rsVlDAiCTlQ';
+const SUPABASE_URL  = 'https://YOUR_PROJECT.supabase.co';
+const SUPABASE_ANON = 'YOUR_ANON_PUBLIC_KEY';
 /* ═══════════════════════════════════════════════════════ */
 
 const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
@@ -1158,6 +1213,7 @@ const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
 const S = {
   apiKey: '',
   isDemoMode: false,
+  isAnonymous: false,
   user: null,
   profile: {name:'',role:'',sector:'',orbit:'',block:'',domains:{think:5,emot:5,behav:5,body:5}},
   moments: [],
@@ -1263,15 +1319,17 @@ async function sendMagicLink(){
 async function signOut(){
   stopSpeech();
   if(S.stopTimer) clearTimeout(S.stopTimer);
-  if(!S.isDemoMode) await sb.auth.signOut();
-  S.isDemoMode=false; S.user=null;
+  await sb.auth.signOut(); // works for both anon and real users
+  S.isDemoMode=false; S.isAnonymous=false; S.user=null;
+  S.apiKey='';
   S.moments=[]; S.voiceSessions=[];
+  S.profile={name:'',role:'',sector:'',orbit:'',block:'',domains:{think:5,emot:5,behav:5,body:5}};
   closeUserMenu(); closeSettings();
   document.getElementById('app').style.display='none';
   const db=document.getElementById('demo-topbar-badge');
   if(db) db.style.display='none';
   showScreen('auth');
-  showToast(S.isDemoMode?'Demo ended':'Signed out.');
+  showToast('Session ended. Your data is saved.');
 }
 
 /* ═══════════════════════════════
@@ -1324,18 +1382,29 @@ function enterApp(){
   document.getElementById('screen-onboard').style.display='none';
   document.getElementById('screen-auth').style.display='none';
   document.getElementById('app').style.display='flex';
-  if(S.isDemoMode){
+  if(S.isAnonymous){
     const b=document.getElementById('demo-topbar-badge');
-    if(b) b.style.display='flex';
+    if(b){b.style.display='flex';}
     const em=document.getElementById('menu-email-display');
-    if(em) em.textContent='DEMO MODE · No account';
+    if(em) em.textContent='ANONYMOUS · Data saved · Upgrade to keep';
+    // Show upgrade prompt in user menu
+    const upgradeItem=document.getElementById('menu-upgrade-item');
+    if(upgradeItem) upgradeItem.style.display='flex';
+    // After 3 moments, nudge to create account
+    checkUpgradeNudge();
+  } else {
+    const upgradeItem=document.getElementById('menu-upgrade-item');
+    if(upgradeItem) upgradeItem.style.display='none';
   }
   goTo('field');
   refreshMomentLog();
   refreshDomainBars();
   scheduleStopSignal();
   loadVoices();
-  showToast(S.isDemoMode?'✦ Demo mode — explore freely':'Welcome back, '+S.profile.name);
+  const greeting = S.isAnonymous
+    ? '✦ Your field is live — data saving automatically'
+    : 'Welcome back, '+S.profile.name;
+  showToast(greeting);
 }
 
 function setOrbitTexts(){
@@ -1445,8 +1514,8 @@ async function analyzeMoment(){
     let r; try{r=JSON.parse(raw);}catch{r={insight:raw,persona:'Analyst',domain:'Thinking',stop_signal:"What's the real question here?",desire_link:'This pattern is between you and your orbit.'};}
     // Save to Supabase
     let saved;
-    if(S.isDemoMode){
-      saved={id:'m'+Date.now(),user_id:'demo-user',trigger,emotion,thought,insight:r.insight,persona:r.persona,domain:r.domain,stop_signal:r.stop_signal,desire_link:r.desire_link,created_at:new Date().toISOString()};
+    if(false){ // legacy guard removed — all users (anon+real) save to Supabase
+      saved=null;
     } else {
       const {data:_s}=await sb.from('moments').insert({
       user_id:S.user.id, trigger, emotion, thought,
@@ -1523,8 +1592,8 @@ async function analyzeVoice(){
     let r; try{r=JSON.parse(raw);}catch{showToast('Parse error — try again');btn.disabled=false;btn.innerHTML='Analyse Voice →';return;}
     // Save to Supabase
     let saved;
-    if(S.isDemoMode){
-      saved={id:'vs'+Date.now(),user_id:'demo-user',transcript,gravity_score:r.gravityScore,mask_score:r.maskScore,patterns:r.patterns||[],coach_msg:r.coachMsg,dominant_domain:r.dominantDomain,gravity_desc:r.gravityDesc,mask_desc:r.maskDesc,created_at:new Date().toISOString()};
+    if(false){ // legacy guard removed — all users save to Supabase
+      saved=null;
     } else {
       const {data:_vs}=await sb.from('voice_sessions').insert({
       user_id:S.user.id, transcript,
@@ -1636,7 +1705,7 @@ async function showStopSignal(){
   document.getElementById('stop-domain').textContent=domain+' domain · '+sig.d;
   document.getElementById('stop-overlay').classList.add('show');
   // Log to Supabase
-  if(S.user&&!S.isDemoMode) await sb.from('stop_signals').insert({user_id:S.user.id,domain,question:sig.q,acted_on:false});
+  if(S.user) await sb.from('stop_signals').insert({user_id:S.user.id,domain,question:sig.q,acted_on:false});
 }
 function dismissStop(){document.getElementById('stop-overlay').classList.remove('show');}
 function logFromStop(){dismissStop();goTo('field');showToast('Capture this moment →');document.getElementById('f-trigger').focus();}
@@ -1723,15 +1792,56 @@ const DEMO_MOMENTS=[
 ];
 const DEMO_VOICE={id:'dv1',time:'10:05',transcript:"The main challenge is there's a general lack of alignment and nobody seems to want to make a decision. Every time I try to push for clarity it always creates more confusion.",gravity_score:7.2,mask_score:65,patterns:[{type:'Nominalization',example:"there's a general lack of alignment",question:'Who specifically is not aligning — about what?'},{type:'Universal Quantifier',example:'Every time I try... it always creates confusion',question:'What is the one time it did not? What was different?'},{type:'Lost Performative',example:'nobody seems to want to make a decision',question:'According to whom? What would deciding actually look like?'}],coach_msg:"You've described this as a structural problem — alignment, decisions, confusion. But notice what's missing: you. The situation has become a noun. Something that happens. The question your field is actually holding is simpler: what would you say if you said it directly, without the preparation?",dominant_domain:'Thinking',gravity_desc:'High cognitive mass — language removes agency systematically.',mask_desc:'Moderate gap — analytical framing carries more than the words suggest.'};
 
-function enterDemo(){
+async function enterDemo(){
   const key=document.getElementById('demo-api-key')?.value?.trim();
   if(key&&key.startsWith('sk-')) S.apiKey=key;
-  S.isDemoMode=true;
-  S.user={id:'demo-user',email:'demo@antigravity.app'};
-  S.profile={...DEMO_PROFILE};
-  S.moments=DEMO_MOMENTS.map(m=>({...m}));
-  S.voiceSessions=[DEMO_VOICE];
-  enterApp();
+  // Show loading state
+  const btn=document.querySelector('[onclick="enterDemo()"]');
+  if(btn){btn.disabled=true;btn.textContent='Setting up your field...';}
+  try{
+    // Sign in anonymously — Supabase creates a real session
+    const {data,error}=await sb.auth.signInAnonymously();
+    if(error) throw error;
+    S.user=data.user;
+    S.isAnonymous=true;
+    S.isDemoMode=false; // anonymous but real — data WILL save
+    // Load pre-built demo profile into DB so they start with something
+    await sb.from('profiles').upsert({
+      id:S.user.id,
+      name:DEMO_PROFILE.name,role:DEMO_PROFILE.role,
+      sector:DEMO_PROFILE.sector,orbit:DEMO_PROFILE.orbit,
+      block:DEMO_PROFILE.block,
+      domain_think:DEMO_PROFILE.domains.think,
+      domain_emot:DEMO_PROFILE.domains.emot,
+      domain_behav:DEMO_PROFILE.domains.behav,
+      domain_body:DEMO_PROFILE.domains.body,
+      onboarded:true
+    });
+    S.profile={...DEMO_PROFILE};
+    // Load any existing moments from this anonymous session
+    const {data:existingM}=await sb.from('moments').select('*').eq('user_id',S.user.id).order('created_at',{ascending:false}).limit(50);
+    // Seed demo moments only on first visit (no existing moments)
+    if(!existingM||existingM.length===0){
+      for(const m of DEMO_MOMENTS){
+        await sb.from('moments').insert({
+          user_id:S.user.id,trigger:m.trigger,emotion:m.emotion,
+          thought:m.thought,insight:m.insight,persona:m.persona,
+          domain:m.domain,stop_signal:m.stop_signal,desire_link:m.desire_link
+        });
+      }
+      const {data:seededM}=await sb.from('moments').select('*').eq('user_id',S.user.id).order('created_at',{ascending:false}).limit(50);
+      S.moments=(seededM||[]).map(m=>({...m,time:new Date(m.created_at).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})}));
+    } else {
+      S.moments=existingM.map(m=>({...m,time:new Date(m.created_at).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})}));
+    }
+    // Load voice sessions
+    const {data:vsess}=await sb.from('voice_sessions').select('*').eq('user_id',S.user.id).order('created_at',{ascending:false}).limit(20);
+    S.voiceSessions=(vsess||[]).map(v=>({...v,time:new Date(v.created_at).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})}));
+    enterApp();
+  }catch(e){
+    showToast('Could not start demo: '+e.message);
+    if(btn){btn.disabled=false;btn.innerHTML='⚡ Try Demo — Explore Freely →';}
+  }
 }
 
 function setDemoApiKey(){
@@ -1746,6 +1856,105 @@ function toggleAuthExpand(){
   const showing=exp.style.display==='block';
   exp.style.display=showing?'none':'block';
   col.style.display=showing?'block':'none';
+}
+
+/* ═══════════════════════════════
+   ANONYMOUS → ACCOUNT UPGRADE
+═══════════════════════════════ */
+function checkUpgradeNudge(){
+  if(!S.isAnonymous) return;
+  setTimeout(()=>{
+    if(S.isAnonymous && S.moments.length>=3){
+      const countEl=document.getElementById('upgrade-moment-count');
+      if(countEl) countEl.textContent=S.moments.length+' field moment'+(S.moments.length===1?'':'s');
+      showUpgradePrompt();
+    }
+  }, 3000);
+}
+
+function showUpgradePrompt(){
+  const overlay=document.getElementById('upgrade-overlay');
+  if(overlay) overlay.classList.add('show');
+}
+
+function closeUpgrade(){
+  const overlay=document.getElementById('upgrade-overlay');
+  if(overlay) overlay.classList.remove('show');
+}
+
+async function upgradeAnonymous(){
+  const email=document.getElementById('upgrade-email').value.trim();
+  const pass=document.getElementById('upgrade-pass').value;
+  const key=document.getElementById('upgrade-api-key').value.trim();
+  if(!email||!pass){showToast('Enter email and password');return;}
+  if(pass.length<6){showToast('Password must be at least 6 characters');return;}
+  if(key&&key.startsWith('sk-')) S.apiKey=key;
+  const btn=document.getElementById('upgrade-btn');
+  btn.disabled=true;btn.textContent='Linking account...';
+  try{
+    // Link the anonymous session to a real email account
+    const {error}=await sb.auth.updateUser({email,password:pass});
+    if(error) throw error;
+    S.isAnonymous=false;
+    closeUpgrade();
+    const upgradeItem=document.getElementById('menu-upgrade-item');
+    if(upgradeItem) upgradeItem.style.display='none';
+    const em=document.getElementById('menu-email-display');
+    if(em) em.textContent=email;
+    // Update profile name if still Demo
+    if(S.profile.name==='Demo'){
+      const namePrompt=email.split('@')[0];
+      S.profile.name=namePrompt;
+      await sb.from('profiles').update({name:namePrompt}).eq('id',S.user.id);
+      setUserDot();
+    }
+    showToast('Account created! All your field data is saved to '+email);
+  }catch(e){
+    showToast(e.message);
+    btn.disabled=false;btn.textContent='Create Account & Save Data →';
+  }
+}
+
+function showUpgradeFromMenu(){
+  closeUserMenu();
+  document.getElementById('upgrade-moment-count').textContent=S.moments.length+' field moment'+(S.moments.length===1?'':'s');
+  showUpgradePrompt();
+}
+
+/* ═══════════════════════════════
+   PERSONAL TESTER MODE
+═══════════════════════════════ */
+function openTester(){
+  closeUserMenu();
+  document.getElementById('tester-overlay').style.display='flex';
+}
+function closeTester(){
+  document.getElementById('tester-overlay').style.display='none';
+}
+async function testerSignIn(){
+  const email=document.getElementById('tester-email').value.trim();
+  const pass=document.getElementById('tester-pass').value;
+  const key=document.getElementById('tester-api-key').value.trim();
+  if(!email||!pass){showToast('Enter email and password');return;}
+  if(key&&key.startsWith('sk-')) S.apiKey=key;
+  // Sign out current anon session first
+  await sb.auth.signOut();
+  const {error}=await sb.auth.signInWithPassword({email,password:pass});
+  if(error){showToast(error.message);return;}
+  closeTester();
+  showToast('Signed in as tester — accumulating real data');
+}
+async function testerSignUp(){
+  const email=document.getElementById('tester-email').value.trim();
+  const pass=document.getElementById('tester-pass').value;
+  const key=document.getElementById('tester-api-key').value.trim();
+  if(!email||!pass){showToast('Enter email and password');return;}
+  if(key&&key.startsWith('sk-')) S.apiKey=key;
+  await sb.auth.signOut();
+  const {error}=await sb.auth.signUp({email,password:pass});
+  if(error){showToast(error.message);return;}
+  closeTester();
+  showToast('Tester account created — check email to confirm then sign in');
 }
 
 /* ═══════════════════════════════
