@@ -1,0 +1,2078 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>AntiGravity — Field Intelligence System</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Space+Mono:wght@400;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════
+   ANTIGRAVITY — DUAL VIEWPORT DESIGN SYSTEM
+   Mobile-first · Desktop-enhanced · Relaxed palette
+═══════════════════════════════════════════ */
+:root{
+  /* ── Core palette — softened from pure void ── */
+  --void:#080b14;
+  --deep:#0d1120;
+  --surface:#131726;
+  --surface2:#1a1f30;
+  --surface3:#1f2438;
+  --border:rgba(255,255,255,.07);
+  --border2:rgba(255,255,255,.13);
+  --border3:rgba(255,255,255,.2);
+
+  /* ── Text — warmer, easier on eyes ── */
+  --star:#e8e2d5;
+  --star2:#c8c2b5;
+  --muted:#72708a;
+  --muted2:#a09eb8;
+  --muted3:#b8b6cc;
+
+  /* ── Brand accents ── */
+  --gold:#c9a84c;
+  --gold-d:rgba(201,168,76,.12);
+  --gold-d2:rgba(201,168,76,.18);
+  --gold-g:rgba(201,168,76,.35);
+  --teal:#4a9b9b;
+  --teal-d:rgba(74,155,155,.12);
+
+  /* ── Domain colours — relaxed, not harsh ── */
+  --think:#8b9ef5;
+  --think-d:rgba(139,158,245,.12);
+  --emot:#e07b7b;
+  --emot-d:rgba(224,123,123,.12);
+  --behav:#6bbf8e;
+  --behav-d:rgba(107,191,142,.12);
+  --body-c:#d4a574;
+  --body-d:rgba(212,165,116,.12);
+  --stop:#e8c76a;
+  --stop-d:rgba(232,199,106,.1);
+  --voice:#9b7fe8;
+  --voice-d:rgba(155,127,232,.12);
+
+  /* ── Layout ── */
+  --app-max:860px;
+  --card-radius:16px;
+  --side-pad:20px;
+
+  /* ── Type scale — mobile ── */
+  --ts-xs:11px;
+  --ts-sm:13px;
+  --ts-base:15px;
+  --ts-md:17px;
+  --ts-lg:22px;
+  --ts-xl:28px;
+  --ts-display:34px;
+
+  /* ── Mono scale ── */
+  --mono-xs:9px;
+  --mono-sm:10px;
+  --mono-base:11px;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{height:100%;font-size:16px;}
+body{
+  height:100%;overflow:hidden;
+  background:var(--void);
+  color:var(--star);
+  font-family:'DM Sans',sans-serif;
+  font-size:var(--ts-base);
+  line-height:1.65;
+  display:flex;flex-direction:column;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* Grain overlay — subtle */
+body::after{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.03'/%3E%3C/svg%3E");
+  opacity:.35;
+}
+
+/* ── SCREEN SYSTEM ── */
+.screen{display:none;flex-direction:column;height:100%;overflow:hidden;}
+.screen.active{display:flex;}
+
+/* ── SCROLL BODY ── */
+.scroll-body{
+  flex:1;overflow-y:auto;
+  padding:24px var(--side-pad) 100px;
+}
+.scroll-body::-webkit-scrollbar{width:4px;}
+.scroll-body::-webkit-scrollbar-track{background:transparent;}
+.scroll-body::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px;}
+
+/* ── TOP BAR ── */
+.topbar{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:16px 24px;border-bottom:1px solid var(--border);
+  background:rgba(8,11,20,.95);backdrop-filter:blur(16px);
+  flex-shrink:0;
+}
+.topbar-logo{
+  font-family:'Cormorant Garamond',serif;
+  font-size:var(--ts-lg);font-weight:300;letter-spacing:.5px;
+}
+.topbar-logo em{font-style:italic;color:var(--gold);}
+.topbar-right{display:flex;align-items:center;gap:10px;}
+.stop-badge{
+  font-family:'Space Mono',monospace;
+  font-size:var(--mono-sm);letter-spacing:1.5px;
+  padding:6px 12px;border-radius:14px;text-transform:uppercase;
+  background:var(--stop-d);border:1px solid rgba(232,199,106,.28);
+  color:var(--stop);cursor:pointer;transition:all .2s;
+}
+.stop-badge:hover{background:rgba(232,199,106,.18);}
+.user-dot{
+  width:32px;height:32px;border-radius:50%;
+  background:var(--gold-d);border:1px solid rgba(201,168,76,.35);
+  display:flex;align-items:center;justify-content:center;
+  font-size:var(--ts-sm);cursor:pointer;color:var(--gold);
+  font-family:'Space Mono',monospace;font-weight:700;
+}
+.mode-pill{
+  display:flex;background:var(--surface);
+  border:1px solid var(--border2);border-radius:22px;overflow:hidden;
+}
+.mode-btn{
+  font-family:'Space Mono',monospace;
+  font-size:var(--mono-sm);letter-spacing:1.5px;
+  padding:7px 14px;border:none;background:transparent;
+  color:var(--muted);cursor:pointer;transition:all .2s;text-transform:uppercase;
+}
+.mode-btn.active{background:var(--gold-d);color:var(--gold);}
+
+/* ── BOTTOM NAV ── */
+.bottom-nav{
+  display:flex;background:rgba(13,17,32,.97);
+  border-top:1px solid var(--border);
+  flex-shrink:0;padding-bottom:env(safe-area-inset-bottom);
+}
+.nav-item{
+  flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;
+  padding:11px 6px;cursor:pointer;border:none;background:transparent;transition:all .2s;
+}
+.nav-icon{font-size:18px;line-height:1;}
+.nav-label{
+  font-family:'Space Mono',monospace;
+  font-size:var(--mono-xs);letter-spacing:1.5px;
+  color:var(--muted);text-transform:uppercase;transition:color .2s;
+}
+.nav-item.active .nav-label{color:var(--gold);}
+
+/* ── CARDS ── */
+.card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--card-radius);padding:22px;margin-bottom:16px;
+  transition:border-color .25s;
+}
+.card:hover{border-color:var(--border2);}
+.card-label{
+  font-family:'Space Mono',monospace;
+  font-size:var(--mono-base);letter-spacing:2.5px;
+  text-transform:uppercase;color:var(--muted);margin-bottom:14px;
+}
+
+/* ── BUTTONS ── */
+.btn{
+  font-family:'Space Mono',monospace;
+  font-size:var(--mono-base);letter-spacing:2px;
+  padding:13px 26px;border-radius:10px;border:1px solid;
+  cursor:pointer;text-transform:uppercase;
+  transition:all .25s;display:inline-flex;align-items:center;gap:8px;
+  line-height:1;
+}
+.btn-gold{background:var(--gold-d);border-color:rgba(201,168,76,.45);color:var(--gold);}
+.btn-gold:hover{background:var(--gold-d2);box-shadow:0 0 20px rgba(201,168,76,.12);}
+.btn-ghost{background:transparent;border-color:var(--border2);color:var(--muted2);}
+.btn-ghost:hover{border-color:var(--gold-g);color:var(--gold);}
+.btn-teal{background:var(--teal-d);border-color:rgba(74,155,155,.4);color:var(--teal);}
+.btn-voice{background:var(--voice-d);border-color:rgba(155,127,232,.4);color:var(--voice);}
+.btn-danger{background:rgba(224,123,123,.1);border-color:rgba(224,123,123,.35);color:var(--emot);}
+.btn-full{width:100%;justify-content:center;}
+.btn-sm{padding:9px 16px;font-size:var(--mono-xs);}
+.btn:disabled{opacity:.4;cursor:not-allowed;}
+
+/* ── FORM ELEMENTS ── */
+.field-group{margin-bottom:16px;}
+.field-label{
+  font-family:'Space Mono',monospace;
+  font-size:var(--mono-sm);letter-spacing:1.5px;
+  color:var(--muted2);text-transform:uppercase;
+  margin-bottom:8px;display:block;
+}
+.field-input,.field-textarea,.field-select{
+  width:100%;background:var(--surface2);border:1px solid var(--border2);
+  border-radius:10px;color:var(--star);
+  font-family:'DM Sans',sans-serif;font-size:var(--ts-base);
+  padding:13px 15px;outline:none;transition:border-color .2s;
+  -webkit-appearance:none;line-height:1.5;
+}
+.field-input:focus,.field-textarea:focus,.field-select:focus{
+  border-color:var(--gold-g);background:var(--surface3);
+}
+.field-textarea{resize:vertical;min-height:88px;}
+.field-select{
+  background-image:url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23c9a84c' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 15px center;
+  padding-right:40px;
+}
+
+/* ── SLIDERS ── */
+.slider-row{display:flex;align-items:center;gap:14px;margin-bottom:14px;}
+.slider-label{font-size:var(--ts-sm);color:var(--muted2);width:90px;flex-shrink:0;}
+input[type=range]{
+  flex:1;-webkit-appearance:none;height:4px;border-radius:2px;
+  background:var(--border2);outline:none;
+}
+input[type=range]::-webkit-slider-thumb{
+  -webkit-appearance:none;width:16px;height:16px;border-radius:50%;
+  background:var(--gold);cursor:pointer;box-shadow:0 0 10px var(--gold-g);
+}
+.slider-val{
+  font-family:'Space Mono',monospace;font-size:var(--mono-base);
+  color:var(--gold);width:24px;text-align:right;
+}
+
+/* ── DESIRE STRIP ── */
+.desire-strip{
+  background:linear-gradient(135deg,rgba(201,168,76,.07),rgba(74,155,155,.04));
+  border:1px solid rgba(201,168,76,.22);border-radius:14px;
+  padding:16px 20px;margin-bottom:18px;
+}
+.desire-strip .dl{
+  font-family:'Space Mono',monospace;
+  font-size:var(--mono-sm);letter-spacing:2px;
+  color:var(--gold);text-transform:uppercase;margin-bottom:7px;
+}
+.desire-strip .dt{
+  font-family:'Cormorant Garamond',serif;
+  font-size:var(--ts-md);font-style:italic;
+  color:var(--star);line-height:1.45;
+}
+
+/* ── STOP SIGNAL OVERLAY ── */
+#stop-overlay{
+  position:fixed;inset:0;z-index:1000;display:none;
+  align-items:flex-end;justify-content:center;padding:20px;
+  background:rgba(8,11,20,.78);backdrop-filter:blur(10px);
+}
+#stop-overlay.show{display:flex;}
+.stop-panel{
+  background:var(--surface);border:1px solid rgba(232,199,106,.38);
+  border-radius:22px;padding:30px;max-width:480px;width:100%;
+  animation:slideUp .3s ease;
+}
+@keyframes slideUp{from{transform:translateY(24px);opacity:0;}to{transform:translateY(0);opacity:1;}}
+.stop-header{display:flex;align-items:center;gap:14px;margin-bottom:18px;}
+.stop-icon{
+  width:44px;height:44px;border-radius:12px;flex-shrink:0;
+  background:var(--stop-d);border:1px solid rgba(232,199,106,.32);
+  display:flex;align-items:center;justify-content:center;font-size:20px;
+}
+.stop-meta{
+  font-family:'Space Mono',monospace;font-size:var(--mono-sm);
+  letter-spacing:2px;color:var(--stop);text-transform:uppercase;
+}
+.stop-time{font-size:var(--ts-sm);color:var(--muted);margin-top:3px;}
+.stop-question{
+  font-family:'Cormorant Garamond',serif;
+  font-size:var(--ts-xl);font-weight:300;font-style:italic;
+  line-height:1.4;color:var(--star);margin-bottom:10px;
+}
+.stop-domain{font-size:var(--ts-sm);color:var(--muted2);margin-bottom:20px;line-height:1.55;}
+.stop-actions{display:flex;gap:10px;}
+
+/* ── USER MENU ── */
+#user-menu{
+  position:fixed;top:62px;right:20px;z-index:800;
+  background:var(--surface2);border:1px solid var(--border2);
+  border-radius:14px;padding:8px;min-width:200px;
+  display:none;animation:fadeIn .2s ease;
+  box-shadow:0 16px 40px rgba(0,0,0,.4);
+}
+#user-menu.show{display:block;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(-8px);}to{opacity:1;transform:translateY(0);}}
+.menu-item{
+  display:flex;align-items:center;gap:10px;padding:11px 14px;
+  border-radius:9px;cursor:pointer;font-size:var(--ts-sm);
+  color:var(--muted2);transition:all .15s;
+}
+.menu-item:hover{background:var(--surface3);color:var(--star);}
+.menu-item.danger:hover{color:var(--emot);}
+.menu-divider{height:1px;background:var(--border);margin:5px 0;}
+.menu-user{
+  font-family:'Space Mono',monospace;font-size:var(--mono-xs);
+  letter-spacing:1.5px;color:var(--muted);padding:9px 14px;text-transform:uppercase;
+}
+
+/* ── AI BLOCK ── */
+.ai-block{
+  background:linear-gradient(135deg,rgba(139,158,245,.06),rgba(74,155,155,.04));
+  border:1px solid rgba(139,158,245,.22);border-radius:14px;
+  padding:18px;margin-top:14px;
+}
+.ai-label{
+  font-family:'Space Mono',monospace;
+  font-size:var(--mono-sm);letter-spacing:2px;
+  color:var(--think);text-transform:uppercase;margin-bottom:10px;
+}
+.ai-text{font-size:var(--ts-sm);color:var(--muted2);line-height:1.75;}
+.ai-text strong{color:var(--star2);font-weight:500;}
+.loading-dots{display:inline-flex;gap:5px;align-items:center;}
+.loading-dots span{
+  width:5px;height:5px;border-radius:50%;background:var(--gold);
+  animation:dotP 1.2s ease-in-out infinite;
+}
+.loading-dots span:nth-child(2){animation-delay:.2s;}
+.loading-dots span:nth-child(3){animation-delay:.4s;}
+@keyframes dotP{0%,80%,100%{transform:scale(.6);opacity:.4;}40%{transform:scale(1);opacity:1;}}
+
+/* ── WAVEFORM ── */
+.waveform{display:flex;align-items:center;gap:3px;height:36px;}
+.wbar{
+  width:3px;border-radius:2px;background:var(--voice);
+  animation:wA var(--d,.7s) ease-in-out infinite alternate;
+  transform-origin:bottom;
+}
+@keyframes wA{from{transform:scaleY(.2);}to{transform:scaleY(1);}}
+.waveform.paused .wbar{animation:none;transform:scaleY(.25);}
+
+/* ── DOMAIN BARS ── */
+.domain-row{margin-bottom:14px;}
+.domain-hd{
+  display:flex;justify-content:space-between;
+  align-items:baseline;margin-bottom:6px;
+}
+.domain-name{
+  font-family:'Space Mono',monospace;
+  font-size:var(--mono-sm);letter-spacing:1.5px;text-transform:uppercase;
+}
+.domain-score{
+  font-family:'Cormorant Garamond',serif;
+  font-size:var(--ts-xl);font-weight:300;line-height:1;
+}
+.bar-track{height:4px;background:var(--border2);border-radius:2px;overflow:hidden;}
+.bar-fill{height:100%;border-radius:2px;transition:width 1s ease;}
+.think-c{color:var(--think);}.think-b{background:var(--think);}
+.emot-c{color:var(--emot);}.emot-b{background:var(--emot);}
+.behav-c{color:var(--behav);}.behav-b{background:var(--behav);}
+.body-cc{color:var(--body-c);}.body-b{background:var(--body-c);}
+
+/* ── MINI RING ── */
+.mini-ring{position:relative;width:84px;height:84px;flex-shrink:0;}
+.mini-ring svg{width:100%;height:100%;transform:rotate(-90deg);}
+.ring-trk{fill:none;stroke:var(--border2);stroke-width:7;}
+.ring-fil{fill:none;stroke-width:7;stroke-linecap:round;stroke-dasharray:220;transition:stroke-dashoffset 1.2s ease;}
+.ring-inner{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+.ring-n{font-family:'Cormorant Garamond',serif;font-size:23px;font-weight:300;line-height:1;}
+.ring-u{font-family:'Space Mono',monospace;font-size:var(--mono-xs);color:var(--muted);}
+
+/* ── SCORE GRID ── */
+.score-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-bottom:16px;}
+.score-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:14px;padding:18px;display:flex;align-items:center;gap:14px;
+}
+
+/* ── PATTERN TAGS ── */
+.pattern-tag{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:var(--ts-xs);color:var(--muted2);
+  background:var(--emot-d);border:1px solid rgba(224,123,123,.2);
+  border-radius:6px;padding:4px 10px;margin:3px;
+}
+.pattern-tag .pt{
+  font-family:'Space Mono',monospace;
+  font-size:var(--mono-xs);color:var(--emot);
+}
+
+/* ── COACH BOX ── */
+.coach-box{
+  background:linear-gradient(135deg,var(--voice-d),rgba(74,155,155,.05));
+  border:1px solid rgba(155,127,232,.28);border-radius:16px;
+  padding:22px;margin-bottom:16px;
+}
+.coach-header{display:flex;align-items:center;gap:13px;margin-bottom:14px;}
+.coach-avatar{
+  width:42px;height:42px;border-radius:50%;
+  background:var(--voice-d);border:1px solid rgba(155,127,232,.32);
+  display:flex;align-items:center;justify-content:center;font-size:18px;
+  flex-shrink:0;
+}
+.coach-name{font-size:var(--ts-sm);color:var(--star);font-weight:500;}
+.coach-status{
+  font-family:'Space Mono',monospace;
+  font-size:var(--mono-xs);color:var(--voice);letter-spacing:1.5px;
+}
+.coach-msg{
+  font-family:'Cormorant Garamond',serif;
+  font-size:var(--ts-md);font-style:italic;
+  line-height:1.8;color:var(--star);margin-bottom:14px;
+}
+
+/* ── VOICE LETTER ── */
+.letter-box{
+  background:var(--surface);border:1px solid var(--border);
+  border-left:3px solid var(--gold);border-radius:0 14px 14px 0;
+  padding:26px;margin-top:14px;position:relative;
+}
+.letter-box::before{
+  content:'"';position:absolute;top:10px;left:12px;
+  font-family:'Cormorant Garamond',serif;font-size:56px;
+  color:rgba(201,168,76,.08);line-height:1;
+}
+.letter-text{
+  font-family:'Cormorant Garamond',serif;
+  font-size:var(--ts-md);font-style:italic;
+  line-height:1.85;color:var(--star);
+}
+.letter-text p+p{margin-top:13px;}
+
+/* ── MOMENT ENTRY ── */
+.moment-entry{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:12px;padding:15px 18px;margin-bottom:11px;
+  transition:border-color .2s;
+}
+.moment-entry:hover{border-color:var(--border2);}
+.moment-time{
+  font-family:'Space Mono',monospace;
+  font-size:var(--mono-xs);color:var(--muted);
+  letter-spacing:1.5px;margin-bottom:6px;
+}
+.moment-persona{
+  display:inline-block;
+  font-family:'Space Mono',monospace;
+  font-size:var(--mono-xs);letter-spacing:1.5px;
+  padding:3px 9px;border-radius:5px;text-transform:uppercase;
+  margin-bottom:7px;background:var(--gold-d);
+  color:var(--gold);border:1px solid rgba(201,168,76,.28);
+}
+.moment-text{font-size:var(--ts-sm);color:var(--muted2);line-height:1.6;}
+
+/* ── TABS ── */
+.tab-bar{
+  display:flex;border-bottom:1px solid var(--border);
+  margin-bottom:16px;overflow-x:auto;
+}
+.tab-bar::-webkit-scrollbar{display:none;}
+.tab-btn{
+  font-family:'Space Mono',monospace;
+  font-size:var(--mono-sm);letter-spacing:1.5px;
+  padding:11px 16px;border:none;background:transparent;
+  color:var(--muted);cursor:pointer;white-space:nowrap;
+  text-transform:uppercase;transition:all .2s;
+  border-bottom:2px solid transparent;flex-shrink:0;
+}
+.tab-btn.active{color:var(--gold);border-bottom-color:var(--gold);}
+.tab-pane{display:none;}
+.tab-pane.active{display:block;}
+
+/* ── EMPTY STATES ── */
+.empty{text-align:center;padding:40px 20px;color:var(--muted);}
+.empty-icon{font-size:30px;margin-bottom:12px;display:block;opacity:.35;}
+.empty-text{font-size:var(--ts-sm);line-height:1.65;color:var(--muted2);}
+
+/* ── AUTH / ONBOARDING SCREENS ── */
+.center-screen{
+  display:flex;flex-direction:column;justify-content:center;align-items:center;
+  min-height:100vh;padding:32px 24px;
+  background:
+    radial-gradient(ellipse at 50% 25%,rgba(74,155,155,.08) 0%,transparent 55%),
+    radial-gradient(ellipse at 80% 75%,rgba(201,168,76,.04) 0%,transparent 40%),
+    var(--void);
+  overflow-y:auto;
+}
+.brand-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:var(--ts-display);font-weight:300;
+  text-align:center;margin-bottom:5px;
+}
+.brand-title em{font-style:italic;color:var(--gold);}
+.brand-sub{
+  font-family:'Space Mono',monospace;font-size:var(--mono-sm);
+  letter-spacing:3px;color:var(--muted);text-transform:uppercase;
+  text-align:center;margin-bottom:32px;
+}
+.ob-inner{max-width:480px;width:100%;}
+.step-dots{display:flex;gap:8px;justify-content:center;margin-bottom:28px;}
+.step-dot{
+  width:7px;height:7px;border-radius:50%;
+  background:var(--border2);transition:all .3s;
+}
+.step-dot.active{background:var(--gold);box-shadow:0 0 10px var(--gold-g);}
+.step-dot.done{background:var(--teal);}
+.onboard-step{display:none;}
+.onboard-step.active{display:block;}
+.step-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:var(--ts-xl);font-weight:300;
+  margin-bottom:8px;line-height:1.25;
+}
+.step-title em{font-style:italic;color:var(--gold);}
+.step-desc{font-size:var(--ts-sm);color:var(--muted2);margin-bottom:22px;line-height:1.7;}
+.auth-tabs{display:flex;gap:8px;margin-bottom:22px;}
+.auth-tab{
+  flex:1;font-family:'Space Mono',monospace;
+  font-size:var(--mono-sm);letter-spacing:1.5px;
+  padding:11px;border:1px solid var(--border2);border-radius:10px;
+  background:transparent;color:var(--muted);cursor:pointer;
+  text-transform:uppercase;transition:all .2s;text-align:center;
+}
+.auth-tab.active{
+  background:var(--gold-d);border-color:rgba(201,168,76,.42);color:var(--gold);
+}
+
+/* ── RINGS ANIMATION ── */
+.rings-anim{width:110px;height:110px;margin:0 auto 28px;position:relative;}
+.rings-anim svg{width:100%;height:100%;}
+.ra{animation:rSpin 12s linear infinite;transform-origin:50px 50px;}
+.rb{animation:rSpin 8s linear infinite reverse;transform-origin:50px 50px;}
+@keyframes rSpin{from{transform:rotate(0);}to{transform:rotate(360deg);}}
+
+/* ── TOAST ── */
+#toast{
+  position:fixed;bottom:92px;left:50%;
+  transform:translateX(-50%) translateY(14px);
+  background:var(--surface2);border:1px solid var(--border2);
+  border-radius:10px;padding:10px 20px;
+  font-size:var(--ts-sm);color:var(--star);
+  z-index:500;opacity:0;transition:all .28s;
+  pointer-events:none;white-space:nowrap;
+  max-width:calc(100vw - 48px);text-align:center;
+  box-shadow:0 8px 24px rgba(0,0,0,.35);
+}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+/* ── TREND CHART ── */
+.trend-row{display:flex;align-items:flex-end;gap:5px;height:56px;margin-top:12px;}
+.trend-bar{
+  flex:1;border-radius:4px 4px 0 0;min-height:4px;
+  transition:height .8s ease;position:relative;
+}
+.trend-bar::after{
+  content:attr(data-val);position:absolute;bottom:-18px;
+  left:50%;transform:translateX(-50%);
+  font-family:'Space Mono',monospace;font-size:var(--mono-xs);color:var(--muted);
+}
+.trend-label{
+  font-family:'Space Mono',monospace;
+  font-size:var(--mono-sm);letter-spacing:1.5px;
+  color:var(--muted);text-transform:uppercase;margin-bottom:6px;
+}
+
+/* ── SETTINGS PANEL ── */
+#settings-overlay{
+  position:fixed;inset:0;z-index:900;display:none;
+  align-items:flex-end;justify-content:center;
+  padding:20px;background:rgba(8,11,20,.82);backdrop-filter:blur(10px);
+}
+#settings-overlay.show{display:flex;}
+.settings-panel{
+  background:var(--surface);border:1px solid var(--border2);
+  border-radius:22px;padding:28px;max-width:480px;width:100%;
+  max-height:80vh;overflow-y:auto;animation:slideUp .3s ease;
+}
+
+/* ── AUDIT ELEMENTS ── */
+.audit-option{
+  background:var(--surface2);border:1px solid var(--border2);
+  border-radius:12px;padding:15px 18px;cursor:pointer;
+  font-size:var(--ts-sm);color:var(--muted2);
+  transition:all .2s;text-align:left;width:100%;line-height:1.5;
+}
+.audit-option:hover{border-color:rgba(201,168,76,.32);color:var(--star2);}
+.audit-option.selected{background:var(--gold-d);border-color:rgba(201,168,76,.42);color:var(--gold);}
+.audit-dot{width:8px;height:8px;border-radius:50%;background:var(--border2);transition:background .3s;}
+.audit-dot.done{background:var(--teal);}
+.audit-dot.current{background:var(--gold);box-shadow:0 0 8px var(--gold-g);}
+
+/* ── CHECK SLOT ── */
+.check-slot{transition:background .3s;}
+.check-slot.done{background:var(--teal)!important;}
+.check-slot.active{background:var(--gold)!important;}
+
+/* ══════════════════════════════════
+   DESKTOP LAYOUT — 768px and above
+   Two-column shell, wider cards,
+   sidebar nav replaces bottom bar
+══════════════════════════════════ */
+@media(min-width:768px){
+  :root{
+    /* Larger type on desktop */
+    --ts-xs:12px;
+    --ts-sm:14px;
+    --ts-base:16px;
+    --ts-md:18px;
+    --ts-lg:24px;
+    --ts-xl:30px;
+    --ts-display:42px;
+    --mono-xs:10px;
+    --mono-sm:11px;
+    --mono-base:12px;
+    --side-pad:32px;
+  }
+
+  html,body{overflow:auto;}
+
+  /* App shell — two column on desktop */
+  #app{
+    flex-direction:row!important;
+    height:100vh;overflow:hidden;
+  }
+
+  /* Sidebar nav replaces bottom nav */
+  .bottom-nav{
+    display:flex!important;
+    flex-direction:column;
+    width:200px;min-width:200px;
+    border-top:none;border-right:1px solid var(--border);
+    padding:24px 12px;background:rgba(13,17,32,.98);
+    justify-content:flex-start;gap:4px;
+    overflow:hidden;flex-shrink:0;
+  }
+  .nav-item{
+    flex:none;flex-direction:row;justify-content:flex-start;
+    gap:12px;padding:12px 16px;border-radius:10px;
+    width:100%;
+  }
+  .nav-item:hover{background:var(--surface2);}
+  .nav-item.active{background:var(--gold-d);}
+  .nav-icon{font-size:16px;}
+  .nav-label{font-size:var(--mono-sm);letter-spacing:1px;}
+  .nav-item.active .nav-label{color:var(--gold);}
+
+  /* Main content area */
+  .screens-wrapper{
+    flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0;
+  }
+
+  /* Screens fill the right panel */
+  .screen{height:100%;overflow:hidden;}
+  .scroll-body{max-width:none;padding:28px 36px 80px;}
+
+  /* Topbar spans full width */
+  .topbar{padding:18px 32px;}
+
+  /* Cards — slightly more padding on desktop */
+  .card{padding:26px;margin-bottom:18px;}
+
+  /* Two-column grid for audit options on desktop */
+  #audit-options{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+
+  /* Score grid 2-up already good */
+  .score-grid{gap:16px;}
+
+  /* Center-screen overlays — wider on desktop */
+  .ob-inner{max-width:520px;}
+  .center-screen{padding:48px 40px;}
+
+  /* Stop panel wider */
+  .stop-panel{max-width:560px;}
+
+  /* Settings panel */
+  .settings-panel{max-width:520px;}
+
+  /* Toast higher on desktop (no bottom nav in the way) */
+  #toast{bottom:40px;}
+
+  /* Desire strip larger */
+  .desire-strip{padding:20px 26px;}
+  .desire-strip .dt{font-size:var(--ts-lg);}
+}
+
+/* ══════════════════════════════════
+   WIDE DESKTOP — 1100px+
+   Content gets comfortable max-width
+══════════════════════════════════ */
+@media(min-width:1100px){
+  .bottom-nav{width:220px;min-width:220px;}
+  .scroll-body{max-width:780px;}
+  .card{padding:30px;}
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════
+     SCREEN: AUTH
+══════════════════════════════ -->
+<div id="screen-auth" class="screen active" style="height:100vh;">
+  <div class="center-screen">
+    <div class="ob-inner" style="text-align:center;">
+
+      <div class="rings-anim">
+        <svg viewBox="0 0 100 100" fill="none">
+          <circle cx="50" cy="50" r="46" stroke="rgba(201,168,76,.15)" stroke-width="1"/>
+          <circle cx="50" cy="50" r="34" stroke="rgba(74,155,155,.2)" stroke-width="1"/>
+          <circle cx="50" cy="50" r="22" stroke="rgba(201,168,76,.3)" stroke-width="1"/>
+          <circle cx="50" cy="50" r="4" fill="#c9a84c" opacity=".8"/>
+          <g class="ra"><circle cx="50" cy="4" r="3" fill="#c9a84c"/></g>
+          <g class="rb"><circle cx="84" cy="50" r="2.5" fill="#4a9b9b"/></g>
+        </svg>
+      </div>
+
+      <div class="brand-title">Anti<em>Gravity</em></div>
+      <div class="brand-sub">Field Intelligence System</div>
+
+      <!-- DEMO BANNER -->
+      <div style="background:rgba(232,199,106,.06);border:1px solid rgba(232,199,106,.25);border-radius:12px;padding:14px 18px;margin-bottom:20px;text-align:left;">
+        <div style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2.5px;color:var(--stop);text-transform:uppercase;margin-bottom:6px;">✦ ANTIGRAVITY · DEMO MODE</div>
+        <div style="font-size:13px;color:var(--muted2);line-height:1.5;">Explore freely — no account, no API key needed. All features active. Your data stays in this browser session.</div>
+      </div>
+
+      <!-- HERO: DEMO BUTTON -->
+      <button class="btn btn-gold btn-full" style="padding:16px;font-size:11px;letter-spacing:3px;margin-bottom:12px;box-shadow:0 0 24px rgba(201,168,76,.15);" onclick="enterDemo()">
+        ⚡ Try Demo — Explore Freely →
+      </button>
+
+      <!-- API KEY for demo AI features -->
+      <div id="demo-api-row" style="margin-bottom:20px;">
+        <div style="font-size:11px;color:var(--muted);margin-bottom:8px;line-height:1.5;">Optional: add your Anthropic key to unlock AI insights in demo mode</div>
+        <div style="display:flex;gap:8px;">
+          <input class="field-input" id="demo-api-key" type="password" placeholder="sk-ant-api03-... (optional)" style="flex:1;font-size:12px;padding:9px 12px;">
+          <button class="btn btn-ghost btn-sm" onclick="setDemoApiKey()" style="white-space:nowrap;">Add Key</button>
+        </div>
+      </div>
+
+      <!-- DIVIDER -->
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:18px;">
+        <div style="flex:1;height:1px;background:var(--border);"></div>
+        <span style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:var(--muted);">OR SIGN IN</span>
+        <div style="flex:1;height:1px;background:var(--border);"></div>
+      </div>
+
+      <!-- COLLAPSED AUTH — secondary -->
+      <div id="auth-collapsed" style="display:block;">
+        <button class="btn btn-ghost btn-full btn-sm" onclick="toggleAuthExpand()" style="margin-bottom:10px;">
+          ◎ Sign In / Create Account
+        </button>
+      </div>
+
+      <div id="auth-expanded" style="display:none;">
+        <div class="auth-tabs" style="margin-bottom:16px;">
+          <div class="auth-tab active" id="auth-tab-login" onclick="switchAuthTab('login')">Sign In</div>
+          <div class="auth-tab" id="auth-tab-signup" onclick="switchAuthTab('signup')">Sign Up</div>
+        </div>
+
+        <div id="auth-login">
+          <div class="field-group">
+            <label class="field-label">Email</label>
+            <input class="field-input" id="auth-email" type="email" placeholder="you@email.com">
+          </div>
+          <div class="field-group">
+            <label class="field-label">Password</label>
+            <input class="field-input" id="auth-pass" type="password" placeholder="••••••••">
+          </div>
+          <div class="field-group">
+            <label class="field-label">Anthropic API Key</label>
+            <input class="field-input" id="api-key-input" type="password" placeholder="sk-ant-api03-...">
+          </div>
+          <button class="btn btn-gold btn-full" onclick="signIn()">Enter the Field →</button>
+          <div style="margin-top:10px;">
+            <button class="btn btn-ghost btn-full btn-sm" onclick="sendMagicLink()">✉ Magic Link</button>
+          </div>
+        </div>
+
+        <div id="auth-signup" style="display:none;">
+          <div class="field-group">
+            <label class="field-label">Email</label>
+            <input class="field-input" id="signup-email" type="email" placeholder="you@email.com">
+          </div>
+          <div class="field-group">
+            <label class="field-label">Password (min 6 chars)</label>
+            <input class="field-input" id="signup-pass" type="password" placeholder="••••••••">
+          </div>
+          <div class="field-group">
+            <label class="field-label">Anthropic API Key</label>
+            <input class="field-input" id="api-key-input-signup" type="password" placeholder="sk-ant-api03-...">
+          </div>
+          <button class="btn btn-gold btn-full" onclick="signUp()">Create Account →</button>
+        </div>
+
+        <div style="margin-top:10px;">
+          <button class="btn btn-ghost btn-full btn-sm" onclick="toggleAuthExpand()">← Back to Demo</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     SCREEN: ONBOARDING
+══════════════════════════════ -->
+<div id="screen-onboard" class="screen" style="height:100vh;">
+  <div class="center-screen" style="overflow-y:auto;">
+    <div class="ob-inner">
+      <div class="brand-title" style="margin-bottom:4px;">Anti<em>Gravity</em></div>
+      <div class="brand-sub">Map your gravitational field</div>
+      <div class="step-dots">
+        <div class="step-dot active" id="dot-0"></div>
+        <div class="step-dot" id="dot-1"></div>
+        <div class="step-dot" id="dot-2"></div>
+      </div>
+
+      <div class="onboard-step active" id="step-0">
+        <div class="step-title">Who are <em>you</em>?</div>
+        <div class="step-desc">This shapes every insight, Stop Signal, and Voice Coach message.</div>
+        <div class="field-group"><label class="field-label">First name</label><input class="field-input" id="ob-name" placeholder="Your name"></div>
+        <div class="field-group"><label class="field-label">Role</label><input class="field-input" id="ob-role" placeholder="e.g. Regional Sales Director"></div>
+        <div class="field-group"><label class="field-label">Sector</label>
+          <select class="field-select" id="ob-sector">
+            <option value="">Select...</option>
+            <option>Pharmaceutical / Healthcare</option><option>Financial Services</option>
+            <option>Technology</option><option>Consulting / Professional Services</option>
+            <option>Manufacturing / Industrial</option><option>Education / Academia</option>
+            <option>Government / Public Sector</option><option>Other</option>
+          </select>
+        </div>
+        <button class="btn btn-gold btn-full" onclick="nextStep(1)">Continue →</button>
+      </div>
+
+      <div class="onboard-step" id="step-1">
+        <div class="step-title">Your <em>Desired Orbit</em></div>
+        <div class="step-desc">What outcome are you moving toward? Be specific — this is the north star everything calibrates to.</div>
+        <div class="field-group">
+          <label class="field-label">"I want to be able to..."</label>
+          <textarea class="field-textarea" id="ob-orbit" placeholder="e.g. lead with authority in ambiguous situations — without waiting for certainty that will not come." style="min-height:90px;"></textarea>
+        </div>
+        <div class="field-group"><label class="field-label">What holds you back most?</label>
+          <select class="field-select" id="ob-block">
+            <option value="">Select...</option>
+            <option value="overthinking">Overthinking before acting</option>
+            <option value="reactivity">Emotional reactivity under pressure</option>
+            <option value="avoidance">Avoiding difficult conversations</option>
+            <option value="patterns">Repeating the same patterns</option>
+            <option value="authenticity">Gap between how I feel and how I present</option>
+            <option value="decisions">Difficulty deciding in ambiguity</option>
+          </select>
+        </div>
+        <div style="display:flex;gap:9px;">
+          <button class="btn btn-ghost" onclick="nextStep(0)">← Back</button>
+          <button class="btn btn-gold btn-full" onclick="nextStep(2)">Continue →</button>
+        </div>
+      </div>
+
+      <div class="onboard-step" id="step-2">
+        <div class="step-title">Rate your <em>Gravitational Field</em></div>
+        <div class="step-desc">How heavily does each domain pull on you right now? 1 = minimal · 10 = dominates your reactions.</div>
+        <div class="slider-row"><span class="slider-label think-c">Thinking</span><input type="range" min="1" max="10" value="5" id="sl-think" oninput="document.getElementById('sv-think').textContent=this.value"><span class="slider-val think-c" id="sv-think">5</span></div>
+        <div class="slider-row"><span class="slider-label emot-c">Emotional</span><input type="range" min="1" max="10" value="5" id="sl-emot" oninput="document.getElementById('sv-emot').textContent=this.value"><span class="slider-val emot-c" id="sv-emot">5</span></div>
+        <div class="slider-row"><span class="slider-label behav-c">Behavioral</span><input type="range" min="1" max="10" value="5" id="sl-behav" oninput="document.getElementById('sv-behav').textContent=this.value"><span class="slider-val behav-c" id="sv-behav">5</span></div>
+        <div class="slider-row"><span class="slider-label body-cc">Physical</span><input type="range" min="1" max="10" value="5" id="sl-body" oninput="document.getElementById('sv-body').textContent=this.value"><span class="slider-val body-cc" id="sv-body">5</span></div>
+        <br>
+        <div style="display:flex;gap:9px;">
+          <button class="btn btn-ghost" onclick="nextStep(1)">← Back</button>
+          <button class="btn btn-gold btn-full" onclick="completeOnboarding()">Enter Field →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STOP SIGNAL OVERLAY -->
+<div id="stop-overlay">
+  <div class="stop-panel">
+    <div class="stop-header">
+      <div class="stop-icon">⚡</div>
+      <div><div class="stop-meta">AntiGravity · Stop Signal</div><div class="stop-time" id="stop-time"></div></div>
+    </div>
+    <div class="stop-question" id="stop-question">"Loading..."</div>
+    <div class="stop-domain" id="stop-domain"></div>
+    <div class="stop-actions">
+      <button class="btn btn-gold btn-sm" onclick="logFromStop()">Log this moment</button>
+      <button class="btn btn-ghost btn-sm" onclick="dismissStop()">Dismiss</button>
+    </div>
+  </div>
+</div>
+
+<!-- USER MENU -->
+<div id="user-menu">
+  <div class="menu-user" id="menu-email-display"></div>
+  <div class="menu-divider"></div>
+  <div class="menu-item" onclick="openSettings()">⚙ Settings & API Key</div>
+  <div class="menu-item" onclick="showStopSignal()">⚡ Trigger Stop Signal</div>
+  <div class="menu-divider"></div>
+  <div class="menu-item danger" onclick="signOut()">↩ Sign Out</div>
+</div>
+
+<!-- SETTINGS OVERLAY -->
+<div id="settings-overlay">
+  <div class="settings-panel">
+    <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;margin-bottom:18px;">Settings</div>
+    <div class="field-group">
+      <label class="field-label">Anthropic API Key</label>
+      <input class="field-input" id="settings-api-key" type="password" placeholder="sk-ant-api03-...">
+      <div style="font-size:11px;color:var(--muted);margin-top:5px;">Kept in memory. Re-enter each session.</div>
+    </div>
+    <div class="field-group">
+      <label class="field-label">Desired Orbit</label>
+      <textarea class="field-textarea" id="settings-orbit" style="min-height:70px;"></textarea>
+    </div>
+    <div style="display:flex;gap:9px;margin-top:4px;">
+      <button class="btn btn-gold" onclick="saveSettings()">Save</button>
+      <button class="btn btn-ghost" onclick="closeSettings()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div id="toast"></div>
+
+<!-- ══════════════════════════════
+     MAIN APP
+══════════════════════════════ -->
+<div id="app" style="display:none;flex-direction:column;height:100%;overflow:hidden;flex:1;">
+
+  <div class="topbar">
+    <div class="topbar-logo">Anti<em>Gravity</em></div>
+    <div class="topbar-right">
+      <div id="demo-topbar-badge" style="display:none;align-items:center;gap:6px;background:rgba(232,199,106,.08);border:1px solid rgba(232,199,106,.25);border-radius:10px;padding:4px 10px;cursor:pointer;" onclick="showToast('Demo mode — add an API key in the menu for AI features')">
+        <span style="font-size:var(--mono-sm);">✦</span>
+        <span style="font-family:'Space Mono',monospace;font-size:var(--mono-xs);letter-spacing:1.5px;color:var(--stop);text-transform:uppercase;">Demo</span>
+      </div>
+      <div class="stop-badge" onclick="showStopSignal()">⚡ Stop</div>
+      <div class="mode-pill">
+        <button class="mode-btn active" id="mode-field" onclick="goTo('field')">Field</button>
+        <button class="mode-btn" id="mode-mirror" onclick="goTo('mirror')">Mirror</button>
+      </div>
+      <div class="user-dot" id="user-dot-btn" onclick="toggleUserMenu()">?</div>
+    </div>
+  </div>
+
+  <div class="bottom-nav">
+    <button class="nav-item active" id="nav-field" onclick="goTo('field')"><span class="nav-icon">◎</span><span class="nav-label">Field</span></button>
+    <button class="nav-item" id="nav-mirror" onclick="goTo('mirror')"><span class="nav-icon">◈</span><span class="nav-label">Mirror</span></button>
+    <button class="nav-item" id="nav-audit" onclick="goTo('audit')"><span class="nav-icon">◉</span><span class="nav-label">Audit</span></button>
+    <button class="nav-item" id="nav-check" onclick="goTo('check')"><span class="nav-icon">⚡</span><span class="nav-label">Check</span></button>
+    <button class="nav-item" id="nav-dash" onclick="goTo('dash')"><span class="nav-icon">⊙</span><span class="nav-label">Report</span></button>
+  </div>
+
+  <div class="screens-wrapper">
+
+  <!-- ── FIELD MODE ── -->
+  <div id="screen-field" class="screen active" style="flex:1;">
+    <div class="scroll-body">
+      <div class="desire-strip"><div class="dl">↑ Your Desired Orbit</div><div class="dt" id="field-orbit"></div></div>
+
+      <div class="card">
+        <div class="card-label">◈ Capture a Field Moment</div>
+        <div class="field-group"><label class="field-label">What triggered this?</label><input class="field-input" id="f-trigger" placeholder="A meeting, a person, a thought..."></div>
+        <div class="field-group"><label class="field-label">Emotion present</label>
+          <select class="field-select" id="f-emotion">
+            <option value="">Select...</option>
+            <option>Frustration</option><option>Anxiety</option><option>Clarity</option>
+            <option>Anger</option><option>Overwhelm</option><option>Confidence</option>
+            <option>Impatience</option><option>Avoidance</option><option>Enthusiasm</option>
+            <option>Uncertainty</option><option>Resignation</option><option>Focus</option>
+          </select>
+        </div>
+        <div class="field-group"><label class="field-label">Thought in the background</label><textarea class="field-textarea" id="f-thought" placeholder="What's running in your mind..." style="min-height:68px;"></textarea></div>
+        <button class="btn btn-gold btn-full" id="analyze-btn" onclick="analyzeMoment()">Analyze this moment →</button>
+        <div id="moment-analysis" style="display:none;"></div>
+      </div>
+
+      <div class="card">
+        <div class="card-label">◈ Today's Field Log</div>
+        <div id="moments-log"><div class="empty"><span class="empty-icon">○</span><div class="empty-text">No moments captured yet.</div></div></div>
+      </div>
+
+      <div class="card" id="domain-summary-card" style="display:none;">
+        <div class="card-label">◈ Field Gravity — This Session</div>
+        <div id="domain-bars"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── MIRROR MODE ── -->
+  <div id="screen-mirror" class="screen" style="flex:1;">
+    <div class="scroll-body">
+      <div class="desire-strip"><div class="dl">↑ Your Desired Orbit</div><div class="dt" id="mirror-orbit"></div></div>
+
+      <div class="card">
+        <div class="card-label">◈ Voice Session — Speak Freely</div>
+        <div style="font-size:13px;color:var(--muted2);margin-bottom:14px;line-height:1.6;">Speak about a significant interaction for 60–90 seconds. Don't prepare. The system reads your language patterns, not your facts.</div>
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
+          <div class="waveform paused" id="waveform">
+            <div class="wbar" style="--d:.5s;height:34px"></div><div class="wbar" style="--d:.8s;height:34px"></div>
+            <div class="wbar" style="--d:.6s;height:34px"></div><div class="wbar" style="--d:.9s;height:34px"></div>
+            <div class="wbar" style="--d:.4s;height:34px"></div><div class="wbar" style="--d:.7s;height:34px"></div>
+            <div class="wbar" style="--d:.5s;height:34px"></div><div class="wbar" style="--d:1s;height:34px"></div>
+            <div class="wbar" style="--d:.6s;height:34px"></div><div class="wbar" style="--d:.8s;height:34px"></div>
+          </div>
+          <div style="font-family:'Space Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:2px;" id="rec-status">READY</div>
+        </div>
+        <textarea class="field-textarea" id="voice-transcript" placeholder="Your speech will appear here — or type directly..." style="min-height:90px;margin-bottom:13px;"></textarea>
+        <div style="display:flex;gap:9px;flex-wrap:wrap;">
+          <button class="btn btn-voice" id="rec-btn" onclick="toggleRecording()">🎙 Record</button>
+          <button class="btn btn-teal btn-full" id="mirror-btn" onclick="analyzeVoice()">Analyse Voice →</button>
+        </div>
+      </div>
+
+      <div id="voice-output" style="display:none;">
+        <div class="score-grid">
+          <div class="score-card">
+            <div class="mini-ring"><svg viewBox="0 0 80 80"><circle class="ring-trk" cx="40" cy="40" r="35"/><circle class="ring-fil" id="grav-arc" cx="40" cy="40" r="35" style="stroke:var(--teal);stroke-dashoffset:220;"/></svg><div class="ring-inner"><div class="ring-n" id="grav-num" style="color:var(--teal)">—</div><div class="ring-u">/10</div></div></div>
+            <div><div style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:4px;">Gravity Score™</div><div style="font-size:12px;color:var(--muted2);line-height:1.5;" id="grav-desc">Field weight in your language.</div></div>
+          </div>
+          <div class="score-card">
+            <div class="mini-ring"><svg viewBox="0 0 80 80"><circle class="ring-trk" cx="40" cy="40" r="35"/><circle class="ring-fil" id="mask-arc" cx="40" cy="40" r="35" style="stroke:var(--emot);stroke-dashoffset:220;"/></svg><div class="ring-inner"><div class="ring-n" id="mask-num" style="color:var(--emot)">—</div><div class="ring-u">/100</div></div></div>
+            <div><div style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:4px;">Mask Score™</div><div style="font-size:12px;color:var(--muted2);line-height:1.5;" id="mask-desc">Authenticity gap.</div></div>
+          </div>
+        </div>
+        <div class="card"><div class="card-label">◈ Gravity Signature</div><div id="pattern-tags"></div><div id="pattern-detail" class="ai-block" style="margin-top:10px;display:none;"></div></div>
+        <div id="coach-section"></div>
+        <div class="card"><div class="card-label">◈ Voice Letter</div><div id="voice-letter-content"><button class="btn btn-gold btn-full" onclick="generateVoiceLetter()">Generate Voice Letter →</button></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── DASHBOARD ── -->
+  <div id="screen-dash" class="screen" style="flex:1;">
+    <div class="scroll-body">
+      <div class="desire-strip"><div class="dl">↑ Your Desired Orbit</div><div class="dt" id="dash-orbit"></div></div>
+      <div class="tab-bar">
+        <button class="tab-btn active" onclick="showTab('tab-field',this)">Field Map</button>
+        <button class="tab-btn" onclick="showTab('tab-mass',this)">Mass Layers</button>
+        <button class="tab-btn" onclick="showTab('tab-trend',this)">Trend</button>
+        <button class="tab-btn" onclick="showTab('tab-report',this)">Report</button>
+      </div>
+      <div id="tab-field" class="tab-pane active">
+        <div class="card"><div class="card-label">◈ Gravitational Field — All Time</div><div id="dash-domains"><div class="empty"><span class="empty-icon">◯</span><div class="empty-text">Capture moments to build your field map.</div></div></div></div>
+        <div class="card" id="dash-voice-card" style="display:none;"><div class="card-label">◈ Voice Field — Latest Session</div><div id="dash-voice-summary"></div></div>
+      </div>
+      <div id="tab-mass" class="tab-pane">
+        <div class="card"><div class="card-label">◈ Mass Layers — Operating Modes</div><div id="dash-personas"><div class="empty"><span class="empty-icon">◯</span><div class="empty-text">Persona distribution appears after 3+ moments.</div></div></div></div>
+      </div>
+      <div id="tab-trend" class="tab-pane">
+        <div class="card"><div class="card-label">◈ Gravity Trend — Last 7 Sessions</div><div id="dash-trend"><div class="empty"><span class="empty-icon">◯</span><div class="empty-text">Run voice sessions to see your gravity trend over time.</div></div></div></div>
+      </div>
+      <div id="tab-report" class="tab-pane">
+        <div id="full-report-container">
+          <div class="empty" style="padding:28px 16px;"><span class="empty-icon">◯</span><div class="empty-text" style="margin-bottom:14px;">Generates from all your captured moments and voice sessions.</div><button class="btn btn-gold" onclick="generateFullReport()">Generate Field Report →</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── GRAVITY AUDIT SCREEN ── -->
+  <div id="screen-audit" class="screen" style="flex:1;">
+    <div class="scroll-body">
+      <div class="desire-strip"><div class="dl">↑ Your Desired Orbit</div><div class="dt" id="audit-orbit"></div></div>
+
+      <div class="card" id="audit-intro-card">
+        <div class="card-label">◈ Gravity Audit</div>
+        <div style="font-size:13px;color:var(--muted2);margin-bottom:16px;line-height:1.7;">8 questions drawn from a pool of 23 — a different set each session, guaranteed coverage across all 6 gravitational domains. Takes 2–3 minutes. Retake weekly to track field movement.</div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:18px;" id="audit-domain-bars-preview"></div>
+        <button class="btn btn-gold btn-full" onclick="startAudit()">Begin Gravity Audit →</button>
+        <div id="audit-history-strip" style="margin-top:14px;"></div>
+      </div>
+
+      <div id="audit-active" style="display:none;">
+        <div class="card">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+            <div style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;" id="audit-progress-label">Question 1 of 8</div>
+            <div style="display:flex;gap:4px;" id="audit-dots"></div>
+          </div>
+          <div style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;margin-bottom:8px;text-transform:uppercase;" id="audit-domain-badge"></div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;line-height:1.4;color:var(--star);margin-bottom:6px;" id="audit-question"></div>
+          <div style="font-size:12px;color:var(--muted);font-style:italic;margin-bottom:18px;" id="audit-sub"></div>
+          <div style="display:flex;flex-direction:column;gap:8px;" id="audit-options"></div>
+        </div>
+      </div>
+
+      <div id="audit-result" style="display:none;">
+        <div class="card">
+          <div class="card-label">◈ Orbit Diagnosis</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:300;line-height:1.6;color:var(--star);margin-bottom:14px;" id="audit-verdict"></div>
+          <div id="audit-result-bars" style="margin-bottom:16px;"></div>
+          <div id="audit-dominant-insight" style="background:var(--gold-d);border:1px solid rgba(201,168,76,.2);border-radius:10px;padding:14px;margin-bottom:14px;font-size:13px;color:var(--muted2);line-height:1.6;"></div>
+          <div style="display:flex;gap:9px;">
+            <button class="btn btn-gold" onclick="startAudit()">Retake →</button>
+            <button class="btn btn-ghost" onclick="goTo('field')">Back to Field</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── DAILY CHECK SCREEN ── -->
+  <div id="screen-check" class="screen" style="flex:1;">
+    <div class="scroll-body">
+      <div class="desire-strip"><div class="dl">↑ Your Desired Orbit</div><div class="dt" id="check-orbit"></div></div>
+
+      <div class="card">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+          <div class="card-label" style="margin:0;">◈ Daily Gravity Check</div>
+          <div style="font-family:'Space Mono',monospace;font-size:8px;color:var(--muted);letter-spacing:1.5px;" id="check-count-label">0 / 7 today</div>
+        </div>
+        <div style="display:flex;gap:6px;margin-bottom:18px;" id="check-timeline">
+          <div class="check-slot" style="flex:1;height:4px;border-radius:2px;background:var(--border2);"></div>
+          <div class="check-slot" style="flex:1;height:4px;border-radius:2px;background:var(--border2);"></div>
+          <div class="check-slot" style="flex:1;height:4px;border-radius:2px;background:var(--border2);"></div>
+          <div class="check-slot" style="flex:1;height:4px;border-radius:2px;background:var(--border2);"></div>
+          <div class="check-slot" style="flex:1;height:4px;border-radius:2px;background:var(--border2);"></div>
+          <div class="check-slot" style="flex:1;height:4px;border-radius:2px;background:var(--border2);"></div>
+          <div class="check-slot" style="flex:1;height:4px;border-radius:2px;background:var(--border2);"></div>
+        </div>
+
+        <div style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;" id="check-cat-badge"></div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:300;line-height:1.4;color:var(--star);margin-bottom:6px;" id="check-question-main"></div>
+        <div style="font-size:12px;color:var(--muted);font-style:italic;margin-bottom:14px;" id="check-question-sub"></div>
+
+        <textarea class="field-textarea" id="check-response" placeholder="Answer honestly — the AI reads your pattern, not just your words..." style="min-height:80px;margin-bottom:12px;"></textarea>
+
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <button class="btn btn-gold" id="check-submit-btn" onclick="submitCheck()">Reflect →</button>
+          <button class="btn btn-ghost btn-sm" onclick="shuffleCheck()">↻ Different question</button>
+          <button class="btn btn-ghost btn-sm" onclick="speakCheckQuestion()">🔊 Hear question</button>
+        </div>
+
+        <div id="check-reflection" style="display:none;margin-top:14px;"></div>
+      </div>
+
+      <div class="card" id="check-log-card" style="display:none;">
+        <div class="card-label">◈ Today's Check Log</div>
+        <div id="check-log"></div>
+      </div>
+    </div>
+  </div>
+
+  </div><!-- /screens-wrapper -->
+</div>
+
+<script>
+'use strict';
+
+/* ═══ CONFIG — PASTE YOUR SUPABASE CREDENTIALS HERE ═══ */
+const SUPABASE_URL  = 'https://YOUR_PROJECT.supabase.co';
+const SUPABASE_ANON = 'YOUR_ANON_PUBLIC_KEY';
+/* ═══════════════════════════════════════════════════════ */
+
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+
+const S = {
+  apiKey: '',
+  isDemoMode: false,
+  user: null,
+  profile: {name:'',role:'',sector:'',orbit:'',block:'',domains:{think:5,emot:5,behav:5,body:5}},
+  moments: [],
+  voiceSessions: [],
+  currentRecording: false,
+  recognition: null,
+  stopTimer: null,
+  ttsVoices: []
+};
+
+/* ═══════════════════════════════
+   INIT — check existing session
+═══════════════════════════════ */
+async function init(){
+  const { data: { session } } = await sb.auth.getSession();
+  if(session){
+    S.user = session.user;
+    await loadUserData();
+  }
+  // Listen for auth changes
+  sb.auth.onAuthStateChange(async (event, session) => {
+    if(event === 'SIGNED_IN' && session){
+      S.user = session.user;
+      await loadUserData();
+    }
+    if(event === 'SIGNED_OUT'){
+      S.user = null;
+      S.profile = {name:'',role:'',sector:'',orbit:'',block:'',domains:{think:5,emot:5,behav:5,body:5}};
+      S.moments = []; S.voiceSessions = [];
+      showScreen('auth');
+    }
+  });
+}
+
+async function loadUserData(){
+  // Load profile
+  const { data: prof } = await sb.from('profiles').select('*').eq('id', S.user.id).single();
+  if(prof && prof.onboarded){
+    S.profile = {
+      name: prof.name, role: prof.role, sector: prof.sector,
+      orbit: prof.orbit, block: prof.block,
+      domains: {think:prof.domain_think,emot:prof.domain_emot,behav:prof.domain_behav,body:prof.domain_body}
+    };
+    // Load moments (last 50)
+    const { data: moments } = await sb.from('moments').select('*').eq('user_id',S.user.id).order('created_at',{ascending:false}).limit(50);
+    S.moments = (moments||[]).map(m=>({...m, time:new Date(m.created_at).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})}));
+    // Load voice sessions (last 20)
+    const { data: vsess } = await sb.from('voice_sessions').select('*').eq('user_id',S.user.id).order('created_at',{ascending:false}).limit(20);
+    S.voiceSessions = (vsess||[]).map(v=>({...v, time:new Date(v.created_at).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})}));
+    // Enter app
+    enterApp();
+  } else {
+    // New user — show onboarding
+    showScreen('onboard');
+  }
+}
+
+/* ═══════════════════════════════
+   AUTH
+═══════════════════════════════ */
+function switchAuthTab(tab){
+  document.getElementById('auth-tab-login').classList.toggle('active', tab==='login');
+  document.getElementById('auth-tab-signup').classList.toggle('active', tab==='signup');
+  document.getElementById('auth-login').style.display = tab==='login' ? 'block' : 'none';
+  document.getElementById('auth-signup').style.display = tab==='signup' ? 'block' : 'none';
+}
+
+async function signIn(){
+  const email = document.getElementById('auth-email').value.trim();
+  const pass  = document.getElementById('auth-pass').value;
+  const key   = document.getElementById('api-key-input').value.trim();
+  if(!email||!pass){showToast('Enter email and password');return;}
+  if(!key||!key.startsWith('sk-')){showToast('Enter your Anthropic API key');return;}
+  S.apiKey = key;
+  const { error } = await sb.auth.signInWithPassword({email, password:pass});
+  if(error) showToast(error.message);
+}
+
+async function signUp(){
+  const email = document.getElementById('signup-email').value.trim();
+  const pass  = document.getElementById('signup-pass').value;
+  const key   = document.getElementById('api-key-input').value.trim();
+  if(!email||!pass){showToast('Enter email and password');return;}
+  if(pass.length < 6){showToast('Password must be at least 6 characters');return;}
+  if(!key||!key.startsWith('sk-')){showToast('Enter your Anthropic API key');return;}
+  S.apiKey = key;
+  const { error } = await sb.auth.signUp({email, password:pass});
+  if(error) showToast(error.message);
+  else showToast('Account created! Check your email to confirm.');
+}
+
+async function sendMagicLink(){
+  const email = document.getElementById('auth-email').value.trim();
+  if(!email){showToast('Enter your email first');return;}
+  const key = document.getElementById('api-key-input').value.trim();
+  if(!key||!key.startsWith('sk-')){showToast('Enter your Anthropic API key');return;}
+  S.apiKey = key;
+  const { error } = await sb.auth.signInWithOtp({email});
+  if(error) showToast(error.message);
+  else showToast('Magic link sent — check your inbox.');
+}
+
+async function signOut(){
+  stopSpeech();
+  if(S.stopTimer) clearTimeout(S.stopTimer);
+  if(!S.isDemoMode) await sb.auth.signOut();
+  S.isDemoMode=false; S.user=null;
+  S.moments=[]; S.voiceSessions=[];
+  closeUserMenu(); closeSettings();
+  document.getElementById('app').style.display='none';
+  const db=document.getElementById('demo-topbar-badge');
+  if(db) db.style.display='none';
+  showScreen('auth');
+  showToast(S.isDemoMode?'Demo ended':'Signed out.');
+}
+
+/* ═══════════════════════════════
+   ONBOARDING
+═══════════════════════════════ */
+let currentStep = 0;
+function nextStep(to){
+  if(to===1){
+    const n=document.getElementById('ob-name').value.trim();
+    if(!n){showToast('Enter your name');return;}
+    S.profile.name=n; S.profile.role=document.getElementById('ob-role').value.trim();
+    S.profile.sector=document.getElementById('ob-sector').value;
+  }
+  if(to===2){
+    const o=document.getElementById('ob-orbit').value.trim();
+    if(!o){showToast('Describe your desired orbit');return;}
+    S.profile.orbit=o; S.profile.block=document.getElementById('ob-block').value;
+  }
+  document.getElementById('step-'+currentStep).classList.remove('active');
+  document.getElementById('dot-'+currentStep).classList.remove('active');
+  document.getElementById('dot-'+currentStep).classList.add('done');
+  currentStep=to;
+  document.getElementById('step-'+currentStep).classList.add('active');
+  document.getElementById('dot-'+currentStep).classList.add('active');
+}
+
+async function completeOnboarding(){
+  S.profile.domains={
+    think:parseInt(document.getElementById('sl-think').value),
+    emot:parseInt(document.getElementById('sl-emot').value),
+    behav:parseInt(document.getElementById('sl-behav').value),
+    body:parseInt(document.getElementById('sl-body').value)
+  };
+  // Save to Supabase
+  const { error } = await sb.from('profiles').upsert({
+    id: S.user.id,
+    name: S.profile.name, role: S.profile.role, sector: S.profile.sector,
+    orbit: S.profile.orbit, block: S.profile.block,
+    domain_think: S.profile.domains.think, domain_emot: S.profile.domains.emot,
+    domain_behav: S.profile.domains.behav, domain_body: S.profile.domains.body,
+    onboarded: true
+  });
+  if(error){showToast('Save error: '+error.message);return;}
+  enterApp();
+}
+
+function enterApp(){
+  setOrbitTexts();
+  setUserDot();
+  document.getElementById('screen-onboard').style.display='none';
+  document.getElementById('screen-auth').style.display='none';
+  document.getElementById('app').style.display='flex';
+  if(S.isDemoMode){
+    const b=document.getElementById('demo-topbar-badge');
+    if(b) b.style.display='flex';
+    const em=document.getElementById('menu-email-display');
+    if(em) em.textContent='DEMO MODE · No account';
+  }
+  goTo('field');
+  refreshMomentLog();
+  refreshDomainBars();
+  scheduleStopSignal();
+  loadVoices();
+  showToast(S.isDemoMode?'✦ Demo mode — explore freely':'Welcome back, '+S.profile.name);
+}
+
+function setOrbitTexts(){
+  ['field','mirror','dash','audit','check'].forEach(k=>{
+    const el=document.getElementById(k+'-orbit');
+    if(el) el.textContent=S.profile.orbit;
+  });
+}
+
+function setUserDot(){
+  const el=document.getElementById('user-dot-btn');
+  if(el) el.textContent=(S.profile.name||'?')[0].toUpperCase();
+  const em=document.getElementById('menu-email-display');
+  if(em) em.textContent=S.user?.email||'';
+}
+
+/* ═══════════════════════════════
+   NAVIGATION
+═══════════════════════════════ */
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  const el=document.getElementById('screen-'+id);
+  if(el) el.classList.add('active');
+}
+
+function goTo(mode){
+  ['field','mirror','audit','check','dash'].forEach(m=>{
+    document.getElementById('screen-'+m)?.classList.remove('active');
+    document.getElementById('nav-'+m)?.classList.remove('active');
+    document.getElementById('mode-'+m)?.classList.remove('active');
+  });
+  document.getElementById('screen-'+mode)?.classList.add('active');
+  document.getElementById('nav-'+mode)?.classList.add('active');
+  if(mode==='field'||mode==='mirror') document.getElementById('mode-'+mode)?.classList.add('active');
+  if(mode==='dash') refreshDashboard();
+  if(mode==='check') initCheck();
+  closeUserMenu();
+}
+
+function showTab(id, btn){
+  document.querySelectorAll('.tab-pane').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id)?.classList.add('active');
+  btn?.classList.add('active');
+}
+
+function toggleUserMenu(){
+  document.getElementById('user-menu').classList.toggle('show');
+}
+function closeUserMenu(){
+  document.getElementById('user-menu').classList.remove('show');
+}
+document.addEventListener('click', e=>{
+  if(!e.target.closest('#user-menu')&&!e.target.closest('#user-dot-btn')) closeUserMenu();
+});
+
+function openSettings(){
+  closeUserMenu();
+  document.getElementById('settings-api-key').value = S.apiKey ? '••••••••' : '';
+  document.getElementById('settings-orbit').value = S.profile.orbit;
+  document.getElementById('settings-overlay').classList.add('show');
+}
+function closeSettings(){document.getElementById('settings-overlay').classList.remove('show');}
+async function saveSettings(){
+  const k=document.getElementById('settings-api-key').value.trim();
+  if(k && k!=='••••••••' && k.startsWith('sk-')) S.apiKey=k;
+  const o=document.getElementById('settings-orbit').value.trim();
+  if(o && o!==S.profile.orbit){
+    S.profile.orbit=o;
+    await sb.from('profiles').update({orbit:o}).eq('id',S.user.id);
+    setOrbitTexts();
+  }
+  closeSettings();
+  showToast('Settings saved');
+}
+
+/* ═══════════════════════════════
+   ANTHROPIC API
+═══════════════════════════════ */
+async function callClaude(sys, user, maxTok=600){
+  if(!S.apiKey){showToast('Enter your API key in Settings');throw new Error('No API key');}
+  const res = await fetch('https://api.anthropic.com/v1/messages',{
+    method:'POST',
+    headers:{'Content-Type':'application/json','x-api-key':S.apiKey,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
+    body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:maxTok,system:sys,messages:[{role:'user',content:user}]})
+  });
+  if(!res.ok){const e=await res.json();throw new Error(e.error?.message||'API error '+res.status);}
+  return (await res.json()).content[0].text;
+}
+
+/* ═══════════════════════════════
+   FIELD MODE
+═══════════════════════════════ */
+async function analyzeMoment(){
+  const trigger=document.getElementById('f-trigger').value.trim();
+  const emotion=document.getElementById('f-emotion').value;
+  const thought=document.getElementById('f-thought').value.trim();
+  if(!trigger||!emotion||!thought){showToast('Fill all three fields');return;}
+  const btn=document.getElementById('analyze-btn');
+  btn.disabled=true; btn.innerHTML='<span class="loading-dots"><span></span><span></span><span></span></span>';
+  const div=document.getElementById('moment-analysis');
+  div.style.display='block';
+  div.innerHTML='<div class="ai-block"><div class="ai-label">◈ Analyzing</div><div class="ai-text"><span class="loading-dots"><span></span><span></span><span></span></span></div></div>';
+  const sys=`You are the AntiGravity Field Intelligence System — psychology-based coaching AI using Newton's gravitational metaphor. Domains: Thinking Mass, Emotional Mass, Behavioral Mass, Physical Mass. Personas: Analyst, Achiever, Avoider, Pleaser, Rebel, Controller. Profile: Name=${S.profile.name}, Role=${S.profile.role}, Sector=${S.profile.sector}, Orbit="${S.profile.orbit}", Block=${S.profile.block}. JSON only, no markdown fences: {"insight":"2-3 sharp specific sentences","persona":"Analyst|Achiever|Avoider|Pleaser|Rebel|Controller","domain":"Thinking|Emotional|Behavioral|Physical","stop_signal":"one pointed question under 15 words","desire_link":"one sentence linking to Desired Orbit"}`;
+  try{
+    const raw=await callClaude(sys,`Trigger:"${trigger}"\nEmotion:${emotion}\nThought:"${thought}"`,400);
+    let r; try{r=JSON.parse(raw);}catch{r={insight:raw,persona:'Analyst',domain:'Thinking',stop_signal:"What's the real question here?",desire_link:'This pattern is between you and your orbit.'};}
+    // Save to Supabase
+    let saved;
+    if(S.isDemoMode){
+      saved={id:'m'+Date.now(),user_id:'demo-user',trigger,emotion,thought,insight:r.insight,persona:r.persona,domain:r.domain,stop_signal:r.stop_signal,desire_link:r.desire_link,created_at:new Date().toISOString()};
+    } else {
+      const {data:_s}=await sb.from('moments').insert({
+      user_id:S.user.id, trigger, emotion, thought,
+      insight:r.insight, persona:r.persona, domain:r.domain,
+      stop_signal:r.stop_signal, desire_link:r.desire_link
+    }).select().single();
+      saved=_s;
+    }
+    const m={...saved, time:new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})};
+    S.moments.unshift(m);
+    div.innerHTML=`<div class="ai-block"><div class="ai-label">◈ Field Reading · ${r.domain} · ${r.persona}</div><div class="ai-text">${r.insight}</div><div style="margin-top:11px;padding:10px 13px;background:var(--stop-d);border:1px solid rgba(232,199,106,.2);border-radius:8px;"><div style="font-family:'Space Mono',monospace;font-size:7px;letter-spacing:2px;color:var(--stop);margin-bottom:4px;">⚡ STOP SIGNAL</div><div style="font-style:italic;color:var(--star);font-size:13px;">"${r.stop_signal}"</div></div><div style="margin-top:9px;font-size:12px;color:var(--gold);font-style:italic;border-top:1px solid var(--border);padding-top:9px;">↑ ${r.desire_link}</div></div>`;
+    document.getElementById('f-trigger').value='';
+    document.getElementById('f-emotion').value='';
+    document.getElementById('f-thought').value='';
+    refreshMomentLog(); refreshDomainBars();
+  }catch(e){div.innerHTML=`<div class="ai-block"><div class="ai-label">Error</div><div class="ai-text" style="color:var(--emot);">${e.message}</div></div>`;}
+  btn.disabled=false; btn.innerHTML='Analyze this moment →';
+}
+
+function refreshMomentLog(){
+  const el=document.getElementById('moments-log');
+  if(!S.moments.length){el.innerHTML='<div class="empty"><span class="empty-icon">○</span><div class="empty-text">No moments captured yet.</div></div>';return;}
+  el.innerHTML=S.moments.slice(0,6).map(m=>`<div class="moment-entry"><div class="moment-time">${m.time||''}</div><div class="moment-persona">${m.persona||''} · ${m.domain||''}</div><div class="moment-text">${m.insight||''}</div></div>`).join('');
+}
+
+function refreshDomainBars(){
+  if(!S.moments.length) return;
+  document.getElementById('domain-summary-card').style.display='block';
+  const counts={Thinking:0,Emotional:0,Behavioral:0,Physical:0};
+  S.moments.forEach(m=>{if(counts[m.domain]!==undefined)counts[m.domain]++;});
+  const total=S.moments.length;
+  const d=S.profile.domains;
+  const doms=[{k:'Thinking',base:d.think,col:'think-c',bar:'think-b'},{k:'Emotional',base:d.emot,col:'emot-c',bar:'emot-b'},{k:'Behavioral',base:d.behav,col:'behav-c',bar:'behav-b'},{k:'Physical',base:d.body,col:'body-cc',bar:'body-b'}];
+  document.getElementById('domain-bars').innerHTML=doms.map(x=>{
+    const score=Math.min(10,(x.base+(counts[x.k]/Math.max(total,1))*3)).toFixed(1);
+    return `<div class="domain-row"><div class="domain-hd"><span class="domain-name ${x.col}">${x.k} Mass</span><span class="domain-score ${x.col}">${score}</span></div><div class="bar-track"><div class="bar-fill ${x.bar}" style="width:${score*10}%"></div></div></div>`;
+  }).join('');
+}
+
+/* ═══════════════════════════════
+   MIRROR MODE
+═══════════════════════════════ */
+function toggleRecording(){if(S.currentRecording)stopRecording();else startRecording();}
+function startRecording(){
+  if(!('webkitSpeechRecognition' in window||'SpeechRecognition' in window)){showToast('Type your transcript directly');return;}
+  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  S.recognition=new SR(); S.recognition.continuous=true; S.recognition.interimResults=true; S.recognition.lang='en-US';
+  let final=document.getElementById('voice-transcript').value;
+  S.recognition.onresult=e=>{let interim='';for(let i=e.resultIndex;i<e.results.length;i++){if(e.results[i].isFinal)final+=e.results[i][0].transcript+' ';else interim+=e.results[i][0].transcript;}document.getElementById('voice-transcript').value=final+interim;};
+  S.recognition.onerror=()=>{showToast('Mic access needed — or type directly');stopRecording();};
+  S.recognition.start(); S.currentRecording=true;
+  document.getElementById('waveform').classList.remove('paused');
+  document.getElementById('rec-status').textContent='● RECORDING';
+  const rb=document.getElementById('rec-btn'); rb.textContent='⏹ Stop'; rb.style.cssText='background:rgba(224,123,123,.15);border-color:rgba(224,123,123,.4);color:var(--emot);';
+}
+function stopRecording(){
+  if(S.recognition){S.recognition.stop();S.recognition=null;}
+  S.currentRecording=false;
+  document.getElementById('waveform').classList.add('paused');
+  document.getElementById('rec-status').textContent='CAPTURED';
+  const rb=document.getElementById('rec-btn'); rb.textContent='🎙 Record Again'; rb.style.cssText='';
+}
+
+async function analyzeVoice(){
+  const transcript=document.getElementById('voice-transcript').value.trim();
+  if(transcript.length<30){showToast('Speak or type more first');return;}
+  const btn=document.getElementById('mirror-btn');
+  btn.disabled=true; btn.innerHTML='<span class="loading-dots"><span></span><span></span><span></span></span>';
+  document.getElementById('voice-output').style.display='block';
+  const recentMoments=S.moments.slice(0,4).map(m=>`${m.emotion} (${m.persona}): "${(m.thought||'').substring(0,50)}"`).join('\n');
+  const sys=`You are the AntiGravity Verbal Mirror — reads language to detect gravitational forces. Meta-Model patterns: Nominalization, Modal Operator of Impossibility, Universal Quantifier, Mind Read, Lost Performative, Cause-Effect Distortion. User: ${S.profile.name}, ${S.profile.role}, Orbit:"${S.profile.orbit}". JSON only, no fences: {"gravityScore":number1to10,"maskScore":number0to100,"gravityDesc":"1 sentence","maskDesc":"1 sentence","patterns":[{"type":"name","example":"exact words","question":"Meta-model challenge"}],"dominantDomain":"Thinking|Emotional|Behavioral|Physical","coachMsg":"3-4 sentences in user's linguistic register — deliberate, their vocabulary — then lead toward directness. Quote their words. End with orbit reference."}`;
+  try{
+    const raw=await callClaude(sys,`Transcript:"${transcript}"\nRecent moments:\n${recentMoments||'None'}`,700);
+    let r; try{r=JSON.parse(raw);}catch{showToast('Parse error — try again');btn.disabled=false;btn.innerHTML='Analyse Voice →';return;}
+    // Save to Supabase
+    let saved;
+    if(S.isDemoMode){
+      saved={id:'vs'+Date.now(),user_id:'demo-user',transcript,gravity_score:r.gravityScore,mask_score:r.maskScore,patterns:r.patterns||[],coach_msg:r.coachMsg,dominant_domain:r.dominantDomain,gravity_desc:r.gravityDesc,mask_desc:r.maskDesc,created_at:new Date().toISOString()};
+    } else {
+      const {data:_vs}=await sb.from('voice_sessions').insert({
+      user_id:S.user.id, transcript,
+      gravity_score:r.gravityScore, mask_score:r.maskScore,
+      patterns:r.patterns||[], coach_msg:r.coachMsg,
+      dominant_domain:r.dominantDomain,
+      gravity_desc:r.gravityDesc, mask_desc:r.maskDesc
+    }).select().single();
+      saved=_vs;
+    }
+    const vs={...saved, time:new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})};
+    S.voiceSessions.unshift(vs);
+    // Update rings
+    document.getElementById('grav-arc').style.strokeDashoffset=220-(r.gravityScore/10)*220;
+    document.getElementById('grav-num').textContent=r.gravityScore.toFixed(1);
+    document.getElementById('grav-desc').textContent=r.gravityDesc;
+    document.getElementById('mask-arc').style.strokeDashoffset=220-(r.maskScore/100)*220;
+    document.getElementById('mask-num').textContent=r.maskScore;
+    document.getElementById('mask-desc').textContent=r.maskDesc;
+    // Patterns
+    document.getElementById('pattern-tags').innerHTML=(r.patterns||[]).map(p=>`<span class="pattern-tag"><span class="pt">${p.type}</span>${(p.example||'').substring(0,28)}...</span>`).join('');
+    const pd=document.getElementById('pattern-detail');
+    pd.innerHTML=`<div class="ai-label">◈ Patterns & Stop Signals</div><div class="ai-text">${(r.patterns||[]).map(p=>`<div style="margin-bottom:10px;"><strong>${p.type}</strong><br><em style="color:var(--emot);">"${p.example}"</em><br>→ <span style="color:var(--stop);">"${p.question}"</span></div>`).join('')}</div>`;
+    pd.style.display='block';
+    // Coach
+    document.getElementById('coach-section').innerHTML=renderCoach(r.coachMsg, saved.id);
+  }catch(e){showToast(e.message);}
+  btn.disabled=false; btn.innerHTML='Analyse Voice →';
+}
+
+function renderCoach(msg, sid){
+  return `<div class="coach-box"><div class="coach-header"><div class="coach-avatar">◎</div><div><div class="coach-name">AntiGravity Voice Coach</div><div class="coach-status">◉ MATCHED · ${S.profile.name}'s register</div></div></div><div class="coach-msg" id="coach-msg-${sid}">${msg}</div><div style="display:flex;gap:8px;flex-wrap:wrap;"><button class="btn btn-voice btn-sm" onclick="speakCoach('${sid}')">▶ Hear Coach</button><button class="btn btn-ghost btn-sm" onclick="stopSpeech()">⏹ Stop</button></div></div>`;
+}
+
+/* ═══════════════════════════════
+   TTS — VOICE COACH
+═══════════════════════════════ */
+function loadVoices(){
+  if('speechSynthesis' in window){const load=()=>{S.ttsVoices=speechSynthesis.getVoices();};load();speechSynthesis.onvoiceschanged=load;}
+}
+function speakCoach(sid){
+  if(!('speechSynthesis' in window)){showToast('Text-to-speech not supported here');return;}
+  const msg=document.getElementById('coach-msg-'+sid)?.textContent;
+  if(!msg) return;
+  stopSpeech();
+  const u=new SpeechSynthesisUtterance(msg);
+  const v=S.ttsVoices.find(v=>v.lang.startsWith('en')&&(v.name.includes('Daniel')||v.name.includes('Samantha')||v.name.includes('Karen')||v.name.includes('Moira')));
+  if(v) u.voice=v;
+  u.rate=0.88; u.pitch=0.95;
+  speechSynthesis.speak(u);
+  showToast('Coach speaking...');
+}
+function stopSpeech(){if('speechSynthesis' in window)speechSynthesis.cancel();}
+
+/* ═══════════════════════════════
+   VOICE LETTER
+═══════════════════════════════ */
+async function generateVoiceLetter(){
+  const vs=S.voiceSessions[0];
+  if(!vs){showToast('Run a voice analysis first');return;}
+  const c=document.getElementById('voice-letter-content');
+  c.innerHTML='<div class="ai-block"><div class="ai-label">◈ Writing Voice Letter</div><div class="ai-text"><span class="loading-dots"><span></span><span></span><span></span></span></div></div>';
+  const sys=`You are the AntiGravity Voice Letter writer. Write a personal letter to ${S.profile.name} in their linguistic fingerprint — their vocabulary density, their rhythm, their qualifying patterns. Structure: paragraph 1 mirrors their language exactly. Paragraphs 2-3 shift gradually toward directness. Paragraph 4 names their orbit explicitly. Quote one specific thing they said. 4 short paragraphs. No labels, no sign-off — just the letter.`;
+  const user=`Transcript:"${vs.transcript}"\nGravity:${vs.gravity_score}/10\nMask:${vs.mask_score}/100\nPatterns:${(vs.patterns||[]).map(p=>p.type).join(',')}\nOrbit:"${S.profile.orbit}"\nName:${S.profile.name},Role:${S.profile.role}`;
+  try{
+    const letter=await callClaude(sys,user,500);
+    const paras=letter.split('\n').filter(p=>p.trim()).map(p=>`<p>${p}</p>`).join('');
+    c.innerHTML=`<div class="letter-box"><div class="letter-text">${paras}</div></div><div style="margin-top:10px;display:flex;gap:8px;"><button class="btn btn-voice btn-sm" onclick="speakLetter()">▶ Hear Letter</button></div>`;
+    window._lastLetter=letter;
+  }catch(e){c.innerHTML=`<div style="color:var(--emot);font-size:13px;padding:10px;">${e.message}</div>`;}
+}
+function speakLetter(){
+  if(!window._lastLetter) return;
+  stopSpeech();
+  const u=new SpeechSynthesisUtterance(window._lastLetter);
+  const v=S.ttsVoices.find(v=>v.lang.startsWith('en')&&(v.name.includes('Daniel')||v.name.includes('Samantha')));
+  if(v) u.voice=v;
+  u.rate=0.85; u.pitch=0.95;
+  speechSynthesis.speak(u);
+}
+
+/* ═══════════════════════════════
+   STOP SIGNALS
+═══════════════════════════════ */
+function getDominantDomain(){
+  const d=S.profile.domains;
+  // Map profile domains to STOPS keys (Energy added)
+  const w={Thinking:d.think,Emotional:d.emot,Behavioral:d.behav,Physical:d.body,Energy:Math.round((d.think+d.emot)/2)};
+  S.moments.forEach(m=>{
+    const key = m.domain==='Behavioral'?'Behavioral':m.domain==='Physical'?'Physical':m.domain==='Emotional'?'Emotional':'Thinking';
+    if(w[key]!==undefined) w[key]+=0.5;
+  });
+  return Object.entries(w).sort((a,b)=>b[1]-a[1])[0][0];
+}
+
+function scheduleStopSignal(){
+  if(S.stopTimer) clearTimeout(S.stopTimer);
+  const delay=(45+Math.random()*75)*60*1000;
+  S.stopTimer=setTimeout(()=>{showStopSignal();scheduleStopSignal();},delay);
+}
+
+async function showStopSignal(){
+  const domain=getDominantDomain();
+  const sigs=STOPS[domain];
+  const sig=sigs[Math.floor(Math.random()*sigs.length)];
+  const now=new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+  document.getElementById('stop-time').textContent=now;
+  document.getElementById('stop-question').textContent='"'+sig.q+'"';
+  document.getElementById('stop-domain').textContent=domain+' domain · '+sig.d;
+  document.getElementById('stop-overlay').classList.add('show');
+  // Log to Supabase
+  if(S.user&&!S.isDemoMode) await sb.from('stop_signals').insert({user_id:S.user.id,domain,question:sig.q,acted_on:false});
+}
+function dismissStop(){document.getElementById('stop-overlay').classList.remove('show');}
+function logFromStop(){dismissStop();goTo('field');showToast('Capture this moment →');document.getElementById('f-trigger').focus();}
+
+/* ═══════════════════════════════
+   DASHBOARD
+═══════════════════════════════ */
+function refreshDashboard(){
+  refreshFieldMapDash(); refreshPersonasDash(); refreshTrendDash(); refreshVoiceDash();
+}
+
+function refreshFieldMapDash(){
+  const el=document.getElementById('dash-domains');
+  if(!S.moments.length){el.innerHTML='<div class="empty"><span class="empty-icon">◯</span><div class="empty-text">Capture moments to build your field map.</div></div>';return;}
+  const counts={Thinking:0,Emotional:0,Behavioral:0,Physical:0};
+  S.moments.forEach(m=>{if(counts[m.domain]!==undefined)counts[m.domain]++;});
+  const total=S.moments.length;
+  const d=S.profile.domains;
+  [{k:'Thinking',base:d.think,col:'think-c',bar:'think-b'},{k:'Emotional',base:d.emot,col:'emot-c',bar:'emot-b'},{k:'Behavioral',base:d.behav,col:'behav-c',bar:'behav-b'},{k:'Physical',base:d.body,col:'body-cc',bar:'body-b'}].forEach(x=>{
+    const score=Math.min(10,(x.base+(counts[x.k]/Math.max(total,1))*3)).toFixed(1);
+    el.innerHTML=(el.innerHTML||'')+`<div class="domain-row"><div class="domain-hd"><span class="domain-name ${x.col}">${x.k} Mass</span><span class="domain-score ${x.col}">${score}/10</span></div><div class="bar-track"><div class="bar-fill ${x.bar}" style="width:${score*10}%"></div></div></div>`;
+  });
+  // Overwrite to avoid duplication
+  const d2=S.profile.domains;
+  const rows=[{k:'Thinking',base:d2.think,col:'think-c',bar:'think-b'},{k:'Emotional',base:d2.emot,col:'emot-c',bar:'emot-b'},{k:'Behavioral',base:d2.behav,col:'behav-c',bar:'behav-b'},{k:'Physical',base:d2.body,col:'body-cc',bar:'body-b'}];
+  el.innerHTML=rows.map(x=>{
+    const s=Math.min(10,(x.base+(counts[x.k]/Math.max(total,1))*3)).toFixed(1);
+    return `<div class="domain-row"><div class="domain-hd"><span class="domain-name ${x.col}">${x.k} Mass</span><span class="domain-score ${x.col}">${s}/10</span></div><div class="bar-track"><div class="bar-fill ${x.bar}" style="width:${s*10}%"></div></div></div>`;
+  }).join('');
+}
+
+function refreshPersonasDash(){
+  const el=document.getElementById('dash-personas');
+  if(S.moments.length<3){el.innerHTML='<div class="empty"><span class="empty-icon">◯</span><div class="empty-text">Persona distribution after 3+ moments.</div></div>';return;}
+  const counts={};
+  S.moments.forEach(m=>{counts[m.persona]=(counts[m.persona]||0)+1;});
+  const total=S.moments.length;
+  const icons={Analyst:'🧠',Achiever:'🎯',Avoider:'🚪',Pleaser:'🤝',Rebel:'⚡',Controller:'👑'};
+  el.innerHTML=Object.entries(counts).sort((a,b)=>b[1]-a[1]).map(([p,c],i)=>{
+    const pct=Math.round(c/total*100);
+    return `<div style="display:flex;align-items:center;gap:11px;margin-bottom:11px;"><div style="font-size:18px;">${icons[p]||'○'}</div><div style="flex:1;"><div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px;"><span style="font-family:'Cormorant Garamond',serif;font-size:15px;color:var(--star);">${p}</span><span style="font-family:'Space Mono',monospace;font-size:11px;color:var(--gold);">${pct}%</span></div><div class="bar-track"><div class="bar-fill" style="width:${pct}%;background:${i===0?'var(--gold)':'var(--muted)'};"></div></div></div>${i===0?'<span style="font-family:\'Space Mono\',monospace;font-size:7px;letter-spacing:1.5px;color:var(--gold);background:var(--gold-d);padding:2px 6px;border-radius:3px;border:1px solid rgba(201,168,76,.3);">PRIMARY</span>':''}</div>`;
+  }).join('');
+}
+
+function refreshTrendDash(){
+  const el=document.getElementById('dash-trend');
+  if(S.voiceSessions.length<2){el.innerHTML='<div class="empty"><span class="empty-icon">◯</span><div class="empty-text">Run 2+ voice sessions to see your trend.</div></div>';return;}
+  const sessions=S.voiceSessions.slice(0,7).reverse();
+  const max=Math.max(...sessions.map(s=>s.gravity_score));
+  el.innerHTML=`<div class="trend-label">Gravity Score — last ${sessions.length} sessions</div><div class="trend-row">${sessions.map(s=>{const h=Math.max(6,(s.gravity_score/Math.max(max,1))*44);return `<div class="trend-bar" style="height:${h}px;background:var(--teal);opacity:.7;" data-val="${s.gravity_score}"></div>`;}).join('')}</div><div style="height:20px;"></div>`;
+}
+
+function refreshVoiceDash(){
+  const card=document.getElementById('dash-voice-card');
+  if(!S.voiceSessions.length){card.style.display='none';return;}
+  card.style.display='block';
+  const s=S.voiceSessions[0];
+  document.getElementById('dash-voice-summary').innerHTML=`<div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:10px;"><div style="text-align:center;flex:1;min-width:70px;"><div style="font-family:'Cormorant Garamond',serif;font-size:28px;color:var(--teal);">${s.gravity_score}</div><div style="font-family:'Space Mono',monospace;font-size:7px;color:var(--muted);text-transform:uppercase;">Gravity</div></div><div style="text-align:center;flex:1;min-width:70px;"><div style="font-family:'Cormorant Garamond',serif;font-size:28px;color:var(--emot);">${s.mask_score}</div><div style="font-family:'Space Mono',monospace;font-size:7px;color:var(--muted);text-transform:uppercase;">Mask Score</div></div><div style="text-align:center;flex:1;min-width:70px;"><div style="font-family:'Cormorant Garamond',serif;font-size:28px;color:var(--gold);">${(s.patterns||[]).length}</div><div style="font-family:'Space Mono',monospace;font-size:7px;color:var(--muted);text-transform:uppercase;">Patterns</div></div></div><div style="font-family:'Space Mono',monospace;font-size:8px;color:var(--muted2);letter-spacing:1px;">Latest · ${s.time||''} · ${s.dominant_domain||''} Mass</div>`;
+}
+
+async function generateFullReport(){
+  if(!S.moments.length&&!S.voiceSessions.length){showToast('Capture moments and run a voice session first');return;}
+  const c=document.getElementById('full-report-container');
+  c.innerHTML='<div class="ai-block" style="padding:24px;"><div class="ai-label">◈ Generating Field Intelligence Report</div><div class="ai-text"><span class="loading-dots"><span></span><span></span><span></span></span> Synthesizing '+S.moments.length+' moments · '+S.voiceSessions.length+' voice sessions...</div></div>';
+  const mS=S.moments.slice(0,10).map(m=>`[${m.time}] ${m.persona}(${m.domain}): Trigger="${m.trigger}",Emotion=${m.emotion},Thought="${(m.thought||'').substring(0,50)}"`).join('\n');
+  const vS=S.voiceSessions.slice(0,5).map(v=>`Session ${v.time}: Gravity=${v.gravity_score}/10,Mask=${v.mask_score}/100,Patterns=${(v.patterns||[]).map(p=>p.type).join('/')},Domain=${v.dominant_domain}`).join('\n');
+  const sys=`You are AntiGravity Field Intelligence System writing a unified report. Style: precise, psychologically grounded, Newton's gravitational metaphor (mass, distance, field, orbit). User: ${S.profile.name}, ${S.profile.role}, Sector:${S.profile.sector}, Orbit:"${S.profile.orbit}". Write exactly 5 sections separated by blank lines — no headers, no markdown, no labels: 1)FIELD VERDICT: primary gravity profile 2-3 sentences. 2)PRIMARY DOMAIN: heaviest mass domain and why 2 sentences. 3)MASS LAYER: dominant persona and what it costs relative to orbit 2 sentences. 4)ESCAPE SIGNAL: single most important antigravity practice right now 2-3 sentences. 5)ORBIT STATEMENT: one sentence connecting all findings to desired orbit.`;
+  try{
+    const report=await callClaude(sys,`Moments:\n${mS||'None'}\nVoice:\n${vS||'None'}`,650);
+    const secs=report.split(/\n\n+/).filter(s=>s.trim());
+    const titles=['Field Verdict','Primary Domain','Mass Layer','Escape Signal','Orbit Statement'];
+    c.innerHTML=`<div class="desire-strip"><div class="dl">↑ Your Desired Orbit</div><div class="dt">${S.profile.orbit}</div></div>${secs.map((s,i)=>`<div class="card" style="margin-bottom:11px;"><div class="card-label">◈ ${titles[i]||'Reading '+(i+1)}</div><div style="font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:300;line-height:1.75;color:var(--star);">${s.trim()}</div></div>`).join('')}<button class="btn btn-ghost btn-full" onclick="generateFullReport()" style="margin-top:6px;">↺ Regenerate</button>`;
+  }catch(e){c.innerHTML=`<div style="color:var(--emot);padding:16px;">${e.message}</div>`;}
+}
+
+/* ═══════════════════════════════
+   DEMO MODE
+═══════════════════════════════ */
+const DEMO_PROFILE={name:'Demo',role:'Explore all features',sector:'Consulting / Professional Services',orbit:'lead with clarity and authority in ambiguous situations — without waiting for certainty that will not come.',block:'overthinking',domains:{think:7,emot:6,behav:5,body:4}};
+const DEMO_MOMENTS=[
+  {id:'d1',time:'09:14',trigger:'Morning briefing ran over — no clarity on priorities',emotion:'Anxiety',thought:"I don't know where to start and everyone is waiting for direction",insight:"The Analyst is running. You've converted a time problem into an identity question. The anxiety signals a blocked decision, not an actual lack of information.",persona:'Analyst',domain:'Thinking',stop_signal:'What is the one decision you already have enough information to make?',desire_link:'Clarity in ambiguity begins with the smallest available action, not the most complete picture.'},
+  {id:'d2',time:'11:32',trigger:'Senior stakeholder questioned my recommendation publicly',emotion:'Frustration',thought:"They never back me when it matters. I should have sent it by email.",insight:"Frustration here is a blocked request: you wanted acknowledgment and got challenge instead. The Avoider appeared — notice the impulse to prefer email over direct conversation.",persona:'Avoider',domain:'Emotional',stop_signal:'What would you ask for directly if you were not protecting yourself?',desire_link:'Authority in ambiguity requires tolerating public challenge without retreat.'},
+  {id:'d3',time:'14:45',trigger:'Clear run at a well-defined project deliverable',emotion:'Clarity',thought:"I know exactly what needs to happen and I'm the right person to do it.",insight:"This is your Achiever — notice how different the field feels when structure is present. This operating mode is closest to your desired orbit. The gap is not capability — it is tolerance for ambiguity.",persona:'Achiever',domain:'Behavioral',stop_signal:'What would it take to bring this clarity into an unstructured moment?',desire_link:"Your orbit is already accessible — it appears when conditions are clear. The work is extending it into the unclear."}
+];
+const DEMO_VOICE={id:'dv1',time:'10:05',transcript:"The main challenge is there's a general lack of alignment and nobody seems to want to make a decision. Every time I try to push for clarity it always creates more confusion.",gravity_score:7.2,mask_score:65,patterns:[{type:'Nominalization',example:"there's a general lack of alignment",question:'Who specifically is not aligning — about what?'},{type:'Universal Quantifier',example:'Every time I try... it always creates confusion',question:'What is the one time it did not? What was different?'},{type:'Lost Performative',example:'nobody seems to want to make a decision',question:'According to whom? What would deciding actually look like?'}],coach_msg:"You've described this as a structural problem — alignment, decisions, confusion. But notice what's missing: you. The situation has become a noun. Something that happens. The question your field is actually holding is simpler: what would you say if you said it directly, without the preparation?",dominant_domain:'Thinking',gravity_desc:'High cognitive mass — language removes agency systematically.',mask_desc:'Moderate gap — analytical framing carries more than the words suggest.'};
+
+function enterDemo(){
+  const key=document.getElementById('demo-api-key')?.value?.trim();
+  if(key&&key.startsWith('sk-')) S.apiKey=key;
+  S.isDemoMode=true;
+  S.user={id:'demo-user',email:'demo@antigravity.app'};
+  S.profile={...DEMO_PROFILE};
+  S.moments=DEMO_MOMENTS.map(m=>({...m}));
+  S.voiceSessions=[DEMO_VOICE];
+  enterApp();
+}
+
+function setDemoApiKey(){
+  const k=document.getElementById('demo-api-key')?.value?.trim();
+  if(k&&k.startsWith('sk-')){S.apiKey=k;showToast('API key added — AI insights active');}
+  else showToast('Enter a valid key starting with sk-ant-');
+}
+
+function toggleAuthExpand(){
+  const exp=document.getElementById('auth-expanded');
+  const col=document.getElementById('auth-collapsed');
+  const showing=exp.style.display==='block';
+  exp.style.display=showing?'none':'block';
+  col.style.display=showing?'block':'none';
+}
+
+/* ═══════════════════════════════
+   UTILS
+═══════════════════════════════ */
+function showToast(msg,dur=2800){
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),dur);
+}
+
+/* ═══════════════════════════════
+   ══ QUESTION POOLS ══
+═══════════════════════════════ */
+
+/* ── POOL 1: GRAVITY AUDIT — 23 questions, 6 domains ── */
+const AUDIT_POOL = [
+  // THINKING HABITS (domain: think)
+  {domain:'Thinking',color:'var(--think)',q:'When you face an uncertain situation, what does your mind do first?',sub:'Notice whether it reaches for data, for precedent, or for escape.',options:['Seeks more information immediately','Finds reasons it won\'t work','Rehearses worst-case scenarios','Tries to control the variables'],scores:[1,4,4,3]},
+  {domain:'Thinking',color:'var(--think)',q:'How often do you replay past conversations or decisions?',sub:'Rumination is thinking gravity pulling you backward.',options:['Rarely — I move on quickly','Sometimes, for a few hours','Often — it occupies me for days','Constantly — it\'s hard to stop'],scores:[1,2,3,4]},
+  {domain:'Thinking',color:'var(--think)',q:'When you disagree with someone\'s decision, what happens internally?',sub:'The thought that follows disagreement reveals the dominant pattern.',options:['I question whether I\'m right','I build a case for my position','I rehearse what I should have said','I conclude something negative about them'],scores:[1,2,3,4]},
+  {domain:'Thinking',color:'var(--think)',q:'How often do you catch yourself assuming you know what others are thinking?',sub:'Mind-reading is one of the most energy-consuming thinking habits.',options:['Rarely — I ask instead','Sometimes in familiar situations','Frequently — it feels like I can tell','Almost always — it\'s automatic'],scores:[1,2,3,4]},
+
+  // EMOTIONAL IDENTIFICATION (domain: emot)
+  {domain:'Emotional',color:'var(--emot)',q:'When you feel frustration at work, what do you typically do with it?',sub:'The destination of frustration determines whether it creates change or cost.',options:['Name it and address the cause','Channel it into focused action','Suppress it and carry on','Express it in ways I later regret'],scores:[1,2,3,4]},
+  {domain:'Emotional',color:'var(--emot)',q:'How quickly do you recover from criticism or rejection?',sub:'Recovery time is a direct measure of emotional mass.',options:['Within hours — it passes quickly','A day or two','Several days — it stays with me','It affects my confidence for weeks'],scores:[1,2,3,4]},
+  {domain:'Emotional',color:'var(--emot)',q:'When something unfair happens, how long does the emotional weight last?',sub:'Duration of emotional response reflects identification with the event.',options:['I process it quickly and release it','It lingers but fades within the day','It affects my mood for several days','It fundamentally changes how I see the situation'],scores:[1,2,3,4]},
+  {domain:'Emotional',color:'var(--emot)',q:'How aware are you of your emotional state during high-pressure interactions?',sub:'Awareness during activation is the rarest and most valuable skill.',options:['Very aware — I observe myself in real time','Somewhat aware after the fact','I notice only when something goes wrong','Often unaware until the interaction is over'],scores:[1,2,3,4]},
+
+  // BEHAVIORAL / PHYSICAL (domain: behav)
+  {domain:'Behavioral',color:'var(--behav)',q:'When you sense conflict approaching, what do you do?',sub:'The approach-or-avoid decision is the behavioral field\'s most revealing signal.',options:['Move toward it to resolve it early','Prepare carefully before engaging','Wait to see if it resolves itself','Find reasons to delay or redirect'],scores:[1,2,3,4]},
+  {domain:'Behavioral',color:'var(--behav)',q:'How consistent is your energy level across a demanding week?',sub:'Physical depletion is a behavioral gravity signal — habits that drain without replenishing.',options:['Stable — I manage it actively','Moderate fluctuation — some tired days','Significant depletion by week\'s end','I\'m running on fumes by mid-week'],scores:[1,2,3,4]},
+  {domain:'Behavioral',color:'var(--behav)',q:'When a task feels uncomfortable or unfamiliar, what happens?',sub:'The response to discomfort reveals the dominant behavioral pattern.',options:['I start anyway and adjust as I go','I plan thoroughly before starting','I delay until I feel more ready','I look for someone else to handle it'],scores:[1,3,3,4]},
+
+  // DISTANCE FROM TRIGGERS (domain: distance)
+  {domain:'Distance',color:'var(--teal)',q:'How often do you find yourself reacting the same way to the same type of person or situation?',sub:'Repetition is distance collapsing — the trigger is too close.',options:['Rarely — I respond differently each time','Occasionally in predictable situations','Often — certain types reliably set me off','Almost always — I can predict my own reaction'],scores:[1,2,3,4]},
+  {domain:'Distance',color:'var(--teal)',q:'After a difficult interaction, how much mental space does it occupy?',sub:'Post-interaction residue reveals how much distance you have from the trigger.',options:['Minimal — I compartmentalize well','Some space taken for a few hours','It dominates my thinking for the rest of the day','I carry it home and it affects my evening'],scores:[1,2,3,4]},
+  {domain:'Distance',color:'var(--teal)',q:'How much does your behavior change around authority figures vs peers?',sub:'The degree of behavioral shift reveals the gravitational pull of hierarchy.',options:['Minimal difference — I\'m consistent','Some shift in formality','Significant shift in what I say and how','I become a noticeably different person'],scores:[1,2,3,4]},
+  {domain:'Distance',color:'var(--teal)',q:'When you receive unexpected criticism, what\'s your immediate physical response?',sub:'The body registers trigger distance before the mind does.',options:['Relatively calm — mild activation','Some tension but controlled','Clear physical reaction — heat, tightness, heart rate','Strong involuntary physical response'],scores:[1,2,3,4]},
+
+  // REACTIVITY LEVEL (domain: reactivity)
+  {domain:'Reactivity',color:'var(--stop)',q:'How much time passes between a trigger and your response in a heated moment?',sub:'The length of the gap between stimulus and response is the measure of self-mastery.',options:['Several seconds — I pause before responding','A breath or two','Almost immediate — little gap','Instantaneous — I\'ve often responded before I\'ve thought'],scores:[1,2,3,4]},
+  {domain:'Reactivity',color:'var(--stop)',q:'After a reactive moment, how often do you regret the response?',sub:'Regret frequency reveals the gap between the reactive self and the intentional self.',options:['Rarely — I mostly respond as I\'d choose','Sometimes — occasional words I\'d take back','Often — I frequently wish I\'d handled it differently','Almost always — reactivity consistently creates problems'],scores:[1,2,3,4]},
+  {domain:'Reactivity',color:'var(--stop)',q:'When plans change unexpectedly, what happens to your internal state?',sub:'Response to disruption reveals reactivity range.',options:['I adapt without significant disruption','Some adjustment required but manageable','Significant internal disruption — takes time to reorient','Strong reactive response — frustration, anxiety, or shutdown'],scores:[1,2,3,4]},
+
+  // ENERGY DRAIN (domain: energy)
+  {domain:'Energy',color:'var(--voice)',q:'Which types of interactions leave you most depleted?',sub:'Depletion pattern reveals where the highest-mass habits live.',options:['Very few — I manage energy well','Conflict or confrontation','Ambiguous or politically complex conversations','Interactions where I feel evaluated or judged'],scores:[1,2,3,4]},
+  {domain:'Energy',color:'var(--voice)',q:'How much energy does it take to maintain your professional presentation?',sub:'The performance cost of the Mask Score — measured as daily expenditure.',options:['Minimal — it feels natural','Some effort — sustainable','Considerable — I notice the drain','Exhausting — the gap between inner state and presentation is large'],scores:[1,2,3,4]},
+  {domain:'Energy',color:'var(--voice)',q:'By end of a typical working day, how much of yourself feels available for other things?',sub:'End-of-day availability is the net result of all gravitational forces combined.',options:['Significant reserves — work energizes me','Moderate — some left for personal life','Low — I\'m running on empty by evening','Depleted — work takes everything I have'],scores:[1,2,3,4]},
+  {domain:'Energy',color:'var(--voice)',q:'How often do you find yourself doing things out of obligation rather than intention?',sub:'Obligation-to-intention ratio is the measure of how much gravity is running your schedule.',options:['Rarely — most actions feel chosen','Sometimes — occasional obligation','Often — a significant portion of my day','Mostly — very little feels genuinely chosen'],scores:[1,2,3,4]},
+  {domain:'Energy',color:'var(--voice)',q:'When you think about your primary goal right now, what is the dominant feeling?',sub:'The emotional signature of the goal reveals whether it\'s orbit or gravity.',options:['Energized — it pulls me forward','Motivated with some uncertainty','Dutiful — I know I should want it','Heavy — it feels like a burden'],scores:[1,2,3,4]}
+];
+
+/* ── POOL 2: DAILY CHECK — 14 questions, 5 Meta-Model categories ── */
+const CHECK_POOL = [
+  // DELETIONS
+  {cat:'Deletion',catClass:'think-c',q:'What are you not saying right now that most needs to be said?',sub:'Notice who you\'re not saying it to — and what that costs you.'},
+  {cat:'Deletion',catClass:'think-c',q:'What is demanding your attention that you keep pushing aside?',sub:'Name it specifically. Not "things" — what thing?'},
+  {cat:'Deletion',catClass:'think-c',q:'Who are you not speaking to that you know you should?',sub:'The conversation you\'re avoiding is usually the most important one.'},
+  // GENERALIZATIONS
+  {cat:'Generalization',catClass:'emot-c',q:'What rule are you following right now that you didn\'t consciously choose?',sub:'Someone handed it to you. When? From whom?'},
+  {cat:'Generalization',catClass:'emot-c',q:'What do you believe "always" happens — and what is the cost of that belief?',sub:'Find the one exception. It exists.'},
+  {cat:'Generalization',catClass:'emot-c',q:'What have you decided is impossible that you haven\'t actually tested?',sub:'Impossible means you haven\'t found the condition yet.'},
+  // DISTORTIONS
+  {cat:'Distortion',catClass:'voice-d',q:'What are you assuming someone else is thinking — and how certain are you?',sub:'Rate your certainty honestly. Then ask how you\'d verify it.'},
+  {cat:'Distortion',catClass:'voice-d',q:'What are you blaming the environment for that you actually have influence over?',sub:'Not all of it — just the part that is yours to move.'},
+  {cat:'Distortion',catClass:'voice-d',q:'What situation are you treating as proof of something about yourself?',sub:'Separate what happened from what it means. They\'re not the same thing.'},
+  // MODAL OPERATORS
+  {cat:'Modal Operator',catClass:'behav-c',q:'What are you telling yourself you must do — and what happens if you don\'t?',sub:'Test the rule. Is the consequence real or assumed?'},
+  {cat:'Modal Operator',catClass:'behav-c',q:'What are you telling yourself you can\'t do — and who decided that?',sub:'"Can\'t" almost always means "haven\'t yet" or "won\'t." Which is it?'},
+  // LOST PERFORMATIVE
+  {cat:'Lost Performative',catClass:'body-cc',q:'What standard are you holding yourself to, and where did it come from?',sub:'Name the person, institution, or moment that installed this standard.'},
+  {cat:'Lost Performative',catClass:'body-cc',q:'What is "obviously true" right now — and obvious to whom?',sub:'Remove "obviously." Does the sentence still hold?'},
+  // PHYSICAL / SOMATIC
+  {cat:'Somatic Signal',catClass:'body-cc',q:'Where in your body do you feel the weight of something unresolved right now?',sub:'This is the gravitational field made physical. What does it want?'}
+];
+
+/* ── POOL 3: STOP SIGNALS — 25 questions, 5 domains ── */
+const STOPS = {
+  Thinking:[
+    {q:"Who said so? Under what conditions?",d:"Thinking Mass · Modal limit interrupted."},
+    {q:"What is the one exception to this 'always'?",d:"Universal quantifier break."},
+    {q:"Convert that noun back to a verb. Who is doing what?",d:"Nominalization interrupt."},
+    {q:"What decision is hiding inside this 'situation'?",d:"Action made invisible."},
+    {q:"What would you say if you knew it was safe to?",d:"Permission-seeking pattern."},
+    {q:"What are you treating as fact that is actually a prediction?",d:"Distortion — cause-effect interrupt."},
+    {q:"What rule are you following that no one asked you to follow?",d:"Lost performative — rule without author."}
+  ],
+  Emotional:[
+    {q:"What are you not asking for right now?",d:"Emotional Mass · Blocked request."},
+    {q:"Name the feeling before you explain it away.",d:"Feeling-to-structure conversion."},
+    {q:"Where does this feel in your body right now?",d:"Somatic grounding signal."},
+    {q:"What would the frustration say if it could speak directly?",d:"Emotional Mass — direct channel."},
+    {q:"Is this emotion about now — or about before?",d:"Temporal displacement interrupt."},
+    {q:"What are you protecting by staying silent?",d:"Suppression pattern interrupt."}
+  ],
+  Behavioral:[
+    {q:"What is the one action you are qualified to take — now?",d:"Behavioral Mass · Avoidance."},
+    {q:"If the outcome was already decided, what would you do?",d:"Action channel opened."},
+    {q:"What have you been waiting for permission to do?",d:"Pleaser/Analyst pattern interrupt."},
+    {q:"What is the smallest version of the action you keep avoiding?",d:"Behavioral minimum — escape velocity."},
+    {q:"Who would you be in this moment if no one was watching?",d:"Performance mask interrupt."}
+  ],
+  Physical:[
+    {q:"Three breaths. Notice the tension before you respond.",d:"Physical Mass interrupt."},
+    {q:"Is this your body's signal — or the situation's?",d:"Somatic awareness."},
+    {q:"What does your body know that your thinking hasn't accepted yet?",d:"Somatic intelligence channel."},
+    {q:"Where are you bracing right now?",d:"Physical tension mapping."}
+  ],
+  Energy:[
+    {q:"What are you doing right now out of obligation rather than intention?",d:"Energy drain · obligation-intention gap."},
+    {q:"Where is your energy going that you didn't consciously send it?",d:"Energy audit interrupt."},
+    {q:"What would you stop doing immediately if you had permission?",d:"Energy recovery signal."}
+  ]
+};
+
+/* ═══════════════════════════════
+   AUDIT LOGIC
+═══════════════════════════════ */
+const AUDIT_DOMAINS = ['Thinking','Emotional','Behavioral','Distance','Reactivity','Energy'];
+let auditSession = {questions:[],currentIdx:0,scores:{},answers:[]};
+
+function startAudit(){
+  // Pick 8 — at least 1 per domain where possible, fill rest randomly
+  const pools = {};
+  AUDIT_DOMAINS.forEach(d=>{pools[d]=AUDIT_POOL.filter(q=>q.domain===d);});
+  const selected = [];
+  // One from each of the 6 domains
+  AUDIT_DOMAINS.forEach(d=>{
+    const arr=pools[d];
+    if(arr.length) selected.push(arr[Math.floor(Math.random()*arr.length)]);
+  });
+  // Fill to 8 from remaining
+  const remaining = AUDIT_POOL.filter(q=>!selected.includes(q));
+  while(selected.length < 8 && remaining.length){
+    const idx = Math.floor(Math.random()*remaining.length);
+    selected.push(remaining.splice(idx,1)[0]);
+  }
+  // Shuffle order
+  selected.sort(()=>Math.random()-.5);
+  auditSession = {questions:selected, currentIdx:0, scores:{}, answers:[]};
+  AUDIT_DOMAINS.forEach(d=>{auditSession.scores[d]=[];});
+
+  document.getElementById('audit-intro-card').style.display='none';
+  document.getElementById('audit-result').style.display='none';
+  document.getElementById('audit-active').style.display='block';
+  renderAuditQuestion();
+}
+
+function renderAuditQuestion(){
+  const q = auditSession.questions[auditSession.currentIdx];
+  const total = auditSession.questions.length;
+  document.getElementById('audit-progress-label').textContent = `Question ${auditSession.currentIdx+1} of ${total}`;
+  // Dots
+  document.getElementById('audit-dots').innerHTML = auditSession.questions.map((_,i)=>{
+    const cls = i<auditSession.currentIdx?'audit-dot done':i===auditSession.currentIdx?'audit-dot current':'audit-dot';
+    return `<div class="${cls}"></div>`;
+  }).join('');
+  document.getElementById('audit-domain-badge').style.color = q.color;
+  document.getElementById('audit-domain-badge').textContent = q.domain+' Domain';
+  document.getElementById('audit-question').textContent = q.q;
+  document.getElementById('audit-sub').textContent = q.sub;
+  // Options
+  document.getElementById('audit-options').innerHTML = q.options.map((o,i)=>
+    `<button class="audit-option" onclick="selectAuditOption(${i})">${o}</button>`
+  ).join('');
+}
+
+function selectAuditOption(idx){
+  const q = auditSession.questions[auditSession.currentIdx];
+  const score = q.scores[idx];
+  auditSession.scores[q.domain] = auditSession.scores[q.domain]||[];
+  auditSession.scores[q.domain].push(score);
+  auditSession.answers.push({domain:q.domain,question:q.q,answer:q.options[idx],score});
+  // Highlight selection briefly then advance
+  document.querySelectorAll('.audit-option').forEach((b,i)=>{if(i===idx)b.classList.add('selected');});
+  setTimeout(()=>{
+    auditSession.currentIdx++;
+    if(auditSession.currentIdx >= auditSession.questions.length) showAuditResult();
+    else renderAuditQuestion();
+  }, 400);
+}
+
+function showAuditResult(){
+  document.getElementById('audit-active').style.display='none';
+  document.getElementById('audit-result').style.display='block';
+  // Calculate domain scores (avg score mapped to 1-10)
+  const domainScores = {};
+  AUDIT_DOMAINS.forEach(d=>{
+    const arr = auditSession.scores[d]||[];
+    if(!arr.length){domainScores[d]=S.profile.domains.think||5;return;}
+    const avg = arr.reduce((a,b)=>a+b,0)/arr.length;
+    domainScores[d] = Math.round((avg/4)*10);
+  });
+  // Find dominant
+  const dominant = Object.entries(domainScores).sort((a,b)=>b[1]-a[1])[0];
+  const totalMass = Math.round(Object.values(domainScores).reduce((a,b)=>a+b,0)/AUDIT_DOMAINS.length);
+  // Verdict
+  const verdictText = totalMass <= 4 ? `Your field is relatively light — gravitational forces are present but manageable. The work now is maintenance and deepening, not breaking free.`
+    : totalMass <= 6 ? `Your field shows moderate gravitational pull across multiple domains. There is real potential for significant change — the awareness you're building is the beginning of escape velocity.`
+    : `Your field is carrying significant mass. The good news: high mass means high potential for change once the force is understood and directed.`;
+  document.getElementById('audit-verdict').textContent = verdictText;
+  // Domain bars
+  const colors = {Thinking:'var(--think)',Emotional:'var(--emot)',Behavioral:'var(--behav)',Distance:'var(--teal)',Reactivity:'var(--stop)',Energy:'var(--voice)'};
+  document.getElementById('audit-result-bars').innerHTML = AUDIT_DOMAINS.map(d=>{
+    const s = domainScores[d]||5;
+    return `<div class="domain-row"><div class="domain-hd"><span class="domain-name" style="color:${colors[d]}">${d}</span><span class="domain-score" style="color:${colors[d]}">${s}/10</span></div><div class="bar-track"><div class="bar-fill" style="width:${s*10}%;background:${colors[d]};"></div></div></div>`;
+  }).join('');
+  // Dominant insight
+  const insights = {
+    Thinking:`Your Thinking Mass is the primary field — the internal dialogue runs faster and heavier than the other domains. The antigravity practice here is not thinking less, but thinking differently: shorter sentences, fewer qualifications, one decision before the analysis expands.`,
+    Emotional:`Your Emotional Mass is the dominant gravitational force. This is not a weakness — emotional gravity is the most honest field. The practice is conversion: name the emotion precisely, then identify the blocked request underneath it.`,
+    Behavioral:`Your Behavioral Mass is the primary field — the gap between knowing and doing is the core gravitational challenge. The practice is minimum viable action: the smallest possible version of the thing you keep not doing.`,
+    Distance:`Your distance from triggers is the primary concern — the field is too close. The practice is literal and spatial: create a gap before responding. Time, breath, or physical distance.`,
+    Reactivity:`Your Reactivity Level is the primary reading. The gap between stimulus and response is where the work happens. The practice is the pause — not to suppress, but to insert a moment of observation before the automatic response fires.`,
+    Energy:`Your Energy domain carries the highest mass — the performance cost of your daily field is the primary gravitational burden. The practice is auditing the obligatory: one thing per day removed, delegated, or refused.`
+  };
+  document.getElementById('audit-dominant-insight').innerHTML = `<div style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-bottom:8px;">◈ Primary Field · ${dominant[0]}</div><div style="font-size:13px;color:var(--muted2);line-height:1.7;">${insights[dominant[0]]||'Your dominant domain requires focused antigravity practice. Review your field map.'}</div>`;
+}
+
+/* ═══════════════════════════════
+   DAILY CHECK LOGIC
+═══════════════════════════════ */
+let checkSession = {pool:[...CHECK_POOL],currentIdx:0,completedToday:0,log:[]};
+
+function initCheck(){
+  // Shuffle pool
+  checkSession.pool = [...CHECK_POOL].sort(()=>Math.random()-.5);
+  checkSession.currentIdx = 0;
+  renderCheckQuestion();
+  updateCheckTimeline();
+}
+
+function renderCheckQuestion(){
+  const q = checkSession.pool[checkSession.currentIdx % checkSession.pool.length];
+  document.getElementById('check-cat-badge').style.color = `var(--${q.catClass.replace('-c','')})` || 'var(--gold)';
+  document.getElementById('check-cat-badge').textContent = q.cat;
+  document.getElementById('check-question-main').textContent = q.q;
+  document.getElementById('check-question-sub').textContent = q.sub;
+  document.getElementById('check-response').value = '';
+  document.getElementById('check-reflection').style.display='none';
+}
+
+function shuffleCheck(){
+  checkSession.currentIdx = (checkSession.currentIdx + 1) % checkSession.pool.length;
+  renderCheckQuestion();
+}
+
+function speakCheckQuestion(){
+  if(!('speechSynthesis' in window)){showToast('TTS not available');return;}
+  stopSpeech();
+  const main = document.getElementById('check-question-main').textContent;
+  const sub  = document.getElementById('check-question-sub').textContent;
+  const u = new SpeechSynthesisUtterance(main + '... ' + sub);
+  const v = S.ttsVoices.find(v=>v.lang.startsWith('en')&&(v.name.includes('Samantha')||v.name.includes('Daniel')));
+  if(v) u.voice=v; u.rate=0.85; u.pitch=0.95;
+  speechSynthesis.speak(u);
+}
+
+async function submitCheck(){
+  const response = document.getElementById('check-response').value.trim();
+  if(!response){showToast('Write your response first');return;}
+  const q = checkSession.pool[checkSession.currentIdx % checkSession.pool.length];
+  const btn = document.getElementById('check-submit-btn');
+  btn.disabled=true; btn.innerHTML='<span class="loading-dots"><span></span><span></span><span></span></span>';
+  const reflDiv = document.getElementById('check-reflection');
+  reflDiv.style.display='block';
+  reflDiv.innerHTML='<div class="ai-block"><div class="ai-label">◈ Reading your field</div><div class="ai-text"><span class="loading-dots"><span></span><span></span><span></span></span></div></div>';
+  const sys=`You are the AntiGravity Gravity Check system. The user is doing a daily self-observation check. Your job: write a precise 2-3 sentence reflection that names the specific linguistic or psychological pattern in their answer (not just what they said, but what the way they said it reveals). Then give one expansion question that goes one level deeper. Do NOT give generic encouragement. Be specific and direct. Format: [Reflection]\n\n[Expansion question]`;
+  const user=`Check category: ${q.cat}\nQuestion: "${q.q}"\nUser's response: "${response}"\nUser profile: ${S.profile.name}, ${S.profile.role}, Orbit: "${S.profile.orbit}"`;
+  try{
+    const reflection = await callClaude(sys,user,350);
+    const parts = reflection.split('\n\n');
+    const reflText = parts[0]||reflection;
+    const expansion = parts[1]||'';
+    reflDiv.innerHTML=`<div class="ai-block"><div class="ai-label">◈ Field Reading — ${q.cat}</div><div class="ai-text">${reflText}</div>${expansion?`<div style="margin-top:10px;padding:10px 12px;background:var(--stop-d);border:1px solid rgba(232,199,106,.2);border-radius:7px;"><div style="font-family:'Space Mono',monospace;font-size:7px;letter-spacing:2px;color:var(--stop);margin-bottom:4px;">→ Go deeper</div><div style="font-style:italic;color:var(--star);font-size:13px;">${expansion}</div></div>`:''}</div>`;
+    // Log entry + speak option
+    checkSession.completedToday = Math.min(7, checkSession.completedToday+1);
+    checkSession.log.unshift({time:new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}),cat:q.cat,q:q.q,response,reflection:reflText});
+    updateCheckTimeline();
+    refreshCheckLog();
+    // Move to next question
+    checkSession.currentIdx++;
+    // Add speak button
+    reflDiv.innerHTML += `<button class="btn btn-ghost btn-sm" style="margin-top:10px;" onclick="speakCheckReflection(this,'${encodeURIComponent(reflText)}')">🔊 Hear reflection</button>`;
+  }catch(e){
+    reflDiv.innerHTML=`<div class="ai-block"><div class="ai-label">Error</div><div class="ai-text" style="color:var(--emot);">${e.message}</div></div>`;
+  }
+  btn.disabled=false; btn.innerHTML='Reflect →';
+  // Show new question button
+  setTimeout(()=>{
+    document.getElementById('check-response').value='';
+    renderCheckQuestion();
+  },2500);
+}
+
+function speakCheckReflection(btn,encoded){
+  if(!('speechSynthesis' in window)){showToast('TTS not available');return;}
+  stopSpeech();
+  const text = decodeURIComponent(encoded);
+  const u = new SpeechSynthesisUtterance(text);
+  const v = S.ttsVoices.find(v=>v.lang.startsWith('en')&&(v.name.includes('Samantha')||v.name.includes('Daniel')));
+  if(v) u.voice=v; u.rate=0.85; u.pitch=0.95;
+  speechSynthesis.speak(u);
+}
+
+function updateCheckTimeline(){
+  const slots = document.querySelectorAll('#check-timeline .check-slot');
+  slots.forEach((s,i)=>{
+    s.classList.remove('done','active');
+    if(i<checkSession.completedToday) s.classList.add('done');
+    else if(i===checkSession.completedToday) s.classList.add('active');
+  });
+  document.getElementById('check-count-label').textContent = `${checkSession.completedToday} / 7 today`;
+}
+
+function refreshCheckLog(){
+  const card = document.getElementById('check-log-card');
+  if(!checkSession.log.length){card.style.display='none';return;}
+  card.style.display='block';
+  document.getElementById('check-log').innerHTML = checkSession.log.slice(0,5).map(e=>
+    `<div class="moment-entry"><div class="moment-time">${e.time}</div><div class="moment-persona">${e.cat}</div><div class="moment-text">${e.reflection}</div></div>`
+  ).join('');
+}
+
+// Boot
+init();
+</script>
+</body>
+</html>
