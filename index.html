@@ -832,6 +832,35 @@ input[type=range]::-webkit-slider-thumb{
   }
 }
 
+
+/* ── GUIDE STYLES ── */
+.gdot{width:7px;height:7px;border-radius:50%;background:var(--border2);cursor:pointer;transition:all .3s;}
+.gdot.active{background:var(--gold);box-shadow:0 0 8px var(--gold-g);}
+.gslide{display:none;flex-direction:column;padding:24px 24px 8px;overflow-y:auto;height:100%;-webkit-overflow-scrolling:touch;}
+.gslide.active{display:flex;}
+.gslide-icon{font-size:36px;margin-bottom:12px;color:var(--gold);text-align:center;}
+.gslide-eyebrow{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;text-align:center;margin-bottom:10px;}
+.gslide-title{font-family:'Cormorant Garamond',serif;font-size:clamp(26px,5vw,38px);font-weight:300;line-height:1.15;text-align:center;color:var(--star);margin-bottom:18px;}
+.gslide-title em{font-style:italic;color:var(--gold);}
+.gslide-body{font-size:var(--ts-sm);color:var(--muted2);line-height:1.75;margin-bottom:16px;}
+.gslide-body strong{color:var(--star);font-weight:500;}
+.gslide-quote{font-family:'Cormorant Garamond',serif;font-size:17px;font-style:italic;color:var(--star);border-left:2px solid var(--gold);padding:12px 16px;background:var(--gold-d);border-radius:0 8px 8px 0;line-height:1.6;}
+.gslide-tip{font-size:12px;color:var(--muted2);background:var(--surface2);border:1px solid var(--border2);border-radius:8px;padding:10px 14px;line-height:1.55;margin-top:auto;margin-bottom:8px;}
+.gstep{display:flex;gap:8px;padding:7px 0;border-bottom:1px solid var(--border);font-size:13px;color:var(--muted2);}
+.gstep:last-child{border-bottom:none;}
+.gstep strong{color:var(--star);}
+.gstep-num{display:flex;gap:12px;align-items:flex-start;margin-bottom:12px;font-size:13px;color:var(--muted2);line-height:1.6;}
+.gstep-num span{font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--gold);line-height:1;flex-shrink:0;margin-top:-2px;}
+.gstep-num strong{color:var(--star);}
+.gband{display:flex;align-items:center;gap:12px;padding:8px 12px;border:1px solid;border-radius:8px;background:var(--surface);}
+.gslide-cta{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--void);background:var(--gold);border:none;border-radius:6px;padding:14px 28px;cursor:pointer;margin-top:16px;width:100%;font-weight:700;transition:all .25s;}
+.gslide-cta:hover{background:#e8c97a;}
+.gnav-btn{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;padding:11px 20px;border-radius:8px;border:1px solid var(--border2);background:transparent;color:var(--muted2);cursor:pointer;flex:1;transition:all .2s;}
+.gnav-btn:hover{border-color:var(--gold-g);color:var(--gold);}
+.gnav-primary{background:var(--gold-d);border-color:rgba(201,168,76,.4);color:var(--gold);}
+.help-btn{width:30px;height:30px;border-radius:50%;border:1px solid var(--border2);background:var(--surface);color:var(--muted2);font-family:'Space Mono',monospace;font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;}
+.help-btn:hover{border-color:var(--gold-g);color:var(--gold);}
+
 </style>
 </head>
 <body>
@@ -1052,6 +1081,7 @@ input[type=range]::-webkit-slider-thumb{
   <div class="topbar">
     <div class="topbar-logo">Anti<em>Gravity</em></div>
     <div class="topbar-right">
+      <button class="help-btn" onclick="openGuide()" title="App Guide">?</button>
       <div id="demo-topbar-badge" style="display:none;align-items:center;gap:6px;background:rgba(232,199,106,.08);border:1px solid rgba(232,199,106,.25);border-radius:10px;padding:4px 10px;cursor:pointer;" onclick="showToast('Demo mode — add an API key in the menu for AI features')">
         <span style="font-size:var(--mono-sm);">✦</span>
         <span style="font-family:'Space Mono',monospace;font-size:var(--mono-xs);letter-spacing:1.5px;color:var(--stop);text-transform:uppercase;">Demo</span>
@@ -1134,10 +1164,30 @@ input[type=range]::-webkit-slider-thumb{
       </div>
 
       <div id="voice-output" style="display:none;">
+
+      <!-- SCORE DEFINITION — shown once above the rings -->
+      <div style="background:linear-gradient(135deg,rgba(74,155,155,.06),rgba(201,168,76,.04));border:1px solid rgba(74,155,155,.2);border-radius:14px;padding:18px 20px;margin-bottom:14px;">
+        <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--teal);text-transform:uppercase;margin-bottom:10px;">◈ What Your Gravity Score Measures</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:16px;font-style:italic;line-height:1.7;color:var(--star);">
+          "Your Gravity Score measures how much of your current behaviour is under gravitational pull — automatic, unconscious, energy-draining — and how much is under your own conscious direction. It is not a performance score. It is an attention indicator. The higher it is, the more present you are inside your own life."
+        </div>
+        <div style="margin-top:12px;display:grid;grid-template-columns:1fr 1fr;gap:6px;">
+          <div style="font-size:11px;color:var(--emot);">0–30 · Deep Gravity</div>
+          <div style="font-size:11px;color:var(--behav);">76–90 · Consolidating</div>
+          <div style="font-size:11px;color:#e8a84c;">31–55 · Pull Active</div>
+          <div style="font-size:11px;color:var(--teal);">91–100 · Balanced State</div>
+          <div style="font-size:11px;color:var(--gold);">56–75 · Emerging</div>
+          <div style="font-size:11px;color:var(--muted2);font-style:italic;">Dr. Shadi Obeidat</div>
+        </div>
+      </div>
         <div class="score-grid">
           <div class="score-card">
-            <div class="mini-ring"><svg viewBox="0 0 80 80"><circle class="ring-trk" cx="40" cy="40" r="35"/><circle class="ring-fil" id="grav-arc" cx="40" cy="40" r="35" style="stroke:var(--teal);stroke-dashoffset:220;"/></svg><div class="ring-inner"><div class="ring-n" id="grav-num" style="color:var(--teal)">—</div><div class="ring-u">/10</div></div></div>
-            <div><div style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:4px;">Gravity Score™</div><div style="font-size:12px;color:var(--muted2);line-height:1.5;" id="grav-desc">Field weight in your language.</div></div>
+            <div class="mini-ring"><svg viewBox="0 0 80 80"><circle class="ring-trk" cx="40" cy="40" r="35"/><circle class="ring-fil" id="grav-arc" cx="40" cy="40" r="35" style="stroke:var(--teal);stroke-dashoffset:220;"/></svg><div class="ring-inner"><div class="ring-n" id="grav-num" style="color:var(--teal);font-size:18px;">—</div><div class="ring-u">/100</div></div></div>
+            <div>
+              <div style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:4px;">Gravity Score™</div>
+              <div id="grav-band" style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:1px;margin-bottom:5px;"></div>
+              <div style="font-size:12px;color:var(--muted2);line-height:1.5;" id="grav-desc">How much of your current behaviour is under conscious direction.</div>
+            </div>
           </div>
           <div class="score-card">
             <div class="mini-ring"><svg viewBox="0 0 80 80"><circle class="ring-trk" cx="40" cy="40" r="35"/><circle class="ring-fil" id="mask-arc" cx="40" cy="40" r="35" style="stroke:var(--emot);stroke-dashoffset:220;"/></svg><div class="ring-inner"><div class="ring-n" id="mask-num" style="color:var(--emot)">—</div><div class="ring-u">/100</div></div></div>
@@ -1264,6 +1314,133 @@ input[type=range]::-webkit-slider-thumb{
 
   </div><!-- /screens-wrapper -->
 </div>
+
+<!-- ══════════════════════════════════════
+     APP GUIDE — First-time walkthrough
+     7 slides, swipeable, skippable
+══════════════════════════════════════ -->
+<div id="guide-overlay" style="position:fixed;inset:0;z-index:2000;display:none;background:rgba(5,7,15,.96);backdrop-filter:blur(16px);flex-direction:column;">
+
+  <!-- Header -->
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:20px 24px;border-bottom:1px solid var(--border);">
+    <div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;color:var(--star);">Anti<em style="font-style:italic;color:var(--gold);">Gravity</em> <span style="font-size:14px;color:var(--muted2);font-family:'DM Sans',sans-serif;font-weight:300;">Guide</span></div>
+    <button onclick="closeGuide()" style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--muted);background:transparent;border:1px solid var(--border2);border-radius:6px;padding:6px 12px;cursor:pointer;text-transform:uppercase;">Skip →</button>
+  </div>
+
+  <!-- Slide dots -->
+  <div id="guide-dots" style="display:flex;gap:8px;justify-content:center;padding:16px 0 0;">
+    <div class="gdot active" onclick="goSlide(0)"></div>
+    <div class="gdot" onclick="goSlide(1)"></div>
+    <div class="gdot" onclick="goSlide(2)"></div>
+    <div class="gdot" onclick="goSlide(3)"></div>
+    <div class="gdot" onclick="goSlide(4)"></div>
+    <div class="gdot" onclick="goSlide(5)"></div>
+    <div class="gdot" onclick="goSlide(6)"></div>
+  </div>
+
+  <!-- Slides container -->
+  <div id="guide-slides" style="flex:1;overflow:hidden;position:relative;">
+
+    <!-- SLIDE 0: What is AntiGravity -->
+    <div class="gslide active" id="gslide-0">
+      <div class="gslide-icon">◎</div>
+      <div class="gslide-eyebrow">The Framework</div>
+      <div class="gslide-title">What is <em>AntiGravity?</em></div>
+      <div class="gslide-body">Based on Newton's Law of Gravity applied to human behaviour. Two forces determine how much your habits and patterns control you — <strong>psychological mass</strong> (your attachments and habits) and <strong>distance from triggers</strong> (how close you are to what pulls you).<br><br>This app maps your gravitational field and generates the opposing force to escape it.</div>
+      <div class="gslide-quote">"Neither falling. Nor drifting. The balance is your true self."<div style="font-size:12px;margin-top:6px;color:var(--muted);">Dr. Shadi Obeidat</div></div>
+    </div>
+
+    <!-- SLIDE 1: Gravity Score explained -->
+    <div class="gslide" id="gslide-1">
+      <div class="gslide-icon">⊙</div>
+      <div class="gslide-eyebrow">Your Score</div>
+      <div class="gslide-title">The <em>Gravity Score</em></div>
+      <div class="gslide-body">Not a performance score. An <strong>attention indicator</strong> — how much of your behaviour right now is automatic and unconscious versus conscious and chosen.</div>
+      <div style="display:flex;flex-direction:column;gap:8px;margin-top:16px;">
+        <div class="gband" style="border-color:rgba(224,123,123,.3);"><span style="color:var(--emot);font-family:'Space Mono',monospace;font-size:9px;">0–30</span><span style="color:var(--muted2);font-size:13px;">Deep Gravity — fully automatic</span></div>
+        <div class="gband" style="border-color:rgba(232,184,76,.3);"><span style="color:#e8b84c;font-family:'Space Mono',monospace;font-size:9px;">31–55</span><span style="color:var(--muted2);font-size:13px;">Pull Active — aware, but pattern runs</span></div>
+        <div class="gband" style="border-color:rgba(201,168,76,.3);"><span style="color:var(--gold);font-family:'Space Mono',monospace;font-size:9px;">56–75</span><span style="color:var(--muted2);font-size:13px;">Emerging — actively resisting</span></div>
+        <div class="gband" style="border-color:rgba(107,191,142,.3);"><span style="color:var(--behav);font-family:'Space Mono',monospace;font-size:9px;">76–90</span><span style="color:var(--muted2);font-size:13px;">Consolidating — new habits forming</span></div>
+        <div class="gband" style="border-color:rgba(74,155,155,.3);"><span style="color:var(--teal);font-family:'Space Mono',monospace;font-size:9px;">91–100</span><span style="color:var(--muted2);font-size:13px;">Balanced State — conscious and chosen</span></div>
+      </div>
+    </div>
+
+    <!-- SLIDE 2: Field Mode -->
+    <div class="gslide" id="gslide-2">
+      <div class="gslide-icon">◎</div>
+      <div class="gslide-eyebrow">Screen 1 of 3</div>
+      <div class="gslide-title"><em>Field Mode</em> — ORBIT</div>
+      <div class="gslide-body">Capture moments as they happen — any trigger, emotion, or thought that pulls you. The AI reads each moment and tells you:<br><br>
+        <div class="gstep">◈ Which of your 6 operating modes is active (your <strong>Mass Layer</strong>)</div>
+        <div class="gstep">◈ Which gravitational domain is heaviest (Thinking, Emotional, Behavioral, Physical)</div>
+        <div class="gstep">◈ A personalised <strong>Stop Signal</strong> — one question to interrupt the pattern</div>
+        <div class="gstep">◈ How this moment connects to your <strong>Desired Orbit</strong></div>
+      </div>
+      <div class="gslide-tip">💡 Capture at least 3 moments to activate your Mass Layer distribution in the Report.</div>
+    </div>
+
+    <!-- SLIDE 3: Mirror Mode -->
+    <div class="gslide" id="gslide-3">
+      <div class="gslide-icon">◈</div>
+      <div class="gslide-eyebrow">Screen 2 of 3</div>
+      <div class="gslide-title"><em>Mirror Mode</em> — Verbal</div>
+      <div class="gslide-body">After a significant interaction — a difficult meeting, a tense conversation — speak freely for 60–90 seconds. Don't prepare. The system reads your <strong>language patterns</strong>, not your facts.<br><br>
+        <div class="gstep">◈ Detects Meta-Model violations in your language</div>
+        <div class="gstep">◈ Scores your <strong>Gravity</strong> (0–100) and <strong>Mask Score</strong> (authenticity gap)</div>
+        <div class="gstep">◈ Your <strong>Voice Coach</strong> responds in your own register — then leads toward lightness</div>
+        <div class="gstep">◈ Generates a <strong>Voice Letter</strong> written in your own linguistic fingerprint</div>
+      </div>
+      <div class="gslide-tip">💡 You can type instead of speaking if microphone access is unavailable.</div>
+    </div>
+
+    <!-- SLIDE 4: Stop Signals -->
+    <div class="gslide" id="gslide-4">
+      <div class="gslide-icon">⚡</div>
+      <div class="gslide-eyebrow">Daily Practice</div>
+      <div class="gslide-title">The <em>Stop Signal</em></div>
+      <div class="gslide-body">The most powerful feature. Random alerts fire throughout your day — calibrated to your dominant gravitational domain — to catch you <strong>inside</strong> the gravitational field at the moment it fires.<br><br>This is not a reminder. It is an interruption. Real self-observation is only possible mid-automatism — not after the fact.<br><br>25 signals across 5 domains. Never the same twice in sequence.</div>
+      <div class="gslide-tip">⚡ Tap the "Stop" button in the top bar anytime to trigger a signal manually.</div>
+    </div>
+
+    <!-- SLIDE 5: Report -->
+    <div class="gslide" id="gslide-5">
+      <div class="gslide-icon">⊙</div>
+      <div class="gslide-eyebrow">Screen 3 of 3</div>
+      <div class="gslide-title">The <em>Field Report</em></div>
+      <div class="gslide-body">Your unified intelligence report — synthesising everything ORBIT and Verbal Mirror have detected about your gravitational field.<br><br>
+        <div class="gstep">◈ <strong>Field Verdict</strong> — your primary gravity profile</div>
+        <div class="gstep">◈ <strong>Primary Domain</strong> — the heaviest mass domain</div>
+        <div class="gstep">◈ <strong>Mass Layer</strong> — dominant operating mode and its cost</div>
+        <div class="gstep">◈ <strong>Escape Signal</strong> — one specific antigravity practice</div>
+        <div class="gstep">◈ <strong>Orbit Statement</strong> — one sentence connecting all findings to your desired orbit</div>
+      </div>
+      <div class="gslide-tip">💡 Generate after at least 3 field moments and 1 voice session for a meaningful report.</div>
+    </div>
+
+    <!-- SLIDE 6: Getting Started -->
+    <div class="gslide" id="gslide-6">
+      <div class="gslide-icon">↑</div>
+      <div class="gslide-eyebrow">Your First Session</div>
+      <div class="gslide-title">How to <em>begin</em></div>
+      <div class="gslide-body">Three steps to your first meaningful reading:<br><br>
+        <div class="gstep-num"><span>1</span>Go to <strong>Field Mode</strong> and capture one moment happening right now — any trigger or emotion present in your day.</div>
+        <div class="gstep-num"><span>2</span>Go to <strong>Mirror Mode</strong> and speak for 60 seconds about a recent difficult interaction. Don't prepare.</div>
+        <div class="gstep-num"><span>3</span>Go to <strong>Report</strong> and generate your first Field Intelligence Report.</div>
+      </div>
+      <div class="gslide-tip" style="background:var(--gold-d);border-color:rgba(201,168,76,.3);">The system gets more accurate over time. Every moment you capture narrows the field map.</div>
+      <button onclick="closeGuide()" class="gslide-cta">Begin My Field →</button>
+    </div>
+
+  </div>
+
+  <!-- Navigation -->
+  <div style="display:flex;gap:12px;padding:20px 24px;border-top:1px solid var(--border);">
+    <button onclick="prevSlide()" class="gnav-btn">← Prev</button>
+    <button onclick="nextSlide()" class="gnav-btn gnav-primary" id="guide-next-btn">Next →</button>
+  </div>
+
+</div>
+
 
 <!-- UPGRADE OVERLAY — anon → real account -->
 <div id="upgrade-overlay" style="position:fixed;inset:0;z-index:1100;display:none;align-items:flex-end;justify-content:center;padding:20px;background:rgba(8,11,20,.85);backdrop-filter:blur(12px);">
@@ -1524,6 +1701,7 @@ function enterApp(){
     ? '✦ Your field is live — data saving automatically'
     : 'Welcome back, '+S.profile.name;
   showToast(greeting);
+  checkFirstTime();
 }
 
 function setOrbitTexts(){
@@ -1600,6 +1778,47 @@ async function saveSettings(){
 /* ═══════════════════════════════
    ANTHROPIC API
 ═══════════════════════════════ */
+/* ═══════════════════════════════════════════════════
+   GRAVITY SCORE — FAITHFUL TO THE ANTIGRAVITY BOOK
+   Measures: automatic vs conscious behaviour
+   0–30   Deep Gravity (fully automatic)
+   31–55  Gravitational Pull Active (aware but pattern runs)
+   56–75  Antigravity Actions Emerging (resisting)
+   76–90  Antigravity Consolidating (new habits forming)
+   91–100 Balanced State (conscious, chosen, awake)
+═══════════════════════════════════════════════════ */
+function getGravityBand(score){
+  if(score<=30) return {
+    name:'Deep Gravity',
+    color:'var(--emot)',
+    desc:'Behaviour is fully automatic. Triggers are controlling reactions. Energy is being consumed by patterns running below awareness.',
+    short:'0-30 Fully Automatic'
+  };
+  if(score<=55) return {
+    name:'Pull Active',
+    color:'#e8a84c',
+    desc:'Awareness is present but the pattern still runs more often than it does not. This is where most people live most of the time.',
+    short:'31-55 Aware But Pattern Runs'
+  };
+  if(score<=75) return {
+    name:'Antigravity Emerging',
+    color:'var(--gold)',
+    desc:'Active resistance to gravity. Interruptions are working. New habits forming but not yet consolidated.',
+    short:'56-75 Resisting, Not Consolidated'
+  };
+  if(score<=90) return {
+    name:'Consolidating',
+    color:'var(--behav)',
+    desc:'New habits becoming the default. Responds rather than reacts in most situations. Energy returning. Getting lighter.',
+    short:'76-90 New Habits Forming'
+  };
+  return {
+    name:'Balanced State',
+    color:'var(--teal)',
+    desc:'Thoughts, emotions, and body moving in the same direction. Attention high. Habits conscious and chosen.',
+    short:'91-100 Conscious and Chosen'
+  };
+}
 async function callClaude(sys, user, maxTok=700){
   // Calls the Supabase Edge Function proxy — no API key needed in the browser
   const proxyUrl = SUPABASE_URL + '/functions/v1/ai-proxy';
@@ -1711,78 +1930,23 @@ async function analyzeVoice(){
   btn.disabled=true; btn.innerHTML='<span class="loading-dots"><span></span><span></span><span></span></span>';
   document.getElementById('voice-output').style.display='block';
   const recentMoments=S.moments.slice(0,4).map(m=>`${m.emotion} (${m.persona}): "${(m.thought||'').substring(0,50)}"`).join('\n');
-  const sys=`You are the AntiGravity Verbal Mirror — reads language to detect gravitational forces. Meta-Model patterns: Nominalization, Modal Operator of Impossibility, Universal Quantifier, Mind Read, Lost Performative, Cause-Effect Distortion. User: ${S.profile.name}, ${S.profile.role}, Orbit:"${S.profile.orbit}". JSON only, no fences: {"gravityScore":number1to10,"maskScore":number0to100,"gravityDesc":"1 sentence","maskDesc":"1 sentence","patterns":[{"type":"name","example":"exact words","question":"Meta-model challenge"}],"dominantDomain":"Thinking|Emotional|Behavioral|Physical","coachMsg":"3-4 sentences in user's linguistic register — deliberate, their vocabulary — then lead toward directness. Quote their words. End with orbit reference."}`;
-  try{
-    const raw=await callClaude(sys,`Transcript:"${transcript}"\nRecent moments:\n${recentMoments||'None'}`,700);
-    let r; try{r=JSON.parse(raw);}catch{showToast('Parse error — try again');btn.disabled=false;btn.innerHTML='Analyse Voice →';return;}
-    // Save to Supabase
-    let saved;
-    if(false){ // legacy guard removed — all users save to Supabase
-      saved=null;
-    } else {
-      const {data:_vs}=await sb.from('voice_sessions').insert({
-      user_id:S.user.id, transcript,
-      gravity_score:r.gravityScore, mask_score:r.maskScore,
-      patterns:r.patterns||[], coach_msg:r.coachMsg,
-      dominant_domain:r.dominantDomain,
-      gravity_desc:r.gravityDesc, mask_desc:r.maskDesc
-    }).select().single();
-      saved=_vs;
-    }
-    const vs={...saved, time:new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})};
-    S.voiceSessions.unshift(vs);
-    // Update rings
-    document.getElementById('grav-arc').style.strokeDashoffset=220-(r.gravityScore/10)*220;
-    document.getElementById('grav-num').textContent=r.gravityScore.toFixed(1);
-    document.getElementById('grav-desc').textContent=r.gravityDesc;
-    document.getElementById('mask-arc').style.strokeDashoffset=220-(r.maskScore/100)*220;
-    document.getElementById('mask-num').textContent=r.maskScore;
-    document.getElementById('mask-desc').textContent=r.maskDesc;
-    // Patterns
-    document.getElementById('pattern-tags').innerHTML=(r.patterns||[]).map(p=>`<span class="pattern-tag"><span class="pt">${p.type}</span>${(p.example||'').substring(0,28)}...</span>`).join('');
-    const pd=document.getElementById('pattern-detail');
-    pd.innerHTML=`<div class="ai-label">◈ Patterns & Stop Signals</div><div class="ai-text">${(r.patterns||[]).map(p=>`<div style="margin-bottom:10px;"><strong>${p.type}</strong><br><em style="color:var(--emot);">"${p.example}"</em><br>→ <span style="color:var(--stop);">"${p.question}"</span></div>`).join('')}</div>`;
-    pd.style.display='block';
-    // Coach
-    document.getElementById('coach-section').innerHTML=renderCoach(r.coachMsg, saved.id);
-  }catch(e){showToast(e.message);}
-  btn.disabled=false; btn.innerHTML='Analyse Voice →';
-}
-
-function renderCoach(msg, sid){
-  return `<div class="coach-box"><div class="coach-header"><div class="coach-avatar">◎</div><div><div class="coach-name">AntiGravity Voice Coach</div><div class="coach-status">◉ MATCHED · ${S.profile.name}'s register</div></div></div><div class="coach-msg" id="coach-msg-${sid}">${msg}</div><div style="display:flex;gap:8px;flex-wrap:wrap;"><button class="btn btn-voice btn-sm" onclick="speakCoach('${sid}')">▶ Hear Coach</button><button class="btn btn-ghost btn-sm" onclick="stopSpeech()">⏹ Stop</button></div></div>`;
-}
-
-/* ═══════════════════════════════
-   TTS — VOICE COACH
-═══════════════════════════════ */
-function loadVoices(){
-  if('speechSynthesis' in window){const load=()=>{S.ttsVoices=speechSynthesis.getVoices();};load();speechSynthesis.onvoiceschanged=load;}
-}
-function speakCoach(sid){
-  if(!('speechSynthesis' in window)){showToast('Text-to-speech not supported here');return;}
-  const msg=document.getElementById('coach-msg-'+sid)?.textContent;
-  if(!msg) return;
-  stopSpeech();
-  const u=new SpeechSynthesisUtterance(msg);
-  const v=S.ttsVoices.find(v=>v.lang.startsWith('en')&&(v.name.includes('Daniel')||v.name.includes('Samantha')||v.name.includes('Karen')||v.name.includes('Moira')));
-  if(v) u.voice=v;
-  u.rate=0.88; u.pitch=0.95;
-  speechSynthesis.speak(u);
-  showToast('Coach speaking...');
-}
-function stopSpeech(){if('speechSynthesis' in window)speechSynthesis.cancel();}
-
-/* ═══════════════════════════════
-   VOICE LETTER
-═══════════════════════════════ */
-async function generateVoiceLetter(){
-  const vs=S.voiceSessions[0];
-  if(!vs){showToast('Run a voice analysis first');return;}
-  const c=document.getElementById('voice-letter-content');
-  c.innerHTML='<div class="ai-block"><div class="ai-label">◈ Writing Voice Letter</div><div class="ai-text"><span class="loading-dots"><span></span><span></span><span></span></span></div></div>';
-  const sys=`You are the AntiGravity Voice Letter writer. Write a personal letter to ${S.profile.name} in their linguistic fingerprint — their vocabulary density, their rhythm, their qualifying patterns. Structure: paragraph 1 mirrors their language exactly. Paragraphs 2-3 shift gradually toward directness. Paragraph 4 names their orbit explicitly. Quote one specific thing they said. 4 short paragraphs. No labels, no sign-off — just the letter.`;
-  const user=`Transcript:"${vs.transcript}"\nGravity:${vs.gravity_score}/10\nMask:${vs.mask_score}/100\nPatterns:${(vs.patterns||[]).map(p=>p.type).join(',')}\nOrbit:"${S.profile.orbit}"\nName:${S.profile.name},Role:${S.profile.role}`;
+  const sys=(
+    'You are the AntiGravity Verbal Mirror by Dr. Shadi Obeidat. '+
+    'Detect how automatic vs conscious the person behaviour is. '+
+    'Meta-Model patterns: Nominalization, Modal Operator of Impossibility, Universal Quantifier, Mind Read, Lost Performative, Cause-Effect Distortion. '+
+    'User: '+S.profile.name+', '+S.profile.role+'. Orbit: '+S.profile.orbit+'. '+
+    'GRAVITY SCORE 0-100: 0-30=Deep Gravity(fully automatic, pattern invisible); 31-55=Pull Active(aware but runs); 56-75=Emerging(resisting, forming habits); 76-90=Consolidating(new habits defaulting); 91-100=Balanced(conscious chosen). '+
+    'Score LOW: many violations, external locus, nominalizations. Score HIGH: agentic specific language, emotions named, person present. '+
+    'MASK SCORE 0-100: gap between expressed and actual state. '+
+    'JSON only, no fences, no markdown: '+
+    '{"gravityScore":0to100,"maskScore":0to100,'+
+    '"gravityDesc":"one sentence naming the band",'+
+    '"maskDesc":"one sentence",'+
+    '"patterns":[{"type":"name","example":"exact words from transcript","question":"Meta-model challenge"}],'+
+    '"dominantDomain":"Thinking|Emotional|Behavioral|Physical",'+
+    '"coachMsg":"3-4 sentences matching user pace and vocabulary, leading toward directness, quoting their words, ending with orbit reference."}'
+  );
+  const user=`Transcript:"${vs.transcript}"\nGravity Score: ${Math.round(vs.gravity_score)}/100 — ${getGravityBand(vs.gravity_score).name}\nMask:${vs.mask_score}/100\nPatterns:${(vs.patterns||[]).map(p=>p.type).join(',')}\nOrbit:"${S.profile.orbit}"\nName:${S.profile.name},Role:${S.profile.role}`;
   try{
     const letter=await callClaude(sys,user,500);
     const paras=letter.split('\n').filter(p=>p.trim()).map(p=>`<p>${p}</p>`).join('');
@@ -1880,7 +2044,7 @@ function refreshTrendDash(){
   if(S.voiceSessions.length<2){el.innerHTML='<div class="empty"><span class="empty-icon">◯</span><div class="empty-text">Run 2+ voice sessions to see your trend.</div></div>';return;}
   const sessions=S.voiceSessions.slice(0,7).reverse();
   const max=Math.max(...sessions.map(s=>s.gravity_score));
-  el.innerHTML=`<div class="trend-label">Gravity Score — last ${sessions.length} sessions</div><div class="trend-row">${sessions.map(s=>{const h=Math.max(6,(s.gravity_score/Math.max(max,1))*44);return `<div class="trend-bar" style="height:${h}px;background:var(--teal);opacity:.7;" data-val="${s.gravity_score}"></div>`;}).join('')}</div><div style="height:20px;"></div>`;
+  el.innerHTML=`<div class="trend-label">Gravity Score (0–100 · Consciousness) — last ${sessions.length} sessions</div><div class="trend-row">${sessions.map(s=>{const h=Math.max(6,(s.gravity_score/Math.max(max,1))*44);return `<div class="trend-bar" style="height:${h}px;background:var(--teal);opacity:.7;" data-val="${s.gravity_score}"></div>`;}).join('')}</div><div style="height:20px;"></div>`;
 }
 
 function refreshVoiceDash(){
@@ -1935,7 +2099,7 @@ Section 3 — MASS LAYER: 2 sentences on the dominant operating mode (persona) �
 Section 4 — ESCAPE SIGNAL: 2-3 sentences. The single most important antigravity practice for this person right now. Specific, actionable, tied to their actual data.
 Section 5 — ORBIT STATEMENT: Exactly one sentence. Connect all findings directly to the desired orbit. End the report.`;
 
-  const user=`Field Moments:\n${mS||'None yet'}\n\nVoice Sessions:\n${vS||'None yet'}\n\nDomain scores: Thinking ${domScores.Thinking}, Emotional ${domScores.Emotional}, Behavioral ${domScores.Behavioral}, Physical ${domScores.Physical}\nDominant persona: ${dominantPersona}\n${latestVoice?`Latest Gravity Score: ${latestVoice.gravity_score}/10, Mask Score: ${latestVoice.mask_score}/100`:''}`;
+  const user=`Field Moments:\n${mS||'None yet'}\n\nVoice Sessions:\n${vS||'None yet'}\n\nDomain scores: Thinking ${domScores.Thinking}, Emotional ${domScores.Emotional}, Behavioral ${domScores.Behavioral}, Physical ${domScores.Physical}\nDominant persona: ${dominantPersona}\n${latestVoice?`Latest Gravity Score: ${Math.round(latestVoice.gravity_score)}/100 (${getGravityBand(latestVoice.gravity_score).name}), Mask Score: ${latestVoice.mask_score}/100`:''}`;
 
   try{
     const report=await callClaude(sys,user,700);
@@ -2044,7 +2208,7 @@ const DEMO_MOMENTS=[
   {id:'d2',time:'11:32',trigger:'Senior stakeholder questioned my recommendation publicly',emotion:'Frustration',thought:"They never back me when it matters. I should have sent it by email.",insight:"Frustration here is a blocked request: you wanted acknowledgment and got challenge instead. The Avoider appeared — notice the impulse to prefer email over direct conversation.",persona:'Avoider',domain:'Emotional',stop_signal:'What would you ask for directly if you were not protecting yourself?',desire_link:'Authority in ambiguity requires tolerating public challenge without retreat.'},
   {id:'d3',time:'14:45',trigger:'Clear run at a well-defined project deliverable',emotion:'Clarity',thought:"I know exactly what needs to happen and I'm the right person to do it.",insight:"This is your Achiever — notice how different the field feels when structure is present. This operating mode is closest to your desired orbit. The gap is not capability — it is tolerance for ambiguity.",persona:'Achiever',domain:'Behavioral',stop_signal:'What would it take to bring this clarity into an unstructured moment?',desire_link:"Your orbit is already accessible — it appears when conditions are clear. The work is extending it into the unclear."}
 ];
-const DEMO_VOICE={id:'dv1',time:'10:05',transcript:"The main challenge is there's a general lack of alignment and nobody seems to want to make a decision. Every time I try to push for clarity it always creates more confusion.",gravity_score:7.2,mask_score:65,patterns:[{type:'Nominalization',example:"there's a general lack of alignment",question:'Who specifically is not aligning — about what?'},{type:'Universal Quantifier',example:'Every time I try... it always creates confusion',question:'What is the one time it did not? What was different?'},{type:'Lost Performative',example:'nobody seems to want to make a decision',question:'According to whom? What would deciding actually look like?'}],coach_msg:"You've described this as a structural problem — alignment, decisions, confusion. But notice what's missing: you. The situation has become a noun. Something that happens. The question your field is actually holding is simpler: what would you say if you said it directly, without the preparation?",dominant_domain:'Thinking',gravity_desc:'High cognitive mass — language removes agency systematically.',mask_desc:'Moderate gap — analytical framing carries more than the words suggest.'};
+const DEMO_VOICE={id:'dv1',time:'10:05',transcript:"The main challenge is there's a general lack of alignment and nobody seems to want to make a decision. Every time I try to push for clarity it always creates more confusion.",gravity_score:38,mask_score:65,patterns:[{type:'Nominalization',example:"there's a general lack of alignment",question:'Who specifically is not aligning — about what?'},{type:'Universal Quantifier',example:'Every time I try... it always creates confusion',question:'What is the one time it did not? What was different?'},{type:'Lost Performative',example:'nobody seems to want to make a decision',question:'According to whom? What would deciding actually look like?'}],coach_msg:"You've described this as a structural problem — alignment, decisions, confusion. But notice what's missing: you. The situation has become a noun. Something that happens. The question your field is actually holding is simpler: what would you say if you said it directly, without the preparation?",dominant_domain:'Thinking',gravity_desc:'Gravitational Pull Active — awareness is present but the pattern still runs more often than it doesn\'t.',mask_desc:'Moderate gap — analytical framing carries more than the words suggest.'};
 
 async function enterDemo(){
   // Show loading state
@@ -2519,6 +2683,73 @@ function refreshCheckLog(){
   ).join('');
 }
 
+/* ═══════════════════════════════
+   APP GUIDE FUNCTIONS
+═══════════════════════════════ */
+let currentSlide = 0;
+const TOTAL_SLIDES = 7;
+
+function openGuide(){
+  closeUserMenu();
+  currentSlide = 0;
+  renderSlide();
+  document.getElementById('guide-overlay').style.display = 'flex';
+}
+
+function closeGuide(){
+  document.getElementById('guide-overlay').style.display = 'none';
+  // Mark guide as seen
+  try { localStorage.setItem('ag_guide_seen','1'); } catch(e){}
+}
+
+function goSlide(n){
+  currentSlide = Math.max(0, Math.min(TOTAL_SLIDES-1, n));
+  renderSlide();
+}
+
+function nextSlide(){
+  if(currentSlide < TOTAL_SLIDES-1){
+    currentSlide++;
+    renderSlide();
+  } else {
+    closeGuide();
+  }
+}
+
+function prevSlide(){
+  if(currentSlide > 0){
+    currentSlide--;
+    renderSlide();
+  }
+}
+
+function renderSlide(){
+  // Update slides
+  document.querySelectorAll('.gslide').forEach((s,i) => {
+    s.classList.toggle('active', i === currentSlide);
+  });
+  // Update dots
+  document.querySelectorAll('.gdot').forEach((d,i) => {
+    d.classList.toggle('active', i === currentSlide);
+  });
+  // Update next button
+  const nextBtn = document.getElementById('guide-next-btn');
+  if(nextBtn){
+    nextBtn.textContent = currentSlide === TOTAL_SLIDES-1 ? 'Begin →' : 'Next →';
+  }
+}
+
+function checkFirstTime(){
+  try {
+    if(!localStorage.getItem('ag_guide_seen')){
+      setTimeout(openGuide, 800);
+    }
+  } catch(e){
+    // localStorage not available — show guide anyway
+    setTimeout(openGuide, 800);
+  }
+}
+
 function hideSplash(){
   const s = document.getElementById('splash');
   if(s && s.parentNode){
@@ -2526,6 +2757,18 @@ function hideSplash(){
     setTimeout(()=>{ if(s.parentNode) s.parentNode.removeChild(s); }, 600);
   }
 }
+
+// Guide swipe support
+let guideTouch = {x:0};
+document.addEventListener('touchstart', e=>{
+  if(document.getElementById('guide-overlay').style.display==='flex')
+    guideTouch.x = e.touches[0].clientX;
+},{passive:true});
+document.addEventListener('touchend', e=>{
+  if(document.getElementById('guide-overlay').style.display!=='flex') return;
+  const dx = e.changedTouches[0].clientX - guideTouch.x;
+  if(Math.abs(dx) > 50){ dx < 0 ? nextSlide() : prevSlide(); }
+},{passive:true});
 
 // Boot
 document.addEventListener('DOMContentLoaded', function() {
