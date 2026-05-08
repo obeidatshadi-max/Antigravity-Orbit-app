@@ -1295,7 +1295,7 @@ input[type=range]::-webkit-slider-thumb{
    ║  PASTE YOUR TWO SUPABASE VALUES BELOW — NOTHING ELSE ║
    ╚══════════════════════════════════════════════════════╝ */
 const SUPABASE_URL  = 'https://ejwgwiqkmwplebgpbfsr.supabase.co';
-const SUPABASE_ANON = https://ejwgwiqkmwplebgpbfsr.supabase.co/rest/v1/';
+const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVqd2d3aXFrbXdwbGViZ3BiZnNyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgyMTc0NTYsImV4cCI6MjA5Mzc5MzQ1Nn0.85a0IG5K5rDdMDt7MRl8rhr5eQGlWTE7rsVlDAiCTlQ';
 /* ══════════════════════════════════════════════════════ */
 
 const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
@@ -1397,12 +1397,6 @@ async function signUp(){
 async function sendMagicLink(){
   const email = document.getElementById('auth-email').value.trim();
   if(!email){showToast('Enter your email first');return;}
-  const { error } = await sb.auth.signInWithOtp({email});
-  if(error) showToast(error.message);
-  else showToast('Magic link sent — check your inbox.');
-}
-  const key = document.getElementById('api-key-input').value.trim();
-  if(!key||!key.startsWith('sk-')){showToast('Enter your Anthropic API key');return;}
   const { error } = await sb.auth.signInWithOtp({email});
   if(error) showToast(error.message);
   else showToast('Magic link sent — check your inbox.');
