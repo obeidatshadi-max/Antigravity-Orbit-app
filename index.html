@@ -600,6 +600,13 @@ input[type=range]::-webkit-slider-thumb{
    Two-column shell, wider cards,
    sidebar nav replaces bottom bar
 ══════════════════════════════════ */
+/* Mobile performance fixes */
+@media(max-width:767px){
+  .rings-anim svg { animation: none !important; }
+  .ra, .rb { animation: none !important; }
+  .wbar { animation: none !important; }
+  * { -webkit-overflow-scrolling: touch; }
+}
 @media(min-width:768px){
   :root{
     /* Larger type on desktop */
@@ -824,6 +831,12 @@ input[type=range]::-webkit-slider-thumb{
 </style>
 </head>
 <body>
+
+<!-- INSTANT LOADING SPLASH — shows immediately on mobile -->
+<div id="splash" style="position:fixed;inset:0;background:#05070f;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:99998;transition:opacity .5s ease;">
+  <div style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;color:#e6e0d2;margin-bottom:6px;">Anti<em style="font-style:italic;color:#c9a84c;">Gravity</em></div>
+  <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;color:#5a5870;text-transform:uppercase;">Loading...</div>
+</div>
 
 <!-- ══════════════════════════════
      SCREEN: AUTH
@@ -1094,11 +1107,10 @@ input[type=range]::-webkit-slider-thumb{
         <div style="font-size:13px;color:var(--muted2);margin-bottom:14px;line-height:1.6;">Speak about a significant interaction for 60–90 seconds. Don't prepare. The system reads your language patterns, not your facts.</div>
         <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
           <div class="waveform paused" id="waveform">
-            <div class="wbar" style="--d:.5s;height:34px"></div><div class="wbar" style="--d:.8s;height:34px"></div>
-            <div class="wbar" style="--d:.6s;height:34px"></div><div class="wbar" style="--d:.9s;height:34px"></div>
-            <div class="wbar" style="--d:.4s;height:34px"></div><div class="wbar" style="--d:.7s;height:34px"></div>
-            <div class="wbar" style="--d:.5s;height:34px"></div><div class="wbar" style="--d:1s;height:34px"></div>
-            <div class="wbar" style="--d:.6s;height:34px"></div><div class="wbar" style="--d:.8s;height:34px"></div>
+            <div class="wbar" style="--d:.5s;height:34px"></div>
+            <div class="wbar" style="--d:.8s;height:34px"></div>
+            <div class="wbar" style="--d:.6s;height:34px"></div>
+            <div class="wbar" style="--d:.9s;height:34px"></div>
           </div>
           <div style="font-family:'Space Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:2px;" id="rec-status">READY</div>
         </div>
@@ -1322,6 +1334,10 @@ async function init(){
     S.user = session.user;
     await loadUserData();
   }
+  // No session — show auth screen and hide splash
+  if(!session){
+    hideSplash();
+  }
   // Listen for auth changes
   sb.auth.onAuthStateChange(async (event, session) => {
     if(event === 'SIGNED_IN' && session){
@@ -1466,6 +1482,7 @@ function enterApp(){
   setUserDot();
   document.getElementById('screen-onboard').style.display='none';
   document.getElementById('screen-auth').style.display='none';
+  hideSplash();
   document.getElementById('app').style.display='flex';
   if(S.isAnonymous){
     const b=document.getElementById('demo-topbar-badge');
@@ -2485,8 +2502,35 @@ function refreshCheckLog(){
   ).join('');
 }
 
-// Boot
-init();
+function hideSplash(){
+  const s = document.getElementById('splash');
+  if(s){ s.style.opacity='0'; setTimeout(()=>s.remove(),500); }
+}
+
+// Boot — wait for DOM + Supabase to load
+document.addEventListener('DOMContentLoaded', function() {
+  // Show loading state immediately so mobile doesn't freeze-appear
+  const authScreen = document.getElementById('screen-auth');
+  if(authScreen) authScreen.classList.add('active');
+  
+  // Give Supabase 3 seconds to init, then show auth regardless
+  const initTimeout = setTimeout(() => {
+    console.log('Init timeout — showing auth screen');
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    if(authScreen) authScreen.classList.add('active');
+  }, 3000);
+
+  // Small delay to let browser render first
+  setTimeout(async () => {
+    try {
+      await init();
+    } catch(e) {
+      console.error('Init error:', e);
+    } finally {
+      clearTimeout(initTimeout);
+    }
+  }, 100);
+});
 </script>
 </body>
 </html>
