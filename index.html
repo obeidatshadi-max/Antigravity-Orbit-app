@@ -4,11 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AntiGravity — Field Intelligence System</title>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" async></script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Space+Mono:wght@400&family=DM+Sans:wght@300;400&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Space+Mono:wght@400&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet"></noscript>
+
+<!-- Fonts: system only for performance -->
 <style>
 /* ═══════════════════════════════════════════
    ANTIGRAVITY — DUAL VIEWPORT DESIGN SYSTEM
@@ -80,7 +77,7 @@ body{
   height:100%;overflow:auto;
   background:var(--void);
   color:var(--star);
-  font-family:'DM Sans',sans-serif;
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
   font-size:var(--ts-base);
   line-height:1.65;
   display:flex;flex-direction:column;
@@ -112,13 +109,13 @@ body{
   flex-shrink:0;
 }
 .topbar-logo{
-  font-family:'Cormorant Garamond',serif;
+  font-family:'Georgia',serif;
   font-size:var(--ts-lg);font-weight:300;letter-spacing:.5px;
 }
 .topbar-logo em{font-style:italic;color:var(--gold);}
 .topbar-right{display:flex;align-items:center;gap:10px;}
 .stop-badge{
-  font-family:'Space Mono',monospace;
+  font-family:'Courier New',monospace;
   font-size:var(--mono-sm);letter-spacing:1.5px;
   padding:6px 12px;border-radius:14px;text-transform:uppercase;
   background:var(--stop-d);border:1px solid rgba(232,199,106,.28);
@@ -130,14 +127,14 @@ body{
   background:var(--gold-d);border:1px solid rgba(201,168,76,.35);
   display:flex;align-items:center;justify-content:center;
   font-size:var(--ts-sm);cursor:pointer;color:var(--gold);
-  font-family:'Space Mono',monospace;font-weight:700;
+  font-family:'Courier New',monospace;font-weight:700;
 }
 .mode-pill{
   display:flex;background:var(--surface);
   border:1px solid var(--border2);border-radius:22px;overflow:hidden;
 }
 .mode-btn{
-  font-family:'Space Mono',monospace;
+  font-family:'Courier New',monospace;
   font-size:var(--mono-sm);letter-spacing:1.5px;
   padding:7px 14px;border:none;background:transparent;
   color:var(--muted);cursor:pointer;transition:all .2s;text-transform:uppercase;
@@ -156,7 +153,7 @@ body{
 }
 .nav-icon{font-size:18px;line-height:1;}
 .nav-label{
-  font-family:'Space Mono',monospace;
+  font-family:'Courier New',monospace;
   font-size:var(--mono-xs);letter-spacing:1.5px;
   color:var(--muted);text-transform:uppercase;transition:color .2s;
 }
@@ -168,14 +165,14 @@ body{
   border-radius:var(--card-radius);padding:22px;margin-bottom:16px;
 }
 .card-label{
-  font-family:'Space Mono',monospace;
+  font-family:'Courier New',monospace;
   font-size:var(--mono-base);letter-spacing:2.5px;
   text-transform:uppercase;color:var(--muted);margin-bottom:14px;
 }
 
 /* ── BUTTONS ── */
 .btn{
-  font-family:'Space Mono',monospace;
+  font-family:'Courier New',monospace;
   font-size:var(--mono-base);letter-spacing:2px;
   padding:13px 26px;border-radius:10px;border:1px solid;
   cursor:pointer;text-transform:uppercase;
@@ -196,7 +193,7 @@ body{
 /* ── FORM ELEMENTS ── */
 .field-group{margin-bottom:16px;}
 .field-label{
-  font-family:'Space Mono',monospace;
+  font-family:'Courier New',monospace;
   font-size:var(--mono-sm);letter-spacing:1.5px;
   color:var(--muted2);text-transform:uppercase;
   margin-bottom:8px;display:block;
@@ -204,7 +201,7 @@ body{
 .field-input,.field-textarea,.field-select{
   width:100%;background:var(--surface2);border:1px solid var(--border2);
   border-radius:10px;color:var(--star);
-  font-family:'DM Sans',sans-serif;font-size:var(--ts-base);
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:var(--ts-base);
   padding:13px 15px;outline:none;transition:border-color .2s;
   -webkit-appearance:none;line-height:1.5;
 }
@@ -230,7 +227,7 @@ input[type=range]::-webkit-slider-thumb{
   background:var(--gold);cursor:pointer;box-shadow:0 0 10px var(--gold-g);
 }
 .slider-val{
-  font-family:'Space Mono',monospace;font-size:var(--mono-base);
+  font-family:'Courier New',monospace;font-size:var(--mono-base);
   color:var(--gold);width:24px;text-align:right;
 }
 
@@ -241,12 +238,12 @@ input[type=range]::-webkit-slider-thumb{
   padding:16px 20px;margin-bottom:18px;
 }
 .desire-strip .dl{
-  font-family:'Space Mono',monospace;
+  font-family:'Courier New',monospace;
   font-size:var(--mono-sm);letter-spacing:2px;
   color:var(--gold);text-transform:uppercase;margin-bottom:7px;
 }
 .desire-strip .dt{
-  font-family:'Cormorant Garamond',serif;
+  font-family:'Georgia',serif;
   font-size:var(--ts-md);font-style:italic;
   color:var(--star);line-height:1.45;
 }
@@ -271,12 +268,12 @@ input[type=range]::-webkit-slider-thumb{
   display:flex;align-items:center;justify-content:center;font-size:20px;
 }
 .stop-meta{
-  font-family:'Space Mono',monospace;font-size:var(--mono-sm);
+  font-family:'Courier New',monospace;font-size:var(--mono-sm);
   letter-spacing:2px;color:var(--stop);text-transform:uppercase;
 }
 .stop-time{font-size:var(--ts-sm);color:var(--muted);margin-top:3px;}
 .stop-question{
-  font-family:'Cormorant Garamond',serif;
+  font-family:'Georgia',serif;
   font-size:var(--ts-xl);font-weight:300;font-style:italic;
   line-height:1.4;color:var(--star);margin-bottom:10px;
 }
@@ -302,7 +299,7 @@ input[type=range]::-webkit-slider-thumb{
 .menu-item.danger:hover{color:var(--emot);}
 .menu-divider{height:1px;background:var(--border);margin:5px 0;}
 .menu-user{
-  font-family:'Space Mono',monospace;font-size:var(--mono-xs);
+  font-family:'Courier New',monospace;font-size:var(--mono-xs);
   letter-spacing:1.5px;color:var(--muted);padding:9px 14px;text-transform:uppercase;
 }
 
@@ -313,7 +310,7 @@ input[type=range]::-webkit-slider-thumb{
   padding:18px;margin-top:14px;
 }
 .ai-label{
-  font-family:'Space Mono',monospace;
+  font-family:'Courier New',monospace;
   font-size:var(--mono-sm);letter-spacing:2px;
   color:var(--think);text-transform:uppercase;margin-bottom:10px;
 }
@@ -345,11 +342,11 @@ input[type=range]::-webkit-slider-thumb{
   align-items:baseline;margin-bottom:6px;
 }
 .domain-name{
-  font-family:'Space Mono',monospace;
+  font-family:'Courier New',monospace;
   font-size:var(--mono-sm);letter-spacing:1.5px;text-transform:uppercase;
 }
 .domain-score{
-  font-family:'Cormorant Garamond',serif;
+  font-family:'Georgia',serif;
   font-size:var(--ts-xl);font-weight:300;line-height:1;
 }
 .bar-track{height:4px;background:var(--border2);border-radius:2px;overflow:hidden;}
@@ -365,8 +362,8 @@ input[type=range]::-webkit-slider-thumb{
 .ring-trk{fill:none;stroke:var(--border2);stroke-width:7;}
 .ring-fil{fill:none;stroke-width:7;stroke-linecap:round;stroke-dasharray:220;transition:stroke-dashoffset 1.2s ease;}
 .ring-inner{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
-.ring-n{font-family:'Cormorant Garamond',serif;font-size:23px;font-weight:300;line-height:1;}
-.ring-u{font-family:'Space Mono',monospace;font-size:var(--mono-xs);color:var(--muted);}
+.ring-n{font-family:'Georgia',serif;font-size:23px;font-weight:300;line-height:1;}
+.ring-u{font-family:'Courier New',monospace;font-size:var(--mono-xs);color:var(--muted);}
 
 /* ── SCORE GRID ── */
 .score-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-bottom:16px;}
@@ -383,7 +380,7 @@ input[type=range]::-webkit-slider-thumb{
   border-radius:6px;padding:4px 10px;margin:3px;
 }
 .pattern-tag .pt{
-  font-family:'Space Mono',monospace;
+  font-family:'Courier New',monospace;
   font-size:var(--mono-xs);color:var(--emot);
 }
 
@@ -402,11 +399,11 @@ input[type=range]::-webkit-slider-thumb{
 }
 .coach-name{font-size:var(--ts-sm);color:var(--star);font-weight:500;}
 .coach-status{
-  font-family:'Space Mono',monospace;
+  font-family:'Courier New',monospace;
   font-size:var(--mono-xs);color:var(--voice);letter-spacing:1.5px;
 }
 .coach-msg{
-  font-family:'Cormorant Garamond',serif;
+  font-family:'Georgia',serif;
   font-size:var(--ts-md);font-style:italic;
   line-height:1.8;color:var(--star);margin-bottom:14px;
 }
@@ -419,11 +416,11 @@ input[type=range]::-webkit-slider-thumb{
 }
 .letter-box::before{
   content:'"';position:absolute;top:10px;left:12px;
-  font-family:'Cormorant Garamond',serif;font-size:56px;
+  font-family:'Georgia',serif;font-size:56px;
   color:rgba(201,168,76,.08);line-height:1;
 }
 .letter-text{
-  font-family:'Cormorant Garamond',serif;
+  font-family:'Georgia',serif;
   font-size:var(--ts-md);font-style:italic;
   line-height:1.85;color:var(--star);
 }
@@ -437,13 +434,13 @@ input[type=range]::-webkit-slider-thumb{
 }
 .moment-entry:hover{border-color:var(--border2);}
 .moment-time{
-  font-family:'Space Mono',monospace;
+  font-family:'Courier New',monospace;
   font-size:var(--mono-xs);color:var(--muted);
   letter-spacing:1.5px;margin-bottom:6px;
 }
 .moment-persona{
   display:inline-block;
-  font-family:'Space Mono',monospace;
+  font-family:'Courier New',monospace;
   font-size:var(--mono-xs);letter-spacing:1.5px;
   padding:3px 9px;border-radius:5px;text-transform:uppercase;
   margin-bottom:7px;background:var(--gold-d);
@@ -458,7 +455,7 @@ input[type=range]::-webkit-slider-thumb{
 }
 .tab-bar::-webkit-scrollbar{display:none;}
 .tab-btn{
-  font-family:'Space Mono',monospace;
+  font-family:'Courier New',monospace;
   font-size:var(--mono-sm);letter-spacing:1.5px;
   padding:11px 16px;border:none;background:transparent;
   color:var(--muted);cursor:pointer;white-space:nowrap;
@@ -486,13 +483,13 @@ input[type=range]::-webkit-slider-thumb{
   overflow-y:auto;
 }
 .brand-title{
-  font-family:'Cormorant Garamond',serif;
+  font-family:'Georgia',serif;
   font-size:var(--ts-display);font-weight:300;
   text-align:center;margin-bottom:5px;
 }
 .brand-title em{font-style:italic;color:var(--gold);}
 .brand-sub{
-  font-family:'Space Mono',monospace;font-size:var(--mono-sm);
+  font-family:'Courier New',monospace;font-size:var(--mono-sm);
   letter-spacing:3px;color:var(--muted);text-transform:uppercase;
   text-align:center;margin-bottom:32px;
 }
@@ -507,7 +504,7 @@ input[type=range]::-webkit-slider-thumb{
 .onboard-step{display:none;}
 .onboard-step.active{display:block;}
 .step-title{
-  font-family:'Cormorant Garamond',serif;
+  font-family:'Georgia',serif;
   font-size:var(--ts-xl);font-weight:300;
   margin-bottom:8px;line-height:1.25;
 }
@@ -515,7 +512,7 @@ input[type=range]::-webkit-slider-thumb{
 .step-desc{font-size:var(--ts-sm);color:var(--muted2);margin-bottom:22px;line-height:1.7;}
 .auth-tabs{display:flex;gap:8px;margin-bottom:22px;}
 .auth-tab{
-  flex:1;font-family:'Space Mono',monospace;
+  flex:1;font-family:'Courier New',monospace;
   font-size:var(--mono-sm);letter-spacing:1.5px;
   padding:11px;border:1px solid var(--border2);border-radius:10px;
   background:transparent;color:var(--muted);cursor:pointer;
@@ -554,10 +551,10 @@ input[type=range]::-webkit-slider-thumb{
 .trend-bar::after{
   content:attr(data-val);position:absolute;bottom:-18px;
   left:50%;transform:translateX(-50%);
-  font-family:'Space Mono',monospace;font-size:var(--mono-xs);color:var(--muted);
+  font-family:'Courier New',monospace;font-size:var(--mono-xs);color:var(--muted);
 }
 .trend-label{
-  font-family:'Space Mono',monospace;
+  font-family:'Courier New',monospace;
   font-size:var(--mono-sm);letter-spacing:1.5px;
   color:var(--muted);text-transform:uppercase;margin-bottom:6px;
 }
@@ -720,13 +717,13 @@ input[type=range]::-webkit-slider-thumb{
   margin-bottom:24px;
 }
 .fir-eyebrow{
-  font-family:'Space Mono',monospace;
+  font-family:'Courier New',monospace;
   font-size:var(--mono-sm);letter-spacing:3px;
   color:var(--muted);text-transform:uppercase;
   margin-bottom:16px;
 }
 .fir-name{
-  font-family:'Cormorant Garamond',serif;
+  font-family:'Georgia',serif;
   font-size:clamp(28px, 5vw, 48px);
   font-weight:300;line-height:1.1;
   color:var(--star);margin-bottom:6px;
@@ -737,7 +734,7 @@ input[type=range]::-webkit-slider-thumb{
   line-height:1.4;
 }
 .fir-date{
-  font-family:'Space Mono',monospace;
+  font-family:'Courier New',monospace;
   font-size:var(--mono-xs);color:var(--muted);
   letter-spacing:1.5px;
 }
@@ -750,13 +747,13 @@ input[type=range]::-webkit-slider-thumb{
   margin-bottom:20px;
 }
 .fir-orbit-label{
-  font-family:'Space Mono',monospace;
+  font-family:'Courier New',monospace;
   font-size:var(--mono-sm);letter-spacing:2.5px;
   color:var(--gold);text-transform:uppercase;
   margin-bottom:10px;
 }
 .fir-orbit-text{
-  font-family:'Cormorant Garamond',serif;
+  font-family:'Georgia',serif;
   font-size:clamp(18px, 3vw, 26px);
   font-weight:300;font-style:italic;
   line-height:1.5;color:var(--star);
@@ -773,7 +770,7 @@ input[type=range]::-webkit-slider-thumb{
   border-radius:var(--card-radius);padding:24px;
 }
 .fir-summary-label{
-  font-family:'Space Mono',monospace;
+  font-family:'Courier New',monospace;
   font-size:var(--mono-sm);letter-spacing:2px;
   color:var(--muted);text-transform:uppercase;
   margin-bottom:18px;
@@ -793,12 +790,12 @@ input[type=range]::-webkit-slider-thumb{
   font-size:18px;line-height:1;flex-shrink:0;
 }
 .fir-section-label{
-  font-family:'Space Mono',monospace;
+  font-family:'Courier New',monospace;
   font-size:var(--mono-base);letter-spacing:2px;
   text-transform:uppercase;
 }
 .fir-section-body{
-  font-family:'Cormorant Garamond',serif;
+  font-family:'Georgia',serif;
   font-size:clamp(18px, 2.5vw, 24px);
   font-weight:300;line-height:1.75;
   color:var(--star);
@@ -834,26 +831,26 @@ input[type=range]::-webkit-slider-thumb{
 .gslide{display:none;flex-direction:column;padding:24px 24px 8px;overflow-y:auto;height:100%;-webkit-overflow-scrolling:touch;}
 .gslide.active{display:flex;}
 .gslide-icon{font-size:36px;margin-bottom:12px;color:var(--gold);text-align:center;}
-.gslide-eyebrow{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;text-align:center;margin-bottom:10px;}
-.gslide-title{font-family:'Cormorant Garamond',serif;font-size:clamp(26px,5vw,38px);font-weight:300;line-height:1.15;text-align:center;color:var(--star);margin-bottom:18px;}
+.gslide-eyebrow{font-family:'Courier New',monospace;font-size:9px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;text-align:center;margin-bottom:10px;}
+.gslide-title{font-family:'Georgia',serif;font-size:clamp(26px,5vw,38px);font-weight:300;line-height:1.15;text-align:center;color:var(--star);margin-bottom:18px;}
 .gslide-title em{font-style:italic;color:var(--gold);}
 .gslide-body{font-size:var(--ts-sm);color:var(--muted2);line-height:1.75;margin-bottom:16px;}
 .gslide-body strong{color:var(--star);font-weight:500;}
-.gslide-quote{font-family:'Cormorant Garamond',serif;font-size:17px;font-style:italic;color:var(--star);border-left:2px solid var(--gold);padding:12px 16px;background:var(--gold-d);border-radius:0 8px 8px 0;line-height:1.6;}
+.gslide-quote{font-family:'Georgia',serif;font-size:17px;font-style:italic;color:var(--star);border-left:2px solid var(--gold);padding:12px 16px;background:var(--gold-d);border-radius:0 8px 8px 0;line-height:1.6;}
 .gslide-tip{font-size:12px;color:var(--muted2);background:var(--surface2);border:1px solid var(--border2);border-radius:8px;padding:10px 14px;line-height:1.55;margin-top:auto;margin-bottom:8px;}
 .gstep{display:flex;gap:8px;padding:7px 0;border-bottom:1px solid var(--border);font-size:13px;color:var(--muted2);}
 .gstep:last-child{border-bottom:none;}
 .gstep strong{color:var(--star);}
 .gstep-num{display:flex;gap:12px;align-items:flex-start;margin-bottom:12px;font-size:13px;color:var(--muted2);line-height:1.6;}
-.gstep-num span{font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--gold);line-height:1;flex-shrink:0;margin-top:-2px;}
+.gstep-num span{font-family:'Georgia',serif;font-size:24px;color:var(--gold);line-height:1;flex-shrink:0;margin-top:-2px;}
 .gstep-num strong{color:var(--star);}
 .gband{display:flex;align-items:center;gap:12px;padding:8px 12px;border:1px solid;border-radius:8px;background:var(--surface);}
-.gslide-cta{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--void);background:var(--gold);border:none;border-radius:6px;padding:14px 28px;cursor:pointer;margin-top:16px;width:100%;font-weight:700;transition:all .25s;}
+.gslide-cta{font-family:'Courier New',monospace;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--void);background:var(--gold);border:none;border-radius:6px;padding:14px 28px;cursor:pointer;margin-top:16px;width:100%;font-weight:700;transition:all .25s;}
 .gslide-cta:hover{background:#e8c97a;}
-.gnav-btn{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;padding:11px 20px;border-radius:8px;border:1px solid var(--border2);background:transparent;color:var(--muted2);cursor:pointer;flex:1;transition:all .2s;}
+.gnav-btn{font-family:'Courier New',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;padding:11px 20px;border-radius:8px;border:1px solid var(--border2);background:transparent;color:var(--muted2);cursor:pointer;flex:1;transition:all .2s;}
 .gnav-btn:hover{border-color:var(--gold-g);color:var(--gold);}
 .gnav-primary{background:var(--gold-d);border-color:rgba(201,168,76,.4);color:var(--gold);}
-.help-btn{width:30px;height:30px;border-radius:50%;border:1px solid var(--border2);background:var(--surface);color:var(--muted2);font-family:'Space Mono',monospace;font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;}
+.help-btn{width:30px;height:30px;border-radius:50%;border:1px solid var(--border2);background:var(--surface);color:var(--muted2);font-family:'Courier New',monospace;font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;}
 .help-btn:hover{border-color:var(--gold-g);color:var(--gold);}
 
 
@@ -869,7 +866,7 @@ input[type=range]::-webkit-slider-thumb{
   padding:14px 16px;cursor:pointer;
 }
 .orbit-domain-label{
-  font-family:'Space Mono',monospace;font-size:10px;letter-spacing:1.5px;
+  font-family:'Courier New',monospace;font-size:10px;letter-spacing:1.5px;
   color:var(--star);text-transform:uppercase;margin-bottom:3px;
 }
 .orbit-domain-hint{font-size:11px;color:var(--muted);line-height:1.4;}
@@ -891,7 +888,7 @@ input[type=range]::-webkit-slider-thumb{
   background:linear-gradient(to bottom,var(--muted),var(--border2));
 }
 .orbital-ring-label{
-  font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;
+  font-family:'Courier New',monospace;font-size:9px;letter-spacing:2px;
   color:var(--gold);text-transform:uppercase;
   background:var(--surface);padding:4px 12px;
   border:1px solid rgba(201,168,76,.3);border-radius:20px;
@@ -906,7 +903,7 @@ input[type=range]::-webkit-slider-thumb{
   margin-left:20px;
 }
 .orbital-state-label{
-  font-family:'Space Mono',monospace;font-size:10px;
+  font-family:'Courier New',monospace;font-size:10px;
   letter-spacing:1.5px;text-transform:uppercase;
 }
 .orbit-pos-falling .orbital-indicator{background:var(--emot);box-shadow:0 0 10px var(--emot);}
@@ -916,7 +913,7 @@ input[type=range]::-webkit-slider-thumb{
 /* ── ACTION TYPE CHIPS ── */
 .action-chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;}
 .action-chip{
-  font-family:'Space Mono',monospace;font-size:9px;letter-spacing:1.5px;
+  font-family:'Courier New',monospace;font-size:9px;letter-spacing:1.5px;
   padding:6px 12px;border-radius:20px;border:1px solid var(--border2);
   background:transparent;color:var(--muted2);cursor:pointer;
   text-transform:uppercase;transition:all .2s;
@@ -926,7 +923,7 @@ input[type=range]::-webkit-slider-thumb{
 /* ── TRIGGER HINTS ── */
 .trigger-hints{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px;}
 .trigger-hint{
-  font-family:'Space Mono',monospace;font-size:8px;letter-spacing:1px;
+  font-family:'Courier New',monospace;font-size:8px;letter-spacing:1px;
   padding:4px 10px;border-radius:12px;border:1px solid var(--border2);
   background:var(--surface2);color:var(--muted2);cursor:pointer;
   transition:all .15s;
@@ -941,8 +938,8 @@ input[type=range]::-webkit-slider-thumb{
 
 <!-- INSTANT LOADING SPLASH — shows immediately on mobile -->
 <div id="splash" style="position:fixed;inset:0;background:#05070f;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:99998;">
-  <div style="font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:300;color:#e6e0d2;margin-bottom:6px;">Anti<em style="font-style:italic;color:#c9a84c;">Gravity</em></div>
-  <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;color:#5a5870;text-transform:uppercase;">Field Intelligence System</div>
+  <div style="font-family:'Georgia',serif;font-size:32px;font-weight:300;color:#e6e0d2;margin-bottom:6px;">Anti<em style="font-style:italic;color:#c9a84c;">Gravity</em></div>
+  <div style="font-family:'Courier New',monospace;font-size:9px;letter-spacing:3px;color:#5a5870;text-transform:uppercase;">Field Intelligence System</div>
 </div>
 
 
@@ -977,7 +974,7 @@ input[type=range]::-webkit-slider-thumb{
       <!-- ── TAB: DEMO ── -->
       <div id="panel-demo">
         <div style="font-size:var(--ts-sm);color:var(--muted2);line-height:1.65;margin-bottom:22px;text-align:left;background:var(--surface2);border:1px solid var(--border2);border-radius:12px;padding:16px 18px;">
-          <div style="font-family:'Space Mono',monospace;font-size:var(--mono-xs);letter-spacing:2px;color:var(--stop);text-transform:uppercase;margin-bottom:8px;">✦ No account needed</div>
+          <div style="font-family:'Courier New',monospace;font-size:var(--mono-xs);letter-spacing:2px;color:var(--stop);text-transform:uppercase;margin-bottom:8px;">✦ No account needed</div>
           Explore every feature freely. Your field data saves automatically to this session. Create an account anytime to keep it permanently.
         </div>
 
@@ -1011,7 +1008,7 @@ input[type=range]::-webkit-slider-thumb{
           <input class="field-input" id="signup-email" type="email" placeholder="you@email.com">
         </div>
         <div class="field-group">
-          <label class="field-label">Password <span style="color:var(--muted);font-family:'Space Mono',monospace;font-size:var(--mono-xs);letter-spacing:1px;text-transform:none;">min 6 characters</span></label>
+          <label class="field-label">Password <span style="color:var(--muted);font-family:'Courier New',monospace;font-size:var(--mono-xs);letter-spacing:1px;text-transform:none;">min 6 characters</span></label>
           <input class="field-input" id="signup-pass" type="password" placeholder="••••••••">
         </div>
         <button class="btn btn-gold btn-full" style="padding:15px;" onclick="signUp()">Create Account →</button>
@@ -1060,7 +1057,7 @@ input[type=range]::-webkit-slider-thumb{
         <div class="orbit-domain-card active" id="odc-1">
           <div class="orbit-domain-header" onclick="toggleOrbitDomain(1)">
             <div>
-              <div class="orbit-domain-label">◎ Professional Orbit <span style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:1.5px;color:var(--emot);background:rgba(224,123,123,.12);padding:2px 7px;border-radius:4px;margin-left:6px;">Required</span></div>
+              <div class="orbit-domain-label">◎ Professional Orbit <span style="font-family:'Courier New',monospace;font-size:8px;letter-spacing:1.5px;color:var(--emot);background:rgba(224,123,123,.12);padding:2px 7px;border-radius:4px;margin-left:6px;">Required</span></div>
               <div class="orbit-domain-hint">Leadership · Performance · Career · Purpose</div>
             </div>
             <span class="orbit-chevron" id="odc-chev-1">▾</span>
@@ -1074,7 +1071,7 @@ input[type=range]::-webkit-slider-thumb{
         <div class="orbit-domain-card" id="odc-2">
           <div class="orbit-domain-header" onclick="toggleOrbitDomain(2)">
             <div>
-              <div class="orbit-domain-label">◈ Relational Orbit <span style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:1.5px;color:var(--muted);background:var(--surface2);padding:2px 7px;border-radius:4px;margin-left:6px;">Optional</span></div>
+              <div class="orbit-domain-label">◈ Relational Orbit <span style="font-family:'Courier New',monospace;font-size:8px;letter-spacing:1.5px;color:var(--muted);background:var(--surface2);padding:2px 7px;border-radius:4px;margin-left:6px;">Optional</span></div>
               <div class="orbit-domain-hint">Relationships · Communication · Conflict · Connection</div>
             </div>
             <span class="orbit-chevron" id="odc-chev-2">▸</span>
@@ -1088,7 +1085,7 @@ input[type=range]::-webkit-slider-thumb{
         <div class="orbit-domain-card" id="odc-3">
           <div class="orbit-domain-header" onclick="toggleOrbitDomain(3)">
             <div>
-              <div class="orbit-domain-label">⊙ Personal Orbit <span style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:1.5px;color:var(--muted);background:var(--surface2);padding:2px 7px;border-radius:4px;margin-left:6px;">Optional</span></div>
+              <div class="orbit-domain-label">⊙ Personal Orbit <span style="font-family:'Courier New',monospace;font-size:8px;letter-spacing:1.5px;color:var(--muted);background:var(--surface2);padding:2px 7px;border-radius:4px;margin-left:6px;">Optional</span></div>
               <div class="orbit-domain-hint">Identity · Values · Energy · Inner self</div>
             </div>
             <span class="orbit-chevron" id="odc-chev-3">▸</span>
@@ -1165,7 +1162,7 @@ input[type=range]::-webkit-slider-thumb{
 <!-- SETTINGS OVERLAY -->
 <div id="settings-overlay">
   <div class="settings-panel">
-    <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;margin-bottom:18px;">Settings</div>
+    <div style="font-family:'Georgia',serif;font-size:22px;font-weight:300;margin-bottom:18px;">Settings</div>
 
     <div class="field-group">
       <label class="field-label">Desired Orbit</label>
@@ -1192,7 +1189,7 @@ input[type=range]::-webkit-slider-thumb{
       <button class="help-btn" onclick="openGuide()" title="App Guide">?</button>
       <div id="demo-topbar-badge" style="display:none;align-items:center;gap:6px;background:rgba(232,199,106,.08);border:1px solid rgba(232,199,106,.25);border-radius:10px;padding:4px 10px;cursor:pointer;" onclick="showToast('Demo mode — add an API key in the menu for AI features')">
         <span style="font-size:var(--mono-sm);">✦</span>
-        <span style="font-family:'Space Mono',monospace;font-size:var(--mono-xs);letter-spacing:1.5px;color:var(--stop);text-transform:uppercase;">Demo</span>
+        <span style="font-family:'Courier New',monospace;font-size:var(--mono-xs);letter-spacing:1.5px;color:var(--stop);text-transform:uppercase;">Demo</span>
       </div>
       <div class="stop-badge" onclick="showStopSignal()">⚡ Stop</div>
       <div class="mode-pill">
@@ -1262,7 +1259,7 @@ input[type=range]::-webkit-slider-thumb{
             <div class="wbar" style="--d:.6s;height:34px"></div>
             <div class="wbar" style="--d:.9s;height:34px"></div>
           </div>
-          <div style="font-family:'Space Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:2px;" id="rec-status">READY</div>
+          <div style="font-family:'Courier New',monospace;font-size:9px;color:var(--muted);letter-spacing:2px;" id="rec-status">READY</div>
         </div>
         <textarea class="field-textarea" id="voice-transcript" placeholder="Your speech will appear here — or type directly..." style="min-height:90px;margin-bottom:13px;"></textarea>
         <div style="display:flex;gap:9px;flex-wrap:wrap;">
@@ -1275,8 +1272,8 @@ input[type=range]::-webkit-slider-thumb{
 
       <!-- SCORE DEFINITION — shown once above the rings -->
       <div style="background:linear-gradient(135deg,rgba(74,155,155,.06),rgba(201,168,76,.04));border:1px solid rgba(74,155,155,.2);border-radius:14px;padding:18px 20px;margin-bottom:14px;">
-        <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--teal);text-transform:uppercase;margin-bottom:10px;">◈ What Your Gravity Score Measures</div>
-        <div style="font-family:'Cormorant Garamond',serif;font-size:16px;font-style:italic;line-height:1.7;color:var(--star);">
+        <div style="font-family:'Courier New',monospace;font-size:9px;letter-spacing:2px;color:var(--teal);text-transform:uppercase;margin-bottom:10px;">◈ What Your Gravity Score Measures</div>
+        <div style="font-family:'Georgia',serif;font-size:16px;font-style:italic;line-height:1.7;color:var(--star);">
           "Your Gravity Score measures how much of your current behaviour is under gravitational pull — automatic, unconscious, energy-draining — and how much is under your own conscious direction. It is not a performance score. It is an attention indicator. The higher it is, the more present you are inside your own life."
         </div>
         <div style="margin-top:12px;display:grid;grid-template-columns:1fr 1fr;gap:6px;">
@@ -1292,14 +1289,14 @@ input[type=range]::-webkit-slider-thumb{
           <div class="score-card">
             <div class="mini-ring"><svg viewBox="0 0 80 80"><circle class="ring-trk" cx="40" cy="40" r="35"/><circle class="ring-fil" id="grav-arc" cx="40" cy="40" r="35" style="stroke:var(--teal);stroke-dashoffset:220;"/></svg><div class="ring-inner"><div class="ring-n" id="grav-num" style="color:var(--teal);font-size:18px;">—</div><div class="ring-u">/100</div></div></div>
             <div>
-              <div style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:4px;">Gravity Score™</div>
-              <div id="grav-band" style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:1px;margin-bottom:5px;"></div>
+              <div style="font-family:'Courier New',monospace;font-size:8px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:4px;">Gravity Score™</div>
+              <div id="grav-band" style="font-family:'Courier New',monospace;font-size:9px;letter-spacing:1px;margin-bottom:5px;"></div>
               <div style="font-size:12px;color:var(--muted2);line-height:1.5;" id="grav-desc">How much of your current behaviour is under conscious direction.</div>
             </div>
           </div>
           <div class="score-card">
             <div class="mini-ring"><svg viewBox="0 0 80 80"><circle class="ring-trk" cx="40" cy="40" r="35"/><circle class="ring-fil" id="mask-arc" cx="40" cy="40" r="35" style="stroke:var(--emot);stroke-dashoffset:220;"/></svg><div class="ring-inner"><div class="ring-n" id="mask-num" style="color:var(--emot)">—</div><div class="ring-u">/100</div></div></div>
-            <div><div style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:4px;">Mask Score™</div><div style="font-size:12px;color:var(--muted2);line-height:1.5;" id="mask-desc">Authenticity gap.</div></div>
+            <div><div style="font-family:'Courier New',monospace;font-size:8px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:4px;">Mask Score™</div><div style="font-size:12px;color:var(--muted2);line-height:1.5;" id="mask-desc">Authenticity gap.</div></div>
           </div>
         </div>
         <div class="card"><div class="card-label">◈ Gravity Signature</div><div id="pattern-tags"></div><div id="pattern-detail" class="ai-block" style="margin-top:10px;display:none;"></div></div>
@@ -1354,11 +1351,11 @@ input[type=range]::-webkit-slider-thumb{
       <div id="audit-active" style="display:none;">
         <div class="card">
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
-            <div style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;" id="audit-progress-label">Question 1 of 8</div>
+            <div style="font-family:'Courier New',monospace;font-size:8px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;" id="audit-progress-label">Question 1 of 8</div>
             <div style="display:flex;gap:4px;" id="audit-dots"></div>
           </div>
-          <div style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;margin-bottom:8px;text-transform:uppercase;" id="audit-domain-badge"></div>
-          <div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;line-height:1.4;color:var(--star);margin-bottom:6px;" id="audit-question"></div>
+          <div style="font-family:'Courier New',monospace;font-size:8px;letter-spacing:2px;margin-bottom:8px;text-transform:uppercase;" id="audit-domain-badge"></div>
+          <div style="font-family:'Georgia',serif;font-size:20px;font-weight:300;line-height:1.4;color:var(--star);margin-bottom:6px;" id="audit-question"></div>
           <div style="font-size:12px;color:var(--muted);font-style:italic;margin-bottom:18px;" id="audit-sub"></div>
           <div style="display:flex;flex-direction:column;gap:8px;" id="audit-options"></div>
         </div>
@@ -1367,7 +1364,7 @@ input[type=range]::-webkit-slider-thumb{
       <div id="audit-result" style="display:none;">
         <div class="card">
           <div class="card-label">◈ Orbit Diagnosis</div>
-          <div style="font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:300;line-height:1.6;color:var(--star);margin-bottom:14px;" id="audit-verdict"></div>
+          <div style="font-family:'Georgia',serif;font-size:19px;font-weight:300;line-height:1.6;color:var(--star);margin-bottom:14px;" id="audit-verdict"></div>
           <div id="audit-result-bars" style="margin-bottom:16px;"></div>
           <div id="audit-dominant-insight" style="background:var(--gold-d);border:1px solid rgba(201,168,76,.2);border-radius:10px;padding:14px;margin-bottom:14px;font-size:13px;color:var(--muted2);line-height:1.6;"></div>
           <div style="display:flex;gap:9px;">
@@ -1387,7 +1384,7 @@ input[type=range]::-webkit-slider-thumb{
       <div class="card">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
           <div class="card-label" style="margin:0;">◈ Daily Gravity Check</div>
-          <div style="font-family:'Space Mono',monospace;font-size:8px;color:var(--muted);letter-spacing:1.5px;" id="check-count-label">0 / 7 today</div>
+          <div style="font-family:'Courier New',monospace;font-size:8px;color:var(--muted);letter-spacing:1.5px;" id="check-count-label">0 / 7 today</div>
         </div>
         <div style="display:flex;gap:6px;margin-bottom:18px;" id="check-timeline">
           <div class="check-slot" style="flex:1;height:4px;border-radius:2px;background:var(--border2);"></div>
@@ -1399,8 +1396,8 @@ input[type=range]::-webkit-slider-thumb{
           <div class="check-slot" style="flex:1;height:4px;border-radius:2px;background:var(--border2);"></div>
         </div>
 
-        <div style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;" id="check-cat-badge"></div>
-        <div style="font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:300;line-height:1.4;color:var(--star);margin-bottom:6px;" id="check-question-main"></div>
+        <div style="font-family:'Courier New',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;" id="check-cat-badge"></div>
+        <div style="font-family:'Georgia',serif;font-size:21px;font-weight:300;line-height:1.4;color:var(--star);margin-bottom:6px;" id="check-question-main"></div>
         <div style="font-size:12px;color:var(--muted);font-style:italic;margin-bottom:14px;" id="check-question-sub"></div>
 
         <textarea class="field-textarea" id="check-response" placeholder="Answer honestly — the AI reads your pattern, not just your words..." style="min-height:80px;margin-bottom:12px;"></textarea>
@@ -1432,8 +1429,8 @@ input[type=range]::-webkit-slider-thumb{
 
   <!-- Header -->
   <div style="display:flex;align-items:center;justify-content:space-between;padding:20px 24px;border-bottom:1px solid var(--border);">
-    <div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;color:var(--star);">Anti<em style="font-style:italic;color:var(--gold);">Gravity</em> <span style="font-size:14px;color:var(--muted2);font-family:'DM Sans',sans-serif;font-weight:300;">Guide</span></div>
-    <button onclick="closeGuide()" style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--muted);background:transparent;border:1px solid var(--border2);border-radius:6px;padding:6px 12px;cursor:pointer;text-transform:uppercase;">Skip →</button>
+    <div style="font-family:'Georgia',serif;font-size:20px;font-weight:300;color:var(--star);">Anti<em style="font-style:italic;color:var(--gold);">Gravity</em> <span style="font-size:14px;color:var(--muted2);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-weight:300;">Guide</span></div>
+    <button onclick="closeGuide()" style="font-family:'Courier New',monospace;font-size:9px;letter-spacing:2px;color:var(--muted);background:transparent;border:1px solid var(--border2);border-radius:6px;padding:6px 12px;cursor:pointer;text-transform:uppercase;">Skip →</button>
   </div>
 
   <!-- Slide dots -->
@@ -1466,11 +1463,11 @@ input[type=range]::-webkit-slider-thumb{
       <div class="gslide-title">The <em>Gravity Score</em></div>
       <div class="gslide-body">Not a performance score. An <strong>attention indicator</strong> — how much of your behaviour right now is automatic and unconscious versus conscious and chosen.</div>
       <div style="display:flex;flex-direction:column;gap:8px;margin-top:16px;">
-        <div class="gband" style="border-color:rgba(224,123,123,.3);"><span style="color:var(--emot);font-family:'Space Mono',monospace;font-size:9px;">0–30</span><span style="color:var(--muted2);font-size:13px;">Deep Gravity — fully automatic</span></div>
-        <div class="gband" style="border-color:rgba(232,184,76,.3);"><span style="color:#e8b84c;font-family:'Space Mono',monospace;font-size:9px;">31–55</span><span style="color:var(--muted2);font-size:13px;">Pull Active — aware, but pattern runs</span></div>
-        <div class="gband" style="border-color:rgba(201,168,76,.3);"><span style="color:var(--gold);font-family:'Space Mono',monospace;font-size:9px;">56–75</span><span style="color:var(--muted2);font-size:13px;">Emerging — actively resisting</span></div>
-        <div class="gband" style="border-color:rgba(107,191,142,.3);"><span style="color:var(--behav);font-family:'Space Mono',monospace;font-size:9px;">76–90</span><span style="color:var(--muted2);font-size:13px;">Consolidating — new habits forming</span></div>
-        <div class="gband" style="border-color:rgba(74,155,155,.3);"><span style="color:var(--teal);font-family:'Space Mono',monospace;font-size:9px;">91–100</span><span style="color:var(--muted2);font-size:13px;">Balanced State — conscious and chosen</span></div>
+        <div class="gband" style="border-color:rgba(224,123,123,.3);"><span style="color:var(--emot);font-family:'Courier New',monospace;font-size:9px;">0–30</span><span style="color:var(--muted2);font-size:13px;">Deep Gravity — fully automatic</span></div>
+        <div class="gband" style="border-color:rgba(232,184,76,.3);"><span style="color:#e8b84c;font-family:'Courier New',monospace;font-size:9px;">31–55</span><span style="color:var(--muted2);font-size:13px;">Pull Active — aware, but pattern runs</span></div>
+        <div class="gband" style="border-color:rgba(201,168,76,.3);"><span style="color:var(--gold);font-family:'Courier New',monospace;font-size:9px;">56–75</span><span style="color:var(--muted2);font-size:13px;">Emerging — actively resisting</span></div>
+        <div class="gband" style="border-color:rgba(107,191,142,.3);"><span style="color:var(--behav);font-family:'Courier New',monospace;font-size:9px;">76–90</span><span style="color:var(--muted2);font-size:13px;">Consolidating — new habits forming</span></div>
+        <div class="gband" style="border-color:rgba(74,155,155,.3);"><span style="color:var(--teal);font-family:'Courier New',monospace;font-size:9px;">91–100</span><span style="color:var(--muted2);font-size:13px;">Balanced State — conscious and chosen</span></div>
       </div>
     </div>
 
@@ -1554,8 +1551,8 @@ input[type=range]::-webkit-slider-thumb{
 <!-- UPGRADE OVERLAY — anon → real account -->
 <div id="upgrade-overlay" style="position:fixed;inset:0;z-index:1100;display:none;align-items:flex-end;justify-content:center;padding:20px;background:rgba(8,11,20,.85);">
   <div style="background:var(--surface);border:1px solid rgba(201,168,76,.35);border-radius:22px;padding:30px;max-width:460px;width:100%;animation:slideUp .3s ease;">
-    <div style="font-family:'Space Mono',monospace;font-size:var(--mono-sm);letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-bottom:8px;">✦ Your Field Is Building</div>
-    <div style="font-family:'Cormorant Garamond',serif;font-size:var(--ts-xl);font-weight:300;margin-bottom:8px;">Save your data permanently</div>
+    <div style="font-family:'Courier New',monospace;font-size:var(--mono-sm);letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-bottom:8px;">✦ Your Field Is Building</div>
+    <div style="font-family:'Georgia',serif;font-size:var(--ts-xl);font-weight:300;margin-bottom:8px;">Save your data permanently</div>
     <div style="font-size:var(--ts-sm);color:var(--muted2);line-height:1.7;margin-bottom:20px;">You have <strong id="upgrade-moment-count" style="color:var(--star);"></strong> captured moments saved to this session. Create an account to keep them — and everything you add from now on — across all your devices.</div>
     <div class="field-group">
       <label class="field-label">Email</label>
@@ -1576,8 +1573,8 @@ input[type=range]::-webkit-slider-thumb{
 <!-- TESTER PANEL — personal validation mode -->
 <div id="tester-overlay" style="position:fixed;inset:0;z-index:1100;display:none;align-items:flex-end;justify-content:center;padding:20px;background:rgba(8,11,20,.85);">
   <div style="background:var(--surface);border:1px solid rgba(74,155,155,.35);border-radius:22px;padding:30px;max-width:460px;width:100%;animation:slideUp .3s ease;">
-    <div style="font-family:'Space Mono',monospace;font-size:var(--mono-sm);letter-spacing:2px;color:var(--teal);text-transform:uppercase;margin-bottom:8px;">◎ Personal Tester Account</div>
-    <div style="font-family:'Cormorant Garamond',serif;font-size:var(--ts-xl);font-weight:300;margin-bottom:8px;">Validate the system</div>
+    <div style="font-family:'Courier New',monospace;font-size:var(--mono-sm);letter-spacing:2px;color:var(--teal);text-transform:uppercase;margin-bottom:8px;">◎ Personal Tester Account</div>
+    <div style="font-family:'Georgia',serif;font-size:var(--ts-xl);font-weight:300;margin-bottom:8px;">Validate the system</div>
     <div style="font-size:var(--ts-sm);color:var(--muted2);line-height:1.7;margin-bottom:20px;">Sign in with your personal account to accumulate real field data across days. Every moment, every voice session, every gravity score builds your longitudinal map. This is how you validate the system before it goes live.</div>
     <div class="field-group">
       <label class="field-label">Your Email</label>
@@ -1598,7 +1595,17 @@ input[type=range]::-webkit-slider-thumb{
   </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
+'use strict';
+
+// ── SPLASH — defined first so it's always available ──
+function hideSplash(){
+  const s=document.getElementById('splash');
+  if(s&&s.parentNode) s.parentNode.removeChild(s);
+}
+
+
 'use strict';
 
 function toggleOrbitDomain(n){
@@ -2016,14 +2023,14 @@ function renderOrbitalPosition(containerId){
   el.innerHTML = `
     <div class="orbital-position orbit-pos-${pos.state}">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
-        <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;">◈ Orbital Position</div>
-        <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:1.5px;color:${pos.color};text-transform:uppercase;">${pos.direction} ${pos.label}</div>
+        <div style="font-family:'Courier New',monospace;font-size:9px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;">◈ Orbital Position</div>
+        <div style="font-family:'Courier New',monospace;font-size:9px;letter-spacing:1.5px;color:${pos.color};text-transform:uppercase;">${pos.direction} ${pos.label}</div>
       </div>
 
       <!-- Visual orbit track -->
       <div style="display:flex;flex-direction:column;align-items:center;position:relative;padding:8px 0;">
         <!-- Drifting indicator -->
-        <div style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:${pos.state==='drifting'?'var(--teal)':'var(--muted)'};text-transform:uppercase;margin-bottom:4px;opacity:${pos.state==='drifting'?1:.4};">
+        <div style="font-family:'Courier New',monospace;font-size:8px;letter-spacing:2px;color:${pos.state==='drifting'?'var(--teal)':'var(--muted)'};text-transform:uppercase;margin-bottom:4px;opacity:${pos.state==='drifting'?1:.4};">
           ${pos.state==='drifting'?'▶':''} ↑ DRIFTING
         </div>
         <div style="width:1px;height:24px;background:var(--border2);"></div>
@@ -2031,12 +2038,12 @@ function renderOrbitalPosition(containerId){
         <!-- Orbit band -->
         <div style="display:flex;align-items:center;gap:12px;background:${pos.state==='orbit'?'rgba(201,168,76,.1)':'var(--surface2)'};border:1px solid ${pos.state==='orbit'?'rgba(201,168,76,.4)':'var(--border2)'};border-radius:24px;padding:8px 20px;transition:all .3s;">
           <div style="width:8px;height:8px;border-radius:50%;background:${pos.state==='orbit'?'var(--gold)':'var(--muted)'};${pos.state==='orbit'?'box-shadow:0 0 8px var(--gold-g)':''}"></div>
-          <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:${pos.state==='orbit'?'var(--gold)':'var(--muted)'};text-transform:uppercase;">YOUR ORBIT</div>
+          <div style="font-family:'Courier New',monospace;font-size:9px;letter-spacing:2px;color:${pos.state==='orbit'?'var(--gold)':'var(--muted)'};text-transform:uppercase;">YOUR ORBIT</div>
         </div>
 
         <div style="width:1px;height:24px;background:var(--border2);"></div>
         <!-- Falling indicator -->
-        <div style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:${pos.state==='falling'?'var(--emot)':'var(--muted)'};text-transform:uppercase;margin-top:4px;opacity:${pos.state==='falling'?1:.4};">
+        <div style="font-family:'Courier New',monospace;font-size:8px;letter-spacing:2px;color:${pos.state==='falling'?'var(--emot)':'var(--muted)'};text-transform:uppercase;margin-top:4px;opacity:${pos.state==='falling'?1:.4};">
           ↓ FALLING ${pos.state==='falling'?'◀':''}
         </div>
       </div>
@@ -2114,8 +2121,8 @@ async function analyzeMoment(){
   const div=document.getElementById('moment-analysis');
   div.style.display='block';
   div.innerHTML=`<div class="ai-block" style="text-align:center;padding:24px;">
-    <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-bottom:10px;">◈ Reading your field</div>
-    <div style="font-family:'Cormorant Garamond',serif;font-size:16px;font-style:italic;color:var(--muted2);">Looking beneath the surface...</div>
+    <div style="font-family:'Courier New',monospace;font-size:9px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-bottom:10px;">◈ Reading your field</div>
+    <div style="font-family:'Georgia',serif;font-size:16px;font-style:italic;color:var(--muted2);">Looking beneath the surface...</div>
     <div style="margin-top:12px;"><span class="loading-dots"><span></span><span></span><span></span></span></div>
   </div>`;
 
@@ -2158,7 +2165,7 @@ async function analyzeMoment(){
     // Pattern repetition counter
     const prevPersonaCount = (personaCounts[r.persona]||0);
     const patternBadge = prevPersonaCount>=2
-      ? `<div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:1.5px;padding:5px 12px;background:rgba(224,123,123,.12);border:1px solid rgba(224,123,123,.25);border-radius:20px;color:var(--emot);display:inline-block;margin-bottom:14px;">
+      ? `<div style="font-family:'Courier New',monospace;font-size:9px;letter-spacing:1.5px;padding:5px 12px;background:rgba(224,123,123,.12);border:1px solid rgba(224,123,123,.25);border-radius:20px;color:var(--emot);display:inline-block;margin-bottom:14px;">
           ⚠ Pattern confirmed — ${r.persona} has appeared ${prevPersonaCount+1} times
         </div>`
       : '';
@@ -2188,31 +2195,31 @@ async function analyzeMoment(){
 
         <!-- Layer 1: The Surface -->
         <div style="background:var(--surface2);border:1px solid var(--border2);border-radius:12px;padding:18px;margin-bottom:10px;">
-          <div style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2.5px;color:var(--muted);text-transform:uppercase;margin-bottom:8px;">◈ What this appears to be</div>
+          <div style="font-family:'Courier New',monospace;font-size:8px;letter-spacing:2.5px;color:var(--muted);text-transform:uppercase;margin-bottom:8px;">◈ What this appears to be</div>
           <div style="font-size:var(--ts-sm);color:var(--muted2);line-height:1.6;font-style:italic;">${r.surface}</div>
         </div>
 
         <!-- Layer 2: The Hidden Force — this is the revelation -->
         <div style="background:linear-gradient(135deg,rgba(139,158,245,.07),rgba(74,155,155,.04));border:1px solid rgba(139,158,245,.28);border-radius:12px;padding:20px;margin-bottom:10px;position:relative;overflow:hidden;">
-          <div style="position:absolute;top:-20px;right:-10px;font-family:'Cormorant Garamond',serif;font-size:80px;color:rgba(139,158,245,.06);line-height:1;pointer-events:none;">◉</div>
-          <div style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2.5px;color:var(--think);text-transform:uppercase;margin-bottom:10px;">◉ The hidden gravitational force</div>
-          <div style="font-family:'Cormorant Garamond',serif;font-size:clamp(17px,3vw,22px);font-weight:300;line-height:1.65;color:var(--star);">${r.hidden}</div>
+          <div style="position:absolute;top:-20px;right:-10px;font-family:'Georgia',serif;font-size:80px;color:rgba(139,158,245,.06);line-height:1;pointer-events:none;">◉</div>
+          <div style="font-family:'Courier New',monospace;font-size:8px;letter-spacing:2.5px;color:var(--think);text-transform:uppercase;margin-bottom:10px;">◉ The hidden gravitational force</div>
+          <div style="font-family:'Georgia',serif;font-size:clamp(17px,3vw,22px);font-weight:300;line-height:1.65;color:var(--star);">${r.hidden}</div>
           <div style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap;">
-            <span style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:1.5px;padding:3px 10px;border-radius:4px;background:var(--gold-d);border:1px solid rgba(201,168,76,.25);color:var(--gold);">${r.persona}</span>
-            <span style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:1.5px;padding:3px 10px;border-radius:4px;background:var(--think-d);border:1px solid rgba(139,158,245,.2);color:var(--think);">${r.domain} Mass</span>
+            <span style="font-family:'Courier New',monospace;font-size:8px;letter-spacing:1.5px;padding:3px 10px;border-radius:4px;background:var(--gold-d);border:1px solid rgba(201,168,76,.25);color:var(--gold);">${r.persona}</span>
+            <span style="font-family:'Courier New',monospace;font-size:8px;letter-spacing:1.5px;padding:3px 10px;border-radius:4px;background:var(--think-d);border:1px solid rgba(139,158,245,.2);color:var(--think);">${r.domain} Mass</span>
           </div>
         </div>
 
         <!-- Layer 3: Orbit Gap — the cost -->
         <div style="background:linear-gradient(135deg,rgba(201,168,76,.07),rgba(74,155,155,.04));border:1px solid rgba(201,168,76,.25);border-left:3px solid var(--gold);border-radius:0 12px 12px 0;padding:16px 18px;margin-bottom:10px;">
-          <div style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2.5px;color:var(--gold);text-transform:uppercase;margin-bottom:8px;">↑ Distance from your orbit</div>
-          <div style="font-family:'Cormorant Garamond',serif;font-size:clamp(15px,2.5vw,19px);font-weight:300;font-style:italic;line-height:1.6;color:var(--star);">${r.orbit_gap}</div>
+          <div style="font-family:'Courier New',monospace;font-size:8px;letter-spacing:2.5px;color:var(--gold);text-transform:uppercase;margin-bottom:8px;">↑ Distance from your orbit</div>
+          <div style="font-family:'Georgia',serif;font-size:clamp(15px,2.5vw,19px);font-weight:300;font-style:italic;line-height:1.6;color:var(--star);">${r.orbit_gap}</div>
         </div>
 
         <!-- Stop Signal -->
         <div style="background:var(--stop-d);border:1px solid rgba(232,199,106,.22);border-radius:10px;padding:13px 16px;">
-          <div style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:var(--stop);text-transform:uppercase;margin-bottom:6px;">⚡ Stop Signal</div>
-          <div style="font-family:'Cormorant Garamond',serif;font-size:clamp(15px,2.5vw,19px);font-style:italic;color:var(--star);">"${r.stop_signal}"</div>
+          <div style="font-family:'Courier New',monospace;font-size:8px;letter-spacing:2px;color:var(--stop);text-transform:uppercase;margin-bottom:6px;">⚡ Stop Signal</div>
+          <div style="font-family:'Georgia',serif;font-size:clamp(15px,2.5vw,19px);font-style:italic;color:var(--star);">"${r.stop_signal}"</div>
         </div>
 
       </div>`;
@@ -2457,7 +2464,7 @@ function refreshPersonasDash(){
   const icons={Analyst:'🧠',Achiever:'🎯',Avoider:'🚪',Pleaser:'🤝',Rebel:'⚡',Controller:'👑'};
   el.innerHTML=Object.entries(counts).sort((a,b)=>b[1]-a[1]).map(([p,c],i)=>{
     const pct=Math.round(c/total*100);
-    return `<div style="display:flex;align-items:center;gap:11px;margin-bottom:11px;"><div style="font-size:18px;">${icons[p]||'○'}</div><div style="flex:1;"><div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px;"><span style="font-family:'Cormorant Garamond',serif;font-size:15px;color:var(--star);">${p}</span><span style="font-family:'Space Mono',monospace;font-size:11px;color:var(--gold);">${pct}%</span></div><div class="bar-track"><div class="bar-fill" style="width:${pct}%;background:${i===0?'var(--gold)':'var(--muted)'};"></div></div></div>${i===0?'<span style="font-family:\'Space Mono\',monospace;font-size:7px;letter-spacing:1.5px;color:var(--gold);background:var(--gold-d);padding:2px 6px;border-radius:3px;border:1px solid rgba(201,168,76,.3);">PRIMARY</span>':''}</div>`;
+    return `<div style="display:flex;align-items:center;gap:11px;margin-bottom:11px;"><div style="font-size:18px;">${icons[p]||'○'}</div><div style="flex:1;"><div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px;"><span style="font-family:'Georgia',serif;font-size:15px;color:var(--star);">${p}</span><span style="font-family:'Courier New',monospace;font-size:11px;color:var(--gold);">${pct}%</span></div><div class="bar-track"><div class="bar-fill" style="width:${pct}%;background:${i===0?'var(--gold)':'var(--muted)'};"></div></div></div>${i===0?'<span style="font-family:\'Space Mono\',monospace;font-size:7px;letter-spacing:1.5px;color:var(--gold);background:var(--gold-d);padding:2px 6px;border-radius:3px;border:1px solid rgba(201,168,76,.3);">PRIMARY</span>':''}</div>`;
   }).join('');
 }
 
@@ -2474,7 +2481,7 @@ function refreshVoiceDash(){
   if(!S.voiceSessions.length){card.style.display='none';return;}
   card.style.display='block';
   const s=S.voiceSessions[0];
-  document.getElementById('dash-voice-summary').innerHTML=`<div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:10px;"><div style="text-align:center;flex:1;min-width:70px;"><div style="font-family:'Cormorant Garamond',serif;font-size:28px;color:var(--teal);">${s.gravity_score}</div><div style="font-family:'Space Mono',monospace;font-size:7px;color:var(--muted);text-transform:uppercase;">Gravity</div></div><div style="text-align:center;flex:1;min-width:70px;"><div style="font-family:'Cormorant Garamond',serif;font-size:28px;color:var(--emot);">${s.mask_score}</div><div style="font-family:'Space Mono',monospace;font-size:7px;color:var(--muted);text-transform:uppercase;">Mask Score</div></div><div style="text-align:center;flex:1;min-width:70px;"><div style="font-family:'Cormorant Garamond',serif;font-size:28px;color:var(--gold);">${(s.patterns||[]).length}</div><div style="font-family:'Space Mono',monospace;font-size:7px;color:var(--muted);text-transform:uppercase;">Patterns</div></div></div><div style="font-family:'Space Mono',monospace;font-size:8px;color:var(--muted2);letter-spacing:1px;">Latest · ${s.time||''} · ${s.dominant_domain||''} Mass</div>`;
+  document.getElementById('dash-voice-summary').innerHTML=`<div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:10px;"><div style="text-align:center;flex:1;min-width:70px;"><div style="font-family:'Georgia',serif;font-size:28px;color:var(--teal);">${s.gravity_score}</div><div style="font-family:'Courier New',monospace;font-size:7px;color:var(--muted);text-transform:uppercase;">Gravity</div></div><div style="text-align:center;flex:1;min-width:70px;"><div style="font-family:'Georgia',serif;font-size:28px;color:var(--emot);">${s.mask_score}</div><div style="font-family:'Courier New',monospace;font-size:7px;color:var(--muted);text-transform:uppercase;">Mask Score</div></div><div style="text-align:center;flex:1;min-width:70px;"><div style="font-family:'Georgia',serif;font-size:28px;color:var(--gold);">${(s.patterns||[]).length}</div><div style="font-family:'Courier New',monospace;font-size:7px;color:var(--muted);text-transform:uppercase;">Patterns</div></div></div><div style="font-family:'Courier New',monospace;font-size:8px;color:var(--muted2);letter-spacing:1px;">Latest · ${s.time||''} · ${s.dominant_domain||''} Mass</div>`;
 }
 
 async function generateFullReport(){
@@ -2488,7 +2495,7 @@ async function generateFullReport(){
     const report=await callClaude(sys,`Moments:\n${mS||'None'}\nVoice:\n${vS||'None'}`,650);
     const secs=report.split(/\n\n+/).filter(s=>s.trim());
     const titles=['Field Verdict','Primary Domain','Mass Layer','Escape Signal','Orbit Statement'];
-    c.innerHTML=`<div class="desire-strip"><div class="dl">↑ Your Desired Orbit</div><div class="dt">${S.profile.orbit}</div></div>${secs.map((s,i)=>`<div class="card" style="margin-bottom:11px;"><div class="card-label">◈ ${titles[i]||'Reading '+(i+1)}</div><div style="font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:300;line-height:1.75;color:var(--star);">${s.trim()}</div></div>`).join('')}<button class="btn btn-ghost btn-full" onclick="generateFullReport()" style="margin-top:6px;">↺ Regenerate</button>`;
+    c.innerHTML=`<div class="desire-strip"><div class="dl">↑ Your Desired Orbit</div><div class="dt">${S.profile.orbit}</div></div>${secs.map((s,i)=>`<div class="card" style="margin-bottom:11px;"><div class="card-label">◈ ${titles[i]||'Reading '+(i+1)}</div><div style="font-family:'Georgia',serif;font-size:17px;font-weight:300;line-height:1.75;color:var(--star);">${s.trim()}</div></div>`).join('')}<button class="btn btn-ghost btn-full" onclick="generateFullReport()" style="margin-top:6px;">↺ Regenerate</button>`;
   }catch(e){c.innerHTML=`<div style="color:var(--emot);padding:16px;">${e.message}</div>`;}
 }
 
@@ -2501,11 +2508,14 @@ function showToast(msg,dur=2800){
   setTimeout(()=>t.classList.remove('show'),dur);
 }
 
-// Boot
-init();
-</script>
-</body>
-</html>function toggleOrbitDomain(n){
+// Boot — Supabase CDN is already loaded above
+document.addEventListener('DOMContentLoaded', function(){
+  setTimeout(async()=>{
+    try{ await init(); }
+    catch(e){ console.error(e); hideSplash(); }
+  }, 50);
+});
+function toggleOrbitDomain(n){
   const body=document.getElementById('odb-'+n);
   const chev=document.getElementById('odc-chev-'+n);
   const card=document.getElementById('odc-'+n);
@@ -2514,5 +2524,6 @@ init();
   chev.textContent=isOpen?'▸':'▾';
   card.classList.toggle('active',!isOpen);
 }
-
-
+</script>
+</body>
+</html>
