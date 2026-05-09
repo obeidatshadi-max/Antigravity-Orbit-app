@@ -1165,6 +1165,14 @@ input[type=range]::-webkit-slider-thumb{
     <div style="font-family:'Georgia',serif;font-size:22px;font-weight:300;margin-bottom:18px;">Settings</div>
 
     <div class="field-group">
+      <label class="field-label">Anthropic API Key</label>
+      <input class="field-input" id="settings-api-key" type="password" placeholder="sk-ant-api03-...">
+      <div style="font-size:11px;color:var(--muted);margin-top:5px;line-height:1.5;">
+        Stored in browser session. Re-enter after closing the tab.
+        <a href="https://console.anthropic.com" target="_blank" style="color:var(--gold);">Get key →</a>
+      </div>
+    </div>
+    <div class="field-group">
       <label class="field-label">Desired Orbit</label>
       <textarea class="field-textarea" id="settings-orbit" style="min-height:70px;"></textarea>
     </div>
@@ -1841,6 +1849,10 @@ function enterApp(){
     : 'Welcome back, '+S.profile.name;
   showToast(greeting);
   checkFirstTime();
+  // Prompt for API key if not set
+  if(!hasApiKey()){
+    setTimeout(showApiKeyPrompt, 1500);
+  }
 }
 
 function getActiveOrbits(){
@@ -1920,11 +1932,18 @@ document.addEventListener('click', e=>{
 
 function openSettings(){
   closeUserMenu();
+  const keyEl = document.getElementById('settings-api-key');
+  if(keyEl) keyEl.value = hasApiKey() ? '••••••••' : '';
   document.getElementById('settings-orbit').value = S.profile.orbit1;
   document.getElementById('settings-overlay').classList.add('show');
 }
 function closeSettings(){document.getElementById('settings-overlay').classList.remove('show');}
 async function saveSettings(){
+  const newKey = (document.getElementById('settings-api-key')?.value||'').trim();
+  if(newKey && newKey !== '••••••••' && newKey.startsWith('sk-')){
+    sessionStorage.setItem('ag_api_key', newKey);
+    showToast('API key saved');
+  }
   const o=document.getElementById('settings-orbit').value.trim();
   if(o && o!==S.profile.orbit11){
     S.profile.orbit1=o;
@@ -2088,24 +2107,86 @@ function getGravityBand(score){
   };
 }
 async function callClaude(sys, user, maxTok=700){
-  // Calls the Supabase Edge Function proxy — no API key needed in the browser
-  const proxyUrl = SUPABASE_URL + '/functions/v1/ai-proxy';
-  const res = await fetch(proxyUrl, {
+  // Direct Anthropic API call — key stored in sessionStorage
+  const key = sessionStorage.getItem('ag_api_key') || '';
+  if(!key || !key.startsWith('sk-')){
+    // Show key prompt
+    showApiKeyPrompt();
+    throw new Error('API key required');
+  }
+  const res = await fetch('https://api.anthropic.com/v1/messages', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      // Pass the user's Supabase session token so the function knows who is calling
-      'Authorization': 'Bearer ' + ((await sb.auth.getSession()).data.session?.access_token || SUPABASE_ANON)
+      'x-api-key': key,
+      'anthropic-version': '2023-06-01',
+      'anthropic-dangerous-direct-browser-access': 'true'
     },
-    body: JSON.stringify({ system: sys, user, max_tokens: maxTok })
+    body: JSON.stringify({
+      model: 'claude-sonnet-4-20250514',
+      max_tokens: maxTok,
+      system: sys,
+      messages: [{ role: 'user', content: user }]
+    })
   });
-  if (!res.ok) {
-    const e = await res.json();
-    throw new Error(e.error || 'AI proxy error ' + res.status);
+  if(!res.ok){
+    const e = await res.json().catch(()=>({}));
+    if(res.status === 401){
+      sessionStorage.removeItem('ag_api_key');
+      showApiKeyPrompt();
+    }
+    throw new Error(e.error?.message || 'API error ' + res.status);
   }
-  const data = await res.json();
-  return data.text;
+  return (await res.json()).content[0].text;
 }
+
+function showApiKeyPrompt(){
+  const existing = document.getElementById('api-key-prompt');
+  if(existing) return;
+  const overlay = document.createElement('div');
+  overlay.id = 'api-key-prompt';
+  overlay.style.cssText = 'position:fixed;inset:0;z-index:3000;background:rgba(5,7,15,.92);display:flex;align-items:center;justify-content:center;padding:24px;';
+  overlay.innerHTML = `
+    <div style="background:#131726;border:1px solid rgba(201,168,76,.35);border-radius:18px;padding:32px;max-width:420px;width:100%;">
+      <div style="font-family:'Georgia',serif;font-size:22px;font-weight:300;color:#e6e0d2;margin-bottom:6px;">
+        Anti<em style="font-style:italic;color:#c9a84c;">Gravity</em>
+      </div>
+      <div style="font-family:'Courier New',monospace;font-size:9px;letter-spacing:2px;color:#5a5870;text-transform:uppercase;margin-bottom:20px;">AI Insights — API Key Required</div>
+      <div style="font-size:13px;color:#9896b0;line-height:1.65;margin-bottom:20px;">
+        Enter your Anthropic API key to activate AI insights, voice analysis, and the field report.<br><br>
+        <a href="https://console.anthropic.com" target="_blank" style="color:#c9a84c;">Get your key at console.anthropic.com →</a>
+      </div>
+      <input id="api-key-prompt-input" type="password" placeholder="sk-ant-api03-..."
+        style="width:100%;background:#1a2035;border:1px solid rgba(255,255,255,.12);border-radius:8px;color:#e6e0d2;font-size:14px;padding:12px 14px;outline:none;margin-bottom:12px;box-sizing:border-box;">
+      <div style="display:flex;gap:10px;">
+        <button onclick="saveApiKey()" style="flex:1;font-family:'Courier New',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;padding:12px;border-radius:8px;border:1px solid rgba(201,168,76,.4);background:rgba(201,168,76,.12);color:#c9a84c;cursor:pointer;">
+          Save & Continue →
+        </button>
+        <button onclick="document.getElementById('api-key-prompt').remove()" style="font-family:'Courier New',monospace;font-size:9px;padding:12px 16px;border-radius:8px;border:1px solid rgba(255,255,255,.1);background:transparent;color:#64617a;cursor:pointer;">
+          Later
+        </button>
+      </div>
+      <div style="font-size:11px;color:#5a5870;margin-top:10px;line-height:1.5;">
+        Stored in your browser session only. Never sent to our servers.
+      </div>
+    </div>`;
+  document.body.appendChild(overlay);
+  setTimeout(()=>document.getElementById('api-key-prompt-input')?.focus(), 100);
+}
+
+function saveApiKey(){
+  const k = (document.getElementById('api-key-prompt-input')?.value||'').trim();
+  if(!k||!k.startsWith('sk-')){
+    showToast('Enter a valid key starting with sk-ant-');
+    return;
+  }
+  sessionStorage.setItem('ag_api_key', k);
+  document.getElementById('api-key-prompt')?.remove();
+  showToast('API key saved — AI insights now active');
+}
+
+function getApiKey(){ return sessionStorage.getItem('ag_api_key')||''; }
+function hasApiKey(){ return getApiKey().startsWith('sk-'); }
 
 /* ═══════════════════════════════
    FIELD MODE
