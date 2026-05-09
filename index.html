@@ -1941,7 +1941,7 @@ function closeSettings(){document.getElementById('settings-overlay').classList.r
 async function saveSettings(){
   const newKey = (document.getElementById('settings-api-key')?.value||'').trim();
   if(newKey && newKey !== '••••••••' && newKey.startsWith('sk-')){
-    sessionStorage.setItem('ag_api_key', newKey);
+    localStorage.setItem('ag_api_key', newKey);
     showToast('API key saved');
   }
   const o=document.getElementById('settings-orbit').value.trim();
@@ -2108,7 +2108,7 @@ function getGravityBand(score){
 }
 async function callClaude(sys, user, maxTok=700){
   // Direct Anthropic API call — key stored in sessionStorage
-  const key = sessionStorage.getItem('ag_api_key') || '';
+  const key = localStorage.getItem('ag_api_key') || '';
   if(!key || !key.startsWith('sk-')){
     // Show key prompt
     showApiKeyPrompt();
@@ -2132,7 +2132,7 @@ async function callClaude(sys, user, maxTok=700){
   if(!res.ok){
     const e = await res.json().catch(()=>({}));
     if(res.status === 401){
-      sessionStorage.removeItem('ag_api_key');
+      localStorage.removeItem('ag_api_key');
       showApiKeyPrompt();
     }
     throw new Error(e.error?.message || 'API error ' + res.status);
@@ -2180,12 +2180,12 @@ function saveApiKey(){
     showToast('Enter a valid key starting with sk-ant-');
     return;
   }
-  sessionStorage.setItem('ag_api_key', k);
+  localStorage.setItem('ag_api_key', k);
   document.getElementById('api-key-prompt')?.remove();
   showToast('API key saved — AI insights now active');
 }
 
-function getApiKey(){ return sessionStorage.getItem('ag_api_key')||''; }
+function getApiKey(){ return localStorage.getItem('ag_api_key')||''; }
 function hasApiKey(){ return getApiKey().startsWith('sk-'); }
 
 /* ═══════════════════════════════
