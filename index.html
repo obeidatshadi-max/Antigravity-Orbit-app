@@ -946,7 +946,7 @@ input[type=range]::-webkit-slider-thumb{
 <!-- ══════════════════════════════
      SCREEN: AUTH
 ══════════════════════════════ -->
-<div id="screen-auth" class="screen active" style="height:100vh;">
+<div id="screen-auth" class="screen" style="height:100vh;">
   <div class="center-screen">
     <div class="ob-inner" style="text-align:center;">
 
@@ -1632,7 +1632,12 @@ const SUPABASE_URL  = 'https://ejwgwiqkmwplebgpbfsr.supabase.co';
 const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVqd2d3aXFrbXdwbGViZ3BiZnNyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgyMTc0NTYsImV4cCI6MjA5Mzc5MzQ1Nn0.85a0IG5K5rDdMDt7MRl8rhr5eQGlWTE7rsVlDAiCTlQ';
 /* ══════════════════════════════════════════════════════ */
 
-const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+let sb;
+try {
+  sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+} catch(e) {
+  console.error('Supabase init failed:', e);
+}
 
 const S = {
   isDemoMode: false,
@@ -3033,9 +3038,21 @@ function showToast(msg,dur=2800){
 // Boot — Supabase CDN is already loaded above
 document.addEventListener('DOMContentLoaded', function(){
   setTimeout(async()=>{
-    try{ await init(); }
-    catch(e){ console.error(e); hideSplash(); }
-  }, 50);
+    // Check Supabase loaded correctly
+    if(!sb){
+      console.error('Supabase not initialized');
+      hideSplash();
+      document.getElementById('screen-auth').classList.add('active');
+      return;
+    }
+    try{
+      await init();
+    } catch(e){
+      console.error('Init error:', e);
+      hideSplash();
+      document.getElementById('screen-auth').classList.add('active');
+    }
+  }, 100);
 });
 
 </script>
