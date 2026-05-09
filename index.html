@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+f<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -1635,12 +1635,12 @@ const S = {
   user: null,
   profile: {
     name:'',role:'',sector:'',block:'',
-    orbit1:'',  // Professional orbit (required)
-    orbit2:'',  // Relational orbit (optional)
-    orbit3:'',  // Personal orbit (optional)
+    orbit1:'',
+    orbit2:'',
+    orbit3:'',
     domains:{think:5,emot:5,behav:5,body:5}
   },
-  orbitalPosition: 'falling', // 'falling' | 'orbit' | 'drifting'
+  orbitalPosition: 'falling',
   moments: [],
   voiceSessions: [],
   currentRecording: false,
@@ -1889,16 +1889,21 @@ function goTo(mode){
   ['field','mirror','audit','check','dash'].forEach(m=>{
     document.getElementById('screen-'+m)?.classList.remove('active');
     document.getElementById('nav-'+m)?.classList.remove('active');
-    document.getElementById('mode-'+m)?.classList.remove('active');
   });
+  ['field','mirror'].forEach(m=>document.getElementById('mode-'+m)?.classList.remove('active'));
   document.getElementById('screen-'+mode)?.classList.add('active');
   document.getElementById('nav-'+mode)?.classList.add('active');
   if(mode==='field'||mode==='mirror') document.getElementById('mode-'+mode)?.classList.add('active');
   if(mode==='dash') refreshDashboard();
+  if(mode==='audit'){
+    const intro=document.getElementById('audit-intro-card');
+    if(intro) intro.style.display='block';
+    const active=document.getElementById('audit-active-card');
+    if(active) active.style.display='none';
+  }
   if(mode==='check') initCheck();
   closeUserMenu();
 }
-
 function showTab(id, btn){
   document.querySelectorAll('.tab-pane').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
@@ -1918,14 +1923,14 @@ document.addEventListener('click', e=>{
 
 function openSettings(){
   closeUserMenu();
-  document.getElementById('settings-orbit').value = S.profile.orbit;
+  document.getElementById('settings-orbit').value = S.profile.orbit1;
   document.getElementById('settings-overlay').classList.add('show');
 }
 function closeSettings(){document.getElementById('settings-overlay').classList.remove('show');}
 async function saveSettings(){
   const o=document.getElementById('settings-orbit').value.trim();
-  if(o && o!==S.profile.orbit){
-    S.profile.orbit=o;
+  if(o && o!==S.profile.orbit11){
+    S.profile.orbit1=o;
     await sb.from('profiles').update({orbit:o}).eq('id',S.user.id);
     setOrbitTexts();
   }
@@ -2376,6 +2381,270 @@ function speakLetter(){
 /* ═══════════════════════════════
    STOP SIGNALS
 ═══════════════════════════════ */
+/* ═══════════════════════════════════════════════
+   GRAVITY AUDIT POOL — 24 questions, 6 domains
+═══════════════════════════════════════════════ */
+const AUDIT_POOL=[
+  {domain:'Thinking',q:'When you notice a strong opinion forming — how quickly do you check whether it is actually true?',opts:['Rarely — I trust my first read','Sometimes, when I remember to','Often — I question my assumptions','Almost always — I test before committing']},
+  {domain:'Thinking',q:'How often do you find yourself replaying past conversations, looking for what you should have said?',opts:['Very often — it runs in the background','Sometimes after difficult exchanges','Occasionally, but I move on quickly','Rarely — I process and release']},
+  {domain:'Thinking',q:'When a problem is unclear, what does your thinking tend to do?',opts:['Spiral into worst-case scenarios','Try to gather more data before acting','Sit with uncertainty while exploring options','Break it into the smallest actionable step']},
+  {domain:'Thinking',q:'How aware are you of the rules you follow that you did not consciously choose?',opts:['Not aware — I just act','Occasionally I notice them','I see several patterns clearly','I actively examine my assumptions']},
+  {domain:'Emotional',q:'When you feel frustration, how quickly do you convert it into explanation or analysis?',opts:['Very quickly — feeling becomes argument','Within minutes','I stay with the feeling for a while','I name it directly without converting it']},
+  {domain:'Emotional',q:'How often do emotions from one context carry over into unrelated interactions?',opts:['Often — moods move with me','Sometimes across a day','Rarely — I compartmentalize well','Almost never — I reset between contexts']},
+  {domain:'Emotional',q:'When you are anxious, what happens to your decision quality?',opts:['It drops significantly','It slows but stays reasonable','It is mostly unaffected','Mild anxiety actually sharpens my focus']},
+  {domain:'Emotional',q:'How easily can you name what you are feeling — specifically and accurately?',opts:['Rarely — I notice general states','Sometimes — a few emotion words','Often — I have a reasonable vocabulary','Easily — I am specific and accurate']},
+  {domain:'Behavioral',q:'How often do you choose comfort over the action that would move you forward?',opts:['Very often — comfort usually wins','More often than I would like','About half the time','Rarely — discomfort does not stop me']},
+  {domain:'Behavioral',q:'When you commit to a change in behaviour, how long does the new pattern typically hold?',opts:['A few days at most','One to two weeks','Several weeks','It integrates and becomes sustainable']},
+  {domain:'Behavioral',q:'How frequently do you avoid a conversation you know you need to have?',opts:['Regularly — I delay difficult conversations','Sometimes, especially with authority figures','Occasionally, in specific relationships','Rarely — I address things directly']},
+  {domain:'Physical',q:'How aware are you of physical tension signals before they become significant stress?',opts:['Not aware until it is significant','Sometimes I notice retrospectively','I catch it within a day','I notice it as it begins']},
+  {domain:'Physical',q:'How often does your energy level affect the quality of your decisions?',opts:['Significantly — low energy, poor decisions','Noticeably on difficult days','Somewhat but I can compensate','Minimally — I manage my energy well']},
+  {domain:'Physical',q:'How well do you sleep when under pressure?',opts:['Poorly — pressure disrupts sleep significantly','It varies — some nights are difficult','Mostly well — occasional disruption','Well — pressure does not affect sleep']},
+  {domain:'Distance',q:'How often are you in environments that activate your most reactive patterns?',opts:['Daily — I am surrounded by triggers','Several times a week','Occasionally','Rarely — I manage my environment well']},
+  {domain:'Distance',q:'When you sense a trigger approaching, how often do you manage your exposure to it?',opts:['Rarely — I am usually already in it','Sometimes when I see it coming','Often — I create buffer when possible','Consistently — I manage distance deliberately']},
+  {domain:'Distance',q:'How much does a specific person or situation dominate your emotional state?',opts:['One person or situation takes most of my field','A few situations have significant pull','Some things pull me but I manage','I am generally free from dominating pulls']},
+  {domain:'Distance',q:'When you leave a difficult interaction, how long does it stay with you?',opts:['Hours to days — it lingers','The rest of the day','An hour or so','I release it within minutes']},
+  {domain:'Reactivity',q:'How often do you react in ways you immediately regret?',opts:['Frequently — several times a week','Occasionally — once a week or so','Rarely — maybe monthly','Almost never — I catch myself before reacting']},
+  {domain:'Reactivity',q:'When someone challenges you publicly, what is your immediate internal response?',opts:['Strong defensive reaction — I want to counter','Discomfort and the urge to explain','Brief irritation that passes quickly','Curiosity — I wonder what they are seeing']},
+  {domain:'Reactivity',q:'How long does it take you to return to calm after a significant emotional trigger?',opts:['Hours — sometimes into the next day','30 to 60 minutes','10 to 15 minutes','5 minutes or less']},
+  {domain:'Energy',q:'How much of your daily energy goes to managing what others think of you?',opts:['A significant amount — it is exhausting','More than I would like','Some, but manageable','Very little — I am not strongly image-driven']},
+  {domain:'Energy',q:'At the end of a typical week, what best describes your energy state?',opts:['Depleted — I need significant recovery','Tired but functional','Reasonably recharged by the weekend','Energized — my work generally fills rather than drains me']},
+  {domain:'Energy',q:'How often do you do things primarily to avoid disapproval rather than from genuine choice?',opts:['Often — fear of disapproval drives many choices','Sometimes in specific relationships','Occasionally in high-stakes situations','Rarely — I act from my own values consistently']}
+];
+
+/* ═══════════════════════════════════════════════
+   DAILY CHECK POOL — 14 questions, Meta-Model
+═══════════════════════════════════════════════ */
+const CHECK_POOL=[
+  {cat:'Deletion',q:'What are you not saying right now that most needs to be said?',sub:'Who specifically needs to hear it — and what is stopping you?'},
+  {cat:'Deletion',q:'What is demanding your attention that you keep pushing aside?',sub:'What would happen if you gave it your full attention today?'},
+  {cat:'Deletion',q:'Who are you not speaking to that you know you should?',sub:'What are you protecting by staying silent?'},
+  {cat:'Generalization',q:'What rule are you following right now that you did not consciously choose?',sub:'Where did this rule come from — and does it still serve you?'},
+  {cat:'Generalization',q:'What do you believe always happens — and what is the cost of that belief?',sub:'What is the one exception that proves it is not always true?'},
+  {cat:'Generalization',q:'What have you decided is impossible that you have not actually tested?',sub:'What would one small test of that assumption look like?'},
+  {cat:'Distortion',q:'What are you assuming someone else is thinking — and how certain are you?',sub:'What evidence do you actually have? What else could be true?'},
+  {cat:'Distortion',q:'What are you blaming the environment for that you actually have influence over?',sub:'What is the one thing within your reach that you have not tried?'},
+  {cat:'Distortion',q:'What situation are you treating as proof of something about yourself?',sub:'What would it mean if the situation said nothing about you at all?'},
+  {cat:'Modal',q:'What are you telling yourself you must do — and what happens if you do not?',sub:'Who decided this was a must? What would a choice look like instead?'},
+  {cat:'Modal',q:'What are you telling yourself you cannot do — and who decided that?',sub:'When did you last actually test that limit?'},
+  {cat:'Performative',q:'What standard are you holding yourself to — and where did it come from?',sub:'Would you hold someone you love to the same standard?'},
+  {cat:'Performative',q:'What is obviously true right now — and obvious to whom?',sub:'What if the opposite were equally true?'},
+  {cat:'Somatic',q:'Where in your body do you feel the weight of something unresolved right now?',sub:'If that physical sensation could speak — what would it say?'}
+];
+
+/* ═══════════════════════════════════════════════
+   GRAVITY AUDIT FUNCTIONS
+═══════════════════════════════════════════════ */
+let auditSession={questions:[],current:0,answers:[],score:0};
+
+function startAudit(){
+  // Select 8 questions — at least 1 per domain
+  const domains=['Thinking','Emotional','Behavioral','Physical','Distance','Reactivity','Energy'];
+  const selected=[];
+  // One guaranteed per domain
+  domains.forEach(d=>{
+    const pool=AUDIT_POOL.filter(q=>q.domain===d);
+    if(pool.length) selected.push(pool[Math.floor(Math.random()*pool.length)]);
+  });
+  // Fill to 8 from remaining
+  const used=new Set(selected.map(q=>q.q));
+  const remaining=AUDIT_POOL.filter(q=>!used.has(q.q));
+  while(selected.length<8&&remaining.length){
+    const idx=Math.floor(Math.random()*remaining.length);
+    selected.push(remaining.splice(idx,1)[0]);
+  }
+  // Shuffle
+  for(let i=selected.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [selected[i],selected[j]]=[selected[j],selected[i]];
+  }
+  auditSession={questions:selected,current:0,answers:[],score:0};
+  document.getElementById('audit-intro-card').style.display='none';
+  document.getElementById('audit-active-card').style.display='block';
+  renderAuditQuestion();
+}
+
+function renderAuditQuestion(){
+  const q=auditSession.questions[auditSession.current];
+  if(!q){showAuditResult();return;}
+  const total=auditSession.questions.length;
+  const current=auditSession.current+1;
+  const el=document.getElementById('audit-active-card');
+  el.innerHTML=`
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;flex-wrap:wrap;">
+      ${auditSession.questions.map((_,i)=>
+        `<div class="audit-dot ${i<auditSession.current?'done':i===auditSession.current?'current':''}"></div>`
+      ).join('')}
+      <span style="font-family:'Courier New',monospace;font-size:9px;color:var(--muted);margin-left:4px;">${current}/${total}</span>
+    </div>
+    <div style="font-family:'Courier New',monospace;font-size:8px;letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-bottom:10px;">${q.domain} Domain</div>
+    <div style="font-family:'Georgia',serif;font-size:clamp(16px,3vw,20px);font-weight:300;line-height:1.5;color:var(--star);margin-bottom:20px;">${q.q}</div>
+    <div id="audit-options" style="display:flex;flex-direction:column;gap:8px;">
+      ${q.opts.map((o,i)=>`
+        <button class="audit-option" onclick="selectAuditOption(${i},'${o.replace(/'/g,"\'")}')">
+          ${o}
+        </button>`).join('')}
+    </div>`;
+}
+
+function selectAuditOption(idx,text){
+  document.querySelectorAll('.audit-option').forEach((b,i)=>{
+    b.classList.toggle('selected', i===idx);
+  });
+  // Score: 0=most gravity, 3=least gravity → map to 0-100
+  auditSession.pendingAnswer={idx,text,score:(idx/3)*100};
+  // Auto-advance after brief delay
+  setTimeout(()=>{
+    if(auditSession.pendingAnswer){
+      auditSession.answers.push(auditSession.pendingAnswer);
+      auditSession.current++;
+      auditSession.pendingAnswer=null;
+      renderAuditQuestion();
+    }
+  },600);
+}
+
+async function showAuditResult(){
+  const avgScore=auditSession.answers.reduce((s,a)=>s+a.score,0)/auditSession.answers.length;
+  const band=getGravityBand(avgScore);
+  const el=document.getElementById('audit-active-card');
+  el.innerHTML=`
+    <div style="text-align:center;padding:16px 0;">
+      <div style="font-family:'Courier New',monospace;font-size:9px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-bottom:12px;">◈ Gravity Audit Complete</div>
+      <div style="font-family:'Georgia',serif;font-size:48px;font-weight:300;color:${band.color};line-height:1;">${Math.round(avgScore)}</div>
+      <div style="font-family:'Courier New',monospace;font-size:9px;color:var(--muted);margin-bottom:6px;">/100</div>
+      <div style="font-family:'Courier New',monospace;font-size:11px;letter-spacing:2px;color:${band.color};text-transform:uppercase;margin-bottom:16px;">${band.name}</div>
+      <div style="font-size:13px;color:var(--muted2);line-height:1.6;margin-bottom:20px;text-align:left;">${band.desc}</div>
+      <button class="btn btn-gold btn-full" onclick="startAudit()">Run Another Audit →</button>
+    </div>`;
+  // Save to voice_sessions table as a proxy (or we could add audit_sessions table)
+  if(S.user && !S.isAnonymous){
+    try{
+      await sb.from('voice_sessions').insert({
+        user_id:S.user.id,
+        transcript:'[AUDIT] '+auditSession.answers.map(a=>a.text).join(' | '),
+        gravity_score:avgScore,mask_score:0,
+        patterns:[],coach_msg:'',dominant_domain:'Audit',
+        gravity_desc:band.name+': '+band.desc,mask_desc:''
+      });
+    }catch(e){console.log('Audit save:',e);}
+  }
+}
+
+/* ═══════════════════════════════════════════════
+   DAILY CHECK FUNCTIONS
+═══════════════════════════════════════════════ */
+let checkSession={questions:[],current:0,reflection:''};
+
+function initCheck(){
+  // Shuffle all 14
+  const shuffled=[...CHECK_POOL].sort(()=>Math.random()-.5);
+  checkSession={questions:shuffled,current:0,reflection:''};
+  renderCheckQuestion();
+}
+
+function shuffleCheck(){
+  initCheck();
+}
+
+function renderCheckQuestion(){
+  const q=checkSession.questions[checkSession.current];
+  if(!q) return;
+  const el=document.getElementById('check-question-area');
+  if(!el) return;
+  // Update timeline
+  updateCheckTimeline();
+  el.innerHTML=`
+    <div style="font-family:'Courier New',monospace;font-size:8px;letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-bottom:10px;">${q.cat} · Question ${checkSession.current+1} of ${checkSession.questions.length}</div>
+    <div style="font-family:'Georgia',serif;font-size:clamp(18px,3vw,24px);font-weight:300;line-height:1.5;color:var(--star);margin-bottom:12px;">${q.q}</div>
+    <div style="font-size:13px;color:var(--muted2);font-style:italic;margin-bottom:20px;padding:10px 14px;background:var(--surface2);border-radius:8px;border-left:2px solid var(--gold);">${q.sub}</div>
+    <textarea class="field-textarea" id="check-answer" placeholder="Write freely — no one else sees this..." style="min-height:100px;margin-bottom:12px;"></textarea>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+      <button class="btn btn-voice btn-sm" onclick="speakCheckQuestion()">🔊 Hear Question</button>
+      <button class="btn btn-gold btn-full" onclick="submitCheck()">Submit →</button>
+    </div>`;
+}
+
+async function submitCheck(){
+  const answer=(document.getElementById('check-answer')?.value||'').trim();
+  if(!answer){showToast('Write something before submitting');return;}
+  const q=checkSession.questions[checkSession.current];
+  const btn=document.querySelector('[onclick="submitCheck()"]');
+  if(btn){btn.disabled=true;btn.textContent='Reflecting...';}
+
+  // Get AI reflection
+  try{
+    const sys='You are the AntiGravity Daily Check coach. The user answered a Meta-Model question. Give a 2-3 sentence reflection that: 1) mirrors what they said without judgment, 2) gently surfaces the gravitational force beneath it, 3) connects to their orbit. User orbit: '+getPrimaryOrbit()+'. Be specific, warm, and use their words. Do not give generic advice.';
+    const raw=await callClaude(sys,'Question: '+q.q+' Answer: '+answer, 300);
+    const el=document.getElementById('check-question-area');
+    if(el){
+      el.innerHTML+=`
+        <div style="margin-top:14px;background:linear-gradient(135deg,rgba(155,127,232,.07),rgba(74,155,155,.04));border:1px solid rgba(155,127,232,.25);border-radius:12px;padding:16px;">
+          <div style="font-family:'Courier New',monospace;font-size:8px;letter-spacing:2px;color:var(--voice);text-transform:uppercase;margin-bottom:8px;">◎ Field Reflection</div>
+          <div style="font-family:'Georgia',serif;font-size:16px;font-style:italic;line-height:1.7;color:var(--star);">${raw}</div>
+          <div style="margin-top:12px;display:flex;gap:8px;">
+            <button class="btn btn-voice btn-sm" onclick="speakCheckReflection(\`${raw.replace(/`/g,"'")}\`)">🔊 Hear Reflection</button>
+            ${checkSession.current<checkSession.questions.length-1
+              ? '<button class="btn btn-gold" onclick="nextCheckQuestion()">Next Question →</button>'
+              : '<button class="btn btn-gold" onclick="showCheckComplete()">Complete ✓</button>'
+            }
+          </div>
+        </div>`;
+    }
+  }catch(e){
+    showToast('Reflection error: '+e.message);
+    if(btn){btn.disabled=false;btn.textContent='Submit →';}
+  }
+}
+
+function nextCheckQuestion(){
+  checkSession.current++;
+  renderCheckQuestion();
+}
+
+function showCheckComplete(){
+  const el=document.getElementById('check-question-area');
+  if(el) el.innerHTML=`
+    <div style="text-align:center;padding:24px 0;">
+      <div style="font-size:32px;margin-bottom:12px;">◎</div>
+      <div style="font-family:'Georgia',serif;font-size:22px;font-weight:300;color:var(--gold);margin-bottom:8px;">Daily Check Complete</div>
+      <div style="font-size:13px;color:var(--muted2);margin-bottom:20px;">Your field has been observed for today.</div>
+      <button class="btn btn-gold btn-full" onclick="initCheck()">New Check →</button>
+    </div>`;
+}
+
+function updateCheckTimeline(){
+  const tl=document.getElementById('check-timeline');
+  if(!tl) return;
+  const total=Math.min(7,checkSession.questions.length);
+  tl.innerHTML=Array.from({length:total},(_,i)=>
+    `<div class="check-slot" style="flex:1;height:4px;border-radius:2px;background:${i<checkSession.current?'var(--teal)':i===checkSession.current?'var(--gold)':'var(--border2)'}"></div>`
+  ).join('');
+}
+
+function speakCheckQuestion(){
+  const q=checkSession.questions[checkSession.current];
+  if(!q) return;
+  stopSpeech();
+  const u=new SpeechSynthesisUtterance(q.q);
+  const v=S.ttsVoices.find(v=>v.lang.startsWith('en'));
+  if(v) u.voice=v;
+  u.rate=0.88;u.pitch=0.95;
+  speechSynthesis.speak(u);
+}
+
+function speakCheckReflection(text){
+  stopSpeech();
+  const u=new SpeechSynthesisUtterance(text);
+  const v=S.ttsVoices.find(v=>v.lang.startsWith('en'));
+  if(v) u.voice=v;
+  u.rate=0.85;u.pitch=0.95;
+  speechSynthesis.speak(u);
+}
+
+function refreshCheckLog(){
+  // Placeholder — check sessions are not stored separately yet
+}
+
 const STOPS={
   Thinking:[
     {q:"Who said so? Under what conditions?",d:"Thinking Mass · Modal limit interrupted."},
@@ -2495,7 +2764,7 @@ async function generateFullReport(){
     const report=await callClaude(sys,`Moments:\n${mS||'None'}\nVoice:\n${vS||'None'}`,650);
     const secs=report.split(/\n\n+/).filter(s=>s.trim());
     const titles=['Field Verdict','Primary Domain','Mass Layer','Escape Signal','Orbit Statement'];
-    c.innerHTML=`<div class="desire-strip"><div class="dl">↑ Your Desired Orbit</div><div class="dt">${S.profile.orbit}</div></div>${secs.map((s,i)=>`<div class="card" style="margin-bottom:11px;"><div class="card-label">◈ ${titles[i]||'Reading '+(i+1)}</div><div style="font-family:'Georgia',serif;font-size:17px;font-weight:300;line-height:1.75;color:var(--star);">${s.trim()}</div></div>`).join('')}<button class="btn btn-ghost btn-full" onclick="generateFullReport()" style="margin-top:6px;">↺ Regenerate</button>`;
+    c.innerHTML=`<div class="desire-strip"><div class="dl">↑ Your Desired Orbit</div><div class="dt">${S.profile.orbit1}</div></div>${secs.map((s,i)=>`<div class="card" style="margin-bottom:11px;"><div class="card-label">◈ ${titles[i]||'Reading '+(i+1)}</div><div style="font-family:'Georgia',serif;font-size:17px;font-weight:300;line-height:1.75;color:var(--star);">${s.trim()}</div></div>`).join('')}<button class="btn btn-ghost btn-full" onclick="generateFullReport()" style="margin-top:6px;">↺ Regenerate</button>`;
   }catch(e){c.innerHTML=`<div style="color:var(--emot);padding:16px;">${e.message}</div>`;}
 }
 
@@ -2690,15 +2959,7 @@ document.addEventListener('DOMContentLoaded', function(){
     catch(e){ console.error(e); hideSplash(); }
   }, 50);
 });
-function toggleOrbitDomain(n){
-  const body=document.getElementById('odb-'+n);
-  const chev=document.getElementById('odc-chev-'+n);
-  const card=document.getElementById('odc-'+n);
-  const isOpen=body.style.display!=='none';
-  body.style.display=isOpen?'none':'block';
-  chev.textContent=isOpen?'▸':'▾';
-  card.classList.toggle('active',!isOpen);
-}
+
 </script>
 </body>
 </html>
