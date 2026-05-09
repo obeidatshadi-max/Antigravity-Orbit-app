@@ -2502,6 +2502,181 @@ async function generateFullReport(){
 /* ═══════════════════════════════
    UTILS
 ═══════════════════════════════ */
+/* ═══════════════════════════════
+   DEMO MODE
+═══════════════════════════════ */
+const DEMO_PROFILE={
+  name:'Demo',role:'Explore all features',sector:'Consulting / Professional Services',
+  orbit1:'lead with clarity and authority in ambiguous situations — without waiting for certainty that will not come.',
+  orbit2:'',orbit3:'',block:'overthinking',
+  domains:{think:7,emot:6,behav:5,body:4}
+};
+const DEMO_MOMENTS=[
+  {id:'d1',time:'09:14',trigger:'Morning briefing ran over — no clarity on priorities',emotion:'Anxiety',
+   thought:"I don't know where to start and everyone is waiting for direction",
+   insight:"The Analyst is running. You've converted a time problem into an identity question. The anxiety signals a blocked decision, not a lack of information.",
+   persona:'Analyst',domain:'Thinking',stop_signal:'What is the one decision you already have enough information to make?',
+   desire_link:'Clarity in ambiguity begins with the smallest available action, not the most complete picture.',created_at:new Date().toISOString()},
+  {id:'d2',time:'11:32',trigger:'Senior stakeholder questioned my recommendation publicly',emotion:'Frustration',
+   thought:"They never back me when it matters. I should have sent it by email.",
+   insight:"Frustration here is a blocked request: you wanted acknowledgment and got challenge instead. The Avoider appeared — notice the impulse to prefer email over direct conversation.",
+   persona:'Avoider',domain:'Emotional',stop_signal:'What would you ask for directly if you were not protecting yourself?',
+   desire_link:'Authority in ambiguity requires tolerating public challenge without retreat.',created_at:new Date().toISOString()},
+  {id:'d3',time:'14:45',trigger:'Clear run at a well-defined project deliverable',emotion:'Clarity',
+   thought:"I know exactly what needs to happen and I'm the right person to do it.",
+   insight:"This is your Achiever — notice how different the field feels when structure is present. The gap is not capability — it is tolerance for ambiguity.",
+   persona:'Achiever',domain:'Behavioral',stop_signal:'What would it take to bring this clarity into an unstructured moment?',
+   desire_link:"Your orbit is accessible — it appears when conditions are clear. The work is extending it into the unclear.",created_at:new Date().toISOString()}
+];
+const DEMO_VOICE={
+  id:'dv1',time:'10:05',
+  transcript:"The main challenge is there's a general lack of alignment and nobody seems to want to make a decision. Every time I try to push for clarity it always creates more confusion.",
+  gravity_score:38,mask_score:65,
+  patterns:[
+    {type:'Nominalization',example:"there's a general lack of alignment",question:'Who specifically is not aligning — about what?'},
+    {type:'Universal Quantifier',example:'Every time I try... it always creates confusion',question:'What is the one time it did not? What was different?'},
+    {type:'Lost Performative',example:'nobody seems to want to make a decision',question:'According to whom? What would deciding actually look like?'}
+  ],
+  coach_msg:"You've described this as a structural problem — alignment, decisions, confusion. But notice what's missing: you. The question your field is actually holding is simpler: what would you say if you said it directly, without the preparation?",
+  dominant_domain:'Thinking',
+  gravity_desc:'Pull Active — awareness is present but the pattern still runs more often than it does not.',
+  mask_desc:'Moderate gap — analytical framing carries more than the words suggest.',
+  created_at:new Date().toISOString()
+};
+
+async function enterDemo(){
+  document.querySelector('[onclick="enterDemo()"]')?.setAttribute('disabled','true');
+  try{
+    const{data,error}=await sb.auth.signInAnonymously();
+    if(error) throw error;
+    S.user=data.user; S.isAnonymous=true;
+    await sb.from('profiles').upsert({
+      id:S.user.id,name:DEMO_PROFILE.name,role:DEMO_PROFILE.role,
+      sector:DEMO_PROFILE.sector,orbit:DEMO_PROFILE.orbit1,
+      orbit2:'',orbit3:'',block:DEMO_PROFILE.block,
+      domain_think:DEMO_PROFILE.domains.think,domain_emot:DEMO_PROFILE.domains.emot,
+      domain_behav:DEMO_PROFILE.domains.behav,domain_body:DEMO_PROFILE.domains.body,
+      onboarded:true
+    });
+    S.profile={...DEMO_PROFILE};
+    const{data:existingM}=await sb.from('moments').select('*').eq('user_id',S.user.id).order('created_at',{ascending:false}).limit(50);
+    if(!existingM||existingM.length===0){
+      for(const m of DEMO_MOMENTS){
+        await sb.from('moments').insert({user_id:S.user.id,trigger:m.trigger,emotion:m.emotion,thought:m.thought,insight:m.insight,persona:m.persona,domain:m.domain,stop_signal:m.stop_signal,desire_link:m.desire_link});
+      }
+      const{data:seededM}=await sb.from('moments').select('*').eq('user_id',S.user.id).order('created_at',{ascending:false}).limit(50);
+      S.moments=(seededM||[]).map(m=>({...m,time:new Date(m.created_at).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})}));
+    } else {
+      S.moments=existingM.map(m=>({...m,time:new Date(m.created_at).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})}));
+    }
+    const{data:vsess}=await sb.from('voice_sessions').select('*').eq('user_id',S.user.id).order('created_at',{ascending:false}).limit(20);
+    S.voiceSessions=(vsess||[]).map(v=>({...v,time:new Date(v.created_at).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})}));
+    enterApp();
+  }catch(e){
+    showToast('Demo error: '+e.message);
+    document.querySelector('[onclick="enterDemo()"]')?.removeAttribute('disabled');
+  }
+}
+
+/* ═══════════════════════════════
+   ANONYMOUS UPGRADE
+═══════════════════════════════ */
+function checkUpgradeNudge(){
+  if(!S.isAnonymous) return;
+  setTimeout(()=>{
+    if(S.isAnonymous&&S.moments.length>=3) showUpgradePrompt();
+  },3000);
+}
+function showUpgradePrompt(){
+  const o=document.getElementById('upgrade-overlay');
+  if(o) o.classList.add('show');
+}
+function closeUpgrade(){
+  const o=document.getElementById('upgrade-overlay');
+  if(o) o.classList.remove('show');
+}
+function showUpgradeFromMenu(){
+  closeUserMenu();
+  const c=document.getElementById('upgrade-moment-count');
+  if(c) c.textContent=S.moments.length+' field moment'+(S.moments.length===1?'':'s');
+  showUpgradePrompt();
+}
+async function upgradeAnonymous(){
+  const email=document.getElementById('upgrade-email').value.trim();
+  const pass=document.getElementById('upgrade-pass').value;
+  if(!email||!pass){showToast('Enter email and password');return;}
+  if(pass.length<6){showToast('Password must be at least 6 characters');return;}
+  const btn=document.getElementById('upgrade-btn');
+  btn.disabled=true;btn.textContent='Linking account...';
+  try{
+    const{error}=await sb.auth.updateUser({email,password:pass});
+    if(error) throw error;
+    S.isAnonymous=false;
+    closeUpgrade();
+    const em=document.getElementById('menu-email-display');
+    if(em) em.textContent=email;
+    const ui=document.getElementById('menu-upgrade-item');
+    if(ui) ui.style.display='none';
+    showToast('Account created — your field data is saved.');
+  }catch(e){
+    showToast(e.message);
+    btn.disabled=false;btn.textContent='Create Account & Save Data →';
+  }
+}
+
+/* ═══════════════════════════════
+   TESTER MODE
+═══════════════════════════════ */
+function openTester(){
+  closeUserMenu();
+  const o=document.getElementById('tester-overlay');
+  if(o) o.style.display='flex';
+}
+function closeTester(){
+  const o=document.getElementById('tester-overlay');
+  if(o) o.style.display='none';
+}
+async function testerSignIn(){
+  const email=document.getElementById('tester-email').value.trim();
+  const pass=document.getElementById('tester-pass').value;
+  if(!email||!pass){showToast('Enter email and password');return;}
+  await sb.auth.signOut();
+  const{error}=await sb.auth.signInWithPassword({email,password:pass});
+  if(error){showToast(error.message);return;}
+  closeTester();
+}
+async function testerSignUp(){
+  const email=document.getElementById('tester-email').value.trim();
+  const pass=document.getElementById('tester-pass').value;
+  if(!email||!pass){showToast('Enter email and password');return;}
+  await sb.auth.signOut();
+  const{error}=await sb.auth.signUp({email,password:pass});
+  if(error){showToast(error.message);return;}
+  closeTester();
+  showToast('Check your email to confirm, then sign in.');
+}
+
+/* ═══════════════════════════════
+   APP GUIDE
+═══════════════════════════════ */
+let currentSlide=0;
+const TOTAL_SLIDES=7;
+function openGuide(){closeUserMenu();currentSlide=0;renderSlide();document.getElementById('guide-overlay').style.display='flex';}
+function closeGuide(){document.getElementById('guide-overlay').style.display='none';try{localStorage.setItem('ag_guide_seen','1');}catch(e){}}
+function goSlide(n){currentSlide=Math.max(0,Math.min(TOTAL_SLIDES-1,n));renderSlide();}
+function nextSlide(){if(currentSlide<TOTAL_SLIDES-1){currentSlide++;renderSlide();}else{closeGuide();}}
+function prevSlide(){if(currentSlide>0){currentSlide--;renderSlide();}}
+function renderSlide(){
+  document.querySelectorAll('.gslide').forEach((s,i)=>s.classList.toggle('active',i===currentSlide));
+  document.querySelectorAll('.gdot').forEach((d,i)=>d.classList.toggle('active',i===currentSlide));
+  const nb=document.getElementById('guide-next-btn');
+  if(nb) nb.textContent=currentSlide===TOTAL_SLIDES-1?'Begin →':'Next →';
+}
+function checkFirstTime(){
+  try{if(!localStorage.getItem('ag_guide_seen')) setTimeout(openGuide,800);}
+  catch(e){setTimeout(openGuide,800);}
+}
+
 function showToast(msg,dur=2800){
   const t=document.getElementById('toast');
   t.textContent=msg; t.classList.add('show');
