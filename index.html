@@ -1197,10 +1197,141 @@ input[type=range]::-webkit-slider-thumb{
 .orbit-domain-label{
   font-family:'Courier New',monospace;font-size:10px;letter-spacing:1.5px;
   color:var(--star);text-transform:uppercase;margin-bottom:3px;
+  display:flex;align-items:center;gap:8px;flex-wrap:wrap;
+}
+.orbit-domain-status{
+  font-family:'Courier New',monospace;font-size:8px;letter-spacing:1.5px;
+  padding:2px 8px;border-radius:10px;text-transform:uppercase;
+}
+.orbit-domain-status.filled{
+  color:var(--gold);background:rgba(201,168,76,.12);
+  border:1px solid rgba(201,168,76,.25);
+}
+.orbit-domain-status.empty{
+  color:var(--muted);background:var(--surface2);
+  border:1px solid var(--border2);
 }
 .orbit-domain-hint{font-size:11px;color:var(--muted);line-height:1.4;}
 .orbit-chevron{font-size:12px;color:var(--gold);transition:transform .2s;}
-.orbit-domain-body{padding:0 16px 14px;}
+.orbit-domain-body{padding:0 16px 16px;}
+
+/* ── SUB-ORBIT LIBRARY CARDS (Phase A) ── */
+.sub-orbit-grid{
+  display:grid;gap:8px;margin:10px 0 6px;
+}
+.sub-orbit-card{
+  background:var(--surface2);
+  border:1px solid var(--border2);
+  border-radius:10px;
+  padding:12px 14px;cursor:pointer;
+  transition:all .18s ease-out;
+  position:relative;
+}
+.sub-orbit-card:hover{
+  border-color:rgba(201,168,76,.3);
+  background:linear-gradient(135deg,rgba(201,168,76,.05),rgba(74,155,155,.02));
+}
+.sub-orbit-card.selected{
+  border-color:var(--gold);
+  background:linear-gradient(135deg,rgba(201,168,76,.12),rgba(74,155,155,.04));
+  box-shadow:0 0 0 1px rgba(201,168,76,.18);
+}
+.sub-orbit-card.selected::before{
+  content:'◉';
+  position:absolute;top:10px;right:12px;
+  color:var(--gold);font-size:11px;
+}
+.sub-orbit-title{
+  font-family:'Courier New',monospace;
+  font-size:10px;letter-spacing:1.5px;
+  color:var(--gold);text-transform:uppercase;
+  margin-bottom:5px;font-weight:600;
+}
+.sub-orbit-card.selected .sub-orbit-title{color:var(--gold);}
+.sub-orbit-statement{
+  font-family:'Georgia',serif;
+  font-size:13px;font-style:italic;
+  color:var(--muted2);line-height:1.55;
+  font-weight:300;
+}
+.sub-orbit-card.selected .sub-orbit-statement{color:var(--star);}
+
+/* Custom-write toggle */
+.sub-orbit-custom-toggle{
+  display:flex;align-items:center;gap:8px;
+  padding:10px 12px;margin-top:8px;
+  background:transparent;
+  border:1px dashed var(--border2);
+  border-radius:8px;cursor:pointer;
+  font-family:'Courier New',monospace;
+  font-size:10px;letter-spacing:1.2px;
+  color:var(--muted2);text-transform:uppercase;
+  transition:all .15s;
+}
+.sub-orbit-custom-toggle:hover{
+  border-color:rgba(201,168,76,.3);
+  color:var(--star);
+}
+.sub-orbit-custom-icon{color:var(--gold);font-size:12px;}
+.sub-orbit-custom-chev{margin-left:auto;color:var(--gold);}
+.sub-orbit-custom-body{margin-top:0;}
+
+/* Soft framing line at top of orbit-selection screen */
+.orbit-selection-framing{
+  background:linear-gradient(135deg,rgba(201,168,76,.06),rgba(74,155,155,.03));
+  border-left:3px solid var(--gold);
+  border-radius:0 8px 8px 0;
+  padding:12px 14px;margin-bottom:18px;
+}
+.orbit-selection-framing-text{
+  font-family:'Georgia',serif;font-size:13px;
+  font-style:italic;color:var(--muted2);
+  line-height:1.55;
+}
+
+/* ── MANAGE ORBITS OVERLAY ── */
+#manage-orbits-overlay{
+  display:none;position:fixed;inset:0;
+  background:rgba(8,12,18,.92);
+  z-index:200;backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+  overflow-y:auto;
+}
+#manage-orbits-overlay.active{display:block;}
+.manage-orbits-panel{
+  max-width:680px;margin:0 auto;
+  padding:24px 18px 60px;
+  min-height:100vh;
+}
+.manage-orbits-header{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:20px;padding-bottom:14px;
+  border-bottom:1px solid var(--border2);
+}
+.manage-orbits-title{
+  font-family:'Georgia',serif;
+  font-size:22px;font-weight:300;
+  color:var(--star);
+}
+.manage-orbits-title em{
+  font-style:italic;color:var(--gold);
+}
+.manage-orbits-close{
+  background:var(--surface2);border:1px solid var(--border2);
+  color:var(--muted2);width:36px;height:36px;
+  border-radius:50%;cursor:pointer;font-size:16px;
+}
+.manage-orbits-actions{
+  display:flex;gap:9px;margin-top:24px;
+  position:sticky;bottom:14px;
+  background:linear-gradient(180deg,transparent,var(--bg) 30%);
+  padding-top:18px;
+}
+
+@media(max-width:480px){
+  .sub-orbit-card{padding:11px 12px;}
+  .sub-orbit-statement{font-size:12.5px;}
+}
 
 /* ── ORBITAL POSITION DISPLAY ── */
 .orbital-position{
@@ -1380,55 +1511,16 @@ input[type=range]::-webkit-slider-thumb{
 
       <div class="onboard-step" id="step-1">
         <div class="step-title">Your <em>Desired Orbits</em></div>
-        <div style="background:linear-gradient(135deg,rgba(201,168,76,.07),rgba(74,155,155,.04));border:1px solid rgba(201,168,76,.22);border-radius:12px;padding:14px 16px;margin-bottom:18px;">
-          <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-bottom:7px;">◎ What is a Desired Orbit?</div>
-          <div style="font-size:13px;color:var(--muted2);line-height:1.65;">Like the moon — your true self exists in the balance between falling and drifting. Your Desired Orbit is the specific state you want to hold when gravitational forces pull you away from it.</div>
-        </div>
-        <div style="font-size:12px;color:var(--muted);margin-bottom:14px;font-family:'Space Mono',monospace;letter-spacing:1px;">Select at least one orbit to begin. You can add more as your field map builds.</div>
 
-        <!-- ORBIT 1: PROFESSIONAL — required -->
-        <div class="orbit-domain-card active" id="odc-1">
-          <div class="orbit-domain-header" onclick="toggleOrbitDomain(1)">
-            <div>
-              <div class="orbit-domain-label">◎ Professional Orbit <span style="font-family:'Courier New',monospace;font-size:8px;letter-spacing:1.5px;color:var(--emot);background:rgba(224,123,123,.12);padding:2px 7px;border-radius:4px;margin-left:6px;">Required</span></div>
-              <div class="orbit-domain-hint">Leadership · Performance · Career · Purpose</div>
-            </div>
-            <span class="orbit-chevron" id="odc-chev-1">▾</span>
-          </div>
-          <div class="orbit-domain-body" id="odb-1">
-            <textarea class="field-textarea" id="ob-orbit-1" placeholder="e.g. lead with authority in ambiguous situations — without waiting for certainty that will not come." style="min-height:80px;margin-top:10px;"></textarea>
-          </div>
+        <!-- Soft framing: low-stakes entry, library-led -->
+        <div class="orbit-selection-framing">
+          <div class="orbit-selection-framing-text">Pick what resonates — this will sharpen as your field reveals itself. No need to nail it now. You can always change or add orbits later.</div>
         </div>
 
-        <!-- ORBIT 2: RELATIONAL — optional -->
-        <div class="orbit-domain-card" id="odc-2">
-          <div class="orbit-domain-header" onclick="toggleOrbitDomain(2)">
-            <div>
-              <div class="orbit-domain-label">◈ Relational Orbit <span style="font-family:'Courier New',monospace;font-size:8px;letter-spacing:1.5px;color:var(--muted);background:var(--surface2);padding:2px 7px;border-radius:4px;margin-left:6px;">Optional</span></div>
-              <div class="orbit-domain-hint">Relationships · Communication · Conflict · Connection</div>
-            </div>
-            <span class="orbit-chevron" id="odc-chev-2">▸</span>
-          </div>
-          <div class="orbit-domain-body" id="odb-2" style="display:none;">
-            <textarea class="field-textarea" id="ob-orbit-2" placeholder="e.g. stay present in conflict without withdrawing or reacting." style="min-height:80px;margin-top:10px;"></textarea>
-          </div>
-        </div>
+        <!-- Dynamic mount — populated by renderOrbitSelectionScreen('onboard') on step entry -->
+        <div id="onboard-orbit-mount"></div>
 
-        <!-- ORBIT 3: PERSONAL — optional -->
-        <div class="orbit-domain-card" id="odc-3">
-          <div class="orbit-domain-header" onclick="toggleOrbitDomain(3)">
-            <div>
-              <div class="orbit-domain-label">⊙ Personal Orbit <span style="font-family:'Courier New',monospace;font-size:8px;letter-spacing:1.5px;color:var(--muted);background:var(--surface2);padding:2px 7px;border-radius:4px;margin-left:6px;">Optional</span></div>
-              <div class="orbit-domain-hint">Identity · Values · Energy · Inner self</div>
-            </div>
-            <span class="orbit-chevron" id="odc-chev-3">▸</span>
-          </div>
-          <div class="orbit-domain-body" id="odb-3" style="display:none;">
-            <textarea class="field-textarea" id="ob-orbit-3" placeholder="e.g. act from values rather than from fear of judgment." style="min-height:80px;margin-top:10px;"></textarea>
-          </div>
-        </div>
-
-        <div class="field-group" style="margin-top:16px;">
+        <div class="field-group" style="margin-top:18px;">
           <label class="field-label">What holds you back most?</label>
           <select class="field-select" id="ob-block">
             <option value="">Select...</option>
@@ -1464,6 +1556,27 @@ input[type=range]::-webkit-slider-thumb{
   </div>
 </div>
 
+<!-- MANAGE ORBITS OVERLAY (Phase A — accessible to existing users) -->
+<div id="manage-orbits-overlay">
+  <div class="manage-orbits-panel">
+    <div class="manage-orbits-header">
+      <div class="manage-orbits-title">Your <em>Orbits</em></div>
+      <button class="manage-orbits-close" onclick="closeManageOrbits()">×</button>
+    </div>
+
+    <div class="orbit-selection-framing">
+      <div class="orbit-selection-framing-text">Add an orbit, replace one, or write your own. The library reflects what your captures may need most. You can return here anytime.</div>
+    </div>
+
+    <div id="manage-orbit-mount"></div>
+
+    <div class="manage-orbits-actions">
+      <button class="btn btn-ghost" onclick="closeManageOrbits()">Cancel</button>
+      <button class="btn btn-gold btn-full" onclick="saveOrbitChanges()">Save Orbits →</button>
+    </div>
+  </div>
+</div>
+
 <!-- STOP SIGNAL OVERLAY -->
 <div id="stop-overlay">
   <div class="stop-panel">
@@ -1485,6 +1598,7 @@ input[type=range]::-webkit-slider-thumb{
   <div class="menu-user" id="menu-email-display"></div>
   <div class="menu-divider"></div>
   <div class="menu-item" id="menu-upgrade-item" style="display:none;color:var(--gold);border:1px solid rgba(201,168,76,.2);border-radius:8px;background:var(--gold-d);margin:2px;" onclick="showUpgradeFromMenu()">✦ Save Data — Create Account</div>
+  <div class="menu-item" onclick="openManageOrbits()">↻ Manage Orbits</div>
   <div class="menu-item" id="menu-tester-item" onclick="openTester()">◎ Personal Tester Mode</div>
   <div class="menu-item" onclick="openSettings()">⚙ Settings & API Key</div>
   <div class="menu-item" onclick="showStopSignal()">⚡ Trigger Stop Signal</div>
@@ -2165,15 +2279,32 @@ function nextStep(to){
     if(!n){showToast('Enter your name');return;}
     S.profile.name=n; S.profile.role=document.getElementById('ob-role').value.trim();
     S.profile.sector=document.getElementById('ob-sector').value;
+    // Mount the orbit-selection screen ONCE when user enters step-1
+    const mount = document.getElementById('onboard-orbit-mount');
+    if(mount && !mount.dataset.mounted){
+      mount.innerHTML = renderOrbitSelectionScreen('onboard');
+      mount.dataset.mounted = '1';
+    }
   }
   if(to===2){
-    const o1=document.getElementById('ob-orbit-1').value.trim();
-    if(!o1){showToast('Complete your Professional Orbit to continue');return;}
-    S.profile.orbit = o1;  // primary orbit — used by all AI calls
+    // Read drafts collected by sub-orbit cards & custom textareas
+    const o1 = getOrbitDraft('professional');
+    const o2 = getOrbitDraft('relational');
+    const o3 = getOrbitDraft('personal');
+    if(!o1 && !o2 && !o3){
+      showToast('Pick at least one orbit to continue');
+      return;
+    }
+    if(!o1){
+      // Professional was the original required slot — keep that contract loosely.
+      // If the user picked Relational or Personal but skipped Professional, allow it
+      // (a user-centric simplicity choice — methodological purity gives way here).
+    }
+    S.profile.orbit = o1 || o2 || o3;   // primary orbit — used by all AI calls
     S.profile.orbit1 = o1;
-    S.profile.orbit2=(document.getElementById('ob-orbit-2').value||'').trim();
-    S.profile.orbit3=(document.getElementById('ob-orbit-3').value||'').trim();
-    S.profile.block=document.getElementById('ob-block').value;
+    S.profile.orbit2 = o2;
+    S.profile.orbit3 = o3;
+    S.profile.block = document.getElementById('ob-block').value;
   }
   document.getElementById('step-'+currentStep).classList.remove('active');
   document.getElementById('dot-'+currentStep).classList.remove('active');
@@ -2255,6 +2386,286 @@ function getActiveOrbits(){
 
 function getPrimaryOrbit(){
   return S.profile.orbit1||S.profile.orbit2||S.profile.orbit3||'Your orbit';
+}
+
+/* ═══════════════════════════════
+   SUB-ORBIT LIBRARY (Phase A)
+   The IP layer. Each entry encodes:
+   - title:      short navigation label
+   - statement:  the full orbit (saved as the orbit text — this is what gets stored)
+   - opposes:    the gravitational force/persona/pattern this orbit counteracts
+                 (used silently by persona analysis, emergent suggestions, and Report narrative)
+═══════════════════════════════ */
+const SUB_ORBIT_LIBRARY = {
+  professional: [
+    {
+      title: 'Lead Through Ambiguity',
+      statement: 'lead with authority in ambiguous situations — without waiting for certainty that will not come',
+      opposes: 'decision paralysis, threat anticipation, jump-to-conclusions reactivity'
+    },
+    {
+      title: 'Convert Thoughts Into Action',
+      statement: 'translate ideas into concrete next steps — without retreating into theory or accumulation',
+      opposes: 'intellectual accumulation as a substitute for practical communication'
+    },
+    {
+      title: 'Balance Assertiveness and Empathy',
+      statement: 'speak directly and decide clearly while staying attuned to the people around me — without choosing one at the cost of the other',
+      opposes: 'aggressive overexpression, over-accommodation, leadership rigidity'
+    },
+    {
+      title: 'Hold Strategy Under Pressure',
+      statement: 'stay aligned with long-term objectives when short-term pressure escalates — without abandoning the plan to chase the urgent',
+      opposes: 'reactive priority-shifting, short-term planning gravity'
+    },
+    {
+      title: 'Prioritize Actions',
+      statement: 'decide what matters most this week and act on it first — without scattering energy across everything that feels urgent',
+      opposes: 'unorganized activity, urgency-mistaken-for-importance reactivity'
+    }
+  ],
+  relational: [
+    {
+      title: 'Stay Present in Conflict',
+      statement: 'stay grounded when challenged or contradicted — without withdrawing, attacking, or absorbing the other person\'s tension',
+      opposes: 'reactive surge, withdrawal, the aggressive/avoidance binary'
+    },
+    {
+      title: 'Listen Before Responding',
+      statement: 'hear what the other person is actually saying before formulating my reply — without rehearsing my answer while they speak',
+      opposes: 'over-expression, the impulse to fill space'
+    },
+    {
+      title: 'Speak Difficult Truths Cleanly',
+      statement: 'initiate hard conversations directly — without softening into vagueness or hardening into blame',
+      opposes: 'avoidance reactivity, the conflict-averse pattern'
+    },
+    {
+      title: 'Read the Emotions of Others',
+      statement: 'notice what the other person is feeling beneath their words — without projecting my own state onto them',
+      opposes: 'projection, emotional misattunement, the Mind-Read distortion'
+    },
+    {
+      title: 'Find Common Ground',
+      statement: 'locate shared experience, value, or concern with the people I engage — without leading with what separates us',
+      opposes: 'the Judgmental and Blaming reactivity habits, in-group/out-group reflex'
+    }
+  ],
+  personal: [
+    {
+      title: 'Sit With Discomfort',
+      statement: 'allow difficult emotions and unresolved tensions to pass through me without acting on them immediately — without reaching for distraction, food, screen, or withdrawal',
+      opposes: 'Impatience as ego feature, Trigger-Action-Reward loop closing too fast'
+    },
+    {
+      title: 'Harmony in Thoughts, Emotions, and Actions',
+      statement: 'bring my thinking, feeling, and behavior into one direction — without letting any of the three contradict the other two',
+      opposes: 'the Mask Score gap, the gap between word and voice'
+    },
+    {
+      title: 'Balance the Ego — Beyond Self-Love',
+      statement: 'hold a steady sense of self-worth that needs neither inflation nor diminishment — without seeking validation or punishing myself when it isn\'t given',
+      opposes: 'Pride and Self-pity (the false-personality binary)'
+    },
+    {
+      title: 'Conserve Energy, Stay Relaxed',
+      statement: 'protect my attention and physical energy throughout the day — without leaking it into rumination, tension, or reactive consumption',
+      opposes: 'Self-pity as energy drain, reactive consumption of attention'
+    }
+  ]
+};
+
+const ORBIT_DOMAIN_META = {
+  professional: { icon: '◎', label: 'Professional Orbit', hint: 'Leadership · Performance · Career · Purpose', sliceField: 'orbit1' },
+  relational:   { icon: '◈', label: 'Relational Orbit',   hint: 'Relationships · Communication · Conflict · Connection', sliceField: 'orbit2' },
+  personal:     { icon: '⊙', label: 'Personal Orbit',     hint: 'Identity · Values · Energy · Inner Self', sliceField: 'orbit3' }
+};
+
+/* Render the sub-orbit cards for a domain. Reused by onboarding step-1 AND Manage Orbits.
+   This is the "one screen, two contexts" simplicity — same DOM, same selection logic. */
+function renderSubOrbitCards(domainKey, currentValue){
+  const items = SUB_ORBIT_LIBRARY[domainKey] || [];
+  const cards = items.map((item,idx)=>{
+    const isSelected = currentValue && currentValue.trim() === item.statement.trim();
+    return `<div class="sub-orbit-card ${isSelected?'selected':''}"
+      onclick="selectSubOrbit('${domainKey}',${idx})"
+      data-domain="${domainKey}" data-idx="${idx}">
+      <div class="sub-orbit-title">${item.title}</div>
+      <div class="sub-orbit-statement">${item.statement}</div>
+    </div>`;
+  }).join('');
+  // Detect if currentValue is custom (not in library)
+  const isCustom = currentValue && currentValue.trim() &&
+    !items.some(it => it.statement.trim() === currentValue.trim());
+  return `<div class="sub-orbit-grid">${cards}</div>
+    <div class="sub-orbit-custom-toggle" onclick="toggleCustomOrbit('${domainKey}')">
+      <span class="sub-orbit-custom-icon">✎</span>
+      <span>${isCustom ? 'Edit my own statement' : 'Or write my own'}</span>
+      <span class="sub-orbit-custom-chev" id="custom-chev-${domainKey}">${isCustom?'▾':'▸'}</span>
+    </div>
+    <div class="sub-orbit-custom-body" id="custom-body-${domainKey}" style="display:${isCustom?'block':'none'};">
+      <textarea class="field-textarea" id="custom-text-${domainKey}"
+        placeholder="Describe the stance you want to hold — what you'd do, in what condition, without what compensation."
+        oninput="onCustomOrbitInput('${domainKey}')"
+        style="min-height:80px;margin-top:10px;">${isCustom?currentValue:''}</textarea>
+    </div>`;
+}
+
+/* Selection handler for library cards */
+function selectSubOrbit(domainKey, idx){
+  const item = SUB_ORBIT_LIBRARY[domainKey][idx];
+  if(!item) return;
+  // Visual selection state
+  document.querySelectorAll(`.sub-orbit-card[data-domain="${domainKey}"]`).forEach(c=>c.classList.remove('selected'));
+  document.querySelector(`.sub-orbit-card[data-domain="${domainKey}"][data-idx="${idx}"]`)?.classList.add('selected');
+  // Clear custom textarea when picking a library card
+  const customText = document.getElementById('custom-text-'+domainKey);
+  if(customText) customText.value = '';
+  const customBody = document.getElementById('custom-body-'+domainKey);
+  if(customBody) customBody.style.display = 'none';
+  const chev = document.getElementById('custom-chev-'+domainKey);
+  if(chev) chev.textContent = '▸';
+  // Save the selection to a draft slot — read back at save time
+  if(!S.orbitDraft) S.orbitDraft = {};
+  S.orbitDraft[domainKey] = item.statement;
+}
+
+/* Toggle the custom-orbit textarea visibility */
+function toggleCustomOrbit(domainKey){
+  const body = document.getElementById('custom-body-'+domainKey);
+  const chev = document.getElementById('custom-chev-'+domainKey);
+  if(!body) return;
+  const isOpen = body.style.display !== 'none';
+  body.style.display = isOpen ? 'none' : 'block';
+  if(chev) chev.textContent = isOpen ? '▸' : '▾';
+  if(!isOpen){
+    // Opening — deselect any library card
+    document.querySelectorAll(`.sub-orbit-card[data-domain="${domainKey}"]`).forEach(c=>c.classList.remove('selected'));
+    setTimeout(()=>document.getElementById('custom-text-'+domainKey)?.focus(), 50);
+  }
+}
+
+/* When user types in custom textarea, store as draft */
+function onCustomOrbitInput(domainKey){
+  const text = document.getElementById('custom-text-'+domainKey)?.value || '';
+  if(!S.orbitDraft) S.orbitDraft = {};
+  S.orbitDraft[domainKey] = text.trim();
+  // Deselect any library card when user types
+  if(text.trim()){
+    document.querySelectorAll(`.sub-orbit-card[data-domain="${domainKey}"]`).forEach(c=>c.classList.remove('selected'));
+  }
+}
+
+/* Read the draft for a domain — returns either library selection or custom text */
+function getOrbitDraft(domainKey){
+  if(!S.orbitDraft) return '';
+  return (S.orbitDraft[domainKey] || '').trim();
+}
+
+/* Render the full orbit-selection screen — used by both onboarding step-1 and Manage Orbits */
+function renderOrbitSelectionScreen(context){
+  // context: 'onboard' or 'manage' — controls framing copy and button labels
+  const isManage = context === 'manage';
+  // Pre-fill drafts from current profile state (so Manage Orbits opens populated)
+  S.orbitDraft = {
+    professional: S.profile.orbit1 || '',
+    relational:   S.profile.orbit2 || '',
+    personal:     S.profile.orbit3 || ''
+  };
+  const domains = ['professional','relational','personal'];
+  return domains.map((dk, i)=>{
+    const meta = ORBIT_DOMAIN_META[dk];
+    const current = S.orbitDraft[dk];
+    const isFilled = !!current;
+    const isExpanded = isManage ? !isFilled : (i === 0);  // Onboarding opens Professional; Manage opens unfilled domains
+    return `<div class="orbit-domain-card ${isExpanded?'active':''}" id="odc-${dk}">
+      <div class="orbit-domain-header" onclick="toggleOrbitDomainCard('${dk}')">
+        <div>
+          <div class="orbit-domain-label">
+            ${meta.icon} ${meta.label}
+            <span class="orbit-domain-status ${isFilled?'filled':'empty'}">${isFilled?'◉ Set':'○ Not yet'}</span>
+          </div>
+          <div class="orbit-domain-hint">${meta.hint}</div>
+        </div>
+        <span class="orbit-chevron" id="odc-chev-${dk}">${isExpanded?'▾':'▸'}</span>
+      </div>
+      <div class="orbit-domain-body" id="odb-${dk}" style="display:${isExpanded?'block':'none'};">
+        ${renderSubOrbitCards(dk, current)}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function toggleOrbitDomainCard(domainKey){
+  const body = document.getElementById('odb-'+domainKey);
+  const chev = document.getElementById('odc-chev-'+domainKey);
+  const card = document.getElementById('odc-'+domainKey);
+  if(!body) return;
+  const isOpen = body.style.display !== 'none';
+  body.style.display = isOpen ? 'none' : 'block';
+  if(chev) chev.textContent = isOpen ? '▸' : '▾';
+  if(card) card.classList.toggle('active', !isOpen);
+}
+
+/* ═══════════════════════════════
+   MANAGE ORBITS (existing-user flow)
+   Same screen as onboarding step-1, opened anytime from the user menu.
+═══════════════════════════════ */
+function openManageOrbits(){
+  closeUserMenu();
+  const mount = document.getElementById('manage-orbit-mount');
+  if(!mount) return;
+  // Always re-render to reflect current S.profile state
+  mount.innerHTML = renderOrbitSelectionScreen('manage');
+  document.getElementById('manage-orbits-overlay').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeManageOrbits(){
+  document.getElementById('manage-orbits-overlay').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+async function saveOrbitChanges(){
+  const o1 = getOrbitDraft('professional');
+  const o2 = getOrbitDraft('relational');
+  const o3 = getOrbitDraft('personal');
+  if(!o1 && !o2 && !o3){
+    showToast('Pick at least one orbit before saving');
+    return;
+  }
+  // Detect changes & track refinements (feeds Phase B's earned-weight via orbit versions)
+  const changed = {
+    professional: (S.profile.orbit1||'') !== o1,
+    relational:   (S.profile.orbit2||'') !== o2,
+    personal:     (S.profile.orbit3||'') !== o3
+  };
+  S.profile.orbitVersions = S.profile.orbitVersions || {};
+  Object.entries(changed).forEach(([k,v])=>{
+    if(v && (S.profile[ORBIT_DOMAIN_META[k].sliceField] || '').trim()){
+      // Increment version count only when an existing orbit is modified, not when newly added
+      S.profile.orbitVersions[k] = (S.profile.orbitVersions[k]||0) + 1;
+    }
+  });
+  S.profile.orbit1 = o1; S.profile.orbit2 = o2; S.profile.orbit3 = o3;
+  S.profile.orbit  = o1 || o2 || o3;
+  // Persist
+  try{
+    const { error } = await sb.from('profiles').upsert({
+      id: S.user.id,
+      orbit:  S.profile.orbit,
+      orbit2: o2, orbit3: o3
+    });
+    if(error){showToast('Save error: '+error.message);return;}
+  }catch(e){
+    showToast('Saved locally · sync when online');
+  }
+  closeManageOrbits();
+  setOrbitTexts();
+  refreshSharpnessDots();
+  // Single confirmation toast — the user's tap was the confirmation
+  const updates = Object.values(changed).filter(Boolean).length;
+  showToast(updates === 0 ? 'No changes' : (updates === 1 ? '✓ Orbit updated' : `✓ ${updates} orbits updated`));
 }
 
 function setOrbitTexts(){
