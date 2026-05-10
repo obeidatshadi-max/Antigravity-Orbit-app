@@ -241,6 +241,7 @@ input[type=range]::-webkit-slider-thumb{
   font-family:'Courier New',monospace;
   font-size:var(--mono-sm);letter-spacing:2px;
   color:var(--gold);text-transform:uppercase;margin-bottom:7px;
+  display:flex;align-items:center;gap:8px;flex-wrap:wrap;
 }
 .desire-strip .dt{
   font-family:'Georgia',serif;
@@ -455,11 +456,87 @@ input[type=range]::-webkit-slider-thumb{
   border-radius:0 8px 8px 0;
   padding:12px 14px;margin-bottom:18px;
 }
+
+/* ── SHARPNESS DOT (Phase B) ── */
+/* The dot grows in size, opacity, and halo as the orbit is lived.
+   No numbers, no labels — visual presence only. */
+.orbit-dot-row{
+  display:inline-flex;align-items:center;gap:6px;
+  margin-right:10px;vertical-align:middle;
+}
+.orbit-dot{
+  display:inline-block;
+  border-radius:50%;
+  background:var(--gold);
+  position:relative;
+  cursor:default;
+  transition:all .6s ease-out;
+  /* default state — overridden by sharpness class */
+  width:8px;height:8px;
+  opacity:.5;
+  box-shadow:none;
+  /* Color interpolates between muted (low) and gold (high) via opacity layering */
+}
+/* Five sharpness tiers — only visual properties, nothing semantic */
+.orbit-dot.s-faint{
+  width:6px;height:6px;opacity:.35;
+  background:var(--muted);
+}
+.orbit-dot.s-forming{
+  width:8px;height:8px;opacity:.55;
+  background:linear-gradient(135deg,var(--muted),var(--gold));
+  box-shadow:0 0 2px rgba(201,168,76,.25);
+}
+.orbit-dot.s-holding{
+  width:10px;height:10px;opacity:.75;
+  background:var(--gold);
+  box-shadow:0 0 4px rgba(201,168,76,.4);
+}
+.orbit-dot.s-sharpening{
+  width:12px;height:12px;opacity:.9;
+  background:var(--gold);
+  box-shadow:0 0 6px rgba(201,168,76,.55);
+}
+.orbit-dot.s-crystalline{
+  width:14px;height:14px;opacity:1;
+  background:var(--gold);
+  box-shadow:0 0 8px rgba(201,168,76,.7),0 0 0 2px rgba(201,168,76,.18);
+}
+
+/* Tooltip — appears on hover/long-press, single line, no metrics */
+.orbit-dot-wrap{
+  position:relative;display:inline-flex;align-items:center;gap:4px;
+}
+.orbit-dot-tip{
+  position:absolute;bottom:calc(100% + 8px);left:50%;
+  transform:translateX(-50%);
+  background:var(--surface2);
+  border:1px solid var(--border2);
+  color:var(--muted2);
+  font-family:'Georgia',serif;font-style:italic;
+  font-size:11px;line-height:1.4;
+  padding:6px 10px;border-radius:6px;
+  white-space:nowrap;
+  opacity:0;pointer-events:none;
+  transition:opacity .25s ease-out;
+  z-index:50;
+}
+.orbit-dot-wrap:hover .orbit-dot-tip,
+.orbit-dot-wrap:active .orbit-dot-tip{opacity:1;}
+
+/* Per-orbit label next to its dot — small, subtle, only used in multi-orbit mode */
+.orbit-dot-label{
+  font-family:'Courier New',monospace;
+  font-size:8px;letter-spacing:1.5px;
+  color:var(--muted);text-transform:uppercase;
+}
+
 .capture-orbit-label{
   font-family:'Courier New',monospace;
   font-size:8px;letter-spacing:2.5px;
   color:var(--gold);text-transform:uppercase;
   margin-bottom:6px;
+  display:flex;align-items:center;gap:8px;
 }
 .capture-orbit-text{
   font-family:'Georgia',serif;font-size:14px;
@@ -1485,7 +1562,10 @@ input[type=range]::-webkit-slider-thumb{
 
         <!-- POINT 1: ORBIT ANCHOR — first thing read -->
         <div class="capture-orbit-anchor" id="capture-orbit-anchor">
-          <div class="capture-orbit-label">↑ Your Desired Orbit</div>
+          <div class="capture-orbit-label">
+            <span id="capture-orbit-dots"></span>
+            ↑ Your Desired Orbit
+          </div>
           <div class="capture-orbit-text" id="capture-orbit-text">—</div>
           <div class="capture-orbit-prompt">◈ Notice the gap between this and what you're about to capture.</div>
         </div>
@@ -1557,7 +1637,7 @@ input[type=range]::-webkit-slider-thumb{
   <!-- ── MIRROR MODE ── -->
   <div id="screen-mirror" class="screen" style="flex:1;">
     <div class="scroll-body">
-      <div class="desire-strip"><div class="dl">↑ Your Desired Orbit</div><div class="dt" id="mirror-orbit"></div></div>
+      <div class="desire-strip"><div class="dl"><span id="mirror-orbit-dots"></span>↑ Your Desired Orbit</div><div class="dt" id="mirror-orbit"></div></div>
 
       <div class="card">
         <div class="card-label">◈ Voice Session — Speak Freely</div>
@@ -1619,7 +1699,7 @@ input[type=range]::-webkit-slider-thumb{
   <!-- ── DASHBOARD ── -->
   <div id="screen-dash" class="screen" style="flex:1;">
     <div class="scroll-body">
-      <div class="desire-strip"><div class="dl">↑ Your Desired Orbit</div><div class="dt" id="dash-orbit"></div></div>
+      <div class="desire-strip"><div class="dl"><span id="dash-orbit-dots"></span>↑ Your Desired Orbit</div><div class="dt" id="dash-orbit"></div></div>
       <div class="tab-bar">
         <button class="tab-btn active" onclick="showTab('tab-field',this)">Field Map</button>
         <button class="tab-btn" onclick="showTab('tab-mass',this)">Mass Layers</button>
@@ -1648,7 +1728,7 @@ input[type=range]::-webkit-slider-thumb{
   <!-- ── GRAVITY AUDIT SCREEN ── -->
   <div id="screen-audit" class="screen" style="flex:1;">
     <div class="scroll-body">
-      <div class="desire-strip"><div class="dl">↑ Your Desired Orbit</div><div class="dt" id="audit-orbit"></div></div>
+      <div class="desire-strip"><div class="dl"><span id="audit-orbit-dots"></span>↑ Your Desired Orbit</div><div class="dt" id="audit-orbit"></div></div>
 
       <div class="card" id="audit-intro-card">
         <div class="card-label">◈ Gravity Audit</div>
@@ -1689,7 +1769,7 @@ input[type=range]::-webkit-slider-thumb{
   <!-- ── DAILY CHECK SCREEN ── -->
   <div id="screen-check" class="screen" style="flex:1;">
     <div class="scroll-body">
-      <div class="desire-strip"><div class="dl">↑ Your Desired Orbit</div><div class="dt" id="check-orbit"></div></div>
+      <div class="desire-strip"><div class="dl"><span id="check-orbit-dots"></span>↑ Your Desired Orbit</div><div class="dt" id="check-orbit"></div></div>
 
       <div class="card">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
@@ -2151,6 +2231,7 @@ function enterApp(){
   renderOrbitalPosition('orbital-position-widget');
   refreshMomentLog();
   refreshDomainBars();
+  refreshSharpnessDots();
   scheduleStopSignal();
   loadVoices();
   const greeting = S.isAnonymous
@@ -2188,6 +2269,12 @@ function setOrbitTexts(){
   // Point 1: populate orbit anchor inside the capture card
   const ca=document.getElementById('capture-orbit-text');
   if(ca) ca.textContent=display;
+  // Phase B: render the sharpness dot row on every surface that displays an orbit
+  const dotRow = renderOrbitDotRow();
+  ['capture-orbit-dots','mirror-orbit-dots','dash-orbit-dots','audit-orbit-dots','check-orbit-dots'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el) el.innerHTML = dotRow;
+  });
 }
 
 function setUserDot(){
@@ -2196,6 +2283,183 @@ function setUserDot(){
   const em=document.getElementById('menu-email-display');
   if(em) em.textContent=S.user?.email||'';
 }
+
+/* ═══════════════════════════════
+   ORBIT SHARPNESS ENGINE (Phase B)
+   Computes how alive an orbit is, silently.
+   No numbers shown to user — only visual presence.
+═══════════════════════════════ */
+
+// Stance verbs that indicate active, anti-gravitational orbit shape.
+// Passive verbs (be, feel, become, get, have) signal weak shape.
+const STANCE_VERBS_ACTIVE = ['lead','hold','stay','convert','translate','balance','listen','speak','find','sit','conserve','protect','choose','direct','allow','release','initiate','locate','bring','prioritize','decide','act','make','observe','notice','read','keep','maintain','navigate','shift'];
+const STANCE_VERBS_PASSIVE = ['be','feel','become','get','have','want','wish','hope','try'];
+
+// Abstract nouns that signal vagueness when they appear without a "without" clause.
+const VAGUE_NOUNS = ['confidence','happiness','peace','balance','success','fulfillment','growth','clarity','presence'];
+
+// Conditional language — signals the orbit names a condition under which the stance applies.
+const CONDITION_MARKERS = ['when','in','under','during','while','as','if'];
+
+// Negation/compensation language — signals the orbit names what it refuses to do.
+const NEGATION_MARKERS = ['without','rather than','not by','not from','instead of','beyond'];
+
+// Map domain key → orbit field → S.profile key (for finding which captures belong to which orbit)
+const ORBIT_DOMAINS = {
+  professional: {field:'orbit1', label:'Professional', massDomains:['Thinking','Behavioral']},
+  relational:   {field:'orbit2', label:'Relational',   massDomains:['Emotional','Behavioral']},
+  personal:     {field:'orbit3', label:'Personal',     massDomains:['Emotional','Physical']}
+};
+
+/* Factor 1: Structural Shape — does the orbit follow Stance · Condition · Without? */
+function _shapeScore(text){
+  if(!text || text.length<8) return 0.0;
+  const lower = text.toLowerCase();
+  const firstWord = (lower.match(/\b[a-z]+\b/)||[''])[0];
+  const hasActiveStance  = STANCE_VERBS_ACTIVE.some(v => lower.startsWith(v) || lower.includes(' '+v+' '));
+  const hasPassiveStance = STANCE_VERBS_PASSIVE.includes(firstWord);
+  const hasCondition  = CONDITION_MARKERS.some(m => lower.includes(' '+m+' '));
+  const hasNegation   = NEGATION_MARKERS.some(m => lower.includes(m));
+  if(hasActiveStance && hasCondition && hasNegation) return 1.0;
+  if(hasActiveStance && hasCondition) return 0.6;
+  if(hasActiveStance) return 0.4;
+  if(hasPassiveStance && !hasCondition) return 0.15;  // "be more confident"
+  return 0.3;
+}
+
+/* Factor 2: Specificity — concrete, well-bounded, not a slogan */
+function _specificityScore(text){
+  if(!text) return 0.0;
+  const words = text.trim().split(/\s+/);
+  const len = words.length;
+  // Sweet spot: 12–25 words. Penalize too short or too long.
+  let lenScore;
+  if(len<6)  lenScore = 0.2;
+  else if(len<12) lenScore = 0.55;
+  else if(len<=25) lenScore = 1.0;
+  else if(len<=40) lenScore = 0.7;
+  else lenScore = 0.4;
+  // Vague-noun penalty (only if no negation clause anchors the abstraction)
+  const lower = text.toLowerCase();
+  const hasNegation = NEGATION_MARKERS.some(m => lower.includes(m));
+  const vagueHits = VAGUE_NOUNS.filter(n => lower.includes(n)).length;
+  const vaguePenalty = hasNegation ? 0 : vagueHits*0.15;
+  return Math.max(0, lenScore - vaguePenalty);
+}
+
+/* Factor 3: Earned Weight — has the orbit been lived?
+   Inputs: number of captures in this orbit's mass domains,
+           number of refinements (versions),
+           recency of last engagement,
+           alignment with user's heaviest mass domain. */
+function _earnedWeightScore(orbitKey){
+  const dom = ORBIT_DOMAINS[orbitKey];
+  if(!dom) return 0.0;
+  const moments = S.moments || [];
+
+  // Captures touching this orbit's mass domains
+  const relevant = moments.filter(m => dom.massDomains.includes(m.domain));
+  const captureScore = Math.min(0.4, relevant.length * 0.05);
+
+  // Refinement count — Phase E will write to S.profile.orbitVersions; default 0 for now.
+  const versions = (S.profile.orbitVersions && S.profile.orbitVersions[orbitKey]) || 0;
+  const versionScore = Math.min(0.3, versions * 0.10);
+
+  // Recency: gentle decay if no engagement in this domain for >14 days. Never below 0.3 floor effect.
+  let recencyScore = 0.3;
+  if(relevant.length>0){
+    const latest = relevant.reduce((acc,m)=>{
+      const t = m.created_at ? new Date(m.created_at).getTime() : 0;
+      return t>acc ? t : acc;
+    }, 0);
+    if(latest>0){
+      const daysSince = (Date.now()-latest)/(1000*60*60*24);
+      if(daysSince<=14) recencyScore = 0.3;
+      else recencyScore = Math.max(0.0, 0.3 - (daysSince-14)*0.01);  // ~0.05 per week dormant
+    }
+  } else {
+    recencyScore = 0.0;  // never engaged in this domain
+  }
+
+  // Mass alignment — if user's heaviest baseline mass overlaps this orbit's mass domains
+  let alignmentScore = 0;
+  const d = S.profile.domains || {think:5,emot:5,behav:5,body:5};
+  const map = {think:'Thinking',emot:'Emotional',behav:'Behavioral',body:'Physical'};
+  const heaviest = Object.entries(d).sort((a,b)=>b[1]-a[1])[0][0];
+  if(dom.massDomains.includes(map[heaviest])) alignmentScore = 0.2;
+
+  // Combine, capped at 1.0 internally — but the factor itself is already weight-bounded by .40 in compose
+  return Math.min(1.0, captureScore + versionScore + recencyScore + alignmentScore);
+}
+
+/* Composite sharpness: 0.35 shape + 0.25 specificity + 0.40 earned weight.
+   Phase B Decision 3: starting state for a freshly-saved library orbit damps earned weight to zero,
+   so the dot starts medium-faint and brightens with use. */
+function computeSharpness(orbitText, orbitKey){
+  if(!orbitText || !orbitText.trim()) return 0.0;
+  const shape    = _shapeScore(orbitText);
+  const specific = _specificityScore(orbitText);
+  const earned   = _earnedWeightScore(orbitKey);
+  const composite = (shape*0.35) + (specific*0.25) + (earned*0.40);
+  return Math.max(0, Math.min(1, composite));
+}
+
+/* Map a 0-1 sharpness value to one of five visual tiers. */
+function sharpnessTier(score){
+  if(score < 0.20) return 's-faint';
+  if(score < 0.40) return 's-forming';
+  if(score < 0.60) return 's-holding';
+  if(score < 0.80) return 's-sharpening';
+  return 's-crystalline';
+}
+
+/* Render a sharpness dot for a given orbit key. Returns inline HTML.
+   Used by the Field anchor, Mirror desire-strip, and any other surface that displays an orbit. */
+function renderSharpnessDot(orbitKey, opts){
+  opts = opts || {};
+  const dom = ORBIT_DOMAINS[orbitKey];
+  if(!dom) return '';
+  const text = S.profile[dom.field];
+  if(!text || !text.trim()) return '';
+  const score = computeSharpness(text, orbitKey);
+  const tier  = sharpnessTier(score);
+  const label = opts.showLabel ? `<span class="orbit-dot-label">${dom.label}</span>` : '';
+  return `<span class="orbit-dot-wrap">
+    <span class="orbit-dot ${tier}" data-orbit="${orbitKey}" aria-hidden="true"></span>
+    <span class="orbit-dot-tip">Your orbit's presence — grows as you live it</span>
+  </span>${label}`;
+}
+
+/* Render the dot row for all active orbits — multi-orbit display, Decision 2.
+   One small dot per orbit, side by side. Each independently bright or dim. */
+function renderOrbitDotRow(opts){
+  opts = opts || {};
+  const orbits = ['professional','relational','personal'].filter(k=>{
+    const dom = ORBIT_DOMAINS[k];
+    return S.profile[dom.field] && S.profile[dom.field].trim();
+  });
+  if(!orbits.length) return '';
+  return `<span class="orbit-dot-row">
+    ${orbits.map(k => renderSharpnessDot(k, opts)).join('')}
+  </span>`;
+}
+
+/* Recompute and re-render every dot on screen. Called after every capture, voice analysis, and orbit save. */
+function refreshSharpnessDots(){
+  document.querySelectorAll('.orbit-dot[data-orbit]').forEach(dotEl=>{
+    const k = dotEl.getAttribute('data-orbit');
+    const dom = ORBIT_DOMAINS[k];
+    if(!dom) return;
+    const text = S.profile[dom.field];
+    if(!text) return;
+    const score = computeSharpness(text, k);
+    const tier  = sharpnessTier(score);
+    // Remove all sharpness classes, add the current one — CSS transition handles the animation
+    ['s-faint','s-forming','s-holding','s-sharpening','s-crystalline'].forEach(c=>dotEl.classList.remove(c));
+    dotEl.classList.add(tier);
+  });
+}
+
 
 /* ═══════════════════════════════
    NAVIGATION
@@ -2920,6 +3184,7 @@ async function analyzeMoment(){
     renderOrbitalPosition('orbital-position-widget');
     refreshMomentLog();
     refreshDomainBars();
+    refreshSharpnessDots();
 
   }catch(e){
     div.innerHTML=`<div class="ai-block"><div class="ai-label">Error</div><div class="ai-text" style="color:var(--emot);">${e.message}</div></div>`;
@@ -3063,6 +3328,8 @@ async function analyzeVoice(){
     pd.style.display='block';
     // Coach
     document.getElementById('coach-section').innerHTML=renderCoach(r.coachMsg, saved.id);
+    // Phase B: voice sessions also count as engagement, refresh dots
+    refreshSharpnessDots();
   }catch(e){showToast(e.message);}
   btn.disabled=false; btn.innerHTML='Analyse Voice →';
 }
