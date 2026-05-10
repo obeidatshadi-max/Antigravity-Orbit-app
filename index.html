@@ -825,6 +825,63 @@ input[type=range]::-webkit-slider-thumb{
 }
 
 
+/* ── ORBITAL POSITION SYSTEM ── */
+.orbital-position{
+  display:flex;flex-direction:column;align-items:center;
+  padding:24px 20px;margin-bottom:16px;
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--card-radius);position:relative;overflow:hidden;
+}
+.orbit-axis{
+  display:flex;flex-direction:column;align-items:center;
+  gap:0;width:100%;max-width:280px;margin:0 auto;
+}
+.orbit-zone{
+  width:100%;padding:10px 16px;text-align:center;
+  font-family:'Space Mono',monospace;font-size:9px;
+  letter-spacing:2px;text-transform:uppercase;
+  border-radius:6px;transition:all .4s;
+}
+.orbit-zone.drifting{color:var(--muted);border:1px dashed rgba(74,155,155,.2);}
+.orbit-zone.orbit-line{
+  background:linear-gradient(135deg,rgba(201,168,76,.1),rgba(74,155,155,.08));
+  border:1px solid rgba(201,168,76,.35);color:var(--gold);
+  font-size:10px;letter-spacing:2.5px;padding:12px 16px;
+}
+.orbit-zone.falling{color:var(--muted);border:1px dashed rgba(224,123,123,.2);}
+.orbit-connector{
+  width:2px;height:16px;
+  background:linear-gradient(to bottom,rgba(74,155,155,.2),rgba(201,168,76,.3));
+}
+.orbit-marker{
+  position:absolute;left:50%;transform:translateX(-50%);
+  width:14px;height:14px;border-radius:50%;
+  border:2px solid;transition:all .8s ease;
+  box-shadow:0 0 12px currentColor;
+}
+.position-label{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(22px,4vw,32px);font-weight:300;
+  margin-top:12px;margin-bottom:4px;text-align:center;
+}
+.position-desc{
+  font-size:12px;color:var(--muted2);text-align:center;
+  line-height:1.55;max-width:260px;
+}
+.orbit-score-strip{
+  display:flex;gap:12px;margin-top:14px;flex-wrap:wrap;justify-content:center;
+}
+.orbit-metric{text-align:center;min-width:70px;}
+.orbit-metric-val{
+  font-family:'Cormorant Garamond',serif;
+  font-size:26px;font-weight:300;line-height:1;
+}
+.orbit-metric-label{
+  font-family:'Space Mono',monospace;
+  font-size:8px;letter-spacing:1.5px;
+  color:var(--muted);text-transform:uppercase;margin-top:3px;
+}
+
 /* ── GUIDE STYLES ── */
 .gdot{width:7px;height:7px;border-radius:50%;background:var(--border2);cursor:pointer;transition:all .3s;}
 .gdot.active{background:var(--gold);box-shadow:0 0 8px var(--gold-g);}
@@ -1051,7 +1108,11 @@ input[type=range]::-webkit-slider-thumb{
 
       <div class="onboard-step" id="step-1">
         <div class="step-title">Your <em>Desired Orbits</em></div>
-        <div class="step-desc">Like the moon — your true self exists in balance. Name the orbit you want to hold. Start with one. Add more as your field map builds.</div>
+        <div style="background:linear-gradient(135deg,rgba(201,168,76,.07),rgba(74,155,155,.04));border:1px solid rgba(201,168,76,.22);border-radius:12px;padding:14px 16px;margin-bottom:18px;">
+          <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-bottom:7px;">◎ What is a Desired Orbit?</div>
+          <div style="font-size:13px;color:var(--muted2);line-height:1.65;">Like the moon — your true self exists in the balance between falling and drifting. Your Desired Orbit is the specific state you want to hold when gravitational forces pull you away from it.</div>
+        </div>
+        <div style="font-size:12px;color:var(--muted);margin-bottom:14px;font-family:'Space Mono',monospace;letter-spacing:1px;">Select at least one orbit to begin. You can add more as your field map builds.</div>
 
         <!-- ORBIT 1: PROFESSIONAL — required -->
         <div class="orbit-domain-card active" id="odc-1">
@@ -1221,7 +1282,8 @@ input[type=range]::-webkit-slider-thumb{
   <!-- ── FIELD MODE ── -->
   <div id="screen-field" class="screen active" style="flex:1;">
     <div class="scroll-body">
-      <div class="desire-strip"><div class="dl">↑ Your Desired Orbit</div><div class="dt" id="field-orbit"></div></div>
+      <!-- ORBITAL POSITION — live field status -->
+      <div id="orbital-position-widget"></div>
 
       <div class="card">
         <div class="card-label">◈ Capture a Field Moment</div>
@@ -1787,7 +1849,8 @@ function nextStep(to){
   if(to===2){
     const o1=document.getElementById('ob-orbit-1').value.trim();
     if(!o1){showToast('Complete your Professional Orbit to continue');return;}
-    S.profile.orbit1=o1;
+    S.profile.orbit = o1;  // primary orbit — used by all AI calls
+    S.profile.orbit1 = o1;
     S.profile.orbit2=(document.getElementById('ob-orbit-2').value||'').trim();
     S.profile.orbit3=(document.getElementById('ob-orbit-3').value||'').trim();
     S.profile.block=document.getElementById('ob-block').value;
@@ -1845,6 +1908,7 @@ function enterApp(){
     if(upgradeItem) upgradeItem.style.display='none';
   }
   goTo('field');
+  renderOrbitalPosition('orbital-position-widget');
   refreshMomentLog();
   refreshDomainBars();
   scheduleStopSignal();
@@ -1962,6 +2026,207 @@ async function saveSettings(){
 /* ═══════════════════════════════
    ANTHROPIC API
 ═══════════════════════════════ */
+/* ═══════════════════════════════════════════════════
+   ORBITAL POSITION SYSTEM — Newton's Law Applied
+   Orbit = zero reference point (balanced state)
+   Falling = mass too heavy, distance collapsing
+   Drifting = disconnected, mass too light
+═══════════════════════════════════════════════════ */
+function getOrbitalPosition(momentCount, voiceCount, gravityScore, daysSinceLastCapture){
+  // FALLING: high mass + collapsing distance + low consciousness
+  // Signs: many moments showing reactivity, low gravity score, frequent captures
+  // but patterns repeating, OR long silence (stopped fighting gravity)
+  
+  // DRIFTING: disconnected — not capturing, not engaging
+  // Signs: few moments, long gap, no voice sessions
+  
+  // IN ORBIT: active engagement + rising consciousness + managing distance
+  // Signs: regular captures, improving gravity score, stop signals being used
+
+  // No data yet
+  if(momentCount === 0 && voiceCount === 0){
+    return {
+      state: 'unknown',
+      label: 'Field Unmapped',
+      color: 'var(--muted)',
+      desc: 'Capture your first moment to establish your orbital position.',
+      score: 0,
+      band: 'neutral'
+    };
+  }
+
+  // Calculate position score: -100 (deep fall) to +100 (drifting), 0 = orbit
+  let posScore = 0;
+
+  // Mass factor: high gravity score = lighter = toward orbit or drifting
+  // Low gravity score = heavy = falling
+  if(gravityScore !== null && gravityScore !== undefined){
+    // gravityScore 0-100 where 91-100 = balanced
+    // Map: 0-30 → -60 (falling hard), 31-55 → -20, 56-75 → +10, 76-90 → +30, 91-100 → 0
+    if(gravityScore <= 30) posScore -= 60;
+    else if(gravityScore <= 55) posScore -= 20;
+    else if(gravityScore <= 75) posScore += 10;
+    else if(gravityScore <= 90) posScore += 30;
+    else posScore += 5; // balanced — close to orbit
+  }
+
+  // Distance factor: days since last capture
+  // Long gap = drifting away (increasing distance)
+  // Active engagement = managing distance
+  const gap = daysSinceLastCapture || 0;
+  if(gap === 0) posScore += 15;        // captured today — close to triggers
+  else if(gap <= 2) posScore += 5;
+  else if(gap <= 7) posScore -= 10;
+  else if(gap <= 14) posScore -= 25;   // drifting — losing connection
+  else posScore -= 50;                  // deep drift
+
+  // Engagement factor: having voice + moment data = active field work
+  if(voiceCount > 0) posScore += 10;
+  if(momentCount >= 5) posScore += 5;
+  if(momentCount >= 10) posScore += 5;
+
+  // Clamp to -100 to +100
+  posScore = Math.max(-100, Math.min(100, posScore));
+
+  // Determine state
+  if(posScore <= -35){
+    return {
+      state: 'falling',
+      label: 'Falling',
+      color: 'var(--emot)',
+      desc: 'Gravitational mass is increasing. Patterns are running automatically. The distance between you and your triggers is collapsing.',
+      score: posScore,
+      band: 'danger'
+    };
+  } else if(posScore <= -10){
+    return {
+      state: 'pulling',
+      label: 'Being Pulled',
+      color: '#e8a84c',
+      desc: 'Gravitational forces are active. You are aware of the pull — but it is winning more often than not.',
+      score: posScore,
+      band: 'warning'
+    };
+  } else if(posScore <= 20){
+    return {
+      state: 'orbit',
+      label: 'In Orbit',
+      color: 'var(--teal)',
+      desc: 'Mass and distance are balanced. You are holding your orbit under current conditions.',
+      score: posScore,
+      band: 'stable'
+    };
+  } else if(posScore <= 50){
+    return {
+      state: 'drifting',
+      label: 'Drifting',
+      color: 'var(--muted2)',
+      desc: 'Distance from your gravitational field is increasing. Engagement with your field work is needed to maintain orbit.',
+      score: posScore,
+      band: 'drift'
+    };
+  } else {
+    return {
+      state: 'lost',
+      label: 'Deep Drift',
+      color: 'var(--muted)',
+      desc: 'Connection to your gravitational field has weakened significantly. Return to field capture to re-establish orbit.',
+      score: posScore,
+      band: 'drift'
+    };
+  }
+}
+
+function renderOrbitalPosition(containerId){
+  const el = document.getElementById(containerId);
+  if(!el) return;
+
+  const lastCapture = S.moments[0];
+  const daysSince = lastCapture
+    ? Math.floor((Date.now() - new Date(lastCapture.created_at||Date.now()).getTime()) / 86400000)
+    : 99;
+  const latestVoice = S.voiceSessions[0];
+  const gravScore = latestVoice ? latestVoice.gravity_score : null;
+
+  const pos = getOrbitalPosition(S.moments.length, S.voiceSessions.length, gravScore, daysSince);
+
+  // Vertical position of the marker: falling=80%, orbit=50%, drifting=20%
+  const markerPct = pos.state==='falling'||pos.state==='pulling' ? 75
+    : pos.state==='orbit' ? 50
+    : 25;
+
+  // Active orbits
+  const orbits = [];
+  if(S.profile.orbit) orbits.push({label:'Professional', text:S.profile.orbit});
+  if(S.profile.orbit2) orbits.push({label:'Relational', text:S.profile.orbit2});
+  if(S.profile.orbit3) orbits.push({label:'Personal', text:S.profile.orbit3});
+
+  el.innerHTML = `
+    <div class="orbital-position">
+
+      <!-- Orbit axis visual -->
+      <div style="position:relative;width:100%;max-width:300px;margin:0 auto 16px;">
+        <!-- Drifting zone -->
+        <div style="padding:8px 14px;text-align:center;font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);border:1px dashed rgba(74,155,155,.18);border-radius:6px 6px 0 0;background:rgba(74,155,155,.03);">
+          ↑ Drifting — Distance Increasing
+        </div>
+        <!-- Connector -->
+        <div style="height:1px;background:var(--border2);"></div>
+        <!-- Orbit band -->
+        <div style="padding:12px 14px;text-align:center;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;background:linear-gradient(135deg,rgba(201,168,76,.08),rgba(74,155,155,.06));border-left:1px solid rgba(201,168,76,.3);border-right:1px solid rgba(201,168,76,.3);color:var(--gold);">
+          ○ &nbsp; Your Orbit &nbsp; ○
+        </div>
+        <!-- Connector -->
+        <div style="height:1px;background:var(--border2);"></div>
+        <!-- Falling zone -->
+        <div style="padding:8px 14px;text-align:center;font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);border:1px dashed rgba(224,123,123,.18);border-radius:0 0 6px 6px;background:rgba(224,123,123,.03);">
+          ↓ Falling — Mass Increasing
+        </div>
+
+        <!-- Position marker -->
+        <div style="
+          position:absolute;
+          top:${markerPct}%;
+          right:-18px;
+          transform:translateY(-50%);
+          display:flex;align-items:center;gap:6px;
+        ">
+          <div style="width:10px;height:1px;background:${pos.color};"></div>
+          <div style="width:12px;height:12px;border-radius:50%;background:${pos.color};box-shadow:0 0 10px ${pos.color};"></div>
+        </div>
+      </div>
+
+      <!-- Current position label -->
+      <div class="position-label" style="color:${pos.color};">${pos.label}</div>
+      <div class="position-desc">${pos.desc}</div>
+
+      <!-- Metrics strip -->
+      <div class="orbit-score-strip">
+        ${gravScore!==null ? `<div class="orbit-metric">
+          <div class="orbit-metric-val" style="color:${getGravityBand(gravScore).color};">${Math.round(gravScore)}</div>
+          <div class="orbit-metric-label">Mass Score</div>
+        </div>` : ''}
+        <div class="orbit-metric">
+          <div class="orbit-metric-val" style="color:var(--gold);">${S.moments.length}</div>
+          <div class="orbit-metric-label">Moments</div>
+        </div>
+        <div class="orbit-metric">
+          <div class="orbit-metric-val" style="color:var(--teal);">${daysSince === 99 ? '—' : daysSince+'d'}</div>
+          <div class="orbit-metric-label">Last Capture</div>
+        </div>
+      </div>
+
+      <!-- Active orbits -->
+      ${orbits.length > 0 ? `<div style="margin-top:16px;width:100%;border-top:1px solid var(--border);padding-top:14px;">
+        ${orbits.map(o=>`<div style="margin-bottom:8px;">
+          <div style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:1.5px;color:var(--gold);text-transform:uppercase;margin-bottom:3px;">◎ ${o.label} Orbit</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:15px;font-style:italic;color:var(--star);line-height:1.45;">"${o.text}"</div>
+        </div>`).join('')}
+      </div>` : ''}
+
+    </div>`;
+}
+
 /* ═══════════════════════════════════════════════════
    GRAVITY SCORE — FAITHFUL TO THE ANTIGRAVITY BOOK
    Measures: automatic vs conscious behaviour
@@ -2316,6 +2581,7 @@ async function analyzeMoment(){
     document.getElementById('f-trigger').value='';
     document.getElementById('f-emotion').value='';
     document.getElementById('f-thought').value='';
+    renderOrbitalPosition('orbital-position-widget');
     refreshMomentLog();
     refreshDomainBars();
 
