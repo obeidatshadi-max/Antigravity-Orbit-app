@@ -550,6 +550,38 @@ input[type=range]::-webkit-slider-thumb{
   margin-top:10px;padding-top:10px;
   border-top:1px dashed rgba(201,168,76,.18);
 }
+/* Visible orbit affordances inside the anchor — no menu-hunting required */
+.capture-orbit-actions{
+  display:flex;gap:8px;flex-wrap:wrap;
+  margin-top:10px;padding-top:10px;
+  border-top:1px dashed rgba(201,168,76,.12);
+}
+.orbit-action-link{
+  font-family:'Courier New',monospace;
+  font-size:9px;letter-spacing:1.5px;
+  padding:6px 11px;border-radius:14px;
+  background:rgba(201,168,76,.08);
+  border:1px solid rgba(201,168,76,.22);
+  color:var(--gold);
+  text-transform:uppercase;cursor:pointer;
+  transition:all .15s;
+}
+.orbit-action-link:hover{
+  background:rgba(201,168,76,.14);
+  border-color:rgba(201,168,76,.4);
+}
+.orbit-action-link.subtle{
+  background:transparent;
+  border-color:var(--border2);
+  color:var(--muted);
+}
+.orbit-action-link.subtle:hover{
+  border-color:rgba(201,168,76,.3);
+  color:var(--gold);
+}
+@media(max-width:380px){
+  .orbit-action-link{font-size:8.5px;padding:5px 9px;}
+}
 .capture-orbit-closing{
   border-left:3px solid var(--gold);
   background:linear-gradient(135deg,rgba(201,168,76,.10),rgba(201,168,76,.03));
@@ -1683,6 +1715,10 @@ input[type=range]::-webkit-slider-thumb{
           </div>
           <div class="capture-orbit-text" id="capture-orbit-text">—</div>
           <div class="capture-orbit-prompt">◈ Notice the gap between this and what you're about to capture.</div>
+          <div class="capture-orbit-actions">
+            <button class="orbit-action-link" onclick="openManageOrbits()" title="Add or change orbits">↻ Manage Orbits</button>
+            <button class="orbit-action-link subtle" onclick="restartOnboarding()" title="Restart the full onboarding flow">⟲ Restart Onboarding</button>
+          </div>
         </div>
 
         <!-- STEP 1: TRIGGER + POINT 3: TAPPABLE TAXONOMY CHIPS -->
