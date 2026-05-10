@@ -1599,6 +1599,7 @@ input[type=range]::-webkit-slider-thumb{
   <div class="menu-divider"></div>
   <div class="menu-item" id="menu-upgrade-item" style="display:none;color:var(--gold);border:1px solid rgba(201,168,76,.2);border-radius:8px;background:var(--gold-d);margin:2px;" onclick="showUpgradeFromMenu()">✦ Save Data — Create Account</div>
   <div class="menu-item" onclick="openManageOrbits()">↻ Manage Orbits</div>
+  <div class="menu-item" onclick="restartOnboarding()">⟲ Restart Onboarding</div>
   <div class="menu-item" id="menu-tester-item" onclick="openTester()">◎ Personal Tester Mode</div>
   <div class="menu-item" onclick="openSettings()">⚙ Settings & API Key</div>
   <div class="menu-item" onclick="showStopSignal()">⚡ Trigger Stop Signal</div>
@@ -2335,6 +2336,87 @@ async function completeOnboarding(){
   });
   if(error){showToast('Save error: '+error.message);return;}
   enterApp();
+}
+
+/* ═══════════════════════════════
+   RESTART ONBOARDING
+   Wipes profile (name/role/sector/orbits/mass) and re-runs onboarding from step 0.
+   Captures, voice sessions, and history are preserved — the user wanted to
+   refresh their setup, not erase their work.
+═══════════════════════════════ */
+async function restartOnboarding(){
+  closeUserMenu();
+  // Single confirmation — the user's tap was the request, this prevents the accidental tap
+  const ok = confirm("Restart onboarding?\n\nYour name, role, orbits and mass ratings will be cleared so you can re-enter them.\n\nYour captured moments and voice sessions are preserved.");
+  if(!ok) return;
+
+  // Reset in-memory profile to a blank slate (keep the user record itself)
+  S.profile = {
+    name:'', role:'', sector:'',
+    orbit:'', orbit1:'', orbit2:'', orbit3:'',
+    block:'',
+    domains:{think:5,emot:5,behav:5,body:5},
+    orbitVersions:{}
+  };
+
+  // Persist the wipe to Supabase — onboarded:false is the gate that brings onboarding back
+  if(S.user && !S.isAnonymous){
+    try{
+      await sb.from('profiles').upsert({
+        id: S.user.id,
+        name:'', role:'', sector:'',
+        orbit:'', orbit2:'', orbit3:'',
+        block:'',
+        domain_think:5, domain_emot:5, domain_behav:5, domain_body:5,
+        onboarded:false
+      });
+    }catch(e){
+      // Local reset already happened; flag the sync issue but proceed
+      showToast('Reset locally · sync when online');
+    }
+  }
+
+  // Reset onboarding UI state — step indicator dots, step visibility, all input fields
+  currentStep = 0;
+  ['step-0','step-1','step-2'].forEach(id=>{
+    const el = document.getElementById(id);
+    if(el) el.classList.remove('active');
+  });
+  ['dot-0','dot-1','dot-2'].forEach(id=>{
+    const el = document.getElementById(id);
+    if(el){ el.classList.remove('active'); el.classList.remove('done'); }
+  });
+  document.getElementById('step-0')?.classList.add('active');
+  document.getElementById('dot-0')?.classList.add('active');
+
+  // Clear input fields
+  ['ob-name','ob-role','ob-sector','ob-block'].forEach(id=>{
+    const el = document.getElementById(id);
+    if(el) el.value = '';
+  });
+  ['sl-think','sl-emot','sl-behav','sl-body'].forEach(id=>{
+    const el = document.getElementById(id);
+    if(el) el.value = 5;
+  });
+  ['sv-think','sv-emot','sv-behav','sv-body'].forEach(id=>{
+    const el = document.getElementById(id);
+    if(el) el.textContent = '5';
+  });
+
+  // Clear the orbit selection mount so the library re-renders fresh on step-1 entry
+  const mount = document.getElementById('onboard-orbit-mount');
+  if(mount){ mount.innerHTML = ''; delete mount.dataset.mounted; }
+  S.orbitDraft = {};
+
+  // Hide app, show onboarding
+  document.getElementById('app').style.display = 'none';
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  const onboardScreen = document.getElementById('screen-onboard');
+  if(onboardScreen){
+    onboardScreen.classList.add('active');
+    onboardScreen.style.display = '';   // clear any inline display:none
+  }
+  showToast('✦ Onboarding restarted — your captures are preserved');
 }
 
 function enterApp(){
