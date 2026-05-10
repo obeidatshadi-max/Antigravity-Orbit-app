@@ -448,6 +448,201 @@ input[type=range]::-webkit-slider-thumb{
 }
 .moment-text{font-size:var(--ts-sm);color:var(--muted2);line-height:1.6;}
 
+/* ── CAPTURE-ORBIT ANCHOR (Point 1) ── */
+.capture-orbit-anchor{
+  border-left:3px solid var(--gold);
+  background:linear-gradient(135deg,rgba(201,168,76,.08),rgba(201,168,76,.02));
+  border-radius:0 8px 8px 0;
+  padding:12px 14px;margin-bottom:18px;
+}
+.capture-orbit-label{
+  font-family:'Courier New',monospace;
+  font-size:8px;letter-spacing:2.5px;
+  color:var(--gold);text-transform:uppercase;
+  margin-bottom:6px;
+}
+.capture-orbit-text{
+  font-family:'Georgia',serif;font-size:14px;
+  font-style:italic;font-weight:300;
+  color:var(--star);line-height:1.55;
+}
+.capture-orbit-prompt{
+  font-family:'Courier New',monospace;
+  font-size:9px;letter-spacing:1.5px;
+  color:var(--muted);text-transform:uppercase;
+  margin-top:10px;padding-top:10px;
+  border-top:1px dashed rgba(201,168,76,.18);
+}
+.capture-orbit-closing{
+  border-left:3px solid var(--gold);
+  background:linear-gradient(135deg,rgba(201,168,76,.10),rgba(201,168,76,.03));
+  border-radius:0 12px 12px 0;
+  padding:18px 20px;margin-top:14px;
+}
+.capture-orbit-closing-label{
+  font-family:'Courier New',monospace;
+  font-size:8px;letter-spacing:2.5px;
+  color:var(--gold);text-transform:uppercase;
+  margin-bottom:8px;
+}
+.capture-orbit-closing-stmt{
+  font-family:'Georgia',serif;font-size:13px;
+  font-style:italic;color:var(--muted2);
+  line-height:1.55;margin-bottom:10px;
+  padding-bottom:10px;
+  border-bottom:1px dashed rgba(201,168,76,.16);
+}
+.capture-orbit-gap-text{
+  font-family:'Georgia',serif;
+  font-size:clamp(15px,2.5vw,18px);
+  font-weight:300;line-height:1.6;
+  color:var(--star);
+}
+
+/* ── TRIGGER TAXONOMY CHIPS (Point 3) ── */
+.trigger-chip-row{
+  display:flex;flex-wrap:wrap;gap:6px;
+  margin-bottom:10px;
+}
+.trigger-chip{
+  font-family:'Courier New',monospace;
+  font-size:10px;letter-spacing:1.2px;
+  padding:6px 11px;border-radius:14px;
+  background:var(--surface2);
+  border:1px solid var(--border2);
+  color:var(--muted2);cursor:pointer;
+  text-transform:uppercase;transition:all .18s;
+  user-select:none;
+}
+.trigger-chip:hover{
+  border-color:rgba(201,168,76,.35);
+  color:var(--star);
+}
+.trigger-chip.active{
+  background:var(--gold-d);
+  border-color:var(--gold);
+  color:var(--gold);
+}
+.trigger-chip-icon{margin-right:4px;opacity:.85;}
+
+/* ── ACTION TAXONOMY (Point 2) ── */
+.action-taxonomy-row{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:7px;margin-bottom:10px;
+}
+.action-tax-btn{
+  font-family:'Courier New',monospace;
+  font-size:9px;letter-spacing:1.2px;
+  padding:9px 6px;border-radius:8px;
+  background:var(--surface2);
+  border:1px solid var(--border2);
+  color:var(--muted2);cursor:pointer;
+  text-transform:uppercase;transition:all .18s;
+  text-align:center;line-height:1.35;
+}
+.action-tax-btn:hover{
+  border-color:rgba(74,155,155,.35);
+  color:var(--star);
+}
+.action-tax-btn.active{
+  background:rgba(74,155,155,.12);
+  border-color:var(--teal);
+  color:var(--teal);
+}
+.action-tax-icon{
+  display:block;font-size:14px;
+  margin-bottom:3px;opacity:.9;
+}
+@media(max-width:380px){
+  .action-tax-btn{font-size:8.5px;padding:8px 4px;}
+}
+
+/* Step indicator on capture form */
+.capture-step-num{
+  display:inline-block;
+  font-family:'Courier New',monospace;
+  font-size:9px;letter-spacing:1.5px;
+  padding:1px 7px;border-radius:10px;
+  background:var(--gold-d);
+  color:var(--gold);
+  border:1px solid rgba(201,168,76,.25);
+  margin-right:7px;
+  vertical-align:middle;
+}
+
+/* ── MASS ANCHOR DISPLAY (Point 4) ── */
+.mass-anchors{
+  margin-top:7px;padding-top:9px;
+  border-top:1px dashed var(--border2);
+  display:grid;gap:5px;
+}
+.mass-anchor-row{
+  display:flex;justify-content:space-between;
+  align-items:center;
+  font-family:'Courier New',monospace;
+  font-size:10px;letter-spacing:1px;
+}
+.mass-anchor-label{
+  color:var(--muted);text-transform:uppercase;
+}
+.mass-anchor-value{
+  color:var(--muted2);font-weight:600;
+}
+.mass-anchor-value.warn{color:var(--emot);}
+.mass-anchor-value.good{color:var(--teal);}
+.mass-anchor-gap{
+  font-size:9px;color:var(--muted);
+  margin-left:5px;letter-spacing:1px;
+}
+
+/* ── PERSONA EXPLANATION CARD (Point 5) ── */
+.persona-explain-card{
+  background:linear-gradient(135deg,rgba(201,168,76,.06),rgba(139,158,245,.03));
+  border:1px solid rgba(201,168,76,.22);
+  border-radius:12px;padding:18px;
+  margin-bottom:10px;
+  position:relative;
+}
+.persona-explain-header{
+  display:flex;align-items:center;gap:10px;
+  margin-bottom:14px;padding-bottom:12px;
+  border-bottom:1px dashed rgba(201,168,76,.18);
+}
+.persona-explain-pill{
+  font-family:'Courier New',monospace;
+  font-size:10px;letter-spacing:1.5px;
+  padding:5px 12px;border-radius:5px;
+  background:var(--gold-d);
+  color:var(--gold);
+  border:1px solid rgba(201,168,76,.3);
+  text-transform:uppercase;
+}
+.persona-explain-meta{
+  font-family:'Courier New',monospace;
+  font-size:8px;letter-spacing:2px;
+  color:var(--muted);text-transform:uppercase;
+}
+.persona-explain-row{margin-bottom:11px;}
+.persona-explain-row:last-child{margin-bottom:0;}
+.persona-explain-label{
+  font-family:'Courier New',monospace;
+  font-size:8px;letter-spacing:2px;
+  color:var(--muted);text-transform:uppercase;
+  margin-bottom:5px;
+}
+.persona-explain-row.cue .persona-explain-label{color:var(--teal);}
+.persona-explain-row.cost .persona-explain-label{color:var(--emot);}
+.persona-explain-row.evidence .persona-explain-label{color:var(--gold);}
+.persona-explain-text{
+  font-size:13.5px;color:var(--star);
+  line-height:1.6;font-weight:300;
+}
+.persona-explain-row.cue .persona-explain-text{
+  font-family:'Georgia',serif;
+  font-style:italic;font-size:14.5px;
+}
+
 /* ── TABS ── */
 .tab-bar{
   display:flex;border-bottom:1px solid var(--border);
@@ -1287,8 +1482,47 @@ input[type=range]::-webkit-slider-thumb{
 
       <div class="card">
         <div class="card-label">◈ Capture a Field Moment</div>
-        <div class="field-group"><label class="field-label">What triggered this?</label><input class="field-input" id="f-trigger" placeholder="A meeting, a person, a thought..."></div>
-        <div class="field-group"><label class="field-label">Emotion present</label>
+
+        <!-- POINT 1: ORBIT ANCHOR — first thing read -->
+        <div class="capture-orbit-anchor" id="capture-orbit-anchor">
+          <div class="capture-orbit-label">↑ Your Desired Orbit</div>
+          <div class="capture-orbit-text" id="capture-orbit-text">—</div>
+          <div class="capture-orbit-prompt">◈ Notice the gap between this and what you're about to capture.</div>
+        </div>
+
+        <!-- STEP 1: TRIGGER + POINT 3: TAPPABLE TAXONOMY CHIPS -->
+        <div class="field-group">
+          <label class="field-label"><span class="capture-step-num">1</span>What triggered this?</label>
+          <div class="trigger-chip-row" id="trigger-chip-row">
+            <div class="trigger-chip" data-cat="person" onclick="selectTriggerCat(this,'person')"><span class="trigger-chip-icon">◉</span>Person</div>
+            <div class="trigger-chip" data-cat="event" onclick="selectTriggerCat(this,'event')"><span class="trigger-chip-icon">◈</span>Event</div>
+            <div class="trigger-chip" data-cat="thought" onclick="selectTriggerCat(this,'thought')"><span class="trigger-chip-icon">◎</span>Thought</div>
+            <div class="trigger-chip" data-cat="physical" onclick="selectTriggerCat(this,'physical')"><span class="trigger-chip-icon">⚡</span>Physical state</div>
+            <div class="trigger-chip" data-cat="story" onclick="selectTriggerCat(this,'story')"><span class="trigger-chip-icon">○</span>Inner story</div>
+          </div>
+          <input class="field-input" id="f-trigger" placeholder="Tap a category above, then describe what happened...">
+        </div>
+
+        <!-- STEP 2: POINT 2 — RESPONSIVE ACTION (objective, comes before introspection) -->
+        <div class="field-group">
+          <label class="field-label"><span class="capture-step-num">2</span>What did you do?</label>
+          <div class="action-taxonomy-row" id="action-taxonomy-row">
+            <div class="action-tax-btn" data-type="feeling" onclick="selectActionType(this,'feeling')">
+              <span class="action-tax-icon">◈</span>Feeling-driven
+            </div>
+            <div class="action-tax-btn" data-type="decision" onclick="selectActionType(this,'decision')">
+              <span class="action-tax-icon">◉</span>Decision-driven
+            </div>
+            <div class="action-tax-btn" data-type="physical" onclick="selectActionType(this,'physical')">
+              <span class="action-tax-icon">⚡</span>Physical
+            </div>
+          </div>
+          <input class="field-input" id="f-action" placeholder="The action you took — observable, factual...">
+        </div>
+
+        <!-- STEP 3: EMOTION -->
+        <div class="field-group">
+          <label class="field-label"><span class="capture-step-num">3</span>Emotion present</label>
           <select class="field-select" id="f-emotion">
             <option value="">Select...</option>
             <option>Frustration</option><option>Anxiety</option><option>Clarity</option>
@@ -1297,7 +1531,13 @@ input[type=range]::-webkit-slider-thumb{
             <option>Uncertainty</option><option>Resignation</option><option>Focus</option>
           </select>
         </div>
-        <div class="field-group"><label class="field-label">Thought in the background</label><textarea class="field-textarea" id="f-thought" placeholder="What's running in your mind..." style="min-height:68px;"></textarea></div>
+
+        <!-- STEP 4: THOUGHT -->
+        <div class="field-group">
+          <label class="field-label"><span class="capture-step-num">4</span>Thought in the background</label>
+          <textarea class="field-textarea" id="f-thought" placeholder="What's running in your mind..." style="min-height:68px;"></textarea>
+        </div>
+
         <button class="btn btn-gold btn-full" id="analyze-btn" onclick="analyzeMoment()">Analyze this moment →</button>
         <div id="moment-analysis" style="display:none;"></div>
       </div>
@@ -1945,6 +2185,9 @@ function setOrbitTexts(){
     const el=document.getElementById(k+'-orbit');
     if(el) el.textContent=display;
   });
+  // Point 1: populate orbit anchor inside the capture card
+  const ca=document.getElementById('capture-orbit-text');
+  if(ca) ca.textContent=display;
 }
 
 function setUserDot(){
@@ -2461,11 +2704,56 @@ function hasApiKey(){ return getApiKey().startsWith('sk-'); }
 /* ═══════════════════════════════
    FIELD MODE
 ═══════════════════════════════ */
+
+// Trigger taxonomy state (Point 3)
+const TRIGGER_PREFIX={
+  person:   'A person — ',
+  event:    'An event — ',
+  thought:  'A thought — ',
+  physical: 'A physical state — ',
+  story:    'An inner story — '
+};
+let _activeTriggerCat=null;
+
+function selectTriggerCat(el, cat){
+  document.querySelectorAll('#trigger-chip-row .trigger-chip').forEach(c=>c.classList.remove('active'));
+  el.classList.add('active');
+  _activeTriggerCat=cat;
+  const input=document.getElementById('f-trigger');
+  // Replace any prior prefix
+  let val=input.value;
+  Object.values(TRIGGER_PREFIX).forEach(pref=>{
+    if(val.startsWith(pref)) val=val.slice(pref.length);
+  });
+  input.value=TRIGGER_PREFIX[cat]+val;
+  input.focus();
+  // Place caret at end so the user types after the prefix
+  const len=input.value.length;
+  input.setSelectionRange(len,len);
+}
+
+// Action taxonomy state (Point 2)
+let _activeActionType=null;
+function selectActionType(el, type){
+  document.querySelectorAll('#action-taxonomy-row .action-tax-btn').forEach(c=>c.classList.remove('active'));
+  el.classList.add('active');
+  _activeActionType=type;
+  document.getElementById('f-action').focus();
+}
+
+function resetCaptureChips(){
+  document.querySelectorAll('#trigger-chip-row .trigger-chip').forEach(c=>c.classList.remove('active'));
+  document.querySelectorAll('#action-taxonomy-row .action-tax-btn').forEach(c=>c.classList.remove('active'));
+  _activeTriggerCat=null;
+  _activeActionType=null;
+}
+
 async function analyzeMoment(){
   const trigger=document.getElementById('f-trigger').value.trim();
+  const action=document.getElementById('f-action').value.trim();
   const emotion=document.getElementById('f-emotion').value;
   const thought=document.getElementById('f-thought').value.trim();
-  if(!trigger||!emotion||!thought){showToast('Fill all three fields');return;}
+  if(!trigger||!action||!emotion||!thought){showToast('Fill all four fields');return;}
 
   const btn=document.getElementById('analyze-btn');
   btn.disabled=true;
@@ -2488,12 +2776,18 @@ async function analyzeMoment(){
     ? 'Previous moments: '+S.moments.slice(0,5).map(m=>m.persona+'('+m.domain+')').join(', ')
     : 'First captured moment.';
 
+  const triggerCat = _activeTriggerCat || 'unspecified';
+  const actionType = _activeActionType || 'unspecified';
+
   const sys='You are the AntiGravity Field Intelligence System by Dr. Shadi Obeidat. '
     +'You reveal the hidden psychological truth beneath ordinary moments — the gravitational force the person cannot see. '
+    +'You operate as a coach: you do not just label, you teach the person to recognise the pattern themselves next time. '
     +'Domains: Thinking Mass, Emotional Mass, Behavioral Mass, Physical Mass. '
     +'Personas: Analyst, Achiever, Avoider, Pleaser, Rebel, Controller. '
     +'Profile: Name='+S.profile.name+', Role='+S.profile.role+', Orbit="'+getPrimaryOrbit()+'", Block='+S.profile.block+'. '
     +'Pattern history: '+patternContext+'. '
+    +'The user has tagged this moment with trigger category="'+triggerCat+'" and action type="'+actionType+'". '
+    +'The Responsive Action is the most objective signal — weight it heavily in domain and persona inference. '
     +'JSON only, no fences: {'
     +'"surface":"1 sentence — what the person thinks this moment is about (the obvious reading)",'
     +'"hidden":"2-3 sentences — the real gravitational force beneath it. Name what they cannot see. '
@@ -2502,18 +2796,24 @@ async function analyzeMoment(){
     +'"orbit_gap":"1 sentence — the precise distance between THIS moment and their stated orbit. '
     +'Use their orbit statement directly. Name what the gravity is costing them specifically.",'
     +'"persona":"Analyst|Achiever|Avoider|Pleaser|Rebel|Controller",'
+    +'"persona_evidence":"1 sentence — name the specific signal in their trigger or action that pointed to this persona. Quote a fragment of their input.",'
+    +'"persona_cost":"1 sentence — the gravitational consequence of this persona running here. What it leaves unaddressed or compounded.",'
+    +'"persona_cue":"1 question under 18 words — how the user can recognise this persona themselves next time it activates.",'
     +'"domain":"Thinking|Emotional|Behavioral|Physical",'
     +'"stop_signal":"one question under 15 words that interrupts this specific pattern — not generic",'
     +'"pattern_confirmed":true|false'
     +'}';
 
-  const user='Trigger: "'+trigger+'"\nEmotion: '+emotion+'\nThought: "'+thought+'"';
+  const user='Trigger ['+triggerCat+']: "'+trigger+'"\n'
+    +'Responsive Action ['+actionType+']: "'+action+'"\n'
+    +'Emotion: '+emotion+'\n'
+    +'Thought: "'+thought+'"';
 
   try{
-    const raw=await callClaude(sys, user, 500);
+    const raw=await callClaude(sys, user, 600);
     let r;
     try{r=JSON.parse(raw);}
-    catch{r={surface:trigger,hidden:raw,orbit_gap:'This pattern sits between you and your orbit.',persona:'Analyst',domain:'Thinking',stop_signal:"What is the real question here?",pattern_confirmed:false};}
+    catch{r={surface:trigger,hidden:raw,orbit_gap:'This pattern sits between you and your orbit.',persona:'Analyst',persona_evidence:'',persona_cost:'',persona_cue:'',domain:'Thinking',stop_signal:"What is the real question here?",pattern_confirmed:false};}
 
     // Pattern repetition counter
     const prevPersonaCount = (personaCounts[r.persona]||0);
@@ -2535,12 +2835,46 @@ async function analyzeMoment(){
     }
 
     const m={...(saved||{id:Date.now(),created_at:new Date().toISOString()}),
-      trigger,emotion,thought,insight:r.hidden,persona:r.persona,
+      trigger,emotion,thought,action,trigger_cat:triggerCat,action_type:actionType,
+      insight:r.hidden,persona:r.persona,
+      persona_evidence:r.persona_evidence||'',persona_cost:r.persona_cost||'',persona_cue:r.persona_cue||'',
       domain:r.domain,stop_signal:r.stop_signal,desire_link:r.orbit_gap,
       time:new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})};
     S.moments.unshift(m);
 
-    // REVELATION DISPLAY — three-layer card
+    // POINT 5: Persona Explanation block (only if AI returned the fields)
+    const personaExplainBlock = (r.persona_evidence || r.persona_cost || r.persona_cue) ? `
+      <div class="persona-explain-card">
+        <div class="persona-explain-header">
+          <span class="persona-explain-pill">${r.persona}</span>
+          <span class="persona-explain-meta">◈ Why this persona, and how to see it next time</span>
+        </div>
+        ${r.persona_evidence ? `
+          <div class="persona-explain-row evidence">
+            <div class="persona-explain-label">◉ Why this persona was identified</div>
+            <div class="persona-explain-text">${r.persona_evidence}</div>
+          </div>` : ''}
+        ${r.persona_cost ? `
+          <div class="persona-explain-row cost">
+            <div class="persona-explain-label">⚠ What it costs</div>
+            <div class="persona-explain-text">${r.persona_cost}</div>
+          </div>` : ''}
+        ${r.persona_cue ? `
+          <div class="persona-explain-row cue">
+            <div class="persona-explain-label">◎ The distinguishing question</div>
+            <div class="persona-explain-text">${r.persona_cue}</div>
+          </div>` : ''}
+      </div>` : '';
+
+    // POINT 1: Orbit gap as closing weight (re-rendered below the analysis with full orbit statement)
+    const orbitClosing = `
+      <div class="capture-orbit-closing">
+        <div class="capture-orbit-closing-label">↑ Your orbit · the gap this moment created</div>
+        <div class="capture-orbit-closing-stmt">${(getPrimaryOrbit()||'Your orbit').replace(/</g,'&lt;')}</div>
+        <div class="capture-orbit-gap-text">${r.orbit_gap}</div>
+      </div>`;
+
+    // REVELATION DISPLAY — layered card with persona explanation + orbit closing
     div.innerHTML=`
       <div style="margin-top:14px;">
 
@@ -2563,24 +2897,26 @@ async function analyzeMoment(){
           </div>
         </div>
 
-        <!-- Layer 3: Orbit Gap — the cost -->
-        <div style="background:linear-gradient(135deg,rgba(201,168,76,.07),rgba(74,155,155,.04));border:1px solid rgba(201,168,76,.25);border-left:3px solid var(--gold);border-radius:0 12px 12px 0;padding:16px 18px;margin-bottom:10px;">
-          <div style="font-family:'Courier New',monospace;font-size:8px;letter-spacing:2.5px;color:var(--gold);text-transform:uppercase;margin-bottom:8px;">↑ Distance from your orbit</div>
-          <div style="font-family:'Georgia',serif;font-size:clamp(15px,2.5vw,19px);font-weight:300;font-style:italic;line-height:1.6;color:var(--star);">${r.orbit_gap}</div>
-        </div>
+        <!-- Layer 3 (POINT 5): Persona explanation — evidence, cost, cue -->
+        ${personaExplainBlock}
 
         <!-- Stop Signal -->
-        <div style="background:var(--stop-d);border:1px solid rgba(232,199,106,.22);border-radius:10px;padding:13px 16px;">
+        <div style="background:var(--stop-d);border:1px solid rgba(232,199,106,.22);border-radius:10px;padding:13px 16px;margin-bottom:10px;">
           <div style="font-family:'Courier New',monospace;font-size:8px;letter-spacing:2px;color:var(--stop);text-transform:uppercase;margin-bottom:6px;">⚡ Stop Signal</div>
           <div style="font-family:'Georgia',serif;font-size:clamp(15px,2.5vw,19px);font-style:italic;color:var(--star);">"${r.stop_signal}"</div>
         </div>
 
+        <!-- POINT 1: Orbit gap as the closing weight, not a footnote -->
+        ${orbitClosing}
+
       </div>`;
 
-    // Clear inputs
+    // Clear inputs and reset chips
     document.getElementById('f-trigger').value='';
+    document.getElementById('f-action').value='';
     document.getElementById('f-emotion').value='';
     document.getElementById('f-thought').value='';
+    resetCaptureChips();
     renderOrbitalPosition('orbital-position-widget');
     refreshMomentLog();
     refreshDomainBars();
@@ -2589,7 +2925,7 @@ async function analyzeMoment(){
     div.innerHTML=`<div class="ai-block"><div class="ai-label">Error</div><div class="ai-text" style="color:var(--emot);">${e.message}</div></div>`;
   }
   btn.disabled=false;
-  btn.innerHTML='Read my field →';
+  btn.innerHTML='Analyze this moment →';
 }
 
 
@@ -2606,10 +2942,65 @@ function refreshDomainBars(){
   S.moments.forEach(m=>{if(counts[m.domain]!==undefined)counts[m.domain]++;});
   const total=S.moments.length;
   const d=S.profile.domains;
-  const doms=[{k:'Thinking',base:d.think,col:'think-c',bar:'think-b'},{k:'Emotional',base:d.emot,col:'emot-c',bar:'emot-b'},{k:'Behavioral',base:d.behav,col:'behav-c',bar:'behav-b'},{k:'Physical',base:d.body,col:'body-cc',bar:'body-b'}];
+  // Orbit requirement: a domain is "in orbit" when its mass score is below 6 (heuristic mapping
+  // of the framework — heavy mass collapses distance from triggers, lightness drifts).
+  const ORBIT_CEILING = 6.0;
+
+  const doms=[
+    {k:'Thinking',  base:d.think, col:'think-c', bar:'think-b'},
+    {k:'Emotional', base:d.emot,  col:'emot-c',  bar:'emot-b'},
+    {k:'Behavioral',base:d.behav, col:'behav-c', bar:'behav-b'},
+    {k:'Physical',  base:d.body,  col:'body-cc', bar:'body-b'}
+  ];
+
   document.getElementById('domain-bars').innerHTML=doms.map(x=>{
-    const score=Math.min(10,(x.base+(counts[x.k]/Math.max(total,1))*3)).toFixed(1);
-    return `<div class="domain-row"><div class="domain-hd"><span class="domain-name ${x.col}">${x.k} Mass</span><span class="domain-score ${x.col}">${score}</span></div><div class="bar-track"><div class="bar-fill ${x.bar}" style="width:${score*10}%"></div></div></div>`;
+    const baseline = Number(x.base).toFixed(1);
+    const scoreNum = Math.min(10, x.base + (counts[x.k]/Math.max(total,1))*3);
+    const score    = scoreNum.toFixed(1);
+
+    // Anchor 1: drift from baseline
+    const drift = (scoreNum - x.base);
+    const driftLabel = drift > 0.05
+      ? `+${drift.toFixed(1)} since onboarding`
+      : drift < -0.05
+        ? `${drift.toFixed(1)} since onboarding`
+        : `unchanged from onboarding`;
+    const driftCls = Math.abs(drift) < 0.5 ? '' : (drift > 0 ? 'warn' : 'good');
+
+    // Anchor 2: gap to orbit requirement
+    const orbitGap = scoreNum - ORBIT_CEILING;
+    const orbitLabel = orbitGap > 0
+      ? `${orbitGap.toFixed(1)} above orbit ceiling`
+      : `within orbit · ${Math.abs(orbitGap).toFixed(1)} of headroom`;
+    const orbitCls = orbitGap > 0 ? 'warn' : 'good';
+
+    // Anchor 3: historical reference — count of moments registering in this domain over total
+    const occurrences = counts[x.k];
+    const historyLabel = occurrences === 0
+      ? `not yet observed in field captures`
+      : `appears in ${occurrences} of ${total} captured moment${total===1?'':'s'}`;
+
+    return `<div class="domain-row">
+      <div class="domain-hd">
+        <span class="domain-name ${x.col}">${x.k} Mass</span>
+        <span class="domain-score ${x.col}">${score}</span>
+      </div>
+      <div class="bar-track"><div class="bar-fill ${x.bar}" style="width:${scoreNum*10}%"></div></div>
+      <div class="mass-anchors">
+        <div class="mass-anchor-row">
+          <span class="mass-anchor-label">▸ Baseline</span>
+          <span class="mass-anchor-value ${driftCls}">${baseline} <span class="mass-anchor-gap">(${driftLabel})</span></span>
+        </div>
+        <div class="mass-anchor-row">
+          <span class="mass-anchor-label">▸ Orbit needs</span>
+          <span class="mass-anchor-value ${orbitCls}">&lt;${ORBIT_CEILING.toFixed(1)} <span class="mass-anchor-gap">(${orbitLabel})</span></span>
+        </div>
+        <div class="mass-anchor-row">
+          <span class="mass-anchor-label">▸ Field history</span>
+          <span class="mass-anchor-value">${historyLabel}</span>
+        </div>
+      </div>
+    </div>`;
   }).join('');
 }
 
