@@ -168,6 +168,10 @@ body{
   color:var(--muted);text-transform:uppercase;transition:color .2s;
 }
 .nav-item.active .nav-label{color:var(--gold);}
+.nav-sub{font-family:'Courier New',monospace;font-size:7px;letter-spacing:.8px;color:var(--muted);text-transform:uppercase;opacity:.55;line-height:1;}
+.nav-item.active .nav-sub{color:var(--gold);opacity:.6;}
+.card-sub{font-size:10px;color:var(--muted2);font-family:'Courier New',monospace;letter-spacing:.3px;margin-top:3px;margin-bottom:8px;opacity:.8;line-height:1.5;}
+.step-sub{font-size:11px;color:var(--muted2);font-family:'Courier New',monospace;margin-top:5px;margin-bottom:12px;opacity:.8;line-height:1.4;}
 
 /* â”€â”€ CARDS â”€â”€ */
 .card{
@@ -963,6 +967,7 @@ input[type=range]::-webkit-slider-thumb{
   .nav-icon{font-size:16px;}
   .nav-label{font-size:var(--mono-sm);letter-spacing:1px;}
   .nav-item.active .nav-label{color:var(--gold);}
+  .nav-sub{display:none;}
 
   /* Main content area */
   .screens-wrapper{
@@ -1534,7 +1539,7 @@ input[type=range]::-webkit-slider-thumb{
 .screen.active{opacity:1;}
 
 /* Mobile tap targets */
-.nav-item{min-height:56px;}
+.nav-item{min-height:70px;}
 .btn{min-height:44px;}
 .trigger-chip{min-height:36px;}
 
@@ -1720,6 +1725,7 @@ input[type=range]::-webkit-slider-thumb{
 
       <div class="onboard-step" id="step-1">
         <div class="step-title">Your <em>Desired Orbits</em></div>
+        <div class="step-sub">the direction you want to move toward — your intentional goals</div>
 
         <!-- Soft framing: low-stakes entry, library-led -->
         <div class="orbit-selection-framing">
@@ -1750,6 +1756,7 @@ input[type=range]::-webkit-slider-thumb{
 
       <div class="onboard-step" id="step-2">
         <div class="step-title">Rate your <em>Gravitational Field</em></div>
+        <div class="step-sub">how heavily each life domain is pulling your automatic reactions right now (1 = minimal, 10 = dominates)</div>
         <div class="step-desc">How heavily does each domain pull on you right now? 1 = minimal · 10 = dominates your reactions.</div>
         <div class="slider-row"><span class="slider-label think-c">Thinking</span><input type="range" min="1" max="10" value="5" id="sl-think" oninput="document.getElementById('sv-think').textContent=this.value"><span class="slider-val think-c" id="sv-think">5</span></div>
         <div class="slider-row"><span class="slider-label emot-c">Emotional</span><input type="range" min="1" max="10" value="5" id="sl-emot" oninput="document.getElementById('sv-emot').textContent=this.value"><span class="slider-val emot-c" id="sv-emot">5</span></div>
@@ -1891,11 +1898,11 @@ input[type=range]::-webkit-slider-thumb{
   </div>
 
   <div class="bottom-nav">
-    <button class="nav-item active" id="nav-field" onclick="goTo('field')"><span class="nav-icon">◎</span><span class="nav-label">Field</span></button>
-    <button class="nav-item" id="nav-mirror" onclick="goTo('mirror')"><span class="nav-icon">◈</span><span class="nav-label">Mirror</span></button>
-    <button class="nav-item" id="nav-audit" onclick="goTo('audit')"><span class="nav-icon">◉</span><span class="nav-label">Audit</span></button>
-    <button class="nav-item" id="nav-check" onclick="goTo('check')"><span class="nav-icon">⚡</span><span class="nav-label">Check</span></button>
-    <button class="nav-item" id="nav-dash" onclick="goTo('dash')"><span class="nav-icon">⊙</span><span class="nav-label">Report</span></button>
+    <button class="nav-item active" id="nav-field" onclick="goTo('field')"><span class="nav-icon">◎</span><span class="nav-label">Field</span><span class="nav-sub">Log Moments</span></button>
+    <button class="nav-item" id="nav-mirror" onclick="goTo('mirror')"><span class="nav-icon">◈</span><span class="nav-label">Mirror</span><span class="nav-sub">Voice Analysis</span></button>
+    <button class="nav-item" id="nav-audit" onclick="goTo('audit')"><span class="nav-icon">◉</span><span class="nav-label">Audit</span><span class="nav-sub">Self-Assessment</span></button>
+    <button class="nav-item" id="nav-check" onclick="goTo('check')"><span class="nav-icon">⚡</span><span class="nav-label">Check</span><span class="nav-sub">Daily Signal</span></button>
+    <button class="nav-item" id="nav-dash" onclick="goTo('dash')"><span class="nav-icon">⊙</span><span class="nav-label">Report</span><span class="nav-sub">Intelligence</span></button>
   </div>
 
   <div class="screens-wrapper">
@@ -1908,6 +1915,7 @@ input[type=range]::-webkit-slider-thumb{
 
       <div class="card">
         <div class="card-label">◈ Capture a Field Moment</div>
+        <div class="card-sub">log any trigger, emotion, or thought as it happens</div>
 
         <!-- POINT 1: ORBIT ANCHOR — first thing read -->
         <div class="capture-orbit-anchor" id="capture-orbit-anchor">
@@ -2061,11 +2069,11 @@ input[type=range]::-webkit-slider-thumb{
       </div>
       <div id="tab-field" class="tab-pane active">
         <div id="orbital-position-display"></div>
-        <div class="card"><div class="card-label">◈ Gravitational Field — All Time</div><div id="dash-domains"><div class="empty"><span class="empty-icon">◯</span><div class="empty-text">Capture moments to build your field map.</div></div></div></div>
+        <div class="card"><div class="card-label">◈ Gravitational Field — All Time</div><div class="card-sub">which life domains pull your automatic patterns most</div><div id="dash-domains"><div class="empty"><span class="empty-icon">◯</span><div class="empty-text">Capture moments to build your field map.</div></div></div></div>
         <div class="card" id="dash-voice-card" style="display:none;"><div class="card-label">◈ Voice Field — Latest Session</div><div id="dash-voice-summary"></div></div>
       </div>
       <div id="tab-mass" class="tab-pane">
-        <div class="card"><div class="card-label">◈ Mass Layers — Operating Modes</div><div id="dash-personas"><div class="empty"><span class="empty-icon">◯</span><div class="empty-text">Persona distribution appears after 3+ moments.</div></div></div></div>
+        <div class="card"><div class="card-label">◈ Mass Layers — Operating Modes</div><div class="card-sub">how often each behavioral pattern shows up in your moments</div><div id="dash-personas"><div class="empty"><span class="empty-icon">◯</span><div class="empty-text">Persona distribution appears after 3+ moments.</div></div></div></div>
       </div>
       <div id="tab-trend" class="tab-pane">
         <div class="card"><div class="card-label">◈ Gravity Trend — Last 7 Sessions</div><div id="dash-trend"><div class="empty"><span class="empty-icon">◯</span><div class="empty-text">Run voice sessions to see your gravity trend over time.</div></div></div></div>
