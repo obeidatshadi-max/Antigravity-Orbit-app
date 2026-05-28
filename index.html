@@ -12,7 +12,10 @@
 <meta name="apple-mobile-web-app-title" content="AntiGravity">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 
-<!-- Fonts: system only for performance -->
+<!-- Fonts: loaded for aesthetic quality -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital@0;1&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
 <style>
 /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
    ANTIGRAVITY â€” DUAL VIEWPORT DESIGN SYSTEM
@@ -73,9 +76,9 @@
   --ts-display:34px;
 
   /* â”€â”€ Mono scale â”€â”€ */
-  --mono-xs:9px;
-  --mono-sm:10px;
-  --mono-base:11px;
+  --mono-xs:10px;
+  --mono-sm:11px;
+  --mono-base:12px;
 }
 
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
@@ -370,7 +373,7 @@ input[type=range]::-webkit-slider-thumb{
 .ring-trk{fill:none;stroke:var(--border2);stroke-width:7;}
 .ring-fil{fill:none;stroke-width:7;stroke-linecap:round;stroke-dasharray:220;transition:stroke-dashoffset 1.2s ease;}
 .ring-inner{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
-.ring-n{font-family:'Georgia',serif;font-size:23px;font-weight:300;line-height:1;}
+.ring-n{font-family:'Georgia',serif;font-size:18px;font-weight:300;line-height:1;}
 .ring-u{font-family:'Courier New',monospace;font-size:var(--mono-xs);color:var(--muted);}
 
 /* â”€â”€ SCORE GRID â”€â”€ */
@@ -836,8 +839,10 @@ input[type=range]::-webkit-slider-thumb{
 /* â”€â”€ RINGS ANIMATION â”€â”€ */
 .rings-anim{width:110px;height:110px;margin:0 auto 28px;position:relative;}
 .rings-anim svg{width:100%;height:100%;}
-.ra{transform-origin:50px 50px;}
-.rb{transform-origin:50px 50px;}
+@keyframes orbitA{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+@keyframes orbitB{from{transform:rotate(0deg);}to{transform:rotate(-360deg);}}
+.ra{transform-origin:50px 50px;animation:orbitA 4s linear infinite;}
+.rb{transform-origin:50px 50px;animation:orbitB 7s linear infinite;}
 
 /* â”€â”€ TOAST â”€â”€ */
 #toast{
@@ -1852,8 +1857,8 @@ input[type=range]::-webkit-slider-thumb{
         <g id="orbit-trail"></g>
         <circle id="orbit-dot-glow" cx="100" cy="100" r="16" fill="rgba(201,168,76,0.15)"/>
         <circle id="orbit-dot" cx="100" cy="100" r="8" fill="#c9a84c"/>
-        <text x="100" y="22" text-anchor="middle" font-family="Courier New" font-size="7" letter-spacing="2" fill="rgba(74,155,155,0.45)">DRIFTING â†‘</text>
-        <text x="100" y="185" text-anchor="middle" font-family="Courier New" font-size="7" letter-spacing="2" fill="rgba(224,123,123,0.45)">â†“ FALLING</text>
+        <text x=”100” y=”22” text-anchor=”middle” font-family=”Courier New” font-size=”9” letter-spacing=”2” fill=”rgba(74,155,155,0.6)”>DRIFTING</text>
+        <text x=”100” y=”188” text-anchor=”middle” font-family=”Courier New” font-size=”9” letter-spacing=”2” fill=”rgba(224,123,123,0.6)”>FALLING</text>
       </svg>
     </div>
     <div class="orbital-state-label" id="lp-state-label" style="color:var(--gold);">â—Ž In Orbit</div>
@@ -3662,175 +3667,6 @@ function getOrbitalPosition(momentCount, voiceCount, gravityScore, daysSinceLast
   }
 }
 
-function renderOrbitalPosition(containerId){
-  const el = document.getElementById(containerId);
-  if(!el) return;
-
-  const lastCapture = S.moments[0];
-  const daysSince = lastCapture
-    ? Math.floor((Date.now() - new Date(lastCapture.created_at||Date.now()).getTime()) / 86400000)
-    : 99;
-  const latestVoice = S.voiceSessions[0];
-  const gravScore = latestVoice ? latestVoice.gravity_score : null;
-
-  const pos = getOrbitalPosition(S.moments.length, S.voiceSessions.length, gravScore, daysSince);
-
-  // Vertical position of the marker: falling=80%, orbit=50%, drifting=20%
-  const markerPct = pos.state==='falling'||pos.state==='pulling' ? 75
-    : pos.state==='orbit' ? 50
-    : 25;
-
-  // Active orbits
-  const orbits = [];
-  if(S.profile.orbit) orbits.push({label:'Professional', text:S.profile.orbit});
-  if(S.profile.orbit2) orbits.push({label:'Relational', text:S.profile.orbit2});
-  if(S.profile.orbit3) orbits.push({label:'Personal', text:S.profile.orbit3});
-
-  el.innerHTML = `
-    <div class="orbital-position">
-
-      <!-- Orbit axis visual -->
-      <div style="position:relative;width:100%;max-width:300px;margin:0 auto 16px;">
-        <!-- Drifting zone -->
-        <div style="padding:8px 14px;text-align:center;font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);border:1px dashed rgba(74,155,155,.18);border-radius:6px 6px 0 0;background:rgba(74,155,155,.03);">
-          â†‘ Drifting â€” Distance Increasing
-        </div>
-        <!-- Connector -->
-        <div style="height:1px;background:var(--border2);"></div>
-        <!-- Orbit band -->
-        <div style="padding:12px 14px;text-align:center;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;background:linear-gradient(135deg,rgba(201,168,76,.08),rgba(74,155,155,.06));border-left:1px solid rgba(201,168,76,.3);border-right:1px solid rgba(201,168,76,.3);color:var(--gold);">
-          â—‹ &nbsp; Your Orbit &nbsp; â—‹
-        </div>
-        <!-- Connector -->
-        <div style="height:1px;background:var(--border2);"></div>
-        <!-- Falling zone -->
-        <div style="padding:8px 14px;text-align:center;font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);border:1px dashed rgba(224,123,123,.18);border-radius:0 0 6px 6px;background:rgba(224,123,123,.03);">
-          â†“ Falling â€” Mass Increasing
-        </div>
-
-        <!-- Position marker -->
-        <div style="
-          position:absolute;
-          top:${markerPct}%;
-          right:-18px;
-          transform:translateY(-50%);
-          display:flex;align-items:center;gap:6px;
-        ">
-          <div style="width:10px;height:1px;background:${pos.color};"></div>
-          <div style="width:12px;height:12px;border-radius:50%;background:${pos.color};box-shadow:0 0 10px ${pos.color};"></div>
-        </div>
-      </div>
-
-      <!-- Current position label -->
-      <div class="position-label" style="color:${pos.color};">${pos.label}</div>
-      <div class="position-desc">${pos.desc}</div>
-
-      <!-- Metrics strip -->
-      <div class="orbit-score-strip">
-        ${gravScore!==null ? `<div class="orbit-metric">
-          <div class="orbit-metric-val" style="color:${getGravityBand(gravScore).color};">${Math.round(gravScore)}</div>
-          <div class="orbit-metric-label">Mass Score</div>
-        </div>` : ''}
-        <div class="orbit-metric">
-          <div class="orbit-metric-val" style="color:var(--gold);">${S.moments.length}</div>
-          <div class="orbit-metric-label">Moments</div>
-        </div>
-        <div class="orbit-metric">
-          <div class="orbit-metric-val" style="color:var(--teal);">${daysSince === 99 ? 'â€”' : daysSince+'d'}</div>
-          <div class="orbit-metric-label">Last Capture</div>
-        </div>
-      </div>
-
-      <!-- Active orbits -->
-      ${orbits.length > 0 ? `<div style="margin-top:16px;width:100%;border-top:1px solid var(--border);padding-top:14px;">
-        ${orbits.map(o=>`<div style="margin-bottom:8px;">
-          <div style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:1.5px;color:var(--gold);text-transform:uppercase;margin-bottom:3px;">â—Ž ${o.label} Orbit</div>
-          <div style="font-family:'Cormorant Garamond',serif;font-size:15px;font-style:italic;color:var(--star);line-height:1.45;">"${o.text}"</div>
-        </div>`).join('')}
-      </div>` : ''}
-
-    </div>`;
-}
-
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   GRAVITY SCORE â€” FAITHFUL TO THE ANTIGRAVITY BOOK
-   Measures: automatic vs conscious behaviour
-   0â€“30   Deep Gravity (fully automatic)
-   31â€“55  Gravitational Pull Active (aware but pattern runs)
-   56â€“75  Antigravity Actions Emerging (resisting)
-   76â€“90  Antigravity Consolidating (new habits forming)
-   91â€“100 Balanced State (conscious, chosen, awake)
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   ORBITAL POSITION â€” FALLING / IN ORBIT / DRIFTING
-   Based on Newton's law applied to the self:
-   - Falling: mass too heavy, pulled below orbit
-   - In Orbit: balanced â€” the balanced state
-   - Drifting: disconnected, too far from triggers
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
-function calcOrbitalPosition(){
-  const recentMoments = S.moments.slice(0,10);
-  const sessionCount = S.voiceSessions.length;
-  const momentCount = S.moments.length;
-
-  if(momentCount === 0) return {
-    state:'orbit',
-    label:'In Orbit',
-    desc:'Begin capturing moments to map your gravitational field.',
-    direction:'â—Ž',
-    color:'var(--gold)'
-  };
-
-  // Mass score from latest voice session or domain average
-  const latestGravity = S.voiceSessions[0]?.gravity_score || 50;
-
-  // Distance indicator: how often are Stop Signals acted on?
-  // Proxy: recent moment capture frequency (high = engaged = managing distance)
-  const recentDays = recentMoments.length > 0
-    ? (Date.now() - new Date(recentMoments[recentMoments.length-1].created_at||Date.now())) / (1000*60*60*24)
-    : 99;
-
-  // Dominant persona check â€” Avoider/Analyst dominance suggests falling
-  const personaCounts = {};
-  recentMoments.forEach(m=>{personaCounts[m.persona]=(personaCounts[m.persona]||0)+1;});
-  const topPersona = Object.entries(personaCounts).sort((a,b)=>b[1]-a[1])[0]?.[0]||'';
-  const fallingPersonas = ['Analyst','Avoider','Pleaser'];
-  const personaFalling = fallingPersonas.includes(topPersona);
-
-  // FALLING: high mass + pattern running + engaged with triggers
-  if(latestGravity < 50 && personaFalling){
-    S.orbitalPosition = 'falling';
-    return {
-      state:'falling',
-      label:'Falling',
-      desc:'Mass is increasing. Gravitational pull is stronger than your orbital velocity. The pattern is running.',
-      direction:'â†“',
-      color:'var(--emot)'
-    };
-  }
-
-  // DRIFTING: low engagement â€” system gone quiet, disconnected
-  if(momentCount < 3 || recentDays > 7){
-    S.orbitalPosition = 'drifting';
-    return {
-      state:'drifting',
-      label:'Drifting',
-      desc:'No recent field data. Distance from triggers is increasing â€” but so is distance from yourself.',
-      direction:'â†‘',
-      color:'var(--teal)'
-    };
-  }
-
-  // IN ORBIT: balanced â€” actively capturing, moderate gravity
-  S.orbitalPosition = 'orbit';
-  return {
-    state:'orbit',
-    label:'In Orbit',
-    desc:'Field is balanced. You are observing your patterns. The antigravity force is active.',
-    direction:'â—Ž',
-    color:'var(--gold)'
-  };
-}
 
 function renderOrbitalPosition(containerId){
   const pos = calcOrbitalPosition();
@@ -3902,10 +3738,8 @@ function getGravityBand(score){
   };
 }
 async function callClaude(sys, user, maxTok=700){
-  // Direct Anthropic API call â€” key stored in sessionStorage
-  const key = localStorage.getItem('ag_api_key') || '';
+  const key = (typeof getApiKey==='function' ? getApiKey() : localStorage.getItem('ag_api_key')) || '';
   if(!key || !key.startsWith('sk-')){
-    // Show key prompt
     showApiKeyPrompt();
     throw new Error('API key required');
   }
