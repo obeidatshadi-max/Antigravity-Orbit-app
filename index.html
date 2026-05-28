@@ -4347,9 +4347,9 @@ async function analyzeVoice(){
     document.getElementById('mask-num').textContent=r.maskScore;
     document.getElementById('mask-desc').textContent=r.maskDesc;
     // Patterns
-    document.getElementById(‘pattern-tags’).innerHTML=(r.patterns||[]).map(p=>`<span class="pattern-tag"><span class="pt">${esc(p.type)}</span>${esc((p.example||’’).substring(0,28))}...</span>`).join(‘’);
-    const pd=document.getElementById(‘pattern-detail’);
-    pd.innerHTML=`<div class="ai-label">â—ˆ Patterns & Stop Signals</div><div class="ai-text">${(r.patterns||[]).map(p=>`<div style="margin-bottom:10px;"><strong>${esc(p.type)}</strong><br><em style="color:var(--emot);">"${esc(p.example)}"</em><br>â†’ <span style="color:var(--stop);">"${esc(p.question)}"</span></div>`).join(‘’)}</div>`;
+    document.getElementById('pattern-tags').innerHTML=(r.patterns||[]).map(p=>`<span class="pattern-tag"><span class="pt">${esc(p.type)}</span>${esc((p.example||'').substring(0,28))}...</span>`).join('');
+    const pd=document.getElementById('pattern-detail');
+    pd.innerHTML=`<div class="ai-label">â—ˆ Patterns & Stop Signals</div><div class="ai-text">${(r.patterns||[]).map(p=>`<div style="margin-bottom:10px;"><strong>${esc(p.type)}</strong><br><em style="color:var(--emot);">"${esc(p.example)}"</em><br>â†’ <span style="color:var(--stop);">"${esc(p.question)}"</span></div>`).join('')}</div>`;
     pd.style.display='block';
     // Coach
     document.getElementById('coach-section').innerHTML=renderCoach(r.coachMsg, saved.id);
