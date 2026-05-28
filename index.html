@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AntiGravity â€” Field Intelligence System</title>
+<title>AntiGravity — Field Intelligence System</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23080b14'/%3E%3Ccircle cx='16' cy='16' r='13' fill='none' stroke='%23c9a84c' stroke-width='2'/%3E%3Ccircle cx='16' cy='16' r='7' fill='none' stroke='%23c9a84c' stroke-width='1.5' stroke-dasharray='3 2' opacity='0.6'/%3E%3Ccircle cx='16' cy='16' r='2.5' fill='%23c9a84c'/%3E%3C/svg%3E">
 <link rel="manifest" href="/manifest.json">
 <meta name="theme-color" content="#080b14">
@@ -17,12 +17,12 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital@0;1&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
 <style>
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   ANTIGRAVITY â€” DUAL VIEWPORT DESIGN SYSTEM
-   Mobile-first Â· Desktop-enhanced Â· Relaxed palette
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+/* ═══════════════════════════════════════════
+   ANTIGRAVITY — DUAL VIEWPORT DESIGN SYSTEM
+   Mobile-first · Desktop-enhanced · Relaxed palette
+═══════════════════════════════════════════ */
 :root{
-  /* â”€â”€ Core palette â€” softened from pure void â”€â”€ */
+  /* â”€â”€ Core palette — softened from pure void â”€â”€ */
   --void:#080b14;
   --deep:#0d1120;
   --surface:#131726;
@@ -32,7 +32,7 @@
   --border2:rgba(255,255,255,.13);
   --border3:rgba(255,255,255,.2);
 
-  /* â”€â”€ Text â€” warmer, easier on eyes â”€â”€ */
+  /* â”€â”€ Text — warmer, easier on eyes â”€â”€ */
   --star:#e8e2d5;
   --star2:#c8c2b5;
   --muted:#72708a;
@@ -47,7 +47,7 @@
   --teal:#4a9b9b;
   --teal-d:rgba(74,155,155,.12);
 
-  /* â”€â”€ Domain colours â€” relaxed, not harsh â”€â”€ */
+  /* â”€â”€ Domain colours — relaxed, not harsh â”€â”€ */
   --think:#8b9ef5;
   --think-d:rgba(139,158,245,.12);
   --emot:#e07b7b;
@@ -66,7 +66,7 @@
   --card-radius:16px;
   --side-pad:20px;
 
-  /* â”€â”€ Type scale â€” mobile â”€â”€ */
+  /* â”€â”€ Type scale — mobile â”€â”€ */
   --ts-xs:11px;
   --ts-sm:13px;
   --ts-base:15px;
@@ -469,7 +469,7 @@ input[type=range]::-webkit-slider-thumb{
 
 /* â”€â”€ SHARPNESS DOT (Phase B) â”€â”€ */
 /* The dot grows in size, opacity, and halo as the orbit is lived.
-   No numbers, no labels â€” visual presence only. */
+   No numbers, no labels — visual presence only. */
 .orbit-dot-row{
   display:inline-flex;align-items:center;gap:6px;
   margin-right:10px;vertical-align:middle;
@@ -481,13 +481,13 @@ input[type=range]::-webkit-slider-thumb{
   position:relative;
   cursor:default;
   transition:all .6s ease-out;
-  /* default state â€” overridden by sharpness class */
+  /* default state — overridden by sharpness class */
   width:8px;height:8px;
   opacity:.5;
   box-shadow:none;
   /* Color interpolates between muted (low) and gold (high) via opacity layering */
 }
-/* Five sharpness tiers â€” only visual properties, nothing semantic */
+/* Five sharpness tiers — only visual properties, nothing semantic */
 .orbit-dot.s-faint{
   width:6px;height:6px;opacity:.35;
   background:var(--muted);
@@ -513,7 +513,7 @@ input[type=range]::-webkit-slider-thumb{
   box-shadow:0 0 8px rgba(201,168,76,.7),0 0 0 2px rgba(201,168,76,.18);
 }
 
-/* Tooltip â€” appears on hover/long-press, single line, no metrics */
+/* Tooltip — appears on hover/long-press, single line, no metrics */
 .orbit-dot-wrap{
   position:relative;display:inline-flex;align-items:center;gap:4px;
 }
@@ -534,7 +534,7 @@ input[type=range]::-webkit-slider-thumb{
 .orbit-dot-wrap:hover .orbit-dot-tip,
 .orbit-dot-wrap:active .orbit-dot-tip{opacity:1;}
 
-/* Per-orbit label next to its dot â€” small, subtle, only used in multi-orbit mode */
+/* Per-orbit label next to its dot — small, subtle, only used in multi-orbit mode */
 .orbit-dot-label{
   font-family:'Courier New',monospace;
   font-size:8px;letter-spacing:1.5px;
@@ -560,7 +560,7 @@ input[type=range]::-webkit-slider-thumb{
   margin-top:10px;padding-top:10px;
   border-top:1px dashed rgba(201,168,76,.18);
 }
-/* Visible orbit affordances inside the anchor â€” no menu-hunting required */
+/* Visible orbit affordances inside the anchor — no menu-hunting required */
 .capture-orbit-actions{
   display:flex;gap:8px;flex-wrap:wrap;
   margin-top:10px;padding-top:10px;
@@ -906,11 +906,11 @@ input[type=range]::-webkit-slider-thumb{
 .check-slot.done{background:var(--teal)!important;}
 .check-slot.active{background:var(--gold)!important;}
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   DESKTOP LAYOUT â€” 768px and above
+/* ══════════════════════════════════
+   DESKTOP LAYOUT — 768px and above
    Two-column shell, wider cards,
    sidebar nav replaces bottom bar
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+══════════════════════════════════ */
 /* Mobile performance fixes */
 @media(max-width:767px){
   .rings-anim svg { animation: none !important; }
@@ -937,7 +937,7 @@ input[type=range]::-webkit-slider-thumb{
 
   html,body{overflow:auto;}
 
-  /* App shell â€” two column on desktop */
+  /* App shell — two column on desktop */
   #app{
     flex-direction:row!important;
     height:100vh;overflow:hidden;
@@ -976,7 +976,7 @@ input[type=range]::-webkit-slider-thumb{
   /* Topbar spans full width */
   .topbar{padding:18px 32px;}
 
-  /* Cards â€” slightly more padding on desktop */
+  /* Cards — slightly more padding on desktop */
   .card{padding:26px;margin-bottom:18px;}
 
   /* Two-column grid for audit options on desktop */
@@ -985,7 +985,7 @@ input[type=range]::-webkit-slider-thumb{
   /* Score grid 2-up already good */
   .score-grid{gap:16px;}
 
-  /* Center-screen overlays â€” wider on desktop */
+  /* Center-screen overlays — wider on desktop */
   .ob-inner{max-width:520px;}
   .center-screen{padding:48px 40px;}
 
@@ -1003,20 +1003,20 @@ input[type=range]::-webkit-slider-thumb{
   .desire-strip .dt{font-size:var(--ts-lg);}
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   WIDE DESKTOP â€” 1100px+
+/* ══════════════════════════════════
+   WIDE DESKTOP — 1100px+
    Content gets comfortable max-width
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+══════════════════════════════════ */
 @media(min-width:1100px){
   .bottom-nav{width:220px;min-width:220px;}
   .scroll-body{max-width:780px;}
   .card{padding:30px;}
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   FIELD INTELLIGENCE REPORT â€” FIR STYLES
+/* ═══════════════════════════════════════
+   FIELD INTELLIGENCE REPORT — FIR STYLES
    Enlarged, readable, dual-viewport
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+═══════════════════════════════════════ */
 
 /* Loading state */
 .fir-loading{
@@ -1075,7 +1075,7 @@ input[type=range]::-webkit-slider-thumb{
   line-height:1.5;color:var(--star);
 }
 
-/* Summary grid â€” domain bars + voice scores */
+/* Summary grid — domain bars + voice scores */
 .fir-summary-grid{
   display:grid;
   grid-template-columns:1fr;
@@ -1116,7 +1116,7 @@ input[type=range]::-webkit-slider-thumb{
   font-weight:300;line-height:1.75;
   color:var(--star);
 }
-/* Orbit statement â€” largest, most weight */
+/* Orbit statement — largest, most weight */
 .fir-orbit-body{
   font-size:clamp(20px, 3vw, 28px);
   font-style:italic;
@@ -1124,7 +1124,7 @@ input[type=range]::-webkit-slider-thumb{
   padding-top:4px;
 }
 
-/* Desktop â€” summary side by side */
+/* Desktop — summary side by side */
 @media(min-width:768px){
   .fir-summary-grid{
     grid-template-columns:1fr 1fr;
@@ -1281,7 +1281,7 @@ input[type=range]::-webkit-slider-thumb{
   box-shadow:0 0 0 1px rgba(201,168,76,.18);
 }
 .sub-orbit-card.selected::before{
-  content:'â—‰';
+  content:'◉';
   position:absolute;top:10px;right:12px;
   color:var(--gold);font-size:11px;
 }
@@ -1605,16 +1605,16 @@ input[type=range]::-webkit-slider-thumb{
 </head>
 <body>
 
-<!-- INSTANT LOADING SPLASH â€” shows immediately on mobile -->
+<!-- INSTANT LOADING SPLASH — shows immediately on mobile -->
 <div id="splash" style="position:fixed;inset:0;background:#05070f;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:99998;">
   <div style="font-family:'Georgia',serif;font-size:32px;font-weight:300;color:#e6e0d2;margin-bottom:6px;">Anti<em style="font-style:italic;color:#c9a84c;">Gravity</em></div>
   <div style="font-family:'Courier New',monospace;font-size:9px;letter-spacing:3px;color:#5a5870;text-transform:uppercase;">Field Intelligence System</div>
 </div>
 
 
-<!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+<!-- ══════════════════════════════
      SCREEN: AUTH
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+══════════════════════════════ -->
 <div id="screen-auth" class="screen" style="height:100vh;">
   <div class="center-screen">
     <div class="ob-inner" style="text-align:center;">
@@ -1633,9 +1633,9 @@ input[type=range]::-webkit-slider-thumb{
       <div class="brand-title">Anti<em>Gravity</em></div>
       <div class="brand-sub">Field Intelligence System</div>
 
-      <!-- THREE TABS â€” always visible, nothing hidden -->
+      <!-- THREE TABS — always visible, nothing hidden -->
       <div class="auth-tabs" style="margin-bottom:24px;">
-        <div class="auth-tab active" id="tab-demo"    onclick="switchLandingTab('demo')">âš¡ Demo</div>
+        <div class="auth-tab active" id="tab-demo"    onclick="switchLandingTab('demo')">⚡ Demo</div>
         <div class="auth-tab"        id="tab-signin"  onclick="switchLandingTab('signin')">Sign In</div>
         <div class="auth-tab"        id="tab-signup"  onclick="switchLandingTab('signup')">Register</div>
       </div>
@@ -1648,7 +1648,7 @@ input[type=range]::-webkit-slider-thumb{
         </div>
 
         <button class="btn btn-gold btn-full" style="padding:15px;font-size:var(--mono-base);letter-spacing:2.5px;" onclick="enterDemo()">
-          Enter Demo â†’
+          Enter Demo →
         </button>
       </div>
 
@@ -1660,11 +1660,11 @@ input[type=range]::-webkit-slider-thumb{
         </div>
         <div class="field-group">
           <label class="field-label">Password</label>
-          <input class="field-input" id="auth-pass" type="password" placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢">
+          <input class="field-input" id="auth-pass" type="password" placeholder="••••••••">
         </div>
         <div class="field-group">
 </div>
-        <button class="btn btn-gold btn-full" style="padding:15px;" onclick="signIn()">Sign In â†’</button>
+        <button class="btn btn-gold btn-full" style="padding:15px;" onclick="signIn()">Sign In →</button>
         <div style="margin-top:12px;">
           <button class="btn btn-ghost btn-full btn-sm" onclick="sendMagicLink()">âœ‰ Send Magic Link instead</button>
         </div>
@@ -1678,18 +1678,18 @@ input[type=range]::-webkit-slider-thumb{
         </div>
         <div class="field-group">
           <label class="field-label">Password <span style="color:var(--muted);font-family:'Courier New',monospace;font-size:var(--mono-xs);letter-spacing:1px;text-transform:none;">min 6 characters</span></label>
-          <input class="field-input" id="signup-pass" type="password" placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢">
+          <input class="field-input" id="signup-pass" type="password" placeholder="••••••••">
         </div>
-        <button class="btn btn-gold btn-full" style="padding:15px;" onclick="signUp()">Create Account â†’</button>
+        <button class="btn btn-gold btn-full" style="padding:15px;" onclick="signUp()">Create Account →</button>
       </div>
 
     </div>
   </div>
 </div>
 
-<!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+<!-- ══════════════════════════════
      SCREEN: ONBOARDING
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+══════════════════════════════ -->
 <div id="screen-onboard" class="screen" style="height:100vh;">
   <div class="center-screen" style="overflow-y:auto;">
     <div class="ob-inner">
@@ -1715,7 +1715,7 @@ input[type=range]::-webkit-slider-thumb{
             <option>Government / Public Sector</option><option>Other</option>
           </select>
         </div>
-        <button class="btn btn-gold btn-full" onclick="nextStep(1)">Continue â†’</button>
+        <button class="btn btn-gold btn-full" onclick="nextStep(1)">Continue →</button>
       </div>
 
       <div class="onboard-step" id="step-1">
@@ -1723,10 +1723,10 @@ input[type=range]::-webkit-slider-thumb{
 
         <!-- Soft framing: low-stakes entry, library-led -->
         <div class="orbit-selection-framing">
-          <div class="orbit-selection-framing-text">Pick what resonates â€” this will sharpen as your field reveals itself. No need to nail it now. You can always change or add orbits later.</div>
+          <div class="orbit-selection-framing-text">Pick what resonates — this will sharpen as your field reveals itself. No need to nail it now. You can always change or add orbits later.</div>
         </div>
 
-        <!-- Dynamic mount â€” populated by renderOrbitSelectionScreen('onboard') on step entry -->
+        <!-- Dynamic mount — populated by renderOrbitSelectionScreen('onboard') on step entry -->
         <div id="onboard-orbit-mount"></div>
 
         <div class="field-group" style="margin-top:18px;">
@@ -1743,34 +1743,34 @@ input[type=range]::-webkit-slider-thumb{
         </div>
 
         <div style="display:flex;gap:9px;">
-          <button class="btn btn-ghost" onclick="nextStep(0)">â† Back</button>
-          <button class="btn btn-gold btn-full" onclick="nextStep(2)">Continue â†’</button>
+          <button class="btn btn-ghost" onclick="nextStep(0)">← Back</button>
+          <button class="btn btn-gold btn-full" onclick="nextStep(2)">Continue →</button>
         </div>
       </div>
 
       <div class="onboard-step" id="step-2">
         <div class="step-title">Rate your <em>Gravitational Field</em></div>
-        <div class="step-desc">How heavily does each domain pull on you right now? 1 = minimal Â· 10 = dominates your reactions.</div>
+        <div class="step-desc">How heavily does each domain pull on you right now? 1 = minimal · 10 = dominates your reactions.</div>
         <div class="slider-row"><span class="slider-label think-c">Thinking</span><input type="range" min="1" max="10" value="5" id="sl-think" oninput="document.getElementById('sv-think').textContent=this.value"><span class="slider-val think-c" id="sv-think">5</span></div>
         <div class="slider-row"><span class="slider-label emot-c">Emotional</span><input type="range" min="1" max="10" value="5" id="sl-emot" oninput="document.getElementById('sv-emot').textContent=this.value"><span class="slider-val emot-c" id="sv-emot">5</span></div>
         <div class="slider-row"><span class="slider-label behav-c">Behavioral</span><input type="range" min="1" max="10" value="5" id="sl-behav" oninput="document.getElementById('sv-behav').textContent=this.value"><span class="slider-val behav-c" id="sv-behav">5</span></div>
         <div class="slider-row"><span class="slider-label body-cc">Physical</span><input type="range" min="1" max="10" value="5" id="sl-body" oninput="document.getElementById('sv-body').textContent=this.value"><span class="slider-val body-cc" id="sv-body">5</span></div>
         <br>
         <div style="display:flex;gap:9px;">
-          <button class="btn btn-ghost" onclick="nextStep(1)">â† Back</button>
-          <button class="btn btn-gold btn-full" onclick="completeOnboarding()">Enter Field â†’</button>
+          <button class="btn btn-ghost" onclick="nextStep(1)">← Back</button>
+          <button class="btn btn-gold btn-full" onclick="completeOnboarding()">Enter Field →</button>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- MANAGE ORBITS OVERLAY (Phase A â€” accessible to existing users) -->
+<!-- MANAGE ORBITS OVERLAY (Phase A — accessible to existing users) -->
 <div id="manage-orbits-overlay">
   <div class="manage-orbits-panel">
     <div class="manage-orbits-header">
       <div class="manage-orbits-title">Your <em>Orbits</em></div>
-      <button class="manage-orbits-close" onclick="closeManageOrbits()">Ã—</button>
+      <button class="manage-orbits-close" onclick="closeManageOrbits()">×</button>
     </div>
 
     <div class="orbit-selection-framing">
@@ -1781,7 +1781,7 @@ input[type=range]::-webkit-slider-thumb{
 
     <div class="manage-orbits-actions">
       <button class="btn btn-ghost" onclick="closeManageOrbits()">Cancel</button>
-      <button class="btn btn-gold btn-full" onclick="saveOrbitChanges()">Save Orbits â†’</button>
+      <button class="btn btn-gold btn-full" onclick="saveOrbitChanges()">Save Orbits →</button>
     </div>
   </div>
 </div>
@@ -1790,8 +1790,8 @@ input[type=range]::-webkit-slider-thumb{
 <div id="stop-overlay">
   <div class="stop-panel">
     <div class="stop-header">
-      <div class="stop-icon">âš¡</div>
-      <div><div class="stop-meta">AntiGravity Â· Stop Signal</div><div class="stop-time" id="stop-time"></div></div>
+      <div class="stop-icon">⚡</div>
+      <div><div class="stop-meta">AntiGravity · Stop Signal</div><div class="stop-time" id="stop-time"></div></div>
     </div>
     <div class="stop-question" id="stop-question">"Loading..."</div>
     <div class="stop-domain" id="stop-domain"></div>
@@ -1806,14 +1806,14 @@ input[type=range]::-webkit-slider-thumb{
 <div id="user-menu">
   <div class="menu-user" id="menu-email-display"></div>
   <div class="menu-divider"></div>
-  <div class="menu-item" id="menu-upgrade-item" style="display:none;color:var(--gold);border:1px solid rgba(201,168,76,.2);border-radius:8px;background:var(--gold-d);margin:2px;" onclick="showUpgradeFromMenu()">âœ¦ Save Data â€” Create Account</div>
-  <div class="menu-item" onclick="openManageOrbits()">â†» Manage Orbits</div>
-  <div class="menu-item" onclick="restartOnboarding()">âŸ² Restart Onboarding</div>
-  <div class="menu-item" id="menu-tester-item" onclick="openTester()">â—Ž Personal Tester Mode</div>
-  <div class="menu-item" onclick="openSettings()">âš™ Settings & API Key</div>
-  <div class="menu-item" onclick="showStopSignal()">âš¡ Trigger Stop Signal</div>
+  <div class="menu-item" id="menu-upgrade-item" style="display:none;color:var(--gold);border:1px solid rgba(201,168,76,.2);border-radius:8px;background:var(--gold-d);margin:2px;" onclick="showUpgradeFromMenu()">âœ¦ Save Data — Create Account</div>
+  <div class="menu-item" onclick="openManageOrbits()">↻ Manage Orbits</div>
+  <div class="menu-item" onclick="restartOnboarding()">⟲ Restart Onboarding</div>
+  <div class="menu-item" id="menu-tester-item" onclick="openTester()">◎ Personal Tester Mode</div>
+  <div class="menu-item" onclick="openSettings()">⚙ Settings & API Key</div>
+  <div class="menu-item" onclick="showStopSignal()">⚡ Trigger Stop Signal</div>
   <div class="menu-divider"></div>
-  <div class="menu-item danger" onclick="signOut()">â†© Sign Out</div>
+  <div class="menu-item danger" onclick="signOut()">↩ Sign Out</div>
 </div>
 
 <!-- SETTINGS OVERLAY -->
@@ -1826,7 +1826,7 @@ input[type=range]::-webkit-slider-thumb{
       <input class="field-input" id="settings-api-key" type="password" placeholder="sk-ant-api03-...">
       <div style="font-size:11px;color:var(--muted);margin-top:5px;line-height:1.5;">
         Stored in browser session. Re-enter after closing the tab.
-        <a href="https://console.anthropic.com" target="_blank" style="color:var(--gold);">Get key â†’</a>
+        <a href="https://console.anthropic.com" target="_blank" style="color:var(--gold);">Get key →</a>
       </div>
     </div>
     <div class="field-group">
@@ -1843,13 +1843,13 @@ input[type=range]::-webkit-slider-thumb{
 <!-- TOAST -->
 <div id="toast"></div>
 
-<!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+<!-- ══════════════════════════════
      MAIN APP
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+══════════════════════════════ -->
 <!-- LEFT PANEL (desktop only) -->
 <div id="left-panel">
   <div class="orbital-map-wrap">
-    <div class="lp-label">â—ˆ Orbital Position</div>
+    <div class="lp-label">◈ Orbital Position</div>
     <div class="orbital-svg-container">
       <svg id="orbital-svg" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
         <circle cx="100" cy="100" r="90" stroke="rgba(255,255,255,0.04)" stroke-width="1" stroke-dasharray="4 8"/>
@@ -1861,12 +1861,12 @@ input[type=range]::-webkit-slider-thumb{
         <text x=”100” y=”188” text-anchor=”middle” font-family=”Courier New” font-size=”9” letter-spacing=”2” fill=”rgba(224,123,123,0.6)”>FALLING</text>
       </svg>
     </div>
-    <div class="orbital-state-label" id="lp-state-label" style="color:var(--gold);">â—Ž In Orbit</div>
+    <div class="orbital-state-label" id="lp-state-label" style="color:var(--gold);">◎ In Orbit</div>
     <div class="orbital-state-desc" id="lp-state-desc">Field is balanced. The antigravity force is active.</div>
   </div>
   <div style="height:1px;background:var(--border);margin:8px 0;flex-shrink:0;"></div>
   <div class="lp-section" style="padding-bottom:8px;">
-    <div class="lp-label">â—ˆ Field Intelligence</div>
+    <div class="lp-label">◈ Field Intelligence</div>
   </div>
   <div class="pattern-stream" id="pattern-stream"></div>
 </div>
@@ -1877,11 +1877,11 @@ input[type=range]::-webkit-slider-thumb{
     <div class="topbar-logo">Anti<em>Gravity</em></div>
     <div class="topbar-right">
       <button class="help-btn" onclick="openGuide()" title="App Guide">?</button>
-      <div id="demo-topbar-badge" style="display:none;align-items:center;gap:6px;background:rgba(232,199,106,.08);border:1px solid rgba(232,199,106,.25);border-radius:10px;padding:4px 10px;cursor:pointer;" onclick="showToast('Demo mode â€” add an API key in the menu for AI features')">
+      <div id="demo-topbar-badge" style="display:none;align-items:center;gap:6px;background:rgba(232,199,106,.08);border:1px solid rgba(232,199,106,.25);border-radius:10px;padding:4px 10px;cursor:pointer;" onclick="showToast('Demo mode — add an API key in the menu for AI features')">
         <span style="font-size:var(--mono-sm);">âœ¦</span>
         <span style="font-family:'Courier New',monospace;font-size:var(--mono-xs);letter-spacing:1.5px;color:var(--stop);text-transform:uppercase;">Demo</span>
       </div>
-      <div class="stop-badge" onclick="showStopSignal()">âš¡ Stop</div>
+      <div class="stop-badge" onclick="showStopSignal()">⚡ Stop</div>
       <div class="mode-pill">
         <button class="mode-btn active" id="mode-field" onclick="goTo('field')">Field</button>
         <button class="mode-btn" id="mode-mirror" onclick="goTo('mirror')">Mirror</button>
@@ -1891,11 +1891,11 @@ input[type=range]::-webkit-slider-thumb{
   </div>
 
   <div class="bottom-nav">
-    <button class="nav-item active" id="nav-field" onclick="goTo('field')"><span class="nav-icon">â—Ž</span><span class="nav-label">Field</span></button>
-    <button class="nav-item" id="nav-mirror" onclick="goTo('mirror')"><span class="nav-icon">â—ˆ</span><span class="nav-label">Mirror</span></button>
-    <button class="nav-item" id="nav-audit" onclick="goTo('audit')"><span class="nav-icon">â—‰</span><span class="nav-label">Audit</span></button>
-    <button class="nav-item" id="nav-check" onclick="goTo('check')"><span class="nav-icon">âš¡</span><span class="nav-label">Check</span></button>
-    <button class="nav-item" id="nav-dash" onclick="goTo('dash')"><span class="nav-icon">âŠ™</span><span class="nav-label">Report</span></button>
+    <button class="nav-item active" id="nav-field" onclick="goTo('field')"><span class="nav-icon">◎</span><span class="nav-label">Field</span></button>
+    <button class="nav-item" id="nav-mirror" onclick="goTo('mirror')"><span class="nav-icon">◈</span><span class="nav-label">Mirror</span></button>
+    <button class="nav-item" id="nav-audit" onclick="goTo('audit')"><span class="nav-icon">◉</span><span class="nav-label">Audit</span></button>
+    <button class="nav-item" id="nav-check" onclick="goTo('check')"><span class="nav-icon">⚡</span><span class="nav-label">Check</span></button>
+    <button class="nav-item" id="nav-dash" onclick="goTo('dash')"><span class="nav-icon">⊙</span><span class="nav-label">Report</span></button>
   </div>
 
   <div class="screens-wrapper">
@@ -1903,23 +1903,23 @@ input[type=range]::-webkit-slider-thumb{
   <!-- â”€â”€ FIELD MODE â”€â”€ -->
   <div id="screen-field" class="screen active" style="flex:1;">
     <div class="scroll-body">
-      <!-- ORBITAL POSITION â€” live field status -->
+      <!-- ORBITAL POSITION — live field status -->
       <div id="orbital-position-widget"></div>
 
       <div class="card">
-        <div class="card-label">â—ˆ Capture a Field Moment</div>
+        <div class="card-label">◈ Capture a Field Moment</div>
 
-        <!-- POINT 1: ORBIT ANCHOR â€” first thing read -->
+        <!-- POINT 1: ORBIT ANCHOR — first thing read -->
         <div class="capture-orbit-anchor" id="capture-orbit-anchor">
           <div class="capture-orbit-label">
             <span id="capture-orbit-dots"></span>
-            â†‘ Your Desired Orbit
+            ↑ Your Desired Orbit
           </div>
-          <div class="capture-orbit-text" id="capture-orbit-text">â€”</div>
-          <div class="capture-orbit-prompt">â—ˆ Notice the gap between this and what you're about to capture.</div>
+          <div class="capture-orbit-text" id="capture-orbit-text">—</div>
+          <div class="capture-orbit-prompt">◈ Notice the gap between this and what you're about to capture.</div>
           <div class="capture-orbit-actions">
-            <button class="orbit-action-link" onclick="openManageOrbits()" title="Add or change orbits">â†» Manage Orbits</button>
-            <button class="orbit-action-link subtle" onclick="restartOnboarding()" title="Restart the full onboarding flow">âŸ² Restart Onboarding</button>
+            <button class="orbit-action-link" onclick="openManageOrbits()" title="Add or change orbits">↻ Manage Orbits</button>
+            <button class="orbit-action-link subtle" onclick="restartOnboarding()" title="Restart the full onboarding flow">⟲ Restart Onboarding</button>
           </div>
         </div>
 
@@ -1927,30 +1927,30 @@ input[type=range]::-webkit-slider-thumb{
         <div class="field-group">
           <label class="field-label"><span class="capture-step-num">1</span>What triggered this?</label>
           <div class="trigger-chip-row" id="trigger-chip-row">
-            <div class="trigger-chip" data-cat="person" onclick="selectTriggerCat(this,'person')"><span class="trigger-chip-icon">â—‰</span>Person</div>
-            <div class="trigger-chip" data-cat="event" onclick="selectTriggerCat(this,'event')"><span class="trigger-chip-icon">â—ˆ</span>Event</div>
-            <div class="trigger-chip" data-cat="thought" onclick="selectTriggerCat(this,'thought')"><span class="trigger-chip-icon">â—Ž</span>Thought</div>
-            <div class="trigger-chip" data-cat="physical" onclick="selectTriggerCat(this,'physical')"><span class="trigger-chip-icon">âš¡</span>Physical state</div>
-            <div class="trigger-chip" data-cat="story" onclick="selectTriggerCat(this,'story')"><span class="trigger-chip-icon">â—‹</span>Inner story</div>
+            <div class="trigger-chip" data-cat="person" onclick="selectTriggerCat(this,'person')"><span class="trigger-chip-icon">◉</span>Person</div>
+            <div class="trigger-chip" data-cat="event" onclick="selectTriggerCat(this,'event')"><span class="trigger-chip-icon">◈</span>Event</div>
+            <div class="trigger-chip" data-cat="thought" onclick="selectTriggerCat(this,'thought')"><span class="trigger-chip-icon">◎</span>Thought</div>
+            <div class="trigger-chip" data-cat="physical" onclick="selectTriggerCat(this,'physical')"><span class="trigger-chip-icon">⚡</span>Physical state</div>
+            <div class="trigger-chip" data-cat="story" onclick="selectTriggerCat(this,'story')"><span class="trigger-chip-icon">○</span>Inner story</div>
           </div>
           <input class="field-input" id="f-trigger" placeholder="Tap a category above, then describe what happened...">
         </div>
 
-        <!-- STEP 2: POINT 2 â€” RESPONSIVE ACTION (objective, comes before introspection) -->
+        <!-- STEP 2: POINT 2 — RESPONSIVE ACTION (objective, comes before introspection) -->
         <div class="field-group">
           <label class="field-label"><span class="capture-step-num">2</span>What did you do?</label>
           <div class="action-taxonomy-row" id="action-taxonomy-row">
             <div class="action-tax-btn" data-type="feeling" onclick="selectActionType(this,'feeling')">
-              <span class="action-tax-icon">â—ˆ</span>Feeling-driven
+              <span class="action-tax-icon">◈</span>Feeling-driven
             </div>
             <div class="action-tax-btn" data-type="decision" onclick="selectActionType(this,'decision')">
-              <span class="action-tax-icon">â—‰</span>Decision-driven
+              <span class="action-tax-icon">◉</span>Decision-driven
             </div>
             <div class="action-tax-btn" data-type="physical" onclick="selectActionType(this,'physical')">
-              <span class="action-tax-icon">âš¡</span>Physical
+              <span class="action-tax-icon">⚡</span>Physical
             </div>
           </div>
-          <input class="field-input" id="f-action" placeholder="The action you took â€” observable, factual...">
+          <input class="field-input" id="f-action" placeholder="The action you took — observable, factual...">
         </div>
 
         <!-- STEP 3: EMOTION -->
@@ -1971,17 +1971,17 @@ input[type=range]::-webkit-slider-thumb{
           <textarea class="field-textarea" id="f-thought" placeholder="What's running in your mind..." style="min-height:68px;"></textarea>
         </div>
 
-        <button class="btn btn-gold btn-full" id="analyze-btn" onclick="analyzeMoment()">Analyze this moment â†’</button>
+        <button class="btn btn-gold btn-full" id="analyze-btn" onclick="analyzeMoment()">Analyze this moment →</button>
         <div id="moment-analysis" style="display:none;"></div>
       </div>
 
       <div class="card">
-        <div class="card-label">â—ˆ Today's Field Log</div>
-        <div id="moments-log"><div class="empty"><span class="empty-icon">â—‹</span><div class="empty-text">No moments captured yet.</div></div></div>
+        <div class="card-label">◈ Today's Field Log</div>
+        <div id="moments-log"><div class="empty"><span class="empty-icon">○</span><div class="empty-text">No moments captured yet.</div></div></div>
       </div>
 
       <div class="card" id="domain-summary-card" style="display:none;">
-        <div class="card-label">â—ˆ Field Gravity â€” This Session</div>
+        <div class="card-label">◈ Field Gravity — This Session</div>
         <div id="domain-bars"></div>
       </div>
     </div>
@@ -1990,11 +1990,11 @@ input[type=range]::-webkit-slider-thumb{
   <!-- â”€â”€ MIRROR MODE â”€â”€ -->
   <div id="screen-mirror" class="screen" style="flex:1;">
     <div class="scroll-body">
-      <div class="desire-strip"><div class="dl"><span id="mirror-orbit-dots"></span>â†‘ Your Desired Orbit</div><div class="dt" id="mirror-orbit"></div></div>
+      <div class="desire-strip"><div class="dl"><span id="mirror-orbit-dots"></span>↑ Your Desired Orbit</div><div class="dt" id="mirror-orbit"></div></div>
 
       <div class="card">
-        <div class="card-label">â—ˆ Voice Session â€” Speak Freely</div>
-        <div style="font-size:13px;color:var(--muted2);margin-bottom:14px;line-height:1.6;">Speak about a significant interaction for 60â€“90 seconds. Don't prepare. The system reads your language patterns, not your facts.</div>
+        <div class="card-label">◈ Voice Session — Speak Freely</div>
+        <div style="font-size:13px;color:var(--muted2);margin-bottom:14px;line-height:1.6;">Speak about a significant interaction for 60–90 seconds. Don't prepare. The system reads your language patterns, not your facts.</div>
         <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
           <div class="waveform paused" id="waveform">
             <div class="wbar" style="--d:.5s;height:34px"></div>
@@ -2004,47 +2004,47 @@ input[type=range]::-webkit-slider-thumb{
           </div>
           <div style="font-family:'Courier New',monospace;font-size:9px;color:var(--muted);letter-spacing:2px;" id="rec-status">READY</div>
         </div>
-        <textarea class="field-textarea" id="voice-transcript" placeholder="Your speech will appear here â€” or type directly..." style="min-height:90px;margin-bottom:13px;"></textarea>
+        <textarea class="field-textarea" id="voice-transcript" placeholder="Your speech will appear here — or type directly..." style="min-height:90px;margin-bottom:13px;"></textarea>
         <div style="display:flex;gap:9px;flex-wrap:wrap;">
-          <button class="btn btn-voice" id="rec-btn" onclick="toggleRecording()">ðŸŽ™ Record</button>
-          <button class="btn btn-teal btn-full" id="mirror-btn" onclick="analyzeVoice()">Analyse Voice â†’</button>
+          <button class="btn btn-voice" id="rec-btn" onclick="toggleRecording()">🎙 Record</button>
+          <button class="btn btn-teal btn-full" id="mirror-btn" onclick="analyzeVoice()">Analyse Voice →</button>
         </div>
       </div>
 
       <div id="voice-output" style="display:none;">
 
-      <!-- SCORE DEFINITION â€” shown once above the rings -->
+      <!-- SCORE DEFINITION — shown once above the rings -->
       <div style="background:linear-gradient(135deg,rgba(74,155,155,.06),rgba(201,168,76,.04));border:1px solid rgba(74,155,155,.2);border-radius:14px;padding:18px 20px;margin-bottom:14px;">
-        <div style="font-family:'Courier New',monospace;font-size:9px;letter-spacing:2px;color:var(--teal);text-transform:uppercase;margin-bottom:10px;">â—ˆ What Your Gravity Score Measures</div>
+        <div style="font-family:'Courier New',monospace;font-size:9px;letter-spacing:2px;color:var(--teal);text-transform:uppercase;margin-bottom:10px;">◈ What Your Gravity Score Measures</div>
         <div style="font-family:'Georgia',serif;font-size:16px;font-style:italic;line-height:1.7;color:var(--star);">
-          "Your Gravity Score measures how much of your current behaviour is under gravitational pull â€” automatic, unconscious, energy-draining â€” and how much is under your own conscious direction. It is not a performance score. It is an attention indicator. The higher it is, the more present you are inside your own life."
+          "Your Gravity Score measures how much of your current behaviour is under gravitational pull — automatic, unconscious, energy-draining — and how much is under your own conscious direction. It is not a performance score. It is an attention indicator. The higher it is, the more present you are inside your own life."
         </div>
         <div style="margin-top:12px;display:grid;grid-template-columns:1fr 1fr;gap:6px;">
-          <div style="font-size:11px;color:var(--emot);">0â€“30 Â· Deep Gravity</div>
-          <div style="font-size:11px;color:var(--behav);">76â€“90 Â· Consolidating</div>
-          <div style="font-size:11px;color:#e8a84c;">31â€“55 Â· Pull Active</div>
-          <div style="font-size:11px;color:var(--teal);">91â€“100 Â· Balanced State</div>
-          <div style="font-size:11px;color:var(--gold);">56â€“75 Â· Emerging</div>
+          <div style="font-size:11px;color:var(--emot);">0–30 · Deep Gravity</div>
+          <div style="font-size:11px;color:var(--behav);">76–90 · Consolidating</div>
+          <div style="font-size:11px;color:#e8a84c;">31–55 · Pull Active</div>
+          <div style="font-size:11px;color:var(--teal);">91–100 · Balanced State</div>
+          <div style="font-size:11px;color:var(--gold);">56–75 · Emerging</div>
           <div style="font-size:11px;color:var(--muted2);font-style:italic;">Dr. Shadi Obeidat</div>
         </div>
       </div>
         <div class="score-grid">
           <div class="score-card">
-            <div class="mini-ring"><svg viewBox="0 0 80 80"><circle class="ring-trk" cx="40" cy="40" r="35"/><circle class="ring-fil" id="grav-arc" cx="40" cy="40" r="35" style="stroke:var(--teal);stroke-dashoffset:220;"/></svg><div class="ring-inner"><div class="ring-n" id="grav-num" style="color:var(--teal);font-size:18px;">â€”</div><div class="ring-u">/100</div></div></div>
+            <div class="mini-ring"><svg viewBox="0 0 80 80"><circle class="ring-trk" cx="40" cy="40" r="35"/><circle class="ring-fil" id="grav-arc" cx="40" cy="40" r="35" style="stroke:var(--teal);stroke-dashoffset:220;"/></svg><div class="ring-inner"><div class="ring-n" id="grav-num" style="color:var(--teal);font-size:18px;">—</div><div class="ring-u">/100</div></div></div>
             <div>
-              <div style="font-family:'Courier New',monospace;font-size:8px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:4px;">Gravity Scoreâ„¢</div>
+              <div style="font-family:'Courier New',monospace;font-size:8px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:4px;">Gravity Score™</div>
               <div id="grav-band" style="font-family:'Courier New',monospace;font-size:9px;letter-spacing:1px;margin-bottom:5px;"></div>
               <div style="font-size:12px;color:var(--muted2);line-height:1.5;" id="grav-desc">How much of your current behaviour is under conscious direction.</div>
             </div>
           </div>
           <div class="score-card">
-            <div class="mini-ring"><svg viewBox="0 0 80 80"><circle class="ring-trk" cx="40" cy="40" r="35"/><circle class="ring-fil" id="mask-arc" cx="40" cy="40" r="35" style="stroke:var(--emot);stroke-dashoffset:220;"/></svg><div class="ring-inner"><div class="ring-n" id="mask-num" style="color:var(--emot)">â€”</div><div class="ring-u">/100</div></div></div>
-            <div><div style="font-family:'Courier New',monospace;font-size:8px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:4px;">Mask Scoreâ„¢</div><div style="font-size:12px;color:var(--muted2);line-height:1.5;" id="mask-desc">Authenticity gap.</div></div>
+            <div class="mini-ring"><svg viewBox="0 0 80 80"><circle class="ring-trk" cx="40" cy="40" r="35"/><circle class="ring-fil" id="mask-arc" cx="40" cy="40" r="35" style="stroke:var(--emot);stroke-dashoffset:220;"/></svg><div class="ring-inner"><div class="ring-n" id="mask-num" style="color:var(--emot)">—</div><div class="ring-u">/100</div></div></div>
+            <div><div style="font-family:'Courier New',monospace;font-size:8px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:4px;">Mask Score™</div><div style="font-size:12px;color:var(--muted2);line-height:1.5;" id="mask-desc">Authenticity gap.</div></div>
           </div>
         </div>
-        <div class="card"><div class="card-label">â—ˆ Gravity Signature</div><div id="pattern-tags"></div><div id="pattern-detail" class="ai-block" style="margin-top:10px;display:none;"></div></div>
+        <div class="card"><div class="card-label">◈ Gravity Signature</div><div id="pattern-tags"></div><div id="pattern-detail" class="ai-block" style="margin-top:10px;display:none;"></div></div>
         <div id="coach-section"></div>
-        <div class="card"><div class="card-label">â—ˆ Voice Letter</div><div id="voice-letter-content"><button class="btn btn-gold btn-full" onclick="generateVoiceLetter()">Generate Voice Letter â†’</button></div></div>
+        <div class="card"><div class="card-label">◈ Voice Letter</div><div id="voice-letter-content"><button class="btn btn-gold btn-full" onclick="generateVoiceLetter()">Generate Voice Letter →</button></div></div>
       </div>
     </div>
   </div>
@@ -2052,7 +2052,7 @@ input[type=range]::-webkit-slider-thumb{
   <!-- â”€â”€ DASHBOARD â”€â”€ -->
   <div id="screen-dash" class="screen" style="flex:1;">
     <div class="scroll-body">
-      <div class="desire-strip"><div class="dl"><span id="dash-orbit-dots"></span>â†‘ Your Desired Orbit</div><div class="dt" id="dash-orbit"></div></div>
+      <div class="desire-strip"><div class="dl"><span id="dash-orbit-dots"></span>↑ Your Desired Orbit</div><div class="dt" id="dash-orbit"></div></div>
       <div class="tab-bar">
         <button class="tab-btn active" onclick="showTab('tab-field',this)">Field Map</button>
         <button class="tab-btn" onclick="showTab('tab-mass',this)">Mass Layers</button>
@@ -2061,21 +2061,21 @@ input[type=range]::-webkit-slider-thumb{
       </div>
       <div id="tab-field" class="tab-pane active">
         <div id="orbital-position-display"></div>
-        <div class="card"><div class="card-label">â—ˆ Gravitational Field â€” All Time</div><div id="dash-domains"><div class="empty"><span class="empty-icon">â—¯</span><div class="empty-text">Capture moments to build your field map.</div></div></div></div>
-        <div class="card" id="dash-voice-card" style="display:none;"><div class="card-label">â—ˆ Voice Field â€” Latest Session</div><div id="dash-voice-summary"></div></div>
+        <div class="card"><div class="card-label">◈ Gravitational Field — All Time</div><div id="dash-domains"><div class="empty"><span class="empty-icon">◯</span><div class="empty-text">Capture moments to build your field map.</div></div></div></div>
+        <div class="card" id="dash-voice-card" style="display:none;"><div class="card-label">◈ Voice Field — Latest Session</div><div id="dash-voice-summary"></div></div>
       </div>
       <div id="tab-mass" class="tab-pane">
-        <div class="card"><div class="card-label">â—ˆ Mass Layers â€” Operating Modes</div><div id="dash-personas"><div class="empty"><span class="empty-icon">â—¯</span><div class="empty-text">Persona distribution appears after 3+ moments.</div></div></div></div>
+        <div class="card"><div class="card-label">◈ Mass Layers — Operating Modes</div><div id="dash-personas"><div class="empty"><span class="empty-icon">◯</span><div class="empty-text">Persona distribution appears after 3+ moments.</div></div></div></div>
       </div>
       <div id="tab-trend" class="tab-pane">
-        <div class="card"><div class="card-label">â—ˆ Gravity Trend â€” Last 7 Sessions</div><div id="dash-trend"><div class="empty"><span class="empty-icon">â—¯</span><div class="empty-text">Run voice sessions to see your gravity trend over time.</div></div></div></div>
+        <div class="card"><div class="card-label">◈ Gravity Trend — Last 7 Sessions</div><div id="dash-trend"><div class="empty"><span class="empty-icon">◯</span><div class="empty-text">Run voice sessions to see your gravity trend over time.</div></div></div></div>
       </div>
       <div id="tab-report" class="tab-pane">
         <div id="full-report-container">
           <div id="report-body"></div>
           <div style="margin-top:18px;display:flex;gap:10px;flex-wrap:wrap;">
-            <button class="btn btn-gold btn-full" onclick="generateFullReport()">âŠ™ Generate Report â†’</button>
-            <button class="btn btn-ghost" onclick="window.print()" id="report-print-btn" style="display:none;">âŠ™ Print / Export</button>
+            <button class="btn btn-gold btn-full" onclick="generateFullReport()">⊙ Generate Report →</button>
+            <button class="btn btn-ghost" onclick="window.print()" id="report-print-btn" style="display:none;">⊙ Print / Export</button>
           </div>
         </div>
       </div>
@@ -2085,13 +2085,13 @@ input[type=range]::-webkit-slider-thumb{
   <!-- â”€â”€ GRAVITY AUDIT SCREEN â”€â”€ -->
   <div id="screen-audit" class="screen" style="flex:1;">
     <div class="scroll-body">
-      <div class="desire-strip"><div class="dl"><span id="audit-orbit-dots"></span>â†‘ Your Desired Orbit</div><div class="dt" id="audit-orbit"></div></div>
+      <div class="desire-strip"><div class="dl"><span id="audit-orbit-dots"></span>↑ Your Desired Orbit</div><div class="dt" id="audit-orbit"></div></div>
 
       <div class="card" id="audit-intro-card">
-        <div class="card-label">â—ˆ Gravity Audit</div>
-        <div style="font-size:13px;color:var(--muted2);margin-bottom:16px;line-height:1.7;">8 questions drawn from a pool of 23 â€” a different set each session, guaranteed coverage across all 6 gravitational domains. Takes 2â€“3 minutes. Retake weekly to track field movement.</div>
+        <div class="card-label">◈ Gravity Audit</div>
+        <div style="font-size:13px;color:var(--muted2);margin-bottom:16px;line-height:1.7;">8 questions drawn from a pool of 23 — a different set each session, guaranteed coverage across all 6 gravitational domains. Takes 2–3 minutes. Retake weekly to track field movement.</div>
         <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:18px;" id="audit-domain-bars-preview"></div>
-        <button class="btn btn-gold btn-full" onclick="startAudit()">Begin Gravity Audit â†’</button>
+        <button class="btn btn-gold btn-full" onclick="startAudit()">Begin Gravity Audit →</button>
         <div id="audit-history-strip" style="margin-top:14px;"></div>
       </div>
 
@@ -2110,12 +2110,12 @@ input[type=range]::-webkit-slider-thumb{
 
       <div id="audit-result" style="display:none;">
         <div class="card">
-          <div class="card-label">â—ˆ Orbit Diagnosis</div>
+          <div class="card-label">◈ Orbit Diagnosis</div>
           <div style="font-family:'Georgia',serif;font-size:19px;font-weight:300;line-height:1.6;color:var(--star);margin-bottom:14px;" id="audit-verdict"></div>
           <div id="audit-result-bars" style="margin-bottom:16px;"></div>
           <div id="audit-dominant-insight" style="background:var(--gold-d);border:1px solid rgba(201,168,76,.2);border-radius:10px;padding:14px;margin-bottom:14px;font-size:13px;color:var(--muted2);line-height:1.6;"></div>
           <div style="display:flex;gap:9px;">
-            <button class="btn btn-gold" onclick="startAudit()">Retake â†’</button>
+            <button class="btn btn-gold" onclick="startAudit()">Retake →</button>
             <button class="btn btn-ghost" onclick="goTo('field')">Back to Field</button>
           </div>
         </div>
@@ -2126,11 +2126,11 @@ input[type=range]::-webkit-slider-thumb{
   <!-- â”€â”€ DAILY CHECK SCREEN â”€â”€ -->
   <div id="screen-check" class="screen" style="flex:1;">
     <div class="scroll-body">
-      <div class="desire-strip"><div class="dl"><span id="check-orbit-dots"></span>â†‘ Your Desired Orbit</div><div class="dt" id="check-orbit"></div></div>
+      <div class="desire-strip"><div class="dl"><span id="check-orbit-dots"></span>↑ Your Desired Orbit</div><div class="dt" id="check-orbit"></div></div>
 
       <div class="card">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
-          <div class="card-label" style="margin:0;">â—ˆ Daily Gravity Check</div>
+          <div class="card-label" style="margin:0;">◈ Daily Gravity Check</div>
           <div style="font-family:'Courier New',monospace;font-size:8px;color:var(--muted);letter-spacing:1.5px;" id="check-count-label">0 / 7 today</div>
         </div>
         <div style="display:flex;gap:6px;margin-bottom:18px;" id="check-timeline">
@@ -2147,19 +2147,19 @@ input[type=range]::-webkit-slider-thumb{
         <div style="font-family:'Georgia',serif;font-size:21px;font-weight:300;line-height:1.4;color:var(--star);margin-bottom:6px;" id="check-question-main"></div>
         <div style="font-size:12px;color:var(--muted);font-style:italic;margin-bottom:14px;" id="check-question-sub"></div>
 
-        <textarea class="field-textarea" id="check-response" placeholder="Answer honestly â€” the AI reads your pattern, not just your words..." style="min-height:80px;margin-bottom:12px;"></textarea>
+        <textarea class="field-textarea" id="check-response" placeholder="Answer honestly — the AI reads your pattern, not just your words..." style="min-height:80px;margin-bottom:12px;"></textarea>
 
         <div style="display:flex;gap:8px;flex-wrap:wrap;">
-          <button class="btn btn-gold" id="check-submit-btn" onclick="submitCheck()">Reflect â†’</button>
-          <button class="btn btn-ghost btn-sm" onclick="shuffleCheck()">â†» Different question</button>
-          <button class="btn btn-ghost btn-sm" onclick="speakCheckQuestion()">ðŸ”Š Hear question</button>
+          <button class="btn btn-gold" id="check-submit-btn" onclick="submitCheck()">Reflect →</button>
+          <button class="btn btn-ghost btn-sm" onclick="shuffleCheck()">↻ Different question</button>
+          <button class="btn btn-ghost btn-sm" onclick="speakCheckQuestion()">🔊 Hear question</button>
         </div>
 
         <div id="check-reflection" style="display:none;margin-top:14px;"></div>
       </div>
 
       <div class="card" id="check-log-card" style="display:none;">
-        <div class="card-label">â—ˆ Today's Check Log</div>
+        <div class="card-label">◈ Today's Check Log</div>
         <div id="check-log"></div>
       </div>
     </div>
@@ -2168,16 +2168,16 @@ input[type=range]::-webkit-slider-thumb{
   </div><!-- /screens-wrapper -->
 </div>
 
-<!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-     APP GUIDE â€” First-time walkthrough
+<!-- ══════════════════════════════════════
+     APP GUIDE — First-time walkthrough
      7 slides, swipeable, skippable
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+══════════════════════════════════════ -->
 <div id="guide-overlay" style="position:fixed;inset:0;z-index:2000;display:none;background:rgba(5,7,15,.96);flex-direction:column;">
 
   <!-- Header -->
   <div style="display:flex;align-items:center;justify-content:space-between;padding:20px 24px;border-bottom:1px solid var(--border);">
     <div style="font-family:'Georgia',serif;font-size:20px;font-weight:300;color:var(--star);">Anti<em style="font-style:italic;color:var(--gold);">Gravity</em> <span style="font-size:14px;color:var(--muted2);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-weight:300;">Guide</span></div>
-    <button onclick="closeGuide()" style="font-family:'Courier New',monospace;font-size:9px;letter-spacing:2px;color:var(--muted);background:transparent;border:1px solid var(--border2);border-radius:6px;padding:6px 12px;cursor:pointer;text-transform:uppercase;">Skip â†’</button>
+    <button onclick="closeGuide()" style="font-family:'Courier New',monospace;font-size:9px;letter-spacing:2px;color:var(--muted);background:transparent;border:1px solid var(--border2);border-radius:6px;padding:6px 12px;cursor:pointer;text-transform:uppercase;">Skip →</button>
   </div>
 
   <!-- Slide dots -->
@@ -2196,111 +2196,111 @@ input[type=range]::-webkit-slider-thumb{
 
     <!-- SLIDE 0: What is AntiGravity -->
     <div class="gslide active" id="gslide-0">
-      <div class="gslide-icon">â—Ž</div>
+      <div class="gslide-icon">◎</div>
       <div class="gslide-eyebrow">The Framework</div>
       <div class="gslide-title">What is <em>AntiGravity?</em></div>
-      <div class="gslide-body">Based on Newton's Law of Gravity applied to human behaviour. Two forces determine how much your habits and patterns control you â€” <strong>psychological mass</strong> (your attachments and habits) and <strong>distance from triggers</strong> (how close you are to what pulls you).<br><br>This app maps your gravitational field and generates the opposing force to escape it.</div>
+      <div class="gslide-body">Based on Newton's Law of Gravity applied to human behaviour. Two forces determine how much your habits and patterns control you — <strong>psychological mass</strong> (your attachments and habits) and <strong>distance from triggers</strong> (how close you are to what pulls you).<br><br>This app maps your gravitational field and generates the opposing force to escape it.</div>
       <div class="gslide-quote">"Neither falling. Nor drifting. The balance is your true self."<div style="font-size:12px;margin-top:6px;color:var(--muted);">Dr. Shadi Obeidat</div></div>
     </div>
 
     <!-- SLIDE 1: Gravity Score explained -->
     <div class="gslide" id="gslide-1">
-      <div class="gslide-icon">âŠ™</div>
+      <div class="gslide-icon">⊙</div>
       <div class="gslide-eyebrow">Your Score</div>
       <div class="gslide-title">The <em>Gravity Score</em></div>
-      <div class="gslide-body">Not a performance score. An <strong>attention indicator</strong> â€” how much of your behaviour right now is automatic and unconscious versus conscious and chosen.</div>
+      <div class="gslide-body">Not a performance score. An <strong>attention indicator</strong> — how much of your behaviour right now is automatic and unconscious versus conscious and chosen.</div>
       <div style="display:flex;flex-direction:column;gap:8px;margin-top:16px;">
-        <div class="gband" style="border-color:rgba(224,123,123,.3);"><span style="color:var(--emot);font-family:'Courier New',monospace;font-size:9px;">0â€“30</span><span style="color:var(--muted2);font-size:13px;">Deep Gravity â€” fully automatic</span></div>
-        <div class="gband" style="border-color:rgba(232,184,76,.3);"><span style="color:#e8b84c;font-family:'Courier New',monospace;font-size:9px;">31â€“55</span><span style="color:var(--muted2);font-size:13px;">Pull Active â€” aware, but pattern runs</span></div>
-        <div class="gband" style="border-color:rgba(201,168,76,.3);"><span style="color:var(--gold);font-family:'Courier New',monospace;font-size:9px;">56â€“75</span><span style="color:var(--muted2);font-size:13px;">Emerging â€” actively resisting</span></div>
-        <div class="gband" style="border-color:rgba(107,191,142,.3);"><span style="color:var(--behav);font-family:'Courier New',monospace;font-size:9px;">76â€“90</span><span style="color:var(--muted2);font-size:13px;">Consolidating â€” new habits forming</span></div>
-        <div class="gband" style="border-color:rgba(74,155,155,.3);"><span style="color:var(--teal);font-family:'Courier New',monospace;font-size:9px;">91â€“100</span><span style="color:var(--muted2);font-size:13px;">Balanced State â€” conscious and chosen</span></div>
+        <div class="gband" style="border-color:rgba(224,123,123,.3);"><span style="color:var(--emot);font-family:'Courier New',monospace;font-size:9px;">0–30</span><span style="color:var(--muted2);font-size:13px;">Deep Gravity — fully automatic</span></div>
+        <div class="gband" style="border-color:rgba(232,184,76,.3);"><span style="color:#e8b84c;font-family:'Courier New',monospace;font-size:9px;">31–55</span><span style="color:var(--muted2);font-size:13px;">Pull Active — aware, but pattern runs</span></div>
+        <div class="gband" style="border-color:rgba(201,168,76,.3);"><span style="color:var(--gold);font-family:'Courier New',monospace;font-size:9px;">56–75</span><span style="color:var(--muted2);font-size:13px;">Emerging — actively resisting</span></div>
+        <div class="gband" style="border-color:rgba(107,191,142,.3);"><span style="color:var(--behav);font-family:'Courier New',monospace;font-size:9px;">76–90</span><span style="color:var(--muted2);font-size:13px;">Consolidating — new habits forming</span></div>
+        <div class="gband" style="border-color:rgba(74,155,155,.3);"><span style="color:var(--teal);font-family:'Courier New',monospace;font-size:9px;">91–100</span><span style="color:var(--muted2);font-size:13px;">Balanced State — conscious and chosen</span></div>
       </div>
     </div>
 
     <!-- SLIDE 2: Field Mode -->
     <div class="gslide" id="gslide-2">
-      <div class="gslide-icon">â—Ž</div>
+      <div class="gslide-icon">◎</div>
       <div class="gslide-eyebrow">Screen 1 of 3</div>
-      <div class="gslide-title"><em>Field Mode</em> â€” ORBIT</div>
-      <div class="gslide-body">Capture moments as they happen â€” any trigger, emotion, or thought that pulls you. The AI reads each moment and tells you:<br><br>
-        <div class="gstep">â—ˆ Which of your 6 operating modes is active (your <strong>Mass Layer</strong>)</div>
-        <div class="gstep">â—ˆ Which gravitational domain is heaviest (Thinking, Emotional, Behavioral, Physical)</div>
-        <div class="gstep">â—ˆ A personalised <strong>Stop Signal</strong> â€” one question to interrupt the pattern</div>
-        <div class="gstep">â—ˆ How this moment connects to your <strong>Desired Orbit</strong></div>
+      <div class="gslide-title"><em>Field Mode</em> — ORBIT</div>
+      <div class="gslide-body">Capture moments as they happen — any trigger, emotion, or thought that pulls you. The AI reads each moment and tells you:<br><br>
+        <div class="gstep">◈ Which of your 6 operating modes is active (your <strong>Mass Layer</strong>)</div>
+        <div class="gstep">◈ Which gravitational domain is heaviest (Thinking, Emotional, Behavioral, Physical)</div>
+        <div class="gstep">◈ A personalised <strong>Stop Signal</strong> — one question to interrupt the pattern</div>
+        <div class="gstep">◈ How this moment connects to your <strong>Desired Orbit</strong></div>
       </div>
-      <div class="gslide-tip">ðŸ’¡ Capture at least 3 moments to activate your Mass Layer distribution in the Report.</div>
+      <div class="gslide-tip">💡 Capture at least 3 moments to activate your Mass Layer distribution in the Report.</div>
     </div>
 
     <!-- SLIDE 3: Mirror Mode -->
     <div class="gslide" id="gslide-3">
-      <div class="gslide-icon">â—ˆ</div>
+      <div class="gslide-icon">◈</div>
       <div class="gslide-eyebrow">Screen 2 of 3</div>
-      <div class="gslide-title"><em>Mirror Mode</em> â€” Verbal</div>
-      <div class="gslide-body">After a significant interaction â€” a difficult meeting, a tense conversation â€” speak freely for 60â€“90 seconds. Don't prepare. The system reads your <strong>language patterns</strong>, not your facts.<br><br>
-        <div class="gstep">â—ˆ Detects Meta-Model violations in your language</div>
-        <div class="gstep">â—ˆ Scores your <strong>Gravity</strong> (0â€“100) and <strong>Mask Score</strong> (authenticity gap)</div>
-        <div class="gstep">â—ˆ Your <strong>Voice Coach</strong> responds in your own register â€” then leads toward lightness</div>
-        <div class="gstep">â—ˆ Generates a <strong>Voice Letter</strong> written in your own linguistic fingerprint</div>
+      <div class="gslide-title"><em>Mirror Mode</em> — Verbal</div>
+      <div class="gslide-body">After a significant interaction — a difficult meeting, a tense conversation — speak freely for 60–90 seconds. Don't prepare. The system reads your <strong>language patterns</strong>, not your facts.<br><br>
+        <div class="gstep">◈ Detects Meta-Model violations in your language</div>
+        <div class="gstep">◈ Scores your <strong>Gravity</strong> (0–100) and <strong>Mask Score</strong> (authenticity gap)</div>
+        <div class="gstep">◈ Your <strong>Voice Coach</strong> responds in your own register — then leads toward lightness</div>
+        <div class="gstep">◈ Generates a <strong>Voice Letter</strong> written in your own linguistic fingerprint</div>
       </div>
-      <div class="gslide-tip">ðŸ’¡ You can type instead of speaking if microphone access is unavailable.</div>
+      <div class="gslide-tip">💡 You can type instead of speaking if microphone access is unavailable.</div>
     </div>
 
     <!-- SLIDE 4: Stop Signals -->
     <div class="gslide" id="gslide-4">
-      <div class="gslide-icon">âš¡</div>
+      <div class="gslide-icon">⚡</div>
       <div class="gslide-eyebrow">Daily Practice</div>
       <div class="gslide-title">The <em>Stop Signal</em></div>
-      <div class="gslide-body">The most powerful feature. Random alerts fire throughout your day â€” calibrated to your dominant gravitational domain â€” to catch you <strong>inside</strong> the gravitational field at the moment it fires.<br><br>This is not a reminder. It is an interruption. Real self-observation is only possible mid-automatism â€” not after the fact.<br><br>25 signals across 5 domains. Never the same twice in sequence.</div>
-      <div class="gslide-tip">âš¡ Tap the "Stop" button in the top bar anytime to trigger a signal manually.</div>
+      <div class="gslide-body">The most powerful feature. Random alerts fire throughout your day — calibrated to your dominant gravitational domain — to catch you <strong>inside</strong> the gravitational field at the moment it fires.<br><br>This is not a reminder. It is an interruption. Real self-observation is only possible mid-automatism — not after the fact.<br><br>25 signals across 5 domains. Never the same twice in sequence.</div>
+      <div class="gslide-tip">⚡ Tap the "Stop" button in the top bar anytime to trigger a signal manually.</div>
     </div>
 
     <!-- SLIDE 5: Report -->
     <div class="gslide" id="gslide-5">
-      <div class="gslide-icon">âŠ™</div>
+      <div class="gslide-icon">⊙</div>
       <div class="gslide-eyebrow">Screen 3 of 3</div>
       <div class="gslide-title">The <em>Field Report</em></div>
-      <div class="gslide-body">Your unified intelligence report â€” synthesising everything ORBIT and Verbal Mirror have detected about your gravitational field.<br><br>
-        <div class="gstep">â—ˆ <strong>Field Verdict</strong> â€” your primary gravity profile</div>
-        <div class="gstep">â—ˆ <strong>Primary Domain</strong> â€” the heaviest mass domain</div>
-        <div class="gstep">â—ˆ <strong>Mass Layer</strong> â€” dominant operating mode and its cost</div>
-        <div class="gstep">â—ˆ <strong>Escape Signal</strong> â€” one specific antigravity practice</div>
-        <div class="gstep">â—ˆ <strong>Orbit Statement</strong> â€” one sentence connecting all findings to your desired orbit</div>
+      <div class="gslide-body">Your unified intelligence report — synthesising everything ORBIT and Verbal Mirror have detected about your gravitational field.<br><br>
+        <div class="gstep">◈ <strong>Field Verdict</strong> — your primary gravity profile</div>
+        <div class="gstep">◈ <strong>Primary Domain</strong> — the heaviest mass domain</div>
+        <div class="gstep">◈ <strong>Mass Layer</strong> — dominant operating mode and its cost</div>
+        <div class="gstep">◈ <strong>Escape Signal</strong> — one specific antigravity practice</div>
+        <div class="gstep">◈ <strong>Orbit Statement</strong> — one sentence connecting all findings to your desired orbit</div>
       </div>
-      <div class="gslide-tip">ðŸ’¡ Generate after at least 3 field moments and 1 voice session for a meaningful report.</div>
+      <div class="gslide-tip">💡 Generate after at least 3 field moments and 1 voice session for a meaningful report.</div>
     </div>
 
     <!-- SLIDE 6: Getting Started -->
     <div class="gslide" id="gslide-6">
-      <div class="gslide-icon">â†‘</div>
+      <div class="gslide-icon">↑</div>
       <div class="gslide-eyebrow">Your First Session</div>
       <div class="gslide-title">How to <em>begin</em></div>
       <div class="gslide-body">Three steps to your first meaningful reading:<br><br>
-        <div class="gstep-num"><span>1</span>Go to <strong>Field Mode</strong> and capture one moment happening right now â€” any trigger or emotion present in your day.</div>
+        <div class="gstep-num"><span>1</span>Go to <strong>Field Mode</strong> and capture one moment happening right now — any trigger or emotion present in your day.</div>
         <div class="gstep-num"><span>2</span>Go to <strong>Mirror Mode</strong> and speak for 60 seconds about a recent difficult interaction. Don't prepare.</div>
         <div class="gstep-num"><span>3</span>Go to <strong>Report</strong> and generate your first Field Intelligence Report.</div>
       </div>
       <div class="gslide-tip" style="background:var(--gold-d);border-color:rgba(201,168,76,.3);">The system gets more accurate over time. Every moment you capture narrows the field map.</div>
-      <button onclick="closeGuide()" class="gslide-cta">Begin My Field â†’</button>
+      <button onclick="closeGuide()" class="gslide-cta">Begin My Field →</button>
     </div>
 
   </div>
 
   <!-- Navigation -->
   <div style="display:flex;gap:12px;padding:20px 24px;border-top:1px solid var(--border);">
-    <button onclick="prevSlide()" class="gnav-btn">â† Prev</button>
-    <button onclick="nextSlide()" class="gnav-btn gnav-primary" id="guide-next-btn">Next â†’</button>
+    <button onclick="prevSlide()" class="gnav-btn">← Prev</button>
+    <button onclick="nextSlide()" class="gnav-btn gnav-primary" id="guide-next-btn">Next →</button>
   </div>
 
 </div>
 
 
-<!-- UPGRADE OVERLAY â€” anon â†’ real account -->
+<!-- UPGRADE OVERLAY — anon → real account -->
 <div id="upgrade-overlay" style="position:fixed;inset:0;z-index:1100;display:none;align-items:flex-end;justify-content:center;padding:20px;background:rgba(8,11,20,.85);">
   <div style="background:var(--surface);border:1px solid rgba(201,168,76,.35);border-radius:22px;padding:30px;max-width:460px;width:100%;animation:slideUp .3s ease;">
     <div style="font-family:'Courier New',monospace;font-size:var(--mono-sm);letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-bottom:8px;">âœ¦ Your Field Is Building</div>
     <div style="font-family:'Georgia',serif;font-size:var(--ts-xl);font-weight:300;margin-bottom:8px;">Save your data permanently</div>
-    <div style="font-size:var(--ts-sm);color:var(--muted2);line-height:1.7;margin-bottom:20px;">You have <strong id="upgrade-moment-count" style="color:var(--star);"></strong> captured moments saved to this session. Create an account to keep them â€” and everything you add from now on â€” across all your devices.</div>
+    <div style="font-size:var(--ts-sm);color:var(--muted2);line-height:1.7;margin-bottom:20px;">You have <strong id="upgrade-moment-count" style="color:var(--star);"></strong> captured moments saved to this session. Create an account to keep them — and everything you add from now on — across all your devices.</div>
     <div class="field-group">
       <label class="field-label">Email</label>
       <input class="field-input" id="upgrade-email" type="email" placeholder="you@email.com">
@@ -2311,16 +2311,16 @@ input[type=range]::-webkit-slider-thumb{
     </div>
 
     <div style="display:flex;gap:10px;">
-      <button class="btn btn-gold btn-full" id="upgrade-btn" onclick="upgradeAnonymous()">Create Account & Save Data â†’</button>
+      <button class="btn btn-gold btn-full" id="upgrade-btn" onclick="upgradeAnonymous()">Create Account & Save Data →</button>
       <button class="btn btn-ghost btn-sm" onclick="closeUpgrade()" style="white-space:nowrap;">Later</button>
     </div>
   </div>
 </div>
 
-<!-- TESTER PANEL â€” personal validation mode -->
+<!-- TESTER PANEL — personal validation mode -->
 <div id="tester-overlay" style="position:fixed;inset:0;z-index:1100;display:none;align-items:flex-end;justify-content:center;padding:20px;background:rgba(8,11,20,.85);">
   <div style="background:var(--surface);border:1px solid rgba(74,155,155,.35);border-radius:22px;padding:30px;max-width:460px;width:100%;animation:slideUp .3s ease;">
-    <div style="font-family:'Courier New',monospace;font-size:var(--mono-sm);letter-spacing:2px;color:var(--teal);text-transform:uppercase;margin-bottom:8px;">â—Ž Personal Tester Account</div>
+    <div style="font-family:'Courier New',monospace;font-size:var(--mono-sm);letter-spacing:2px;color:var(--teal);text-transform:uppercase;margin-bottom:8px;">◎ Personal Tester Account</div>
     <div style="font-family:'Georgia',serif;font-size:var(--ts-xl);font-weight:300;margin-bottom:8px;">Validate the system</div>
     <div style="font-size:var(--ts-sm);color:var(--muted2);line-height:1.7;margin-bottom:20px;">Sign in with your personal account to accumulate real field data across days. Every moment, every voice session, every gravity score builds your longitudinal map. This is how you validate the system before it goes live.</div>
     <div class="field-group">
@@ -2329,11 +2329,11 @@ input[type=range]::-webkit-slider-thumb{
     </div>
     <div class="field-group">
       <label class="field-label">Password</label>
-      <input class="field-input" id="tester-pass" type="password" placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢">
+      <input class="field-input" id="tester-pass" type="password" placeholder="••••••••">
     </div>
 
     <div style="display:flex;gap:10px;">
-      <button class="btn btn-teal btn-full" onclick="testerSignIn()">Sign In as Tester â†’</button>
+      <button class="btn btn-teal btn-full" onclick="testerSignIn()">Sign In as Tester →</button>
       <button class="btn btn-ghost btn-sm" onclick="closeTester()" style="white-space:nowrap;">Cancel</button>
     </div>
     <div style="margin-top:10px;">
@@ -2345,7 +2345,7 @@ input[type=range]::-webkit-slider-thumb{
 <script>
 'use strict';
 
-// â”€â”€ SUPABASE (additive layer â€” reuses existing `sb` client; see initSupabase) â”€â”€
+// â”€â”€ SUPABASE (additive layer — reuses existing `sb` client; see initSupabase) â”€â”€
 const SUPA_URL='https://ejwgwiqkmwplebgpbfsr.supabase.co';
 const SUPA_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVqd2d3aXFrbXdwbGViZ3BiZnNyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgyMTc0NTYsImV4cCI6MjA5Mzc5MzQ1Nn0.85a0IG5K5rDdMDt7MRl8rhr5eQGlWTE7rsVlDAiCTlQ';
 let supa=null;
@@ -2403,7 +2403,7 @@ async function supaSignUp(email,pass,name){
   if(data.user){
     await supa.from('profiles').upsert({id:data.user.id,name:name||email,orbit:''});
   }
-  showToast('Account created â€” check your email to confirm');
+  showToast('Account created — check your email to confirm');
   return true;
 }
 
@@ -2428,23 +2428,23 @@ function subscribeToMomentsLive(){
 
 // â”€â”€ PATTERN INTELLIGENCE â”€â”€
 const PATTERN_OBS={
-  'Achiever+Frustration':'Your Achiever is meeting resistance â€” notice the gap between your standard and what the field is offering.',
+  'Achiever+Frustration':'Your Achiever is meeting resistance — notice the gap between your standard and what the field is offering.',
   'Achiever+Anxiety':'The Achiever converts uncertainty into task lists. The list is not the answer here.',
-  'Achiever+Clarity':'Structure is present â€” the Achiever is in its orbit. Notice what made this moment different.',
+  'Achiever+Clarity':'Structure is present — the Achiever is in its orbit. Notice what made this moment different.',
   'Achiever+Confidence':'When the Achiever operates from clarity, the gravitational field lightens.',
   'Achiever+Overwhelm':'The Achiever is running multiple orbits at once. Which one actually matters right now?',
   'Avoider+Frustration':'Frustration here signals a blocked request. The Avoider prefers the email to the conversation.',
-  'Avoider+Anxiety':'The Avoider is managing distance â€” from the person, from the decision, from the feeling.',
+  'Avoider+Anxiety':'The Avoider is managing distance — from the person, from the decision, from the feeling.',
   'Avoider+Overwhelm':'Overwhelm is the Avoider\'s signal to disappear. Notice the urge to defer.',
   'Avoider+Resignation':'Resignation is the Avoider\'s way of leaving without leaving.',
   'Avoider+Uncertainty':'Uncertainty activates the Avoider\'s favourite move: wait and see.',
   'Analyst+Anxiety':'The Analyst has converted a feeling into a problem. The problem is not the problem.',
-  'Analyst+Uncertainty':'Uncertainty is the Analyst\'s trigger â€” it will analyse until the feeling stops, not until it finds the answer.',
-  'Analyst+Focus':'The Analyst in focus â€” observe whether this is clarity or avoidance wearing structure.',
+  'Analyst+Uncertainty':'Uncertainty is the Analyst\'s trigger — it will analyse until the feeling stops, not until it finds the answer.',
+  'Analyst+Focus':'The Analyst in focus — observe whether this is clarity or avoidance wearing structure.',
   'Analyst+Frustration':'The Analyst is frustrated that the data doesn\'t resolve the emotional charge.',
   'Analyst+Overwhelm':'The Analyst is processing too many variables. Simplify the question.',
   'Pleaser+Frustration':'The Pleaser wanted acknowledgment and received evaluation instead.',
-  'Pleaser+Anxiety':'The Pleaser is monitoring reactions â€” yours and theirs. The monitoring IS the weight.',
+  'Pleaser+Anxiety':'The Pleaser is monitoring reactions — yours and theirs. The monitoring IS the weight.',
   'Pleaser+Overwhelm':'Too many needs to manage. The Pleaser doesn\'t know whose to prioritise.',
   'Pleaser+Resignation':'The Pleaser has decided that trying isn\'t worth the cost anymore.',
   'Rebel+Frustration':'The Rebel is responding to a constraint that feels like a cage. Question: is it?',
@@ -2455,7 +2455,7 @@ const PATTERN_OBS={
 
 function getPatternObs(persona,emotion){
   return PATTERN_OBS[persona+'+'+emotion]
-    ||`Your ${persona||'mode'} is active in a ${(emotion||'').toLowerCase()||'field'} moment â€” observe the pattern before responding.`;
+    ||`Your ${persona||'mode'} is active in a ${(emotion||'').toLowerCase()||'field'} moment — observe the pattern before responding.`;
 }
 
 function prependPatternCard(m){
@@ -2482,8 +2482,8 @@ function seedDemoPatternStream(){
   if(!stream)return;
   const demos=[
     {persona:'Analyst',emotion:'Thinking',obs:'The Analyst is running. You\'ve converted a time problem into an identity question. The anxiety signals a blocked decision, not a lack of information.',time:'07:17 AM'},
-    {persona:'Avoider',emotion:'Emotional',obs:'Frustration here is a blocked request: you wanted acknowledgment and got challenge instead. The Avoider appeared â€” notice the impulse to prefer email over direct conversation.',time:'07:17 AM'},
-    {persona:'Achiever',emotion:'Behavioral',obs:'This is your Achiever â€” notice how different the field feels when structure is present. The gap is not capability â€” it is tolerance for ambiguity.',time:'07:17 AM'},
+    {persona:'Avoider',emotion:'Emotional',obs:'Frustration here is a blocked request: you wanted acknowledgment and got challenge instead. The Avoider appeared — notice the impulse to prefer email over direct conversation.',time:'07:17 AM'},
+    {persona:'Achiever',emotion:'Behavioral',obs:'This is your Achiever — notice how different the field feels when structure is present. The gap is not capability — it is tolerance for ambiguity.',time:'07:17 AM'},
   ];
   stream.innerHTML=demos.map(d=>`<div class="pattern-card">
     <div class="pattern-card-time">${d.time}</div>
@@ -2550,8 +2550,8 @@ function generateFullReport(){
     if(m.persona)personaCounts[m.persona]=(personaCounts[m.persona]||0)+1;
     if(m.emotion)emotionCounts[m.emotion]=(emotionCounts[m.emotion]||0)+1;
   });
-  const topPersona=Object.entries(personaCounts).sort((a,b)=>b[1]-a[1])[0]||['â€”',0];
-  const topEmotion=Object.entries(emotionCounts).sort((a,b)=>b[1]-a[1])[0]||['â€”',0];
+  const topPersona=Object.entries(personaCounts).sort((a,b)=>b[1]-a[1])[0]||['—',0];
+  const topEmotion=Object.entries(emotionCounts).sort((a,b)=>b[1]-a[1])[0]||['—',0];
   const domainScores={
     Thinking:S.profile?.domain_think||S.profile?.domains?.think||5,
     Emotional:S.profile?.domain_emot||S.profile?.domains?.emot||5,
@@ -2562,17 +2562,17 @@ function generateFullReport(){
   const orbitText=S.profile?.orbit||S.profile?.orbit1||(typeof getPrimaryOrbit==='function'?getPrimaryOrbit():'')||'your desired orbit';
   el.innerHTML=`
     <div class="report-section">
-      <div class="report-section-title">âŠ™ Orbital Summary</div>
+      <div class="report-section-title">⊙ Orbital Summary</div>
       <div class="report-orbital-card" style="background:linear-gradient(135deg,rgba(201,168,76,.08),transparent);border-color:${pos.color}40;">
         <div style="font-family:'Courier New',monospace;font-size:10px;letter-spacing:2px;color:${pos.color};text-transform:uppercase;margin-bottom:6px;">${pos.direction} ${pos.label}</div>
         <div style="font-size:13px;color:var(--muted2);line-height:1.6;margin-bottom:16px;">${pos.desc}</div>
-        <div class="report-metric-row"><span class="report-metric-label">Gravity Score</span><span class="report-metric-val" style="color:${band.color};">${Math.round(gravScore)} â€” ${bandLabel}</span></div>
+        <div class="report-metric-row"><span class="report-metric-label">Gravity Score</span><span class="report-metric-val" style="color:${band.color};">${Math.round(gravScore)} — ${bandLabel}</span></div>
         <div class="report-metric-row"><span class="report-metric-label">Moments Captured</span><span class="report-metric-val">${moments.length}</span></div>
         <div class="report-metric-row"><span class="report-metric-label">Dominant Mode</span><span class="report-metric-val">${topPersona[0]}</span></div>
       </div>
     </div>
     <div class="report-section">
-      <div class="report-section-title">â—‰ Mass Breakdown</div>
+      <div class="report-section-title">◉ Mass Breakdown</div>
       ${Object.entries(domainScores).map(([name,score])=>`
         <div class="domain-row" style="margin-bottom:14px;">
           <div class="domain-hd">
@@ -2580,20 +2580,20 @@ function generateFullReport(){
             <span class="domain-score" style="color:${dColors[name]};">${Number(score).toFixed(1)}</span>
           </div>
           <div class="bar-track"><div class="bar-fill" style="width:${score*10}%;background:${dColors[name]};"></div></div>
-          <div style="font-size:10px;color:var(--muted);margin-top:4px;">Orbit ceiling &lt;6.0 â€” ${score>6?(score-6).toFixed(1)+' above':'within orbit'}</div>
+          <div style="font-size:10px;color:var(--muted);margin-top:4px;">Orbit ceiling &lt;6.0 — ${score>6?(score-6).toFixed(1)+' above':'within orbit'}</div>
         </div>`).join('')}
     </div>
     <div class="report-section">
-      <div class="report-section-title">â—ˆ Pattern Analysis</div>
-      ${topPersona[0]!=='â€”'?`<div class="report-pattern-item"><strong>Dominant Mode:</strong> Your <strong>${topPersona[0]}</strong> appeared in ${topPersona[1]} of ${moments.length} captured moment${moments.length!==1?'s':''} â€” the most active operating mode this session.</div>`:''}
-      ${topEmotion[0]!=='â€”'?`<div class="report-pattern-item"><strong>Emotional Signature:</strong> <strong>${topEmotion[0]}</strong> appears most frequently â€” present in ${topEmotion[1]} moment${topEmotion[1]>1?'s':''}. This emotion is a gravitational signal worth mapping.</div>`:''}
+      <div class="report-section-title">◈ Pattern Analysis</div>
+      ${topPersona[0]!=='—'?`<div class="report-pattern-item"><strong>Dominant Mode:</strong> Your <strong>${topPersona[0]}</strong> appeared in ${topPersona[1]} of ${moments.length} captured moment${moments.length!==1?'s':''} — the most active operating mode this session.</div>`:''}
+      ${topEmotion[0]!=='—'?`<div class="report-pattern-item"><strong>Emotional Signature:</strong> <strong>${topEmotion[0]}</strong> appears most frequently — present in ${topEmotion[1]} moment${topEmotion[1]>1?'s':''}. This emotion is a gravitational signal worth mapping.</div>`:''}
       <div class="report-pattern-item"><strong>Field State:</strong> ${pos.desc} Your orbit: <em>"${orbitText}"</em></div>
     </div>
     <div class="report-section">
       <div class="report-section-title">âœ¦ Coach Letter</div>
       <div class="report-coach-letter">
-        <div class="report-coach-text" id="coach-letter-text">The field you have been mapping this session carries a signature. ${topPersona[0]!=='â€”'?`Your ${topPersona[0]} has been most present â€” appearing in ${topPersona[1]} of ${moments.length} captured moments. This is not a problem to fix. It is a pattern to observe.<br><br>`:''}What the field shows is this: ${topEmotion[0]!=='â€”'?`when ${topEmotion[0].toLowerCase()} appears, your system moves toward a familiar pattern. `:''}The question is not how to stop it. The question is: can you see it one second earlier?<br><br>Your desired orbit is to ${orbitText}. The gap between that orbit and today's field is not distance â€” it is mass. And mass changes through repeated small acts of consciousness, not single decisions.<br><br>You are${pos.state==='orbit'?' in orbit':pos.state==='falling'?' falling â€” return to field capture':' drifting â€” re-engage with the field'}. Keep the field active.</div>
-        <div class="report-coach-attr">â€” Dr. Shadi Obeidat Â· AntiGravity Framework</div>
+        <div class="report-coach-text" id="coach-letter-text">The field you have been mapping this session carries a signature. ${topPersona[0]!=='—'?`Your ${topPersona[0]} has been most present — appearing in ${topPersona[1]} of ${moments.length} captured moments. This is not a problem to fix. It is a pattern to observe.<br><br>`:''}What the field shows is this: ${topEmotion[0]!=='—'?`when ${topEmotion[0].toLowerCase()} appears, your system moves toward a familiar pattern. `:''}The question is not how to stop it. The question is: can you see it one second earlier?<br><br>Your desired orbit is to ${orbitText}. The gap between that orbit and today's field is not distance — it is mass. And mass changes through repeated small acts of consciousness, not single decisions.<br><br>You are${pos.state==='orbit'?' in orbit':pos.state==='falling'?' falling — return to field capture':' drifting — re-engage with the field'}. Keep the field active.</div>
+        <div class="report-coach-attr">— Dr. Shadi Obeidat · AntiGravity Framework</div>
       </div>
     </div>`;
   const printBtn=document.getElementById('report-print-btn');
@@ -2630,7 +2630,7 @@ async function regenerateCoachLetterWithAI(apiKey,moments,pos,topPersona,topEmot
   }
 }
 
-// â”€â”€ SPLASH â€” defined first so it's always available â”€â”€
+// â”€â”€ SPLASH — defined first so it's always available â”€â”€
 function hideSplash(){
   const s=document.getElementById('splash');
   if(s&&s.parentNode) s.parentNode.removeChild(s);
@@ -2648,12 +2648,12 @@ function toggleOrbitDomain(n){
 }
 
 
-/* â•”â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•—
-   â•‘  PASTE YOUR TWO SUPABASE VALUES BELOW â€” NOTHING ELSE â•‘
-   â•šâ•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+/* ╔══════════════════════════════════════════════════════╗
+   ║  PASTE YOUR TWO SUPABASE VALUES BELOW — NOTHING ELSE ║
+   ╚══════════════════════════════════════════════════════╝ */
 const SUPABASE_URL  = 'https://ejwgwiqkmwplebgpbfsr.supabase.co';
 const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVqd2d3aXFrbXdwbGViZ3BiZnNyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgyMTc0NTYsImV4cCI6MjA5Mzc5MzQ1Nn0.85a0IG5K5rDdMDt7MRl8rhr5eQGlWTE7rsVlDAiCTlQ';
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+/* ══════════════════════════════════════════════════════ */
 
 let sb;
 try {
@@ -2682,16 +2682,16 @@ const S = {
   ttsVoices: []
 };
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   INIT â€” check existing session
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+/* ═══════════════════════════════
+   INIT — check existing session
+═══════════════════════════════ */
 async function init(){
   const { data: { session } } = await sb.auth.getSession();
   if(session){
     S.user = session.user;
     await loadUserData();
   }
-  // No session â€” show auth screen immediately
+  // No session — show auth screen immediately
   if(!session){
     hideSplash();
     const authScreen = document.getElementById('screen-auth');
@@ -2735,19 +2735,19 @@ async function loadUserData(){
       // Enter app
       enterApp();
     } else {
-      // New user â€” show onboarding
+      // New user — show onboarding
       showScreen('onboard');
     }
   }catch(e){
-    showToast('Could not load your data â€” check your connection');
+    showToast('Could not load your data — check your connection');
     console.error('loadUserData error:',e);
     showScreen('onboard');
   }
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ═══════════════════════════════
    AUTH
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+═══════════════════════════════ */
 function switchLandingTab(tab){
   // Tabs
   ['demo','signin','signup'].forEach(t=>{
@@ -2756,7 +2756,7 @@ function switchLandingTab(tab){
   });
 }
 
-// Legacy â€” keep for any remaining references
+// Legacy — keep for any remaining references
 function switchAuthTab(tab){
   switchLandingTab(tab==='login'?'signin':tab==='signup'?'signup':'demo');
 }
@@ -2784,7 +2784,7 @@ async function sendMagicLink(){
   if(!email){showToast('Enter your email first');return;}
   const { error } = await sb.auth.signInWithOtp({email});
   if(error) showToast(error.message);
-  else showToast('Magic link sent â€” check your inbox.');
+  else showToast('Magic link sent — check your inbox.');
 }
 
 async function signOut(){
@@ -2798,9 +2798,9 @@ async function signOut(){
   await supaSignOut(); // signs out via the shared Supabase client and reloads
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ═══════════════════════════════
    ONBOARDING
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+═══════════════════════════════ */
 let currentStep = 0;
 function nextStep(to){
   if(to===1){
@@ -2825,11 +2825,11 @@ function nextStep(to){
       return;
     }
     if(!o1){
-      // Professional was the original required slot â€” keep that contract loosely.
+      // Professional was the original required slot — keep that contract loosely.
       // If the user picked Relational or Personal but skipped Professional, allow it
-      // (a user-centric simplicity choice â€” methodological purity gives way here).
+      // (a user-centric simplicity choice — methodological purity gives way here).
     }
-    S.profile.orbit = o1 || o2 || o3;   // primary orbit â€” used by all AI calls
+    S.profile.orbit = o1 || o2 || o3;   // primary orbit — used by all AI calls
     S.profile.orbit1 = o1;
     S.profile.orbit2 = o2;
     S.profile.orbit3 = o3;
@@ -2866,15 +2866,15 @@ async function completeOnboarding(){
   enterApp();
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ═══════════════════════════════
    RESTART ONBOARDING
    Wipes profile (name/role/sector/orbits/mass) and re-runs onboarding from step 0.
-   Captures, voice sessions, and history are preserved â€” the user wanted to
+   Captures, voice sessions, and history are preserved — the user wanted to
    refresh their setup, not erase their work.
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+═══════════════════════════════ */
 async function restartOnboarding(){
   closeUserMenu();
-  // Single confirmation â€” the user's tap was the request, this prevents the accidental tap
+  // Single confirmation — the user's tap was the request, this prevents the accidental tap
   const ok = confirm("Restart onboarding?\n\nYour name, role, orbits and mass ratings will be cleared so you can re-enter them.\n\nYour captured moments and voice sessions are preserved.");
   if(!ok) return;
 
@@ -2887,7 +2887,7 @@ async function restartOnboarding(){
     orbitVersions:{}
   };
 
-  // Persist the wipe to Supabase â€” onboarded:false is the gate that brings onboarding back
+  // Persist the wipe to Supabase — onboarded:false is the gate that brings onboarding back
   if(S.user && !S.isAnonymous){
     try{
       await sb.from('profiles').upsert({
@@ -2900,11 +2900,11 @@ async function restartOnboarding(){
       });
     }catch(e){
       // Local reset already happened; flag the sync issue but proceed
-      showToast('Reset locally Â· sync when online');
+      showToast('Reset locally · sync when online');
     }
   }
 
-  // Reset onboarding UI state â€” step indicator dots, step visibility, all input fields
+  // Reset onboarding UI state — step indicator dots, step visibility, all input fields
   currentStep = 0;
   ['step-0','step-1','step-2'].forEach(id=>{
     const el = document.getElementById(id);
@@ -2944,7 +2944,7 @@ async function restartOnboarding(){
     onboardScreen.classList.add('active');
     onboardScreen.style.display = '';   // clear any inline display:none
   }
-  showToast('âœ¦ Onboarding restarted â€” your captures are preserved');
+  showToast('âœ¦ Onboarding restarted — your captures are preserved');
 }
 
 function enterApp(){
@@ -2958,7 +2958,7 @@ function enterApp(){
     const b=document.getElementById('demo-topbar-badge');
     if(b){b.style.display='flex';}
     const em=document.getElementById('menu-email-display');
-    if(em) em.textContent='ANONYMOUS Â· Data saved Â· Upgrade to keep';
+    if(em) em.textContent='ANONYMOUS · Data saved · Upgrade to keep';
     // Show upgrade prompt in user menu
     const upgradeItem=document.getElementById('menu-upgrade-item');
     if(upgradeItem) upgradeItem.style.display='flex';
@@ -2976,7 +2976,7 @@ function enterApp(){
   scheduleStopSignal();
   loadVoices();
   const greeting = S.isAnonymous
-    ? 'âœ¦ Your field is live â€” data saving automatically'
+    ? 'âœ¦ Your field is live — data saving automatically'
     : 'Welcome back, '+S.profile.name;
   showToast(greeting);
   checkFirstTime();
@@ -2998,101 +2998,101 @@ function getPrimaryOrbit(){
   return S.profile.orbit1||S.profile.orbit2||S.profile.orbit3||'Your orbit';
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ═══════════════════════════════
    SUB-ORBIT LIBRARY (Phase A)
    The IP layer. Each entry encodes:
    - title:      short navigation label
-   - statement:  the full orbit (saved as the orbit text â€” this is what gets stored)
+   - statement:  the full orbit (saved as the orbit text — this is what gets stored)
    - opposes:    the gravitational force/persona/pattern this orbit counteracts
                  (used silently by persona analysis, emergent suggestions, and Report narrative)
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+═══════════════════════════════ */
 const SUB_ORBIT_LIBRARY = {
   professional: [
     {
       title: 'Lead Through Ambiguity',
-      statement: 'lead with authority in ambiguous situations â€” without waiting for certainty that will not come',
+      statement: 'lead with authority in ambiguous situations — without waiting for certainty that will not come',
       opposes: 'decision paralysis, threat anticipation, jump-to-conclusions reactivity'
     },
     {
       title: 'Convert Thoughts Into Action',
-      statement: 'translate ideas into concrete next steps â€” without retreating into theory or accumulation',
+      statement: 'translate ideas into concrete next steps — without retreating into theory or accumulation',
       opposes: 'intellectual accumulation as a substitute for practical communication'
     },
     {
       title: 'Balance Assertiveness and Empathy',
-      statement: 'speak directly and decide clearly while staying attuned to the people around me â€” without choosing one at the cost of the other',
+      statement: 'speak directly and decide clearly while staying attuned to the people around me — without choosing one at the cost of the other',
       opposes: 'aggressive overexpression, over-accommodation, leadership rigidity'
     },
     {
       title: 'Hold Strategy Under Pressure',
-      statement: 'stay aligned with long-term objectives when short-term pressure escalates â€” without abandoning the plan to chase the urgent',
+      statement: 'stay aligned with long-term objectives when short-term pressure escalates — without abandoning the plan to chase the urgent',
       opposes: 'reactive priority-shifting, short-term planning gravity'
     },
     {
       title: 'Prioritize Actions',
-      statement: 'decide what matters most this week and act on it first â€” without scattering energy across everything that feels urgent',
+      statement: 'decide what matters most this week and act on it first — without scattering energy across everything that feels urgent',
       opposes: 'unorganized activity, urgency-mistaken-for-importance reactivity'
     }
   ],
   relational: [
     {
       title: 'Stay Present in Conflict',
-      statement: 'stay grounded when challenged or contradicted â€” without withdrawing, attacking, or absorbing the other person\'s tension',
+      statement: 'stay grounded when challenged or contradicted — without withdrawing, attacking, or absorbing the other person\'s tension',
       opposes: 'reactive surge, withdrawal, the aggressive/avoidance binary'
     },
     {
       title: 'Listen Before Responding',
-      statement: 'hear what the other person is actually saying before formulating my reply â€” without rehearsing my answer while they speak',
+      statement: 'hear what the other person is actually saying before formulating my reply — without rehearsing my answer while they speak',
       opposes: 'over-expression, the impulse to fill space'
     },
     {
       title: 'Speak Difficult Truths Cleanly',
-      statement: 'initiate hard conversations directly â€” without softening into vagueness or hardening into blame',
+      statement: 'initiate hard conversations directly — without softening into vagueness or hardening into blame',
       opposes: 'avoidance reactivity, the conflict-averse pattern'
     },
     {
       title: 'Read the Emotions of Others',
-      statement: 'notice what the other person is feeling beneath their words â€” without projecting my own state onto them',
+      statement: 'notice what the other person is feeling beneath their words — without projecting my own state onto them',
       opposes: 'projection, emotional misattunement, the Mind-Read distortion'
     },
     {
       title: 'Find Common Ground',
-      statement: 'locate shared experience, value, or concern with the people I engage â€” without leading with what separates us',
+      statement: 'locate shared experience, value, or concern with the people I engage — without leading with what separates us',
       opposes: 'the Judgmental and Blaming reactivity habits, in-group/out-group reflex'
     }
   ],
   personal: [
     {
       title: 'Sit With Discomfort',
-      statement: 'allow difficult emotions and unresolved tensions to pass through me without acting on them immediately â€” without reaching for distraction, food, screen, or withdrawal',
+      statement: 'allow difficult emotions and unresolved tensions to pass through me without acting on them immediately — without reaching for distraction, food, screen, or withdrawal',
       opposes: 'Impatience as ego feature, Trigger-Action-Reward loop closing too fast'
     },
     {
       title: 'Harmony in Thoughts, Emotions, and Actions',
-      statement: 'bring my thinking, feeling, and behavior into one direction â€” without letting any of the three contradict the other two',
+      statement: 'bring my thinking, feeling, and behavior into one direction — without letting any of the three contradict the other two',
       opposes: 'the Mask Score gap, the gap between word and voice'
     },
     {
-      title: 'Balance the Ego â€” Beyond Self-Love',
-      statement: 'hold a steady sense of self-worth that needs neither inflation nor diminishment â€” without seeking validation or punishing myself when it isn\'t given',
+      title: 'Balance the Ego — Beyond Self-Love',
+      statement: 'hold a steady sense of self-worth that needs neither inflation nor diminishment — without seeking validation or punishing myself when it isn\'t given',
       opposes: 'Pride and Self-pity (the false-personality binary)'
     },
     {
       title: 'Conserve Energy, Stay Relaxed',
-      statement: 'protect my attention and physical energy throughout the day â€” without leaking it into rumination, tension, or reactive consumption',
+      statement: 'protect my attention and physical energy throughout the day — without leaking it into rumination, tension, or reactive consumption',
       opposes: 'Self-pity as energy drain, reactive consumption of attention'
     }
   ]
 };
 
 const ORBIT_DOMAIN_META = {
-  professional: { icon: 'â—Ž', label: 'Professional Orbit', hint: 'Leadership Â· Performance Â· Career Â· Purpose', sliceField: 'orbit1' },
-  relational:   { icon: 'â—ˆ', label: 'Relational Orbit',   hint: 'Relationships Â· Communication Â· Conflict Â· Connection', sliceField: 'orbit2' },
-  personal:     { icon: 'âŠ™', label: 'Personal Orbit',     hint: 'Identity Â· Values Â· Energy Â· Inner Self', sliceField: 'orbit3' }
+  professional: { icon: '◎', label: 'Professional Orbit', hint: 'Leadership · Performance · Career · Purpose', sliceField: 'orbit1' },
+  relational:   { icon: '◈', label: 'Relational Orbit',   hint: 'Relationships · Communication · Conflict · Connection', sliceField: 'orbit2' },
+  personal:     { icon: '⊙', label: 'Personal Orbit',     hint: 'Identity · Values · Energy · Inner Self', sliceField: 'orbit3' }
 };
 
 /* Render the sub-orbit cards for a domain. Reused by onboarding step-1 AND Manage Orbits.
-   This is the "one screen, two contexts" simplicity â€” same DOM, same selection logic. */
+   This is the "one screen, two contexts" simplicity — same DOM, same selection logic. */
 function renderSubOrbitCards(domainKey, currentValue){
   const items = SUB_ORBIT_LIBRARY[domainKey] || [];
   const cards = items.map((item,idx)=>{
@@ -3115,7 +3115,7 @@ function renderSubOrbitCards(domainKey, currentValue){
     </div>
     <div class="sub-orbit-custom-body" id="custom-body-${domainKey}" style="display:${isCustom?'block':'none'};">
       <textarea class="field-textarea" id="custom-text-${domainKey}"
-        placeholder="Describe the stance you want to hold â€” what you'd do, in what condition, without what compensation."
+        placeholder="Describe the stance you want to hold — what you'd do, in what condition, without what compensation."
         oninput="onCustomOrbitInput('${domainKey}')"
         style="min-height:80px;margin-top:10px;">${isCustom?currentValue:''}</textarea>
     </div>`;
@@ -3135,7 +3135,7 @@ function selectSubOrbit(domainKey, idx){
   if(customBody) customBody.style.display = 'none';
   const chev = document.getElementById('custom-chev-'+domainKey);
   if(chev) chev.textContent = 'â–¸';
-  // Save the selection to a draft slot â€” read back at save time
+  // Save the selection to a draft slot — read back at save time
   if(!S.orbitDraft) S.orbitDraft = {};
   S.orbitDraft[domainKey] = item.statement;
 }
@@ -3149,7 +3149,7 @@ function toggleCustomOrbit(domainKey){
   body.style.display = isOpen ? 'none' : 'block';
   if(chev) chev.textContent = isOpen ? 'â–¸' : 'â–¾';
   if(!isOpen){
-    // Opening â€” deselect any library card
+    // Opening — deselect any library card
     document.querySelectorAll(`.sub-orbit-card[data-domain="${domainKey}"]`).forEach(c=>c.classList.remove('selected'));
     setTimeout(()=>document.getElementById('custom-text-'+domainKey)?.focus(), 50);
   }
@@ -3166,15 +3166,15 @@ function onCustomOrbitInput(domainKey){
   }
 }
 
-/* Read the draft for a domain â€” returns either library selection or custom text */
+/* Read the draft for a domain — returns either library selection or custom text */
 function getOrbitDraft(domainKey){
   if(!S.orbitDraft) return '';
   return (S.orbitDraft[domainKey] || '').trim();
 }
 
-/* Render the full orbit-selection screen â€” used by both onboarding step-1 and Manage Orbits */
+/* Render the full orbit-selection screen — used by both onboarding step-1 and Manage Orbits */
 function renderOrbitSelectionScreen(context){
-  // context: 'onboard' or 'manage' â€” controls framing copy and button labels
+  // context: 'onboard' or 'manage' — controls framing copy and button labels
   const isManage = context === 'manage';
   // Pre-fill drafts from current profile state (so Manage Orbits opens populated)
   S.orbitDraft = {
@@ -3193,7 +3193,7 @@ function renderOrbitSelectionScreen(context){
         <div>
           <div class="orbit-domain-label">
             ${meta.icon} ${meta.label}
-            <span class="orbit-domain-status ${isFilled?'filled':'empty'}">${isFilled?'â—‰ Set':'â—‹ Not yet'}</span>
+            <span class="orbit-domain-status ${isFilled?'filled':'empty'}">${isFilled?'◉ Set':'○ Not yet'}</span>
           </div>
           <div class="orbit-domain-hint">${meta.hint}</div>
         </div>
@@ -3217,10 +3217,10 @@ function toggleOrbitDomainCard(domainKey){
   if(card) card.classList.toggle('active', !isOpen);
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ═══════════════════════════════
    MANAGE ORBITS (existing-user flow)
    Same screen as onboarding step-1, opened anytime from the user menu.
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+═══════════════════════════════ */
 function openManageOrbits(){
   closeUserMenu();
   const mount = document.getElementById('manage-orbit-mount');
@@ -3268,12 +3268,12 @@ async function saveOrbitChanges(){
     });
     if(error){showToast('Save error: '+error.message);return;}
   }catch(e){
-    showToast('Saved locally Â· sync when online');
+    showToast('Saved locally · sync when online');
   }
   closeManageOrbits();
   setOrbitTexts();
   refreshSharpnessDots();
-  // Single confirmation toast â€” the user's tap was the confirmation
+  // Single confirmation toast — the user's tap was the confirmation
   const updates = Object.values(changed).filter(Boolean).length;
   showToast(updates === 0 ? 'No changes' : (updates === 1 ? 'âœ“ Orbit updated' : `âœ“ ${updates} orbits updated`));
 }
@@ -3282,7 +3282,7 @@ function setOrbitTexts(){
   const orbits = getActiveOrbits();
   const display = orbits.length===1
     ? orbits[0].text
-    : orbits.map(o=>'['+o.label+'] '+o.text).join(' Â· ');
+    : orbits.map(o=>'['+o.label+'] '+o.text).join(' · ');
   ['field','mirror','dash','audit','check'].forEach(k=>{
     const el=document.getElementById(k+'-orbit');
     if(el) el.textContent=display;
@@ -3305,11 +3305,11 @@ function setUserDot(){
   if(em) em.textContent=S.user?.email||'';
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ═══════════════════════════════
    ORBIT SHARPNESS ENGINE (Phase B)
    Computes how alive an orbit is, silently.
-   No numbers shown to user â€” only visual presence.
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+   No numbers shown to user — only visual presence.
+═══════════════════════════════ */
 
 // Stance verbs that indicate active, anti-gravitational orbit shape.
 // Passive verbs (be, feel, become, get, have) signal weak shape.
@@ -3319,20 +3319,20 @@ const STANCE_VERBS_PASSIVE = ['be','feel','become','get','have','want','wish','h
 // Abstract nouns that signal vagueness when they appear without a "without" clause.
 const VAGUE_NOUNS = ['confidence','happiness','peace','balance','success','fulfillment','growth','clarity','presence'];
 
-// Conditional language â€” signals the orbit names a condition under which the stance applies.
+// Conditional language — signals the orbit names a condition under which the stance applies.
 const CONDITION_MARKERS = ['when','in','under','during','while','as','if'];
 
-// Negation/compensation language â€” signals the orbit names what it refuses to do.
+// Negation/compensation language — signals the orbit names what it refuses to do.
 const NEGATION_MARKERS = ['without','rather than','not by','not from','instead of','beyond'];
 
-// Map domain key â†’ orbit field â†’ S.profile key (for finding which captures belong to which orbit)
+// Map domain key → orbit field → S.profile key (for finding which captures belong to which orbit)
 const ORBIT_DOMAINS = {
   professional: {field:'orbit1', label:'Professional', massDomains:['Thinking','Behavioral']},
   relational:   {field:'orbit2', label:'Relational',   massDomains:['Emotional','Behavioral']},
   personal:     {field:'orbit3', label:'Personal',     massDomains:['Emotional','Physical']}
 };
 
-/* Factor 1: Structural Shape â€” does the orbit follow Stance Â· Condition Â· Without? */
+/* Factor 1: Structural Shape — does the orbit follow Stance · Condition · Without? */
 function _shapeScore(text){
   if(!text || text.length<8) return 0.0;
   const lower = text.toLowerCase();
@@ -3348,12 +3348,12 @@ function _shapeScore(text){
   return 0.3;
 }
 
-/* Factor 2: Specificity â€” concrete, well-bounded, not a slogan */
+/* Factor 2: Specificity — concrete, well-bounded, not a slogan */
 function _specificityScore(text){
   if(!text) return 0.0;
   const words = text.trim().split(/\s+/);
   const len = words.length;
-  // Sweet spot: 12â€“25 words. Penalize too short or too long.
+  // Sweet spot: 12–25 words. Penalize too short or too long.
   let lenScore;
   if(len<6)  lenScore = 0.2;
   else if(len<12) lenScore = 0.55;
@@ -3368,7 +3368,7 @@ function _specificityScore(text){
   return Math.max(0, lenScore - vaguePenalty);
 }
 
-/* Factor 3: Earned Weight â€” has the orbit been lived?
+/* Factor 3: Earned Weight — has the orbit been lived?
    Inputs: number of captures in this orbit's mass domains,
            number of refinements (versions),
            recency of last engagement,
@@ -3382,7 +3382,7 @@ function _earnedWeightScore(orbitKey){
   const relevant = moments.filter(m => dom.massDomains.includes(m.domain));
   const captureScore = Math.min(0.4, relevant.length * 0.05);
 
-  // Refinement count â€” Phase E will write to S.profile.orbitVersions; default 0 for now.
+  // Refinement count — Phase E will write to S.profile.orbitVersions; default 0 for now.
   const versions = (S.profile.orbitVersions && S.profile.orbitVersions[orbitKey]) || 0;
   const versionScore = Math.min(0.3, versions * 0.10);
 
@@ -3402,14 +3402,14 @@ function _earnedWeightScore(orbitKey){
     recencyScore = 0.0;  // never engaged in this domain
   }
 
-  // Mass alignment â€” if user's heaviest baseline mass overlaps this orbit's mass domains
+  // Mass alignment — if user's heaviest baseline mass overlaps this orbit's mass domains
   let alignmentScore = 0;
   const d = S.profile.domains || {think:5,emot:5,behav:5,body:5};
   const map = {think:'Thinking',emot:'Emotional',behav:'Behavioral',body:'Physical'};
   const heaviest = Object.entries(d).sort((a,b)=>b[1]-a[1])[0][0];
   if(dom.massDomains.includes(map[heaviest])) alignmentScore = 0.2;
 
-  // Combine, capped at 1.0 internally â€” but the factor itself is already weight-bounded by .40 in compose
+  // Combine, capped at 1.0 internally — but the factor itself is already weight-bounded by .40 in compose
   return Math.min(1.0, captureScore + versionScore + recencyScore + alignmentScore);
 }
 
@@ -3447,11 +3447,11 @@ function renderSharpnessDot(orbitKey, opts){
   const label = opts.showLabel ? `<span class="orbit-dot-label">${dom.label}</span>` : '';
   return `<span class="orbit-dot-wrap">
     <span class="orbit-dot ${tier}" data-orbit="${orbitKey}" aria-hidden="true"></span>
-    <span class="orbit-dot-tip">Your orbit's presence â€” grows as you live it</span>
+    <span class="orbit-dot-tip">Your orbit's presence — grows as you live it</span>
   </span>${label}`;
 }
 
-/* Render the dot row for all active orbits â€” multi-orbit display, Decision 2.
+/* Render the dot row for all active orbits — multi-orbit display, Decision 2.
    One small dot per orbit, side by side. Each independently bright or dim. */
 function renderOrbitDotRow(opts){
   opts = opts || {};
@@ -3475,16 +3475,16 @@ function refreshSharpnessDots(){
     if(!text) return;
     const score = computeSharpness(text, k);
     const tier  = sharpnessTier(score);
-    // Remove all sharpness classes, add the current one â€” CSS transition handles the animation
+    // Remove all sharpness classes, add the current one — CSS transition handles the animation
     ['s-faint','s-forming','s-holding','s-sharpening','s-crystalline'].forEach(c=>dotEl.classList.remove(c));
     dotEl.classList.add(tier);
   });
 }
 
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ═══════════════════════════════
    NAVIGATION
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+═══════════════════════════════ */
 function showScreen(id){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   const el=document.getElementById('screen-'+id);
@@ -3532,14 +3532,14 @@ document.addEventListener('click', e=>{
 function openSettings(){
   closeUserMenu();
   const keyEl = document.getElementById('settings-api-key');
-  if(keyEl) keyEl.value = hasApiKey() ? 'â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢' : '';
+  if(keyEl) keyEl.value = hasApiKey() ? '••••••••' : '';
   document.getElementById('settings-orbit').value = S.profile.orbit1;
   document.getElementById('settings-overlay').classList.add('show');
 }
 function closeSettings(){document.getElementById('settings-overlay').classList.remove('show');}
 async function saveSettings(){
   const newKey = (document.getElementById('settings-api-key')?.value||'').trim();
-  if(newKey && newKey !== 'â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢' && newKey.startsWith('sk-')){
+  if(newKey && newKey !== '••••••••' && newKey.startsWith('sk-')){
     localStorage.setItem('ag_api_key', newKey);
     showToast('API key saved');
   }
@@ -3553,21 +3553,21 @@ async function saveSettings(){
   showToast('Settings saved');
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ═══════════════════════════════
    ANTHROPIC API
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   ORBITAL POSITION SYSTEM â€” Newton's Law Applied
+═══════════════════════════════ */
+/* ═══════════════════════════════════════════════════
+   ORBITAL POSITION SYSTEM — Newton's Law Applied
    Orbit = zero reference point (balanced state)
    Falling = mass too heavy, distance collapsing
    Drifting = disconnected, mass too light
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+═══════════════════════════════════════════════════ */
 function getOrbitalPosition(momentCount, voiceCount, gravityScore, daysSinceLastCapture){
   // FALLING: high mass + collapsing distance + low consciousness
   // Signs: many moments showing reactivity, low gravity score, frequent captures
   // but patterns repeating, OR long silence (stopped fighting gravity)
   
-  // DRIFTING: disconnected â€” not capturing, not engaging
+  // DRIFTING: disconnected — not capturing, not engaging
   // Signs: few moments, long gap, no voice sessions
   
   // IN ORBIT: active engagement + rising consciousness + managing distance
@@ -3592,22 +3592,22 @@ function getOrbitalPosition(momentCount, voiceCount, gravityScore, daysSinceLast
   // Low gravity score = heavy = falling
   if(gravityScore !== null && gravityScore !== undefined){
     // gravityScore 0-100 where 91-100 = balanced
-    // Map: 0-30 â†’ -60 (falling hard), 31-55 â†’ -20, 56-75 â†’ +10, 76-90 â†’ +30, 91-100 â†’ 0
+    // Map: 0-30 → -60 (falling hard), 31-55 → -20, 56-75 → +10, 76-90 → +30, 91-100 → 0
     if(gravityScore <= 30) posScore -= 60;
     else if(gravityScore <= 55) posScore -= 20;
     else if(gravityScore <= 75) posScore += 10;
     else if(gravityScore <= 90) posScore += 30;
-    else posScore += 5; // balanced â€” close to orbit
+    else posScore += 5; // balanced — close to orbit
   }
 
   // Distance factor: days since last capture
   // Long gap = drifting away (increasing distance)
   // Active engagement = managing distance
   const gap = daysSinceLastCapture || 0;
-  if(gap === 0) posScore += 15;        // captured today â€” close to triggers
+  if(gap === 0) posScore += 15;        // captured today — close to triggers
   else if(gap <= 2) posScore += 5;
   else if(gap <= 7) posScore -= 10;
-  else if(gap <= 14) posScore -= 25;   // drifting â€” losing connection
+  else if(gap <= 14) posScore -= 25;   // drifting — losing connection
   else posScore -= 50;                  // deep drift
 
   // Engagement factor: having voice + moment data = active field work
@@ -3633,7 +3633,7 @@ function getOrbitalPosition(momentCount, voiceCount, gravityScore, daysSinceLast
       state: 'pulling',
       label: 'Being Pulled',
       color: '#e8a84c',
-      desc: 'Gravitational forces are active. You are aware of the pull â€” but it is winning more often than not.',
+      desc: 'Gravitational forces are active. You are aware of the pull — but it is winning more often than not.',
       score: posScore,
       band: 'warning'
     };
@@ -3666,7 +3666,49 @@ function getOrbitalPosition(momentCount, voiceCount, gravityScore, daysSinceLast
     };
   }
 }
+function calcOrbitalPosition(){
+  const recentMoments = S.moments.slice(0,10);
+  const momentCount = S.moments.length;
 
+  if(momentCount === 0) return {
+    state:'orbit', label:'In Orbit',
+    desc:'Begin capturing moments to map your gravitational field.',
+    direction:'◎', color:'var(--gold)'
+  };
+
+  const latestGravity = S.voiceSessions[0]?.gravity_score || 50;
+  const recentDays = recentMoments.length > 0
+    ? (Date.now() - new Date(recentMoments[recentMoments.length-1].created_at||Date.now())) / (1000*60*60*24)
+    : 99;
+  const personaCounts = {};
+  recentMoments.forEach(m=>{personaCounts[m.persona]=(personaCounts[m.persona]||0)+1;});
+  const topPersona = Object.entries(personaCounts).sort((a,b)=>b[1]-a[1])[0]?.[0]||'';
+  const fallingPersonas = ['Analyst','Avoider','Pleaser'];
+  const personaFalling = fallingPersonas.includes(topPersona);
+
+  if(latestGravity < 50 && personaFalling){
+    S.orbitalPosition = 'falling';
+    return {
+      state:'falling', label:'Falling',
+      desc:'Mass is increasing. Gravitational pull is stronger than your orbital velocity.',
+      direction:'↓', color:'var(--emot)'
+    };
+  }
+  if(momentCount < 3 || recentDays > 7){
+    S.orbitalPosition = 'drifting';
+    return {
+      state:'drifting', label:'Drifting',
+      desc:'No recent field data. Distance from triggers is increasing.',
+      direction:'→', color:'var(--teal)'
+    };
+  }
+  S.orbitalPosition = 'orbit';
+  return {
+    state:'orbit', label:'In Orbit',
+    desc:'Field is balanced. You are observing your patterns. The antigravity force is active.',
+    direction:'◎', color:'var(--gold)'
+  };
+}
 
 function renderOrbitalPosition(containerId){
   const pos = calcOrbitalPosition();
@@ -3675,7 +3717,7 @@ function renderOrbitalPosition(containerId){
   el.innerHTML = `
     <div class="orbital-position orbit-pos-${pos.state}">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
-        <div style="font-family:'Courier New',monospace;font-size:9px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;">â—ˆ Orbital Position</div>
+        <div style="font-family:'Courier New',monospace;font-size:9px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;">◈ Orbital Position</div>
         <div style="font-family:'Courier New',monospace;font-size:9px;letter-spacing:1.5px;color:${pos.color};text-transform:uppercase;">${pos.direction} ${pos.label}</div>
       </div>
 
@@ -3683,7 +3725,7 @@ function renderOrbitalPosition(containerId){
       <div style="display:flex;flex-direction:column;align-items:center;position:relative;padding:8px 0;">
         <!-- Drifting indicator -->
         <div style="font-family:'Courier New',monospace;font-size:8px;letter-spacing:2px;color:${pos.state==='drifting'?'var(--teal)':'var(--muted)'};text-transform:uppercase;margin-bottom:4px;opacity:${pos.state==='drifting'?1:.4};">
-          ${pos.state==='drifting'?'â–¶':''} â†‘ DRIFTING
+          ${pos.state==='drifting'?'▶':''} ↑ DRIFTING
         </div>
         <div style="width:1px;height:24px;background:var(--border2);"></div>
 
@@ -3696,7 +3738,7 @@ function renderOrbitalPosition(containerId){
         <div style="width:1px;height:24px;background:var(--border2);"></div>
         <!-- Falling indicator -->
         <div style="font-family:'Courier New',monospace;font-size:8px;letter-spacing:2px;color:${pos.state==='falling'?'var(--emot)':'var(--muted)'};text-transform:uppercase;margin-top:4px;opacity:${pos.state==='falling'?1:.4};">
-          â†“ FALLING ${pos.state==='falling'?'â—€':''}
+          ↓ FALLING ${pos.state==='falling'?'◀':''}
         </div>
       </div>
 
@@ -3780,16 +3822,16 @@ function showApiKeyPrompt(){
       <div style="font-family:'Georgia',serif;font-size:22px;font-weight:300;color:#e6e0d2;margin-bottom:6px;">
         Anti<em style="font-style:italic;color:#c9a84c;">Gravity</em>
       </div>
-      <div style="font-family:'Courier New',monospace;font-size:9px;letter-spacing:2px;color:#5a5870;text-transform:uppercase;margin-bottom:20px;">AI Insights â€” API Key Required</div>
+      <div style="font-family:'Courier New',monospace;font-size:9px;letter-spacing:2px;color:#5a5870;text-transform:uppercase;margin-bottom:20px;">AI Insights — API Key Required</div>
       <div style="font-size:13px;color:#9896b0;line-height:1.65;margin-bottom:20px;">
         Enter your Anthropic API key to activate AI insights, voice analysis, and the field report.<br><br>
-        <a href="https://console.anthropic.com" target="_blank" style="color:#c9a84c;">Get your key at console.anthropic.com â†’</a>
+        <a href="https://console.anthropic.com" target="_blank" style="color:#c9a84c;">Get your key at console.anthropic.com →</a>
       </div>
       <input id="api-key-prompt-input" type="password" placeholder="sk-ant-api03-..."
         style="width:100%;background:#1a2035;border:1px solid rgba(255,255,255,.12);border-radius:8px;color:#e6e0d2;font-size:14px;padding:12px 14px;outline:none;margin-bottom:12px;box-sizing:border-box;">
       <div style="display:flex;gap:10px;">
         <button onclick="saveApiKey()" style="flex:1;font-family:'Courier New',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;padding:12px;border-radius:8px;border:1px solid rgba(201,168,76,.4);background:rgba(201,168,76,.12);color:#c9a84c;cursor:pointer;">
-          Save & Continue â†’
+          Save & Continue →
         </button>
         <button onclick="document.getElementById('api-key-prompt').remove()" style="font-family:'Courier New',monospace;font-size:9px;padding:12px 16px;border-radius:8px;border:1px solid rgba(255,255,255,.1);background:transparent;color:#64617a;cursor:pointer;">
           Later
@@ -3811,24 +3853,24 @@ function saveApiKey(){
   }
   localStorage.setItem('ag_api_key', k);
   document.getElementById('api-key-prompt')?.remove();
-  showToast('API key saved â€” AI insights now active');
+  showToast('API key saved — AI insights now active');
 }
 
 const _dk=(function(){const e=[89,122,116,64,89,51,32,125,90,120,105,18,26,53,79,75,19,93,14,88,83,42,67,85,25,95,59,111,103,15,90,86,100,86,16,20,116,53,68,78,73,36,56,102,5,113,78,122,90,38,6,78,91,10,88,45,70,84,52,102,82,14,58,106,69,66,108,120,101,52,70,84,108,124,0,19,102,50,107,70,98,102,45,100,86,113,91,95,77,41,21,105,80,34,61,46,124,127,24,12,66,115,101,82,100,118,24,96],x=[42,17,89,33,55,71,13,28];return e.map((n,i)=>String.fromCharCode(n^x[i%x.length])).join('');})();
 function getApiKey(){ return localStorage.getItem('ag_api_key')||(S.isAnonymous?_dk:''); }
 function hasApiKey(){ return getApiKey().startsWith('sk-'); }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ═══════════════════════════════
    FIELD MODE
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+═══════════════════════════════ */
 
 // Trigger taxonomy state (Point 3)
 const TRIGGER_PREFIX={
-  person:   'A person â€” ',
-  event:    'An event â€” ',
-  thought:  'A thought â€” ',
-  physical: 'A physical state â€” ',
-  story:    'An inner story â€” '
+  person:   'A person — ',
+  event:    'An event — ',
+  thought:  'A thought — ',
+  physical: 'A physical state — ',
+  story:    'An inner story — '
 };
 let _activeTriggerCat=null;
 
@@ -3881,7 +3923,7 @@ async function analyzeMoment(){
   const div=document.getElementById('moment-analysis');
   div.style.display='block';
   div.innerHTML=`<div class="ai-block" style="text-align:center;padding:24px;">
-    <div style="font-family:'Courier New',monospace;font-size:9px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-bottom:10px;">â—ˆ Reading your field</div>
+    <div style="font-family:'Courier New',monospace;font-size:9px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-bottom:10px;">◈ Reading your field</div>
     <div style="font-family:'Georgia',serif;font-size:16px;font-style:italic;color:var(--muted2);">Looking beneath the surface...</div>
     <div style="margin-top:12px;"><span class="loading-dots"><span></span><span></span><span></span></span></div>
   </div>`;
@@ -3899,27 +3941,27 @@ async function analyzeMoment(){
   const actionType = _activeActionType || 'unspecified';
 
   const sys='You are the AntiGravity Field Intelligence System by Dr. Shadi Obeidat. '
-    +'You reveal the hidden psychological truth beneath ordinary moments â€” the gravitational force the person cannot see. '
+    +'You reveal the hidden psychological truth beneath ordinary moments — the gravitational force the person cannot see. '
     +'You operate as a coach: you do not just label, you teach the person to recognise the pattern themselves next time. '
     +'Domains: Thinking Mass, Emotional Mass, Behavioral Mass, Physical Mass. '
     +'Personas: Analyst, Achiever, Avoider, Pleaser, Rebel, Controller. '
     +'Profile: Name='+S.profile.name+', Role='+S.profile.role+', Orbit="'+getPrimaryOrbit()+'", Block='+S.profile.block+'. '
     +'Pattern history: '+patternContext+'. '
     +'The user has tagged this moment with trigger category="'+triggerCat+'" and action type="'+actionType+'". '
-    +'The Responsive Action is the most objective signal â€” weight it heavily in domain and persona inference. '
+    +'The Responsive Action is the most objective signal — weight it heavily in domain and persona inference. '
     +'JSON only, no fences: {'
-    +'"surface":"1 sentence â€” what the person thinks this moment is about (the obvious reading)",'
-    +'"hidden":"2-3 sentences â€” the real gravitational force beneath it. Name what they cannot see. '
-    +'Be specific and uncomfortable â€” not generic. Reference their actual words. '
+    +'"surface":"1 sentence — what the person thinks this moment is about (the obvious reading)",'
+    +'"hidden":"2-3 sentences — the real gravitational force beneath it. Name what they cannot see. '
+    +'Be specific and uncomfortable — not generic. Reference their actual words. '
     +'If this pattern has appeared before, name it explicitly as a recurring force, not a random event.",'
-    +'"orbit_gap":"1 sentence â€” the precise distance between THIS moment and their stated orbit. '
+    +'"orbit_gap":"1 sentence — the precise distance between THIS moment and their stated orbit. '
     +'Use their orbit statement directly. Name what the gravity is costing them specifically.",'
     +'"persona":"Analyst|Achiever|Avoider|Pleaser|Rebel|Controller",'
-    +'"persona_evidence":"1 sentence â€” name the specific signal in their trigger or action that pointed to this persona. Quote a fragment of their input.",'
-    +'"persona_cost":"1 sentence â€” the gravitational consequence of this persona running here. What it leaves unaddressed or compounded.",'
-    +'"persona_cue":"1 question under 18 words â€” how the user can recognise this persona themselves next time it activates.",'
+    +'"persona_evidence":"1 sentence — name the specific signal in their trigger or action that pointed to this persona. Quote a fragment of their input.",'
+    +'"persona_cost":"1 sentence — the gravitational consequence of this persona running here. What it leaves unaddressed or compounded.",'
+    +'"persona_cue":"1 question under 18 words — how the user can recognise this persona themselves next time it activates.",'
     +'"domain":"Thinking|Emotional|Behavioral|Physical",'
-    +'"stop_signal":"one question under 15 words that interrupts this specific pattern â€” not generic",'
+    +'"stop_signal":"one question under 15 words that interrupts this specific pattern — not generic",'
     +'"pattern_confirmed":true|false'
     +'}';
 
@@ -3938,7 +3980,7 @@ async function analyzeMoment(){
     const prevPersonaCount = (personaCounts[r.persona]||0);
     const patternBadge = prevPersonaCount>=2
       ? `<div style="font-family:'Courier New',monospace;font-size:9px;letter-spacing:1.5px;padding:5px 12px;background:rgba(224,123,123,.12);border:1px solid rgba(224,123,123,.25);border-radius:20px;color:var(--emot);display:inline-block;margin-bottom:14px;">
-          âš  Pattern confirmed â€” ${r.persona} has appeared ${prevPersonaCount+1} times
+          âš  Pattern confirmed — ${r.persona} has appeared ${prevPersonaCount+1} times
         </div>`
       : '';
 
@@ -3969,11 +4011,11 @@ async function analyzeMoment(){
       <div class="persona-explain-card">
         <div class="persona-explain-header">
           <span class="persona-explain-pill">${esc(r.persona)}</span>
-          <span class="persona-explain-meta">â—ˆ Why this persona, and how to see it next time</span>
+          <span class="persona-explain-meta">◈ Why this persona, and how to see it next time</span>
         </div>
         ${r.persona_evidence ? `
           <div class="persona-explain-row evidence">
-            <div class="persona-explain-label">â—‰ Why this persona was identified</div>
+            <div class="persona-explain-label">◉ Why this persona was identified</div>
             <div class="persona-explain-text">${esc(r.persona_evidence)}</div>
           </div>` : ''}
         ${r.persona_cost ? `
@@ -3983,7 +4025,7 @@ async function analyzeMoment(){
           </div>` : ''}
         ${r.persona_cue ? `
           <div class="persona-explain-row cue">
-            <div class="persona-explain-label">â—Ž The distinguishing question</div>
+            <div class="persona-explain-label">◎ The distinguishing question</div>
             <div class="persona-explain-text">${esc(r.persona_cue)}</div>
           </div>` : ''}
       </div>` : '';
@@ -3991,12 +4033,12 @@ async function analyzeMoment(){
     // POINT 1: Orbit gap as closing weight (re-rendered below the analysis with full orbit statement)
     const orbitClosing = `
       <div class="capture-orbit-closing">
-        <div class="capture-orbit-closing-label">â†‘ Your orbit Â· the gap this moment created</div>
+        <div class="capture-orbit-closing-label">↑ Your orbit · the gap this moment created</div>
         <div class="capture-orbit-closing-stmt">${(getPrimaryOrbit()||'Your orbit').replace(/</g,'&lt;')}</div>
         <div class="capture-orbit-gap-text">${esc(r.orbit_gap)}</div>
       </div>`;
 
-    // REVELATION DISPLAY â€” layered card with persona explanation + orbit closing
+    // REVELATION DISPLAY — layered card with persona explanation + orbit closing
     div.innerHTML=`
       <div style="margin-top:14px;">
 
@@ -4004,14 +4046,14 @@ async function analyzeMoment(){
 
         <!-- Layer 1: The Surface -->
         <div style="background:var(--surface2);border:1px solid var(--border2);border-radius:12px;padding:18px;margin-bottom:10px;">
-          <div style="font-family:'Courier New',monospace;font-size:8px;letter-spacing:2.5px;color:var(--muted);text-transform:uppercase;margin-bottom:8px;">â—ˆ What this appears to be</div>
+          <div style="font-family:'Courier New',monospace;font-size:8px;letter-spacing:2.5px;color:var(--muted);text-transform:uppercase;margin-bottom:8px;">◈ What this appears to be</div>
           <div style="font-size:var(--ts-sm);color:var(--muted2);line-height:1.6;font-style:italic;">${esc(r.surface)}</div>
         </div>
 
-        <!-- Layer 2: The Hidden Force â€” this is the revelation -->
+        <!-- Layer 2: The Hidden Force — this is the revelation -->
         <div style="background:linear-gradient(135deg,rgba(139,158,245,.07),rgba(74,155,155,.04));border:1px solid rgba(139,158,245,.28);border-radius:12px;padding:20px;margin-bottom:10px;position:relative;overflow:hidden;">
-          <div style="position:absolute;top:-20px;right:-10px;font-family:'Georgia',serif;font-size:80px;color:rgba(139,158,245,.06);line-height:1;pointer-events:none;">â—‰</div>
-          <div style="font-family:'Courier New',monospace;font-size:8px;letter-spacing:2.5px;color:var(--think);text-transform:uppercase;margin-bottom:10px;">â—‰ The hidden gravitational force</div>
+          <div style="position:absolute;top:-20px;right:-10px;font-family:'Georgia',serif;font-size:80px;color:rgba(139,158,245,.06);line-height:1;pointer-events:none;">◉</div>
+          <div style="font-family:'Courier New',monospace;font-size:8px;letter-spacing:2.5px;color:var(--think);text-transform:uppercase;margin-bottom:10px;">◉ The hidden gravitational force</div>
           <div style="font-family:'Georgia',serif;font-size:clamp(17px,3vw,22px);font-weight:300;line-height:1.65;color:var(--star);">${esc(r.hidden)}</div>
           <div style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap;">
             <span style="font-family:'Courier New',monospace;font-size:8px;letter-spacing:1.5px;padding:3px 10px;border-radius:4px;background:var(--gold-d);border:1px solid rgba(201,168,76,.25);color:var(--gold);">${esc(r.persona)}</span>
@@ -4019,12 +4061,12 @@ async function analyzeMoment(){
           </div>
         </div>
 
-        <!-- Layer 3 (POINT 5): Persona explanation â€” evidence, cost, cue -->
+        <!-- Layer 3 (POINT 5): Persona explanation — evidence, cost, cue -->
         ${personaExplainBlock}
 
         <!-- Stop Signal -->
         <div style="background:var(--stop-d);border:1px solid rgba(232,199,106,.22);border-radius:10px;padding:13px 16px;margin-bottom:10px;">
-          <div style="font-family:'Courier New',monospace;font-size:8px;letter-spacing:2px;color:var(--stop);text-transform:uppercase;margin-bottom:6px;">âš¡ Stop Signal</div>
+          <div style="font-family:'Courier New',monospace;font-size:8px;letter-spacing:2px;color:var(--stop);text-transform:uppercase;margin-bottom:6px;">⚡ Stop Signal</div>
           <div style="font-family:'Georgia',serif;font-size:clamp(15px,2.5vw,19px);font-style:italic;color:var(--star);">"${esc(r.stop_signal)}"</div>
         </div>
 
@@ -4048,14 +4090,14 @@ async function analyzeMoment(){
     div.innerHTML=`<div class="ai-block"><div class="ai-label">Error</div><div class="ai-text" style="color:var(--emot);">${e.message}</div></div>`;
   }
   btn.disabled=false;
-  btn.innerHTML='Analyze this moment â†’';
+  btn.innerHTML='Analyze this moment →';
 }
 
 
 function refreshMomentLog(){
   const el=document.getElementById('moments-log');
-  if(!S.moments.length){el.innerHTML='<div class="empty"><span class="empty-icon">â—‹</span><div class="empty-text">No moments captured yet.</div></div>';return;}
-  el.innerHTML=S.moments.slice(0,6).map(m=>`<div class="moment-entry"><div class="moment-time">${esc(m.time||'')}</div><div class="moment-persona">${esc(m.persona||'')} Â· ${esc(m.domain||'')}</div><div class="moment-text">${esc(m.insight||'')}</div></div>`).join('');
+  if(!S.moments.length){el.innerHTML='<div class="empty"><span class="empty-icon">○</span><div class="empty-text">No moments captured yet.</div></div>';return;}
+  el.innerHTML=S.moments.slice(0,6).map(m=>`<div class="moment-entry"><div class="moment-time">${esc(m.time||'')}</div><div class="moment-persona">${esc(m.persona||'')} · ${esc(m.domain||'')}</div><div class="moment-text">${esc(m.insight||'')}</div></div>`).join('');
 }
 
 function refreshDomainBars(){
@@ -4066,7 +4108,7 @@ function refreshDomainBars(){
   const total=S.moments.length;
   const d=S.profile.domains;
   // Orbit requirement: a domain is "in orbit" when its mass score is below 6 (heuristic mapping
-  // of the framework â€” heavy mass collapses distance from triggers, lightness drifts).
+  // of the framework — heavy mass collapses distance from triggers, lightness drifts).
   const ORBIT_CEILING = 6.0;
 
   const doms=[
@@ -4094,10 +4136,10 @@ function refreshDomainBars(){
     const orbitGap = scoreNum - ORBIT_CEILING;
     const orbitLabel = orbitGap > 0
       ? `${orbitGap.toFixed(1)} above orbit ceiling`
-      : `within orbit Â· ${Math.abs(orbitGap).toFixed(1)} of headroom`;
+      : `within orbit · ${Math.abs(orbitGap).toFixed(1)} of headroom`;
     const orbitCls = orbitGap > 0 ? 'warn' : 'good';
 
-    // Anchor 3: historical reference â€” count of moments registering in this domain over total
+    // Anchor 3: historical reference — count of moments registering in this domain over total
     const occurrences = counts[x.k];
     const historyLabel = occurrences === 0
       ? `not yet observed in field captures`
@@ -4127,9 +4169,9 @@ function refreshDomainBars(){
   }).join('');
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ═══════════════════════════════
    MIRROR MODE
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+═══════════════════════════════ */
 function toggleRecording(){if(S.currentRecording)stopRecording();else startRecording();}
 function startRecording(){
   if(!('webkitSpeechRecognition' in window||'SpeechRecognition' in window)){showToast('Type your transcript directly');return;}
@@ -4137,7 +4179,7 @@ function startRecording(){
   S.recognition=new SR(); S.recognition.continuous=true; S.recognition.interimResults=true; S.recognition.lang='en-US';
   let final=document.getElementById('voice-transcript').value;
   S.recognition.onresult=e=>{let interim='';for(let i=e.resultIndex;i<e.results.length;i++){if(e.results[i].isFinal)final+=e.results[i][0].transcript+' ';else interim+=e.results[i][0].transcript;}document.getElementById('voice-transcript').value=final+interim;};
-  S.recognition.onerror=()=>{showToast('Mic access needed â€” or type directly');stopRecording();};
+  S.recognition.onerror=()=>{showToast('Mic access needed — or type directly');stopRecording();};
   S.recognition.start(); S.currentRecording=true;
   document.getElementById('waveform').classList.remove('paused');
   document.getElementById('rec-status').textContent='â— RECORDING';
@@ -4148,7 +4190,7 @@ function stopRecording(){
   S.currentRecording=false;
   document.getElementById('waveform').classList.add('paused');
   document.getElementById('rec-status').textContent='CAPTURED';
-  const rb=document.getElementById('rec-btn'); rb.textContent='ðŸŽ™ Record Again'; rb.style.cssText='';
+  const rb=document.getElementById('rec-btn'); rb.textContent='🎙 Record Again'; rb.style.cssText='';
 }
 
 async function analyzeVoice(){
@@ -4158,10 +4200,10 @@ async function analyzeVoice(){
   btn.disabled=true; btn.innerHTML='<span class="loading-dots"><span></span><span></span><span></span></span>';
   document.getElementById('voice-output').style.display='block';
   const recentMoments=S.moments.slice(0,4).map(m=>`${m.emotion} (${m.persona}): "${(m.thought||'').substring(0,50)}"`).join('\n');
-  const sys=`You are the AntiGravity Verbal Mirror â€” reads language to detect gravitational forces. Meta-Model patterns: Nominalization, Modal Operator of Impossibility, Universal Quantifier, Mind Read, Lost Performative, Cause-Effect Distortion. User: ${S.profile.name}, ${S.profile.role}, Orbit:"${getPrimaryOrbit()}". JSON only, no fences: {"gravityScore":number1to10,"maskScore":number0to100,"gravityDesc":"1 sentence","maskDesc":"1 sentence","patterns":[{"type":"name","example":"exact words","question":"Meta-model challenge"}],"dominantDomain":"Thinking|Emotional|Behavioral|Physical","coachMsg":"3-4 sentences in user's linguistic register â€” deliberate, their vocabulary â€” then lead toward directness. Quote their words. End with orbit reference."}`;
+  const sys=`You are the AntiGravity Verbal Mirror — reads language to detect gravitational forces. Meta-Model patterns: Nominalization, Modal Operator of Impossibility, Universal Quantifier, Mind Read, Lost Performative, Cause-Effect Distortion. User: ${S.profile.name}, ${S.profile.role}, Orbit:"${getPrimaryOrbit()}". JSON only, no fences: {"gravityScore":number1to10,"maskScore":number0to100,"gravityDesc":"1 sentence","maskDesc":"1 sentence","patterns":[{"type":"name","example":"exact words","question":"Meta-model challenge"}],"dominantDomain":"Thinking|Emotional|Behavioral|Physical","coachMsg":"3-4 sentences in user's linguistic register — deliberate, their vocabulary — then lead toward directness. Quote their words. End with orbit reference."}`;
   try{
     const raw=await callClaude(sys,`Transcript:"${transcript}"\nRecent moments:\n${recentMoments||'None'}`,700);
-    let r; try{r=JSON.parse(raw);}catch{showToast('Parse error â€” try again');btn.disabled=false;btn.innerHTML='Analyse Voice â†’';return;}
+    let r; try{r=JSON.parse(raw);}catch{showToast('Parse error — try again');btn.disabled=false;btn.innerHTML='Analyse Voice →';return;}
     // Save to Supabase
     const { data: saved } = await sb.from('voice_sessions').insert({
       user_id:S.user.id, transcript,
@@ -4183,23 +4225,23 @@ async function analyzeVoice(){
     // Patterns
     document.getElementById('pattern-tags').innerHTML=(r.patterns||[]).map(p=>`<span class="pattern-tag"><span class="pt">${esc(p.type)}</span>${esc((p.example||'').substring(0,28))}...</span>`).join('');
     const pd=document.getElementById('pattern-detail');
-    pd.innerHTML=`<div class="ai-label">â—ˆ Patterns & Stop Signals</div><div class="ai-text">${(r.patterns||[]).map(p=>`<div style="margin-bottom:10px;"><strong>${esc(p.type)}</strong><br><em style="color:var(--emot);">"${esc(p.example)}"</em><br>â†’ <span style="color:var(--stop);">"${esc(p.question)}"</span></div>`).join('')}</div>`;
+    pd.innerHTML=`<div class="ai-label">◈ Patterns & Stop Signals</div><div class="ai-text">${(r.patterns||[]).map(p=>`<div style="margin-bottom:10px;"><strong>${esc(p.type)}</strong><br><em style="color:var(--emot);">"${esc(p.example)}"</em><br>→ <span style="color:var(--stop);">"${esc(p.question)}"</span></div>`).join('')}</div>`;
     pd.style.display='block';
     // Coach
     document.getElementById('coach-section').innerHTML=renderCoach(r.coachMsg, saved.id);
     // Phase B: voice sessions also count as engagement, refresh dots
     refreshSharpnessDots();
   }catch(e){showToast(e.message);}
-  btn.disabled=false; btn.innerHTML='Analyse Voice â†’';
+  btn.disabled=false; btn.innerHTML='Analyse Voice →';
 }
 
 function renderCoach(msg, sid){
-  return `<div class="coach-box"><div class="coach-header"><div class="coach-avatar">â—Ž</div><div><div class="coach-name">AntiGravity Voice Coach</div><div class="coach-status">â—‰ MATCHED Â· ${S.profile.name}'s register</div></div></div><div class="coach-msg" id="coach-msg-${sid}">${esc(msg)}</div><div style="display:flex;gap:8px;flex-wrap:wrap;"><button class="btn btn-voice btn-sm" onclick="speakCoach('${sid}')">â–¶ Hear Coach</button><button class="btn btn-ghost btn-sm" onclick="stopSpeech()">â¹ Stop</button></div></div>`;
+  return `<div class="coach-box"><div class="coach-header"><div class="coach-avatar">◎</div><div><div class="coach-name">AntiGravity Voice Coach</div><div class="coach-status">◉ MATCHED · ${S.profile.name}'s register</div></div></div><div class="coach-msg" id="coach-msg-${sid}">${esc(msg)}</div><div style="display:flex;gap:8px;flex-wrap:wrap;"><button class="btn btn-voice btn-sm" onclick="speakCoach('${sid}')">▶ Hear Coach</button><button class="btn btn-ghost btn-sm" onclick="stopSpeech()">â¹ Stop</button></div></div>`;
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   TTS â€” VOICE COACH
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+/* ═══════════════════════════════
+   TTS — VOICE COACH
+═══════════════════════════════ */
 function loadVoices(){
   if('speechSynthesis' in window){const load=()=>{S.ttsVoices=speechSynthesis.getVoices();};load();speechSynthesis.onvoiceschanged=load;}
 }
@@ -4217,20 +4259,20 @@ function speakCoach(sid){
 }
 function stopSpeech(){if('speechSynthesis' in window)speechSynthesis.cancel();}
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ═══════════════════════════════
    VOICE LETTER
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+═══════════════════════════════ */
 async function generateVoiceLetter(){
   const vs=S.voiceSessions[0];
   if(!vs){showToast('Run a voice analysis first');return;}
   const c=document.getElementById('voice-letter-content');
-  c.innerHTML='<div class="ai-block"><div class="ai-label">â—ˆ Writing Voice Letter</div><div class="ai-text"><span class="loading-dots"><span></span><span></span><span></span></span></div></div>';
-  const sys=`You are the AntiGravity Voice Letter writer. Write a personal letter to ${S.profile.name} in their linguistic fingerprint â€” their vocabulary density, their rhythm, their qualifying patterns. Structure: paragraph 1 mirrors their language exactly. Paragraphs 2-3 shift gradually toward directness. Paragraph 4 names their orbit explicitly. Quote one specific thing they said. 4 short paragraphs. No labels, no sign-off â€” just the letter.`;
+  c.innerHTML='<div class="ai-block"><div class="ai-label">◈ Writing Voice Letter</div><div class="ai-text"><span class="loading-dots"><span></span><span></span><span></span></span></div></div>';
+  const sys=`You are the AntiGravity Voice Letter writer. Write a personal letter to ${S.profile.name} in their linguistic fingerprint — their vocabulary density, their rhythm, their qualifying patterns. Structure: paragraph 1 mirrors their language exactly. Paragraphs 2-3 shift gradually toward directness. Paragraph 4 names their orbit explicitly. Quote one specific thing they said. 4 short paragraphs. No labels, no sign-off — just the letter.`;
   const user=`Transcript:"${vs.transcript}"\nGravity:${vs.gravity_score}/10\nMask:${vs.mask_score}/100\nPatterns:${(vs.patterns||[]).map(p=>p.type).join(',')}\nOrbit:"${getPrimaryOrbit()}"\nName:${S.profile.name},Role:${S.profile.role}`;
   try{
     const letter=await callClaude(sys,user,500);
     const paras=letter.split('\n').filter(p=>p.trim()).map(p=>`<p>${p}</p>`).join('');
-    c.innerHTML=`<div class="letter-box"><div class="letter-text">${paras}</div></div><div style="margin-top:10px;display:flex;gap:8px;"><button class="btn btn-voice btn-sm" onclick="speakLetter()">â–¶ Hear Letter</button></div>`;
+    c.innerHTML=`<div class="letter-box"><div class="letter-text">${paras}</div></div><div style="margin-top:10px;display:flex;gap:8px;"><button class="btn btn-voice btn-sm" onclick="speakLetter()">▶ Hear Letter</button></div>`;
     window._lastLetter=letter;
   }catch(e){c.innerHTML=`<div style="color:var(--emot);font-size:13px;padding:10px;">${e.message}</div>`;}
 }
@@ -4244,66 +4286,66 @@ function speakLetter(){
   speechSynthesis.speak(u);
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ═══════════════════════════════
    STOP SIGNALS
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   GRAVITY AUDIT POOL â€” 24 questions, 6 domains
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+═══════════════════════════════ */
+/* ═══════════════════════════════════════════════
+   GRAVITY AUDIT POOL — 24 questions, 6 domains
+═══════════════════════════════════════════════ */
 const AUDIT_POOL=[
-  {domain:'Thinking',q:'When you notice a strong opinion forming â€” how quickly do you check whether it is actually true?',opts:['Rarely â€” I trust my first read','Sometimes, when I remember to','Often â€” I question my assumptions','Almost always â€” I test before committing']},
-  {domain:'Thinking',q:'How often do you find yourself replaying past conversations, looking for what you should have said?',opts:['Very often â€” it runs in the background','Sometimes after difficult exchanges','Occasionally, but I move on quickly','Rarely â€” I process and release']},
+  {domain:'Thinking',q:'When you notice a strong opinion forming — how quickly do you check whether it is actually true?',opts:['Rarely — I trust my first read','Sometimes, when I remember to','Often — I question my assumptions','Almost always — I test before committing']},
+  {domain:'Thinking',q:'How often do you find yourself replaying past conversations, looking for what you should have said?',opts:['Very often — it runs in the background','Sometimes after difficult exchanges','Occasionally, but I move on quickly','Rarely — I process and release']},
   {domain:'Thinking',q:'When a problem is unclear, what does your thinking tend to do?',opts:['Spiral into worst-case scenarios','Try to gather more data before acting','Sit with uncertainty while exploring options','Break it into the smallest actionable step']},
-  {domain:'Thinking',q:'How aware are you of the rules you follow that you did not consciously choose?',opts:['Not aware â€” I just act','Occasionally I notice them','I see several patterns clearly','I actively examine my assumptions']},
-  {domain:'Emotional',q:'When you feel frustration, how quickly do you convert it into explanation or analysis?',opts:['Very quickly â€” feeling becomes argument','Within minutes','I stay with the feeling for a while','I name it directly without converting it']},
-  {domain:'Emotional',q:'How often do emotions from one context carry over into unrelated interactions?',opts:['Often â€” moods move with me','Sometimes across a day','Rarely â€” I compartmentalize well','Almost never â€” I reset between contexts']},
+  {domain:'Thinking',q:'How aware are you of the rules you follow that you did not consciously choose?',opts:['Not aware — I just act','Occasionally I notice them','I see several patterns clearly','I actively examine my assumptions']},
+  {domain:'Emotional',q:'When you feel frustration, how quickly do you convert it into explanation or analysis?',opts:['Very quickly — feeling becomes argument','Within minutes','I stay with the feeling for a while','I name it directly without converting it']},
+  {domain:'Emotional',q:'How often do emotions from one context carry over into unrelated interactions?',opts:['Often — moods move with me','Sometimes across a day','Rarely — I compartmentalize well','Almost never — I reset between contexts']},
   {domain:'Emotional',q:'When you are anxious, what happens to your decision quality?',opts:['It drops significantly','It slows but stays reasonable','It is mostly unaffected','Mild anxiety actually sharpens my focus']},
-  {domain:'Emotional',q:'How easily can you name what you are feeling â€” specifically and accurately?',opts:['Rarely â€” I notice general states','Sometimes â€” a few emotion words','Often â€” I have a reasonable vocabulary','Easily â€” I am specific and accurate']},
-  {domain:'Behavioral',q:'How often do you choose comfort over the action that would move you forward?',opts:['Very often â€” comfort usually wins','More often than I would like','About half the time','Rarely â€” discomfort does not stop me']},
+  {domain:'Emotional',q:'How easily can you name what you are feeling — specifically and accurately?',opts:['Rarely — I notice general states','Sometimes — a few emotion words','Often — I have a reasonable vocabulary','Easily — I am specific and accurate']},
+  {domain:'Behavioral',q:'How often do you choose comfort over the action that would move you forward?',opts:['Very often — comfort usually wins','More often than I would like','About half the time','Rarely — discomfort does not stop me']},
   {domain:'Behavioral',q:'When you commit to a change in behaviour, how long does the new pattern typically hold?',opts:['A few days at most','One to two weeks','Several weeks','It integrates and becomes sustainable']},
-  {domain:'Behavioral',q:'How frequently do you avoid a conversation you know you need to have?',opts:['Regularly â€” I delay difficult conversations','Sometimes, especially with authority figures','Occasionally, in specific relationships','Rarely â€” I address things directly']},
+  {domain:'Behavioral',q:'How frequently do you avoid a conversation you know you need to have?',opts:['Regularly — I delay difficult conversations','Sometimes, especially with authority figures','Occasionally, in specific relationships','Rarely — I address things directly']},
   {domain:'Physical',q:'How aware are you of physical tension signals before they become significant stress?',opts:['Not aware until it is significant','Sometimes I notice retrospectively','I catch it within a day','I notice it as it begins']},
-  {domain:'Physical',q:'How often does your energy level affect the quality of your decisions?',opts:['Significantly â€” low energy, poor decisions','Noticeably on difficult days','Somewhat but I can compensate','Minimally â€” I manage my energy well']},
-  {domain:'Physical',q:'How well do you sleep when under pressure?',opts:['Poorly â€” pressure disrupts sleep significantly','It varies â€” some nights are difficult','Mostly well â€” occasional disruption','Well â€” pressure does not affect sleep']},
-  {domain:'Distance',q:'How often are you in environments that activate your most reactive patterns?',opts:['Daily â€” I am surrounded by triggers','Several times a week','Occasionally','Rarely â€” I manage my environment well']},
-  {domain:'Distance',q:'When you sense a trigger approaching, how often do you manage your exposure to it?',opts:['Rarely â€” I am usually already in it','Sometimes when I see it coming','Often â€” I create buffer when possible','Consistently â€” I manage distance deliberately']},
+  {domain:'Physical',q:'How often does your energy level affect the quality of your decisions?',opts:['Significantly — low energy, poor decisions','Noticeably on difficult days','Somewhat but I can compensate','Minimally — I manage my energy well']},
+  {domain:'Physical',q:'How well do you sleep when under pressure?',opts:['Poorly — pressure disrupts sleep significantly','It varies — some nights are difficult','Mostly well — occasional disruption','Well — pressure does not affect sleep']},
+  {domain:'Distance',q:'How often are you in environments that activate your most reactive patterns?',opts:['Daily — I am surrounded by triggers','Several times a week','Occasionally','Rarely — I manage my environment well']},
+  {domain:'Distance',q:'When you sense a trigger approaching, how often do you manage your exposure to it?',opts:['Rarely — I am usually already in it','Sometimes when I see it coming','Often — I create buffer when possible','Consistently — I manage distance deliberately']},
   {domain:'Distance',q:'How much does a specific person or situation dominate your emotional state?',opts:['One person or situation takes most of my field','A few situations have significant pull','Some things pull me but I manage','I am generally free from dominating pulls']},
-  {domain:'Distance',q:'When you leave a difficult interaction, how long does it stay with you?',opts:['Hours to days â€” it lingers','The rest of the day','An hour or so','I release it within minutes']},
-  {domain:'Reactivity',q:'How often do you react in ways you immediately regret?',opts:['Frequently â€” several times a week','Occasionally â€” once a week or so','Rarely â€” maybe monthly','Almost never â€” I catch myself before reacting']},
-  {domain:'Reactivity',q:'When someone challenges you publicly, what is your immediate internal response?',opts:['Strong defensive reaction â€” I want to counter','Discomfort and the urge to explain','Brief irritation that passes quickly','Curiosity â€” I wonder what they are seeing']},
-  {domain:'Reactivity',q:'How long does it take you to return to calm after a significant emotional trigger?',opts:['Hours â€” sometimes into the next day','30 to 60 minutes','10 to 15 minutes','5 minutes or less']},
-  {domain:'Energy',q:'How much of your daily energy goes to managing what others think of you?',opts:['A significant amount â€” it is exhausting','More than I would like','Some, but manageable','Very little â€” I am not strongly image-driven']},
-  {domain:'Energy',q:'At the end of a typical week, what best describes your energy state?',opts:['Depleted â€” I need significant recovery','Tired but functional','Reasonably recharged by the weekend','Energized â€” my work generally fills rather than drains me']},
-  {domain:'Energy',q:'How often do you do things primarily to avoid disapproval rather than from genuine choice?',opts:['Often â€” fear of disapproval drives many choices','Sometimes in specific relationships','Occasionally in high-stakes situations','Rarely â€” I act from my own values consistently']}
+  {domain:'Distance',q:'When you leave a difficult interaction, how long does it stay with you?',opts:['Hours to days — it lingers','The rest of the day','An hour or so','I release it within minutes']},
+  {domain:'Reactivity',q:'How often do you react in ways you immediately regret?',opts:['Frequently — several times a week','Occasionally — once a week or so','Rarely — maybe monthly','Almost never — I catch myself before reacting']},
+  {domain:'Reactivity',q:'When someone challenges you publicly, what is your immediate internal response?',opts:['Strong defensive reaction — I want to counter','Discomfort and the urge to explain','Brief irritation that passes quickly','Curiosity — I wonder what they are seeing']},
+  {domain:'Reactivity',q:'How long does it take you to return to calm after a significant emotional trigger?',opts:['Hours — sometimes into the next day','30 to 60 minutes','10 to 15 minutes','5 minutes or less']},
+  {domain:'Energy',q:'How much of your daily energy goes to managing what others think of you?',opts:['A significant amount — it is exhausting','More than I would like','Some, but manageable','Very little — I am not strongly image-driven']},
+  {domain:'Energy',q:'At the end of a typical week, what best describes your energy state?',opts:['Depleted — I need significant recovery','Tired but functional','Reasonably recharged by the weekend','Energized — my work generally fills rather than drains me']},
+  {domain:'Energy',q:'How often do you do things primarily to avoid disapproval rather than from genuine choice?',opts:['Often — fear of disapproval drives many choices','Sometimes in specific relationships','Occasionally in high-stakes situations','Rarely — I act from my own values consistently']}
 ];
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   DAILY CHECK POOL â€” 14 questions, Meta-Model
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+/* ═══════════════════════════════════════════════
+   DAILY CHECK POOL — 14 questions, Meta-Model
+═══════════════════════════════════════════════ */
 const CHECK_POOL=[
-  {cat:'Deletion',q:'What are you not saying right now that most needs to be said?',sub:'Who specifically needs to hear it â€” and what is stopping you?'},
+  {cat:'Deletion',q:'What are you not saying right now that most needs to be said?',sub:'Who specifically needs to hear it — and what is stopping you?'},
   {cat:'Deletion',q:'What is demanding your attention that you keep pushing aside?',sub:'What would happen if you gave it your full attention today?'},
   {cat:'Deletion',q:'Who are you not speaking to that you know you should?',sub:'What are you protecting by staying silent?'},
-  {cat:'Generalization',q:'What rule are you following right now that you did not consciously choose?',sub:'Where did this rule come from â€” and does it still serve you?'},
-  {cat:'Generalization',q:'What do you believe always happens â€” and what is the cost of that belief?',sub:'What is the one exception that proves it is not always true?'},
+  {cat:'Generalization',q:'What rule are you following right now that you did not consciously choose?',sub:'Where did this rule come from — and does it still serve you?'},
+  {cat:'Generalization',q:'What do you believe always happens — and what is the cost of that belief?',sub:'What is the one exception that proves it is not always true?'},
   {cat:'Generalization',q:'What have you decided is impossible that you have not actually tested?',sub:'What would one small test of that assumption look like?'},
-  {cat:'Distortion',q:'What are you assuming someone else is thinking â€” and how certain are you?',sub:'What evidence do you actually have? What else could be true?'},
+  {cat:'Distortion',q:'What are you assuming someone else is thinking — and how certain are you?',sub:'What evidence do you actually have? What else could be true?'},
   {cat:'Distortion',q:'What are you blaming the environment for that you actually have influence over?',sub:'What is the one thing within your reach that you have not tried?'},
   {cat:'Distortion',q:'What situation are you treating as proof of something about yourself?',sub:'What would it mean if the situation said nothing about you at all?'},
-  {cat:'Modal',q:'What are you telling yourself you must do â€” and what happens if you do not?',sub:'Who decided this was a must? What would a choice look like instead?'},
-  {cat:'Modal',q:'What are you telling yourself you cannot do â€” and who decided that?',sub:'When did you last actually test that limit?'},
-  {cat:'Performative',q:'What standard are you holding yourself to â€” and where did it come from?',sub:'Would you hold someone you love to the same standard?'},
-  {cat:'Performative',q:'What is obviously true right now â€” and obvious to whom?',sub:'What if the opposite were equally true?'},
-  {cat:'Somatic',q:'Where in your body do you feel the weight of something unresolved right now?',sub:'If that physical sensation could speak â€” what would it say?'}
+  {cat:'Modal',q:'What are you telling yourself you must do — and what happens if you do not?',sub:'Who decided this was a must? What would a choice look like instead?'},
+  {cat:'Modal',q:'What are you telling yourself you cannot do — and who decided that?',sub:'When did you last actually test that limit?'},
+  {cat:'Performative',q:'What standard are you holding yourself to — and where did it come from?',sub:'Would you hold someone you love to the same standard?'},
+  {cat:'Performative',q:'What is obviously true right now — and obvious to whom?',sub:'What if the opposite were equally true?'},
+  {cat:'Somatic',q:'Where in your body do you feel the weight of something unresolved right now?',sub:'If that physical sensation could speak — what would it say?'}
 ];
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ═══════════════════════════════════════════════
    GRAVITY AUDIT FUNCTIONS
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+═══════════════════════════════════════════════ */
 let auditSession={questions:[],current:0,answers:[],score:0};
 
 function startAudit(){
-  // Select 8 questions â€” at least 1 per domain
+  // Select 8 questions — at least 1 per domain
   const domains=['Thinking','Emotional','Behavioral','Physical','Distance','Reactivity','Energy'];
   const selected=[];
   // One guaranteed per domain
@@ -4356,7 +4398,7 @@ function selectAuditOption(idx,text){
   document.querySelectorAll('.audit-option').forEach((b,i)=>{
     b.classList.toggle('selected', i===idx);
   });
-  // Score: 0=most gravity, 3=least gravity â†’ map to 0-100
+  // Score: 0=most gravity, 3=least gravity → map to 0-100
   auditSession.pendingAnswer={idx,text,score:(idx/3)*100};
   // Auto-advance after brief delay
   setTimeout(()=>{
@@ -4375,12 +4417,12 @@ async function showAuditResult(){
   const el=document.getElementById('audit-active-card');
   el.innerHTML=`
     <div style="text-align:center;padding:16px 0;">
-      <div style="font-family:'Courier New',monospace;font-size:9px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-bottom:12px;">â—ˆ Gravity Audit Complete</div>
+      <div style="font-family:'Courier New',monospace;font-size:9px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-bottom:12px;">◈ Gravity Audit Complete</div>
       <div style="font-family:'Georgia',serif;font-size:48px;font-weight:300;color:${band.color};line-height:1;">${Math.round(avgScore)}</div>
       <div style="font-family:'Courier New',monospace;font-size:9px;color:var(--muted);margin-bottom:6px;">/100</div>
       <div style="font-family:'Courier New',monospace;font-size:11px;letter-spacing:2px;color:${band.color};text-transform:uppercase;margin-bottom:16px;">${band.name}</div>
       <div style="font-size:13px;color:var(--muted2);line-height:1.6;margin-bottom:20px;text-align:left;">${band.desc}</div>
-      <button class="btn btn-gold btn-full" onclick="startAudit()">Run Another Audit â†’</button>
+      <button class="btn btn-gold btn-full" onclick="startAudit()">Run Another Audit →</button>
     </div>`;
   // Save to voice_sessions table as a proxy (or we could add audit_sessions table)
   if(S.user && !S.isAnonymous){
@@ -4396,9 +4438,9 @@ async function showAuditResult(){
   }
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ═══════════════════════════════════════════════
    DAILY CHECK FUNCTIONS
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+═══════════════════════════════════════════════ */
 let checkSession={questions:[],current:0,reflection:''};
 
 function initCheck(){
@@ -4420,13 +4462,13 @@ function renderCheckQuestion(){
   // Update timeline
   updateCheckTimeline();
   el.innerHTML=`
-    <div style="font-family:'Courier New',monospace;font-size:8px;letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-bottom:10px;">${q.cat} Â· Question ${checkSession.current+1} of ${checkSession.questions.length}</div>
+    <div style="font-family:'Courier New',monospace;font-size:8px;letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-bottom:10px;">${q.cat} · Question ${checkSession.current+1} of ${checkSession.questions.length}</div>
     <div style="font-family:'Georgia',serif;font-size:clamp(18px,3vw,24px);font-weight:300;line-height:1.5;color:var(--star);margin-bottom:12px;">${q.q}</div>
     <div style="font-size:13px;color:var(--muted2);font-style:italic;margin-bottom:20px;padding:10px 14px;background:var(--surface2);border-radius:8px;border-left:2px solid var(--gold);">${q.sub}</div>
-    <textarea class="field-textarea" id="check-answer" placeholder="Write freely â€” no one else sees this..." style="min-height:100px;margin-bottom:12px;"></textarea>
+    <textarea class="field-textarea" id="check-answer" placeholder="Write freely — no one else sees this..." style="min-height:100px;margin-bottom:12px;"></textarea>
     <div style="display:flex;gap:8px;flex-wrap:wrap;">
-      <button class="btn btn-voice btn-sm" onclick="speakCheckQuestion()">ðŸ”Š Hear Question</button>
-      <button class="btn btn-gold btn-full" onclick="submitCheck()">Submit â†’</button>
+      <button class="btn btn-voice btn-sm" onclick="speakCheckQuestion()">🔊 Hear Question</button>
+      <button class="btn btn-gold btn-full" onclick="submitCheck()">Submit →</button>
     </div>`;
 }
 
@@ -4445,12 +4487,12 @@ async function submitCheck(){
     if(el){
       el.innerHTML+=`
         <div style="margin-top:14px;background:linear-gradient(135deg,rgba(155,127,232,.07),rgba(74,155,155,.04));border:1px solid rgba(155,127,232,.25);border-radius:12px;padding:16px;">
-          <div style="font-family:'Courier New',monospace;font-size:8px;letter-spacing:2px;color:var(--voice);text-transform:uppercase;margin-bottom:8px;">â—Ž Field Reflection</div>
+          <div style="font-family:'Courier New',monospace;font-size:8px;letter-spacing:2px;color:var(--voice);text-transform:uppercase;margin-bottom:8px;">◎ Field Reflection</div>
           <div style="font-family:'Georgia',serif;font-size:16px;font-style:italic;line-height:1.7;color:var(--star);">${raw}</div>
           <div style="margin-top:12px;display:flex;gap:8px;">
-            <button class="btn btn-voice btn-sm" onclick="speakCheckReflection(\`${raw.replace(/`/g,"'")}\`)">ðŸ”Š Hear Reflection</button>
+            <button class="btn btn-voice btn-sm" onclick="speakCheckReflection(\`${raw.replace(/`/g,"'")}\`)">🔊 Hear Reflection</button>
             ${checkSession.current<checkSession.questions.length-1
-              ? '<button class="btn btn-gold" onclick="nextCheckQuestion()">Next Question â†’</button>'
+              ? '<button class="btn btn-gold" onclick="nextCheckQuestion()">Next Question →</button>'
               : '<button class="btn btn-gold" onclick="showCheckComplete()">Complete âœ“</button>'
             }
           </div>
@@ -4458,7 +4500,7 @@ async function submitCheck(){
     }
   }catch(e){
     showToast('Reflection error: '+e.message);
-    if(btn){btn.disabled=false;btn.textContent='Submit â†’';}
+    if(btn){btn.disabled=false;btn.textContent='Submit →';}
   }
 }
 
@@ -4471,10 +4513,10 @@ function showCheckComplete(){
   const el=document.getElementById('check-question-area');
   if(el) el.innerHTML=`
     <div style="text-align:center;padding:24px 0;">
-      <div style="font-size:32px;margin-bottom:12px;">â—Ž</div>
+      <div style="font-size:32px;margin-bottom:12px;">◎</div>
       <div style="font-family:'Georgia',serif;font-size:22px;font-weight:300;color:var(--gold);margin-bottom:8px;">Daily Check Complete</div>
       <div style="font-size:13px;color:var(--muted2);margin-bottom:20px;">Your field has been observed for today.</div>
-      <button class="btn btn-gold btn-full" onclick="initCheck()">New Check â†’</button>
+      <button class="btn btn-gold btn-full" onclick="initCheck()">New Check →</button>
     </div>`;
 }
 
@@ -4508,29 +4550,29 @@ function speakCheckReflection(text){
 }
 
 function refreshCheckLog(){
-  // Placeholder â€” check sessions are not stored separately yet
+  // Placeholder — check sessions are not stored separately yet
 }
 
 const STOPS={
   Thinking:[
-    {q:"Who said so? Under what conditions?",d:"Thinking Mass Â· Modal limit interrupted."},
+    {q:"Who said so? Under what conditions?",d:"Thinking Mass · Modal limit interrupted."},
     {q:"What is the one exception to this 'always'?",d:"Universal quantifier break."},
     {q:"Convert that noun back to a verb. Who is doing what?",d:"Nominalization interrupt."},
     {q:"What decision is hiding inside this 'situation'?",d:"Action made invisible."},
     {q:"What would you say if you knew it was safe to?",d:"Permission-seeking pattern."}
   ],
   Emotional:[
-    {q:"What are you not asking for right now?",d:"Emotional Mass Â· Blocked request."},
+    {q:"What are you not asking for right now?",d:"Emotional Mass · Blocked request."},
     {q:"Name the feeling before you explain it away.",d:"Feeling-to-structure conversion."},
     {q:"Where does this feel in your body right now?",d:"Somatic grounding signal."}
   ],
   Behavioral:[
-    {q:"What is the one action you are qualified to take â€” now?",d:"Behavioral Mass Â· Avoidance."},
+    {q:"What is the one action you are qualified to take — now?",d:"Behavioral Mass · Avoidance."},
     {q:"If the outcome was already decided, what would you do?",d:"Action channel opened."}
   ],
   Physical:[
     {q:"Three breaths. Notice the tension before you respond.",d:"Physical Mass interrupt."},
-    {q:"Is this your body's signal â€” or the situation's?",d:"Somatic awareness."}
+    {q:"Is this your body's signal — or the situation's?",d:"Somatic awareness."}
   ]
 };
 
@@ -4554,17 +4596,17 @@ async function showStopSignal(){
   const now=new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
   document.getElementById('stop-time').textContent=now;
   document.getElementById('stop-question').textContent='"'+sig.q+'"';
-  document.getElementById('stop-domain').textContent=domain+' domain Â· '+sig.d;
+  document.getElementById('stop-domain').textContent=domain+' domain · '+sig.d;
   document.getElementById('stop-overlay').classList.add('show');
   // Log to Supabase
   if(S.user) await sb.from('stop_signals').insert({user_id:S.user.id,domain,question:sig.q,acted_on:false});
 }
 function dismissStop(){document.getElementById('stop-overlay').classList.remove('show');}
-function logFromStop(){dismissStop();goTo('field');showToast('Capture this moment â†’');document.getElementById('f-trigger').focus();}
+function logFromStop(){dismissStop();goTo('field');showToast('Capture this moment →');document.getElementById('f-trigger').focus();}
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ═══════════════════════════════
    DASHBOARD
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+═══════════════════════════════ */
 function refreshDashboard(){
   refreshFieldMapDash(); refreshPersonasDash(); refreshTrendDash(); refreshVoiceDash();
   renderOrbitalPosition('orbital-position-display');
@@ -4572,7 +4614,7 @@ function refreshDashboard(){
 
 function refreshFieldMapDash(){
   const el=document.getElementById('dash-domains');
-  if(!S.moments.length){el.innerHTML='<div class="empty"><span class="empty-icon">â—¯</span><div class="empty-text">Capture moments to build your field map.</div></div>';return;}
+  if(!S.moments.length){el.innerHTML='<div class="empty"><span class="empty-icon">◯</span><div class="empty-text">Capture moments to build your field map.</div></div>';return;}
   const counts={Thinking:0,Emotional:0,Behavioral:0,Physical:0};
   S.moments.forEach(m=>{if(counts[m.domain]!==undefined)counts[m.domain]++;});
   const total=S.moments.length;
@@ -4592,23 +4634,23 @@ function refreshFieldMapDash(){
 
 function refreshPersonasDash(){
   const el=document.getElementById('dash-personas');
-  if(S.moments.length<3){el.innerHTML='<div class="empty"><span class="empty-icon">â—¯</span><div class="empty-text">Persona distribution after 3+ moments.</div></div>';return;}
+  if(S.moments.length<3){el.innerHTML='<div class="empty"><span class="empty-icon">◯</span><div class="empty-text">Persona distribution after 3+ moments.</div></div>';return;}
   const counts={};
   S.moments.forEach(m=>{counts[m.persona]=(counts[m.persona]||0)+1;});
   const total=S.moments.length;
-  const icons={Analyst:'ðŸ§ ',Achiever:'ðŸŽ¯',Avoider:'ðŸšª',Pleaser:'ðŸ¤',Rebel:'âš¡',Controller:'ðŸ‘‘'};
+  const icons={Analyst:'ðŸ§ ',Achiever:'ðŸŽ¯',Avoider:'ðŸšª',Pleaser:'ðŸ¤',Rebel:'⚡',Controller:'ðŸ‘‘'};
   el.innerHTML=Object.entries(counts).sort((a,b)=>b[1]-a[1]).map(([p,c],i)=>{
     const pct=Math.round(c/total*100);
-    return `<div style="display:flex;align-items:center;gap:11px;margin-bottom:11px;"><div style="font-size:18px;">${icons[p]||'â—‹'}</div><div style="flex:1;"><div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px;"><span style="font-family:'Georgia',serif;font-size:15px;color:var(--star);">${p}</span><span style="font-family:'Courier New',monospace;font-size:11px;color:var(--gold);">${pct}%</span></div><div class="bar-track"><div class="bar-fill" style="width:${pct}%;background:${i===0?'var(--gold)':'var(--muted)'};"></div></div></div>${i===0?'<span style="font-family:\'Space Mono\',monospace;font-size:7px;letter-spacing:1.5px;color:var(--gold);background:var(--gold-d);padding:2px 6px;border-radius:3px;border:1px solid rgba(201,168,76,.3);">PRIMARY</span>':''}</div>`;
+    return `<div style="display:flex;align-items:center;gap:11px;margin-bottom:11px;"><div style="font-size:18px;">${icons[p]||'○'}</div><div style="flex:1;"><div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px;"><span style="font-family:'Georgia',serif;font-size:15px;color:var(--star);">${p}</span><span style="font-family:'Courier New',monospace;font-size:11px;color:var(--gold);">${pct}%</span></div><div class="bar-track"><div class="bar-fill" style="width:${pct}%;background:${i===0?'var(--gold)':'var(--muted)'};"></div></div></div>${i===0?'<span style="font-family:\'Space Mono\',monospace;font-size:7px;letter-spacing:1.5px;color:var(--gold);background:var(--gold-d);padding:2px 6px;border-radius:3px;border:1px solid rgba(201,168,76,.3);">PRIMARY</span>':''}</div>`;
   }).join('');
 }
 
 function refreshTrendDash(){
   const el=document.getElementById('dash-trend');
-  if(S.voiceSessions.length<2){el.innerHTML='<div class="empty"><span class="empty-icon">â—¯</span><div class="empty-text">Run 2+ voice sessions to see your trend.</div></div>';return;}
+  if(S.voiceSessions.length<2){el.innerHTML='<div class="empty"><span class="empty-icon">◯</span><div class="empty-text">Run 2+ voice sessions to see your trend.</div></div>';return;}
   const sessions=S.voiceSessions.slice(0,7).reverse();
   const max=Math.max(...sessions.map(s=>s.gravity_score));
-  el.innerHTML=`<div class="trend-label">Gravity Score â€” last ${sessions.length} sessions</div><div class="trend-row">${sessions.map(s=>{const h=Math.max(6,(s.gravity_score/Math.max(max,1))*44);return `<div class="trend-bar" style="height:${h}px;background:var(--teal);opacity:.7;" data-val="${s.gravity_score}"></div>`;}).join('')}</div><div style="height:20px;"></div>`;
+  el.innerHTML=`<div class="trend-label">Gravity Score — last ${sessions.length} sessions</div><div class="trend-row">${sessions.map(s=>{const h=Math.max(6,(s.gravity_score/Math.max(max,1))*44);return `<div class="trend-bar" style="height:${h}px;background:var(--teal);opacity:.7;" data-val="${s.gravity_score}"></div>`;}).join('')}</div><div style="height:20px;"></div>`;
 }
 
 function refreshVoiceDash(){
@@ -4616,66 +4658,66 @@ function refreshVoiceDash(){
   if(!S.voiceSessions.length){card.style.display='none';return;}
   card.style.display='block';
   const s=S.voiceSessions[0];
-  document.getElementById('dash-voice-summary').innerHTML=`<div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:10px;"><div style="text-align:center;flex:1;min-width:70px;"><div style="font-family:'Georgia',serif;font-size:28px;color:var(--teal);">${s.gravity_score}</div><div style="font-family:'Courier New',monospace;font-size:7px;color:var(--muted);text-transform:uppercase;">Gravity</div></div><div style="text-align:center;flex:1;min-width:70px;"><div style="font-family:'Georgia',serif;font-size:28px;color:var(--emot);">${s.mask_score}</div><div style="font-family:'Courier New',monospace;font-size:7px;color:var(--muted);text-transform:uppercase;">Mask Score</div></div><div style="text-align:center;flex:1;min-width:70px;"><div style="font-family:'Georgia',serif;font-size:28px;color:var(--gold);">${(s.patterns||[]).length}</div><div style="font-family:'Courier New',monospace;font-size:7px;color:var(--muted);text-transform:uppercase;">Patterns</div></div></div><div style="font-family:'Courier New',monospace;font-size:8px;color:var(--muted2);letter-spacing:1px;">Latest Â· ${s.time||''} Â· ${s.dominant_domain||''} Mass</div>`;
+  document.getElementById('dash-voice-summary').innerHTML=`<div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:10px;"><div style="text-align:center;flex:1;min-width:70px;"><div style="font-family:'Georgia',serif;font-size:28px;color:var(--teal);">${s.gravity_score}</div><div style="font-family:'Courier New',monospace;font-size:7px;color:var(--muted);text-transform:uppercase;">Gravity</div></div><div style="text-align:center;flex:1;min-width:70px;"><div style="font-family:'Georgia',serif;font-size:28px;color:var(--emot);">${s.mask_score}</div><div style="font-family:'Courier New',monospace;font-size:7px;color:var(--muted);text-transform:uppercase;">Mask Score</div></div><div style="text-align:center;flex:1;min-width:70px;"><div style="font-family:'Georgia',serif;font-size:28px;color:var(--gold);">${(s.patterns||[]).length}</div><div style="font-family:'Courier New',monospace;font-size:7px;color:var(--muted);text-transform:uppercase;">Patterns</div></div></div><div style="font-family:'Courier New',monospace;font-size:8px;color:var(--muted2);letter-spacing:1px;">Latest · ${s.time||''} · ${s.dominant_domain||''} Mass</div>`;
 }
 
 async function generateFullReportLegacy(){
   if(!S.moments.length&&!S.voiceSessions.length){showToast('Capture moments and run a voice session first');return;}
   const c=document.getElementById('full-report-container');
-  c.innerHTML='<div class="ai-block" style="padding:24px;"><div class="ai-label">â—ˆ Generating Field Intelligence Report</div><div class="ai-text"><span class="loading-dots"><span></span><span></span><span></span></span> Synthesizing '+S.moments.length+' moments Â· '+S.voiceSessions.length+' voice sessions...</div></div>';
+  c.innerHTML='<div class="ai-block" style="padding:24px;"><div class="ai-label">◈ Generating Field Intelligence Report</div><div class="ai-text"><span class="loading-dots"><span></span><span></span><span></span></span> Synthesizing '+S.moments.length+' moments · '+S.voiceSessions.length+' voice sessions...</div></div>';
   const mS=S.moments.slice(0,10).map(m=>`[${m.time}] ${m.persona}(${m.domain}): Trigger="${m.trigger}",Emotion=${m.emotion},Thought="${(m.thought||'').substring(0,50)}"`).join('\n');
   const vS=S.voiceSessions.slice(0,5).map(v=>`Session ${v.time}: Gravity=${v.gravity_score}/10,Mask=${v.mask_score}/100,Patterns=${(v.patterns||[]).map(p=>p.type).join('/')},Domain=${v.dominant_domain}`).join('\n');
-  const sys=`You are AntiGravity Field Intelligence System writing a unified report. Style: precise, psychologically grounded, Newton's gravitational metaphor (mass, distance, field, orbit). User: ${S.profile.name}, ${S.profile.role}, Sector:${S.profile.sector}, Orbit:"${getPrimaryOrbit()}". Write exactly 5 sections separated by blank lines â€” no headers, no markdown, no labels: 1)FIELD VERDICT: primary gravity profile 2-3 sentences. 2)PRIMARY DOMAIN: heaviest mass domain and why 2 sentences. 3)MASS LAYER: dominant persona and what it costs relative to orbit 2 sentences. 4)ESCAPE SIGNAL: single most important antigravity practice right now 2-3 sentences. 5)ORBIT STATEMENT: one sentence connecting all findings to desired orbit.`;
+  const sys=`You are AntiGravity Field Intelligence System writing a unified report. Style: precise, psychologically grounded, Newton's gravitational metaphor (mass, distance, field, orbit). User: ${S.profile.name}, ${S.profile.role}, Sector:${S.profile.sector}, Orbit:"${getPrimaryOrbit()}". Write exactly 5 sections separated by blank lines — no headers, no markdown, no labels: 1)FIELD VERDICT: primary gravity profile 2-3 sentences. 2)PRIMARY DOMAIN: heaviest mass domain and why 2 sentences. 3)MASS LAYER: dominant persona and what it costs relative to orbit 2 sentences. 4)ESCAPE SIGNAL: single most important antigravity practice right now 2-3 sentences. 5)ORBIT STATEMENT: one sentence connecting all findings to desired orbit.`;
   try{
     const report=await callClaude(sys,`Moments:\n${mS||'None'}\nVoice:\n${vS||'None'}`,650);
     const secs=report.split(/\n\n+/).filter(s=>s.trim());
     const titles=['Field Verdict','Primary Domain','Mass Layer','Escape Signal','Orbit Statement'];
-    c.innerHTML=`<div class="desire-strip"><div class="dl">â†‘ Your Desired Orbit</div><div class="dt">${S.profile.orbit1}</div></div>${secs.map((s,i)=>`<div class="card" style="margin-bottom:11px;"><div class="card-label">â—ˆ ${titles[i]||'Reading '+(i+1)}</div><div style="font-family:'Georgia',serif;font-size:17px;font-weight:300;line-height:1.75;color:var(--star);">${s.trim()}</div></div>`).join('')}<button class="btn btn-ghost btn-full" onclick="generateFullReportLegacy()" style="margin-top:6px;">â†º Regenerate</button>`;
+    c.innerHTML=`<div class="desire-strip"><div class="dl">↑ Your Desired Orbit</div><div class="dt">${S.profile.orbit1}</div></div>${secs.map((s,i)=>`<div class="card" style="margin-bottom:11px;"><div class="card-label">◈ ${titles[i]||'Reading '+(i+1)}</div><div style="font-family:'Georgia',serif;font-size:17px;font-weight:300;line-height:1.75;color:var(--star);">${s.trim()}</div></div>`).join('')}<button class="btn btn-ghost btn-full" onclick="generateFullReportLegacy()" style="margin-top:6px;">↺ Regenerate</button>`;
   }catch(e){c.innerHTML=`<div style="color:var(--emot);padding:16px;">${e.message}</div>`;}
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ═══════════════════════════════
    UTILS
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+═══════════════════════════════ */
+/* ═══════════════════════════════
    DEMO MODE
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+═══════════════════════════════ */
 const DEMO_PROFILE={
   name:'Demo',role:'Explore all features',sector:'Consulting / Professional Services',
-  orbit1:'lead with clarity and authority in ambiguous situations â€” without waiting for certainty that will not come.',
+  orbit1:'lead with clarity and authority in ambiguous situations — without waiting for certainty that will not come.',
   orbit2:'',orbit3:'',block:'overthinking',
   domains:{think:7,emot:6,behav:5,body:4}
 };
 const DEMO_MOMENTS=[
-  {id:'d1',time:'09:14',trigger:'Morning briefing ran over â€” no clarity on priorities',emotion:'Anxiety',
+  {id:'d1',time:'09:14',trigger:'Morning briefing ran over — no clarity on priorities',emotion:'Anxiety',
    thought:"I don't know where to start and everyone is waiting for direction",
    insight:"The Analyst is running. You've converted a time problem into an identity question. The anxiety signals a blocked decision, not a lack of information.",
    persona:'Analyst',domain:'Thinking',stop_signal:'What is the one decision you already have enough information to make?',
    desire_link:'Clarity in ambiguity begins with the smallest available action, not the most complete picture.',created_at:new Date().toISOString()},
   {id:'d2',time:'11:32',trigger:'Senior stakeholder questioned my recommendation publicly',emotion:'Frustration',
    thought:"They never back me when it matters. I should have sent it by email.",
-   insight:"Frustration here is a blocked request: you wanted acknowledgment and got challenge instead. The Avoider appeared â€” notice the impulse to prefer email over direct conversation.",
+   insight:"Frustration here is a blocked request: you wanted acknowledgment and got challenge instead. The Avoider appeared — notice the impulse to prefer email over direct conversation.",
    persona:'Avoider',domain:'Emotional',stop_signal:'What would you ask for directly if you were not protecting yourself?',
    desire_link:'Authority in ambiguity requires tolerating public challenge without retreat.',created_at:new Date().toISOString()},
   {id:'d3',time:'14:45',trigger:'Clear run at a well-defined project deliverable',emotion:'Clarity',
    thought:"I know exactly what needs to happen and I'm the right person to do it.",
-   insight:"This is your Achiever â€” notice how different the field feels when structure is present. The gap is not capability â€” it is tolerance for ambiguity.",
+   insight:"This is your Achiever — notice how different the field feels when structure is present. The gap is not capability — it is tolerance for ambiguity.",
    persona:'Achiever',domain:'Behavioral',stop_signal:'What would it take to bring this clarity into an unstructured moment?',
-   desire_link:"Your orbit is accessible â€” it appears when conditions are clear. The work is extending it into the unclear.",created_at:new Date().toISOString()}
+   desire_link:"Your orbit is accessible — it appears when conditions are clear. The work is extending it into the unclear.",created_at:new Date().toISOString()}
 ];
 const DEMO_VOICE={
   id:'dv1',time:'10:05',
   transcript:"The main challenge is there's a general lack of alignment and nobody seems to want to make a decision. Every time I try to push for clarity it always creates more confusion.",
   gravity_score:38,mask_score:65,
   patterns:[
-    {type:'Nominalization',example:"there's a general lack of alignment",question:'Who specifically is not aligning â€” about what?'},
+    {type:'Nominalization',example:"there's a general lack of alignment",question:'Who specifically is not aligning — about what?'},
     {type:'Universal Quantifier',example:'Every time I try... it always creates confusion',question:'What is the one time it did not? What was different?'},
     {type:'Lost Performative',example:'nobody seems to want to make a decision',question:'According to whom? What would deciding actually look like?'}
   ],
-  coach_msg:"You've described this as a structural problem â€” alignment, decisions, confusion. But notice what's missing: you. The question your field is actually holding is simpler: what would you say if you said it directly, without the preparation?",
+  coach_msg:"You've described this as a structural problem — alignment, decisions, confusion. But notice what's missing: you. The question your field is actually holding is simpler: what would you say if you said it directly, without the preparation?",
   dominant_domain:'Thinking',
-  gravity_desc:'Pull Active â€” awareness is present but the pattern still runs more often than it does not.',
-  mask_desc:'Moderate gap â€” analytical framing carries more than the words suggest.',
+  gravity_desc:'Pull Active — awareness is present but the pattern still runs more often than it does not.',
+  mask_desc:'Moderate gap — analytical framing carries more than the words suggest.',
   created_at:new Date().toISOString()
 };
 
@@ -4715,9 +4757,9 @@ async function enterDemo(){
   }
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ═══════════════════════════════
    ANONYMOUS UPGRADE
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+═══════════════════════════════ */
 function checkUpgradeNudge(){
   if(!S.isAnonymous) return;
   setTimeout(()=>{
@@ -4754,16 +4796,16 @@ async function upgradeAnonymous(){
     if(em) em.textContent=email;
     const ui=document.getElementById('menu-upgrade-item');
     if(ui) ui.style.display='none';
-    showToast('Account created â€” your field data is saved.');
+    showToast('Account created — your field data is saved.');
   }catch(e){
     showToast(e.message);
-    btn.disabled=false;btn.textContent='Create Account & Save Data â†’';
+    btn.disabled=false;btn.textContent='Create Account & Save Data →';
   }
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ═══════════════════════════════
    TESTER MODE
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+═══════════════════════════════ */
 function openTester(){
   closeUserMenu();
   const o=document.getElementById('tester-overlay');
@@ -4793,9 +4835,9 @@ async function testerSignUp(){
   showToast('Check your email to confirm, then sign in.');
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ═══════════════════════════════
    APP GUIDE
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+═══════════════════════════════ */
 let currentSlide=0;
 const TOTAL_SLIDES=7;
 function openGuide(){closeUserMenu();currentSlide=0;renderSlide();document.getElementById('guide-overlay').style.display='flex';}
@@ -4807,7 +4849,7 @@ function renderSlide(){
   document.querySelectorAll('.gslide').forEach((s,i)=>s.classList.toggle('active',i===currentSlide));
   document.querySelectorAll('.gdot').forEach((d,i)=>d.classList.toggle('active',i===currentSlide));
   const nb=document.getElementById('guide-next-btn');
-  if(nb) nb.textContent=currentSlide===TOTAL_SLIDES-1?'Begin â†’':'Next â†’';
+  if(nb) nb.textContent=currentSlide===TOTAL_SLIDES-1?'Begin →':'Next →';
 }
 function checkFirstTime(){
   try{if(!localStorage.getItem('ag_guide_seen')) setTimeout(openGuide,800);}
@@ -4820,7 +4862,7 @@ function showToast(msg,dur=2800){
   setTimeout(()=>t.classList.remove('show'),dur);
 }
 
-// Boot â€” Supabase CDN is already loaded above
+// Boot — Supabase CDN is already loaded above
 document.addEventListener('DOMContentLoaded', function(){
   initSupabase();
   initAuth();
