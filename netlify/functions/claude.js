@@ -1,6 +1,6 @@
 // Provider credentials stay server-side. A registered account is required.
 const allowedOrigin = origin => !origin || /^https:\/\/(?:[a-z0-9-]+--)?antigravitycoach\.netlify\.app$/.test(origin);
-const ALLOWED_MODELS = ['claude-sonnet-4-20250514', 'claude-haiku-4-5'];
+const ALLOWED_MODELS = ['claude-sonnet-4-6', 'claude-haiku-4-5'];
 const MAX_TOKENS_CAP = 800;
 
 exports.handler = async (event) => {
@@ -33,7 +33,7 @@ exports.handler = async (event) => {
     return { statusCode: 400, body: JSON.stringify({ error: 'messages required' }) };
   }
 
-  const model = ALLOWED_MODELS.includes(payload.model) ? payload.model : 'claude-haiku-4-5';
+  const model = ALLOWED_MODELS.includes(payload.model) ? payload.model : 'claude-sonnet-4-6';
   const max_tokens = Math.max(1,Math.min(Math.floor(Number(payload.max_tokens)) || 500, MAX_TOKENS_CAP));
 
   try {
