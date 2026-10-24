@@ -19,7 +19,7 @@ exports.handler = async (event) => {
     if(!response.ok)return {statusCode:401,body:JSON.stringify({error:'Your session expired. Please sign in again.'})};
     const user=await response.json();
     if(!user.id||user.is_anonymous)return {statusCode:403,body:JSON.stringify({error:'Sign in with a registered account to use AI reflections.'})};
-  }catch{return {statusCode:503,body:JSON.stringify({error:'Could not verify your session. Please try again.'})};}
+  }catch(error){console.error('ORBIT session verification failed',error.name,error.cause?.code||error.code||error.message);return {statusCode:503,body:JSON.stringify({error:'Could not verify your session. Please try again.'})};}
 
   let payload;
   try {
