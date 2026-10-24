@@ -15,11 +15,11 @@ exports.handler = async (event) => {
   if(!process.env.ANTHROPIC_API_KEY||!process.env.SUPABASE_URL||!process.env.SUPABASE_ANON_KEY)return {statusCode:503,body:JSON.stringify({error:'AI reflections are not configured yet.'})};
   if(Buffer.byteLength(event.body||'','utf8')>24000)return {statusCode:413,body:JSON.stringify({error:'Please shorten your reflection.'})};
   try{
-    const response=await fetch(process.env.SUPABASE_URL+'/auth/v1/user',{headers:{apikey:process.env.SUPABASE_ANON_KEY,Authorization:authorization},signal:AbortSignal.timeout(10000)});
+    const response=await fetch(process.env.SUPABASE_URL.trim()+'/auth/v1/user',{headers:{apikey:process.env.SUPABASE_ANON_KEY.replace(/\s/g,''),Authorization:authorization},signal:AbortSignal.timeout(10000)});
     if(!response.ok)return {statusCode:401,body:JSON.stringify({error:'Your session expired. Please sign in again.'})};
     const user=await response.json();
     if(!user.id||user.is_anonymous)return {statusCode:403,body:JSON.stringify({error:'Sign in with a registered account to use AI reflections.'})};
-  }catch(error){console.error('ORBIT session verification failed',error.name,error.cause?.code||error.code||error.message);return {statusCode:503,body:JSON.stringify({error:'Could not verify your session. Please try again.'})};}
+  }catch(error){console.error('ORBIT session verification failed',error.name,error.cause?.code||error.code||'upstream_error');return {statusCode:503,body:JSON.stringify({error:'Could not verify your session. Please try again.'})};}
 
   let payload;
   try {

@@ -3,10 +3,10 @@ const assert=require('node:assert/strict');
 const {handler}=require('../netlify/functions/claude.js');
 test('AI proxy verifies account sessions and bounds provider requests',async()=>{
   const previousFetch=global.fetch,previousEnv={...process.env};let providerCalls=0,lastPayload;
-  process.env.ANTHROPIC_API_KEY='test-provider-key';process.env.SUPABASE_URL='https://auth.example.invalid';process.env.SUPABASE_ANON_KEY='public-test-key';
+  process.env.ANTHROPIC_API_KEY='test-provider-key';process.env.SUPABASE_URL='https://auth.example.invalid';process.env.SUPABASE_ANON_KEY='public-\r\ntest-key';
   let anonymous=false,sessionOK=true;
   global.fetch=async(url,options)=>{
-    if(url.includes('/auth/v1/user'))return {ok:sessionOK,json:async()=>({id:'fixture-user',is_anonymous:anonymous})};
+    if(url.includes('/auth/v1/user')){assert.equal(options.headers.apikey,'public-test-key');return {ok:sessionOK,json:async()=>({id:'fixture-user',is_anonymous:anonymous})};}
     providerCalls++;lastPayload=JSON.parse(options.body);return {ok:true,status:200,json:async()=>({content:[{text:'A possible reflection.'}]})};
   };
   const base={httpMethod:'POST',headers:{origin:'https://antigravitycoach.netlify.app',authorization:'Bearer test-token'},body:JSON.stringify({model:'claude-haiku-4-5',max_tokens:99999,messages:[{role:'user',content:'A synthetic test reflection.'}]})};
